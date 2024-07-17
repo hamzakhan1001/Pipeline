@@ -1,0 +1,36 @@
+{
+    "name": "digitalist-open-cloud/extratools",
+    "description": "Extra tools for Matomo",
+    "type": "matomo-plugin",
+    "keywords": [
+        "cli",
+        "install"
+    ],
+    "homepage": "https://github.com/digitalist-se/extratools",
+    "version": "5.0.3",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Digitalist",
+            "email": "se.ops@digitalistgroup.com",
+            "homepage": "https://digitalist.se"
+        },
+        {
+            "name": "Mikke Schirén",
+            "email": "mikke.schiren@digitalistgroup.com",
+            "homepage": "https://digitalist.se"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "symfony/process": "^5.4",
+        "symfony/yaml": "~5.4.21"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.7",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7",
+        "pheromone/phpcs-security-audit": "^2.0"
+    }
+}

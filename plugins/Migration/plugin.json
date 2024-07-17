@@ -1,0 +1,25 @@
+{
+  "name": "Migration",
+  "description": "Migrate/copy any measurable (site, app, roll-up) from one Matomo to another Matomo",
+  "version": "5.0.3",
+  "theme": false,
+  "require": {
+    "matomo": ">=5.0.0-b1,<6.0.0-b1"
+  },
+  "support": {
+    "issues": "https://github.com/matomo-org/plugin-Migration/issues",
+    "forum": "https://forum.matomo.org",
+    "source": "https://github.com/matomo-org/plugin-Migration"
+  },
+  "authors": [
+    {
+      "name": "Matomo",
+      "email": "hello@matomo.org",
+      "homepage": "https:\/\/matomo.org"
+    }
+  ],
+  "license": "GPL v3+",
+  "homepage": "https:\/\/matomo.org",
+  "keywords": ["measurable", "site", "website", "migrate", "migration", "move", "copy"],
+  "category": "development"
+}

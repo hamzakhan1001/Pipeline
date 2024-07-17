@@ -1,0 +1,25 @@
+{
+    "name": "CustomAlerts",
+    "description": "Create custom Alerts to be notified of important changes on your website or app! ",
+    "version": "5.0.5",
+    "require": {
+        "matomo": ">=5.0.0-b1,<6.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "Matomo",
+            "email": "hello@matomo.org",
+            "homepage": "https://matomo.org"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/matomo-org/plugin-CustomAlerts/issues",
+        "forum": "https://forum.matomo.org",
+        "source": "https://github.com/matomo-org/plugin-CustomAlerts",
+        "wiki": "https://github.com/matomo-org/plugin-CustomAlerts/wiki"
+    },
+    "license": "GPL v3+",
+    "keywords": ["alerts", "notification", "report", "monitoring"],
+    "homepage": "https://matomo.org",
+    "category": "database"
+}

@@ -1,0 +1,49 @@
+.widget {
+  box-shadow: unset;
+
+  .widgetName {
+    font-size: 21px !important;
+  }
+
+  &:hover {
+    box-shadow: 0 0 10px -4px rgba(100, 57, 245, 0.15);
+  }
+
+  .promoWidget {
+    background-color: transparent;
+  }
+
+  #piwik-promo-share {
+    display: none;
+  }
+
+  .rss-description,
+  #piwik-widget-footer {
+    color: var(--light-transparent) !important;
+  }
+
+
+  .simple-realtime-visitor-counter {
+    background-color: var(--ghost-color-primary);
+
+    & > div {
+      color: var(--ghost-color-light);
+    }
+  }
+
+  .simple-realtime-elaboration {
+    color: var(--ghost-color-light);
+  }
+
+  .simple-realtime-metric {
+    color: inherit;
+  }
+}
+
+.hoverable {
+  box-shadow: unset;
+
+  &:hover {
+    box-shadow: 0 0 10px -4px rgba(100, 57, 245, 0.5);
+  }
+}

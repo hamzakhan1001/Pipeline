@@ -1,0 +1,33 @@
+.entityList {
+
+  .dimensionCategory {
+    color: var(--ghost-color-dark) !important;
+  }
+
+  ul {
+
+    li {
+      border-color: var(--ghost-border-color) !important;
+
+      a {
+        color: var(--ghost-color-dark) !important;
+      }
+
+      &.active {
+        border-color: var(--ghost-border-color) !important;
+
+        a {
+          color: var(--ghost-color-primary) !important;
+        }
+      }
+
+      .dimension {
+        color: var(--ghost-color-dark);
+      }
+
+      &.activeDimension .dimension {
+        color: var(--ghost-color-primary) !important;
+      }
+    }
+  }
+}

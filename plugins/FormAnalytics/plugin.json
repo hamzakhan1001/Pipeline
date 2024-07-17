@@ -1,0 +1,39 @@
+{
+    "name": "FormAnalytics",
+    "description": "Increase conversions on your online forms and lose less visitors by learning everything about your users behavior and their pain points on your forms",
+    "version": "5.0.10",
+    "theme": false,
+    "require": {
+       "matomo": ">=5.0.0-b4,<6.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "InnoCraft",
+            "email": "contact@innocraft.com",
+            "homepage": "https:\/\/www.innocraft.com"
+        }
+    ],
+    "price": {
+        "base": 150
+    },
+    "archive": {
+        "exclude": [
+            "\/tracker.js"
+        ]
+    },  
+    "preview": {
+      "video_url": "https://www.youtube-nocookie.com/embed/kjaO-EXk7wU",
+        "demo_url": "https://demo.matomo.cloud/index.php?module=CoreHome&action=index&idSite=1&period=day&date=yesterday#?idSite=1&period=day&date=yesterday&category=FormAnalytics_Forms&subcategory=General_Overview"
+    },
+    "homepage": "https:\/\/plugins.matomo.org\/FormAnalytics",
+    "license": "InnoCraft EULA",
+    "keywords": [
+        "form",
+        "analytics",
+        "improve",
+        "web",
+        "online",
+        "optimization",
+        "cro"
+    ]
+}

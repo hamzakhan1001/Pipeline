@@ -1,0 +1,97 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.tabs').tabs({
+            'onShow': function (element) {
+                var id = element.getAttribute('id');
+                if (!id) {
+                    return;
+                }
+                window.CoreHome.MatomoUrl.updateHash({...window.CoreHome.MatomoUrl.hashParsed.value, activeTab: id})
+            }
+        });
+        var selectedTab = window.CoreHome.MatomoUrl.hashParsed.value.activeTab;
+        if (selectedTab) {
+            M.Tabs.getInstance($('.tabs')).select(selectedTab);
+        }
+    });
+</script>
+
+{% set columnClass = activeTab ? 's2' : 's3' %}
+
+<div class="row no-data-tabs-main-div">
+    <div class="col s12 tabs-row">
+        <ul class="tabs no-data-screen-ul-tabs">
+            <li class="tab col {{ columnClass }}"><a {% if (siteType == constant('Piwik\\Plugins\\SitesManager\\SitesManager::SITE_TYPE_UNKNOWN') and (activeTab == '') or activeTab == 'consentManager') %} class="active" {% endif %} href="#tracking-code">{{ 'CoreAdminHome_TrackingCode'|translate }}</a></li>
+            <li class="tab col {{ columnClass }}"><a href="#other">{{ 'SitesManager_SiteWithoutDataOtherWays'|translate }}</a></li>
+        </ul>
+    </div>
+
+    <div id="tracking-code" class="col s12">
+        {% if notificationMessage %}
+            <p></p><p></p>
+            <div class="system notification notification-info {{ isNotificationsMerged ? ' merged-notification' : ''}}">
+                {{ notificationMessage|raw }}
+            </div>
+        {% endif %}
+
+        <p>{{ 'CoreAdminHome_JSTracking_CodeNoteBeforeClosingHead'|translate("&lt;/head&gt;")|raw }}</p>
+
+        <div
+                vue-entry="CoreAdminHome.JsTrackingCodeGeneratorSitesWithoutData"
+                default-site="{{ defaultSiteDecoded|json_encode }}"
+                max-custom-variables="{{ maxCustomVariables|json_encode }}"
+                server-side-do-not-track-enabled="{{ serverSideDoNotTrackEnabled|json_encode }}"
+                js-tag="{{ jsTag|raw }}"
+        ></div>
+    </div>
+
+    <div id="other" class="col s12">
+        <p>{{ 'SitesManager_OtherWaysTabDescription'|translate }}</p>
+        <p>Matomo URL: <code vue-directive="CoreHome.CopyToClipboard">{{ piwikUrl }}</code></p>
+        <p>{{ 'SitesManager_EmailInstructionsYourSiteId'|translate('<code vue-directive="CoreHome.CopyToClipboard">' ~ idSite ~ '</code>')|raw }}</p>
+
+        <h3>{{ 'CoreAdminHome_ImageTracking'|translate }}</h3>
+        <p>{{ 'SitesManager_ImageTrackingDescription'|translate('<a href="https://matomo.org/docs/tracking-api/reference/" rel="noreferrer noopener" target="_blank">', '</a>')|raw }}</p>
+
+        <h3>{{ 'SitesManager_LogAnalytics'|translate }}</h3>
+        <p>{{ 'SitesManager_LogAnalyticsDescription'|translate('<a href="https://matomo.org/log-analytics/" rel="noreferrer noopener" target="_blank">', '</a>')|raw }}</p>
+
+        <h3>{{ 'SitesManager_MobileAppsAndSDKs'|translate }}</h3>
+        <p>{{ 'SitesManager_MobileAppsAndSDKsDescription'|translate('<a href="https://matomo.org/integrate/#programming-language-platforms-and-frameworks" rel="noreferrer noopener" target="_blank">','</a>')|raw }}</p>
+
+        <h3>{{ 'CoreAdminHome_HttpTrackingApi'|translate }}</h3>
+        <p>{{ 'CoreAdminHome_HttpTrackingApiDescription'|translate('<a href="https://developer.matomo.org/api-reference/tracking-api" rel="noreferrer noopener" target="_blank">','</a>')|raw }}</p>
+
+        {% if not gtmUsed %}
+            <h3>{{ 'SitesManager_SiteWithoutDataGoogleTagManager'|translate }}</h3>
+            <p>{{ 'SitesManager_SiteWithoutDataGoogleTagManagerDescription'|translate('<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/faq/new-to-piwik/how-do-i-use-matomo-analytics-within-gtm-google-tag-manager">','</a>')|raw }}</p>
+        {% endif %}
+
+        {% if cms is not same as('wordpress') %}
+            <h3>WordPress</h3>
+            <p>{{ 'SitesManager_SiteWithoutDataWordpressDescription'|translate('<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/faq/new-to-piwik/how-do-i-install-the-matomo-tracking-code-on-wordpress/">','</a>')|raw }}</p>
+        {% endif %}
+
+        {% if not cloudflare %}
+            <h3>Cloudflare</h3>
+            <p>{{ 'SitesManager_SiteWithoutDataCloudflareDescription'|translate('<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/faq/new-to-piwik/how-do-i-install-the-matomo-tracking-code-on-my-cloudflare-setup/">','</a>')|raw }}</p>
+        {% endif %}
+
+        {% if jsFramework is not same as('vue')  %}
+            <h3>Vue.js</h3>
+            <p>{{ 'SitesManager_SiteWithoutDataVueDescription'|translate('<a target="_blank" rel="noreferrer noopener" href="https://github.com/AmazingDreams/vue-matomo">vue-matomo</a>', '<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/faq/new-to-piwik/how-do-i-install-the-matomo-tracking-code-on-websites-that-use-vue-js/">','</a>')|raw }}</p>
+        {% endif %}
+
+        {% if jsFramework is not same as('react') %}
+            <h3>React.js</h3>
+            <p>{{ 'SitesManager_SiteWithoutDataReactDescription'|translate('<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/guide/tag-manager/">', '</a>', '<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/faq/new-to-piwik/how-do-i-start-tracking-data-with-matomo-on-websites-that-use-react/">','</a>')|raw }}</p>
+        {% endif %}
+
+        {% if googleAnalyticsImporterMessage is defined and googleAnalyticsImporterMessage is not empty  %}
+            {{ googleAnalyticsImporterMessage|raw }}
+        {% elseif not ga3Used and not ga4Used %}
+            <h3>{{ 'SitesManager_ImportDataFromGoogleAnalytics'|translate }}</h3>
+            <p>{{ 'SitesManager_ImportDataFromGoogleAnalyticsDescription'|translate('<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/guide/installation-maintenance/import-google-analytics/">', '</a>')|raw }}</p>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{% extends 'admin.twig' %}
+
+{% set title %}{{ 'JsTrackerCustom_JsTrackerCustom'|translate }}{% endset %}
+
+{% block content %}
+
+    <div
+        vue-entry="JsTrackerCustom.Admin"
+        initial-custom-js="{{ customJs|default(null)|json_encode }}"
+        custom-js-nonce="{{ customJsNonce|json_encode }}"
+    ></div>
+
+{% endblock %}

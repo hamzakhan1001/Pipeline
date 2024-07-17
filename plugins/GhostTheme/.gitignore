@@ -1,0 +1,15 @@
+php_errors.log
+*.tmp
+*.pyc
+.DS_Store
+.htaccess
+/.idea/
+/.idea/*
+/tmp/*
+!/tmp/.gitkeep
+!/tmp/CACHEDIR.TAG
+/.cache
+/.metadata
+/.project
+/.settings
+/*.buildpath

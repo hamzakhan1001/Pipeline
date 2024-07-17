@@ -1,0 +1,13 @@
+{% extends 'admin.twig' %}
+
+{% import '@CustomAlerts/macros.twig' as alertsMacro %}
+
+{% block content %}
+
+    <div
+        vue-entry="CustomAlerts.HistoryTriggeredAlerts"
+    >
+        {{ alertsFormatted|raw }}
+    </div>
+
+{% endblock %}

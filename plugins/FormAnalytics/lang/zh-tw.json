@@ -1,0 +1,26 @@
+{
+    "FormAnalytics": {
+        "ColumnInteractions": "互動",
+        "ErrorArrayMissingKey": "陣列 %2$s 中位置 %3$s 的鍵「%1$s」遺失。",
+        "ErrorArrayMissingValue": "陣列 %2$s 位置 %3$s 中的鍵「%1$s」遺失值。",
+        "ErrorInnerIsNotAnArray": "「%2$s」中的每個「%1$s」必須是陣列。",
+        "ErrorInvalidRegExp": "正規表示式「%1$s」不含有效格式。",
+        "ErrorNotAnArray": "「%1$s」必須是陣列。",
+        "ErrorXNotProvided": "請輸入「%1$s」的值。",
+        "ErrorXNotWhitelisted": "「%1$s」的值不允許，使用以下其一：%2$s。",
+        "ErrorXTooLong": "「%1$s」過長，最多允許 %2$s 個字元。",
+        "Filter": "過濾",
+        "GettingStarted": "開始使用",
+        "Manage": "管理",
+        "Rule": "規則",
+        "RuleAttributeUrl": "網址",
+        "RulePatternContains": "包含",
+        "RulePatternEqualsExactly": "完全相符",
+        "RulePatternRegExp": "符合正規表示式",
+        "RulePatternStartsWith": "開始於",
+        "Status": "狀態",
+        "StatusArchived": "已封存",
+        "StatusRunning": "啓用中",
+        "UpdatingData": "數據更新中…"
+    }
+}

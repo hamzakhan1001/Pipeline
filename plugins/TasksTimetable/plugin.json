@@ -1,0 +1,35 @@
+{
+  "name": "TasksTimetable",
+  "version": "5.0.1",
+  "description": "List all maintenance tasks that are scheduled to run. Displays the task names and next execution time in a table.",
+  "theme": false,
+  "authors": [
+    {
+      "name": "Megan Liang",
+      "email": "",
+      "homepage": ""
+    },
+    {
+      "name": "Jay Deshpande",
+      "email": "",
+      "homepage": ""
+    },
+    {
+      "name": "Matomo",
+      "email": "hello@matomo.org",
+      "homepage": "http://matomo.org"
+    }
+  ],
+  "require": {
+    "matomo": ">=5.0.0-b1,<6.0.0-b1"
+  },
+  "support": {
+    "issues": "https://github.com/matomo-org/plugin-TasksTimetable/issues",
+    "forum": "https://forum.matomo.org",
+    "source": "https://github.com/matomo-org/plugin-TasksTimetable"
+  },
+  "license": "GPL v3+",
+  "keywords": ["tasks", "scheduled", "timetable", "monitoring"],
+  "homepage": "https://matomo.org",
+  "category": "development"
+}

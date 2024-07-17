@@ -1,0 +1,92 @@
+#root .borderedControl {
+  background-color: transparent;
+  border: 1px solid var(--ghost-color-primary);
+  box-shadow: none;
+  transition: .2s ease all;
+  border-radius: 0;
+  font-size: 13px;
+  // font-weight: bold;
+  color: var(--ghost-color-dark) !important;
+  min-width: 18px;
+
+  &.expanded {
+    background-color: var(--ghost-color-primary) !important;
+  }
+
+  &.segment-element {
+    background-color: var(--ghost-color-light) !important;
+  }
+
+  .title {
+    color: var(--ghost-color-dark) !important;
+  }
+
+  &:hover,
+  &.expanded {
+    transition: .2s ease all;
+    background: var(--ghost-color-primary);
+    color: var(--ghost-color-light) !important;
+
+    .title {
+      color: var(--ghost-color-light) !important;
+    }
+  }
+}
+
+.siteSelector {
+  .custom_select_ul_list li a {
+    color: var(--ghost-color-dark) !important;
+    transition: .2s ease color;
+
+    &:hover {
+      color: var(--ghost-color-primary) !important;
+      background-color: var(--ghost-color-light-1) !important;
+      transition: .2s ease color;
+    }
+  }
+
+  .custom_select_search {
+    .inp {
+      color: inherit !important;
+    }
+  }
+
+  &.disabled.borderedControl:hover {
+    background: var(--ghost-color-primary) !important;
+    color: var(--ghost-color-light) !important;
+  }
+}
+
+.custom_select_all a {
+  color: var(--ghost-color-dark) !important;
+  transition: .2s ease color;
+
+  &:hover {
+    color: var(--ghost-color-primary) !important;
+    background-color: transparent !important;
+    transition: .2s ease color;
+  }
+}
+
+#root piwik-paged-users-list .siteSelector.borderedControl {
+  background-color: var(--ghost-color-light-1);
+}
+
+.icon-arrowup {
+  &:before {
+    color: var(--ghost-color-primary);
+  }
+}
+
+.quick-access .selected {
+  background-color: var(--ghost-color-light-1) !important;
+}
+
+.tagContainerSelector .custom_select_container li a {
+  color: var(--ghost-color-dark);
+
+  &:hover {
+    background-color: var(--ghost-color-light);
+    color: var(--ghost-color-primary);
+  }
+}

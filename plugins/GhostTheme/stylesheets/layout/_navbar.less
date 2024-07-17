@@ -1,0 +1,59 @@
+nav .nav-wrapper {
+  background-color: var(--ghost-color-light);
+
+  ul li {
+
+    a {
+      color: var(--ghost-color-dark);
+      transition: .2s ease background-color;
+      text-decoration: none;
+
+      &:hover {
+        background-color: var(--ghost-color-light-1) !important;
+        transition: .2s ease background-color;
+      }
+    }
+
+    &.active {
+      background-color: var(--ghost-color-light-2);
+    }
+  }
+}
+
+.side-nav {
+  background: var(--ghost-color-light) !important;
+
+  a {
+    color: var(--ghost-color-dark) !important;
+    transition: .2s ease background-color;
+    text-decoration: none;
+
+    &:hover {
+      background-color: var(--ghost-color-primary--darker) !important;
+      transition: .2s ease background-color;
+    }
+  }
+
+  .collapsible-body {
+    background-color: var(--ghost-color-primary);
+  }
+}
+
+.navbar,
+.navbar.collapsible-accordion {
+  background-color: var(--ghost-color-light);
+
+  .menuTab {
+
+    .item {
+      background-color: transparent;
+      transition: .2s ease background-color;
+
+      &:hover {
+        background-color: var(--ghost-color-light-1) !important;
+        transition: .2s ease background-color;
+        color: var(--ghost-color-primary);
+      }
+    }
+  }
+}

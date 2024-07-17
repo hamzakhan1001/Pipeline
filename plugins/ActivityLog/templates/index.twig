@@ -1,0 +1,13 @@
+{% extends 'admin.twig' %}
+
+{% set title %}{{ 'ActivityLog_ActivityLog'|translate }}{% endset %}
+
+{% block content %}
+
+    <div
+        vue-entry="ActivityLog.ActivityLogPage"
+        show-paging-bottom="{{ showPagingBottom|default(null)|json_encode }}"
+        is-super-user="{{ isSuperUser|default(null)|json_encode }}"
+    ></div>
+
+{% endblock %}

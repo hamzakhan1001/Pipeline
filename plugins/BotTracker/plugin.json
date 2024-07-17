@@ -1,0 +1,25 @@
+{
+    "name": "BotTracker",
+    "version": "5.2.15",
+    "keywords": [
+        "BotTracker"
+    ],
+    "homepage": "https://github.com/digitalist-se/BotTracker",
+    "description": "Detection of bots & spiders and count their visits without tracking them in the visitor-log.",
+    "license": "GPL v3+",
+    "authors": [
+        {
+            "name": "Mikke Schirén",
+            "email": "mikke.schiren@digitalist.com",
+            "homepage": "https://github.com/digitalist-se/BotTracker"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/digitalist-se/BotTracker/issues",
+        "source": "https://github.com/digitalist-se/BotTracker"
+    },
+    "require": {
+        "php": ">=7.2.5",
+        "matomo": ">=5.0.0-stable,<6.0.0-b1"
+    }
+}
