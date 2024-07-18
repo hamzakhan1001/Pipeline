@@ -50,3 +50,5 @@ php_errors.log
 /js/container*.js
 /.docker
 docker-compose.yml
+/matomo.js
+/piwik.js
