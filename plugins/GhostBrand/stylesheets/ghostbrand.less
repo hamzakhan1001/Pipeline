@@ -1,5 +1,5 @@
 .loginSection #piwik {
-  display:none;
+  display: none;
 }
 
 .GhostBrandRemoveLinks a[href*="piwik.org"],
@@ -7,9 +7,18 @@
   text-decoration: none;
   pointer-events: none !important;
   color: @theme-color-text;
+
   :hover {
     text-decoration: none;
     pointer-events: none !important;
     color: @theme-color-text;
+  }
+}
+
+#site-without-data #start-tracking-method-list ul li {
+  display: none;
+
+  &:first-child {
+    display: block;
   }
 }
