@@ -112,8 +112,8 @@ HEAD;
         $conversionCurrency = $this->configuration->getSite()->getCurrency();
         $conversionTime     = Date::factory($conversion['server_time'], $this->configuration->getSite()->getTimezone())->toString('Y-m-d H:i:s');
         $attributedCredit   = $this->configuration->attributedCredit;
-        $adUserData         = '';
-        $adPersonalization  = '';
+        $adUserData         = $this->systemSetting->ad_user_data_consent_status->getValue();
+        $adPersonalization  = $this->systemSetting->ad_personalization_consent_status->getValue();
 
         return <<<CONVERSION
 {$clickId},{$conversionName},{$conversionTime},{$attributedCredit},{$conversionValue},{$conversionCurrency},{$adUserData},{$adPersonalization}
@@ -130,8 +130,8 @@ CONVERSION;
         $conversionValue    = $goal->getConversionValue($conversion['revenue']);
         $conversionCurrency = $this->configuration->getSite()->getCurrency();
         $conversionTime     = Date::factory($conversion['server_time'], $this->configuration->getSite()->getTimezone())->toString('Y-m-d H:i:s');
-        $adUserData         = '';
-        $adPersonalization  = '';
+        $adUserData         = $this->systemSetting->ad_user_data_consent_status->getValue();
+        $adPersonalization  = $this->systemSetting->ad_personalization_consent_status->getValue();
 
         return <<<CONVERSION
 {$clickId},{$conversionName},{$conversionTime},{$conversionValue},{$conversionCurrency},{$adUserData},{$adPersonalization}

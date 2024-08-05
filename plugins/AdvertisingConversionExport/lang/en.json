@@ -79,6 +79,10 @@
         "VisitorsToExport": "Visitors to export",
         "VisitorsToExportHelp": "Here you can configure how many days of conversions data to export. You may also define an optional Segment to restrict the export: only the visits and conversions matching the segment will be exported.",
         "YandexAdsExportDescription": "Provides an export in CSV format for easy import in Yandex Ads. The export will only include conversions that are associated with a Yandex Click ID (yclid).",
-        "PleaseConfigureDaysToExport": "You need to configure the number of days to export"
+        "PleaseConfigureDaysToExport": "You need to configure the number of days to export",
+        "AdUserDataTitle": "Ad User Data Consent Status",
+        "AdUserDataDescription": "Set the consent status for the Ad User Data and Ad Personalization fields in the conversion exports file for Google, %1$slearn more%2$s.%3$s Default: %4$s",
+        "AdPersonalizationTitle": "Ad Personalization Consent Status",
+        "InvalidConsentStatusException": "Invalid consent status selected"
     }
 }

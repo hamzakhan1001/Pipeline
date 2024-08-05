@@ -22,6 +22,7 @@ use Piwik\Date;
 use Piwik\Db;
 use Piwik\Piwik;
 use Piwik\Plugins\AdvertisingConversionExport\Export\Configuration;
+use Piwik\Plugins\AdvertisingConversionExport\SystemSettings;
 use Piwik\Plugins\Live\Exception\MaxExecutionTimeExceededException;
 use Piwik\ProxyHttp;
 use Piwik\Segment;
@@ -34,6 +35,9 @@ abstract class AdapterAbstract
     /** @var Configuration */
     protected $configuration;
 
+    /** @var SystemSettings */
+    protected $systemSetting;
+
     public static function getId(): string
     {
         return static::ID;
@@ -44,6 +48,8 @@ abstract class AdapterAbstract
         if ($configuration) {
             $this->setConfiguration($configuration);
         }
+
+        $this->systemSetting = new SystemSettings();
     }
 
     abstract public static function getName(): string;
