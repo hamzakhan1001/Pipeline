@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.1.2__
+* Added code to allow setting consent status via SystemSetting for Google export
+
 __5.1.1__
 * Added FAQ link to setup Google conversion export in description
 
