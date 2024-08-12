@@ -1,10 +1,10 @@
 ; <?php exit; ?> DO NOT REMOVE THIS LINE
 ;
 ; This common.config.ini.php file is read right before config.ini.php
-always_load_commands_from_plugin=ExtraTools
 
 [General]
 force_ssl = 1
+always_load_commands_from_plugin=ExtraTools
 noreply_email_address = "noreply@ghostmetrics.cloud"
 noreply_email_name = "Ghost Metrics"
 contact_email_address = "support@ghostmetrics.cloud"
