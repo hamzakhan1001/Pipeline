@@ -36,7 +36,7 @@ class Brand
 
         $output = str_replace($noBrandReplace, $temporaryReplace, $output);
 
-        $oldBrands = ['Piwik', 'Matomo'];
+        $oldBrands = ['Piwik', 'Matomo', 'Matomo Analytics'];
         $newBrand = $this->brandName;
 
         foreach ($oldBrands as $oldBrand) {

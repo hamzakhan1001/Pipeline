@@ -1,24 +1,24 @@
 // sparkline colors
 .sparkline-colors[data-name=backgroundColor] {
-  color: var(--ghost-color-light-1) ;
+  color: lighten(#6439f5, 55);
 }
 
 .sparkline-colors[data-name=lineColor] {
-  color: var(--ghost-color-primary);
-}
-
-.sparkline-colors[data-name=fillColor] {
-  color: var(--ghost-color-light);
+  color: #6439f5;
 }
 
 .sparkline-colors[data-name=minPointColor] {
-  color: var(--ghost-color-primary) //darken(#058DC7, 10);
+  color: #6439f5 //darken(#058DC7, 10);
 }
 
 .sparkline-colors[data-name=maxPointColor] {
-  color: var(--ghost-color-primary--darker) //darken(#058DC7, 10);
+  color: #6439f5 //darken(#058DC7, 10);
 }
 
 .sparkline-colors[data-name=lastPointColor] {
-  color: var(--ghost-color-secondary); //hidden
+  color: white; //hidden
+}
+
+.sparkline-colors[data-name=fillColor] {
+  color: lighten(#6439f5, 55);
 }

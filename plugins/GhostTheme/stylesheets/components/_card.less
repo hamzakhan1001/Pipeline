@@ -1,37 +1,23 @@
 .card {
-  background-color: var(--ghost-color-light) !important;
-  color: var(--ghost-color-dark) !important;
-  box-shadow: unset !important;
+  box-shadow: none;
+  border: 1px solid #dadce0;
+  border-radius: 0.5rem;
 
-  .h1, .h2, .h3, .h4,
-  h1, h2, h3, h4,
-  p,
-  .rss-description,
-  .card-title,
   .card-content {
-    color: var(--ghost-color-dark) !important;
+    padding: 1.5rem !important;
   }
 
-  .card-title a {
-    color: var(--ghost-color-dark) !important;
+  .card-table {
+    border: 0;
   }
 
-  .tableIcon.activeIcon {
-    background: var(--ghost-color-light) !important;
+  .enrichedHeadline .title,
+  .card-title {
+    color: #5f6368 !important;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    position: relative;
+    font-weight: 500 !important;
   }
-
-  tr, tr:hover {
-    button.table-action {
-      background: var(--ghost-color-light) !important;
-    }
-  }
-
-  button.table-action {
-    background-color: var(--ghost-color-light) !important;
-    margin-right: 4px;
-  }
-}
-
-h2.card-title a {
-  color: var(--ghost-color-dark) !important;
 }

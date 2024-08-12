@@ -1,12 +1,13 @@
 {
     "name": "GhostTheme",
     "description": "Custom theme for Ghost Metrics.",
-    "version": "0.1.7",
+    "version": "0.2.0",
     "theme": true,
     "require": {
-        "matomo": ">=4.0.0-rc1,<6.0.0-b1"
+        "matomo": ">=5.0.0-rc1,<6.0.0-b1"
     },
-    "stylesheet": "stylesheets\/theme.less",
+    "stylesheet": "stylesheets/theme.less",
+    "javascript": "javascripts/theme.js",
     "homepage": "",
     "license": "",
     "keywords": [],
