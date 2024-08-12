@@ -1,49 +1,79 @@
 .widget {
-  box-shadow: unset;
-
-  .widgetName {
-    font-size: 21px !important;
-  }
+  background-color: transparent;
+  box-shadow: none;
+  border: none !important;
+  margin-bottom: 36px;
 
   &:hover {
-    box-shadow: 0 0 10px -4px rgba(100, 57, 245, 0.15);
+    box-shadow: none;
   }
 
-  .promoWidget {
+  .widgetTop {
+    border: none;
     background-color: transparent;
-  }
+    padding: 0 !important;
 
-  #piwik-promo-share {
-    display: none;
-  }
+    .buttons {
+      background: @theme-color-background-base;
+      top: 4px;
+      right: 0;
+      padding-left: 0;
 
-  .rss-description,
-  #piwik-widget-footer {
-    color: var(--light-transparent) !important;
-  }
+      .button {
+        margin-top: 0;
 
+        &:first-child {
+          margin-right: 0;
+        }
+      }
+    }
 
-  .simple-realtime-visitor-counter {
-    background-color: var(--ghost-color-primary);
-
-    & > div {
-      color: var(--ghost-color-light);
+    .widgetName {
+      padding: 0 !important;
+      margin-bottom: 12px;
+      font-weight: 500;
+      font-size: 1.125rem;
     }
   }
 
-  .simple-realtime-elaboration {
-    color: var(--ghost-color-light);
-  }
+  .widgetContent {
+    background-color: #ffffff;
+    box-shadow: none;
+    border: 1px solid #dadce0;
+    border-radius: @theme-widget-border-radius;
 
-  .simple-realtime-metric {
-    color: inherit;
+    .widgetBody {
+      padding-top: 12px;
+    }
+
+    .card {
+      border: none;
+      border-radius: @theme-widget-border-radius;
+      overflow: hidden;
+    }
+
+    .dataTable {
+      border-radius: @theme-widget-border-radius;
+
+      thead tr:first-child {
+
+        th:first-child {
+          border-top-left-radius: 7px;
+        }
+
+        th:last-child {
+          border-top-right-radius: 7px;
+        }
+
+      }
+    }
+
+    .jqplot-graph {
+      margin-top: 12px;
+    }
   }
 }
 
-.hoverable {
-  box-shadow: unset;
-
-  &:hover {
-    box-shadow: 0 0 10px -4px rgba(100, 57, 245, 0.5);
-  }
+.kpi-widgets {
+  padding-top: 30px;
 }
