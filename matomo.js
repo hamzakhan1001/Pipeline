@@ -71,23 +71,6 @@ cw(function(){cm(dL,dN,dM,dO)})};this.setEcommerceView=function(dP,dL,dN,dM){cN=
 }else{aB.forgetConsentGiven()}}au({maq_confirm_opted_in:aB.hasConsent(),maq_url:aB.getMatomoUrl(),maq_optout_by_default:aB.isConsentRequired()})}}},false);Date.prototype.getTimeAlias=Date.prototype.getTime;v={initialized:false,JSON:X.JSON,DOM:{addEventListener:function(ax,aw,av,au){var ay=typeof au;if(ay==="undefined"){au=false}at(ax,aw,av,au)},onLoad:n,onReady:r,isNodeVisible:i,isOrWasNodeVisible:x.isNodeVisible},on:function(av,au){if(!A[av]){A[av]=[]}A[av].push(au)},off:function(aw,av){if(!A[aw]){return}var au=0;for(au;au<A[aw].length;au++){if(A[aw][au]===av){A[aw].splice(au,1)}}},trigger:function(aw,ax,av){if(!A[aw]){return}var au=0;for(au;au<A[aw].length;au++){A[aw][au].apply(av||X,ax)}},addPlugin:function(au,av){b[au]=av},getTracker:function(av,au){if(!N(au)){au=this.getAsyncTracker().getSiteId()}if(!N(av)){av=this.getAsyncTracker().getTrackerUrl()}return new U(av,au)},getAsyncTrackers:function(){return M},addTracker:function(aw,av){var au;if(!M.length){au=ai(aw,av)}else{au=M[0].addTracker(aw,av)
 }return au},getAsyncTracker:function(ay,ax){var aw;if(M&&M.length&&M[0]){aw=M[0]}else{return ai(ay,ax)}if(!ax&&!ay){return aw}if((!N(ax)||null===ax)&&aw){ax=aw.getSiteId()}if((!N(ay)||null===ay)&&aw){ay=aw.getTrackerUrl()}var av,au=0;for(au;au<M.length;au++){av=M[au];if(av&&String(av.getSiteId())===String(ax)&&av.getTrackerUrl()===ay){return av}}},retryMissedPluginCalls:function(){var av=am;am=[];var au=0;for(au;au<av.length;au++){ak(av[au])}}};if(typeof define==="function"&&define.amd){define("piwik",[],function(){return v});define("matomo",[],function(){return v})}return v}())}
 /*!!! pluginTrackerHook */
-
-/* GENERATED: tracker.js */
-
-/* END GENERATED: tracker.js */
-
-
-/* GENERATED: tracker.min.js */
-/*!!
- * Matomo - free/libre analytics platform
- *
- * @link https://matomo.org
- * @license http://piwik.org/free-software/bsd/ BSD-3 Clause (also in js/LICENSE.txt)
- * @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
- */
-(function(){function a(){if("object"===typeof window&&!window.Matomo){return}Matomo.addPlugin("DeviceFeatureWebGL",{log:function(){var c=document.createElement("canvas");var g=["webgl","experimental-webgl","webkit-3d","moz-webgl"];var d=null;for(var b=0;b<g.length;b++){try{d=c.getContext(g[b]);if(d){break}}catch(f){}}if(d===null){return"&webgl=0"}return"&webgl=1"}})}if("object"===typeof window.Matomo){a()}else{if("object"!==typeof window.matomoPluginAsyncInit){window.matomoPluginAsyncInit=[]}window.matomoPluginAsyncInit.push(a)}})();
-/* END GENERATED: tracker.min.js */
-
 (function(){function b(){if("object"!==typeof _paq){return false}var c=typeof _paq.length;if("undefined"===c){return false}return !!_paq.length}if(window&&"object"===typeof window.matomoPluginAsyncInit&&window.matomoPluginAsyncInit.length){var a=0;for(a;a<window.matomoPluginAsyncInit.length;a++){if(typeof window.matomoPluginAsyncInit[a]==="function"){window.matomoPluginAsyncInit[a]()}}}if(window&&window.piwikAsyncInit){window.piwikAsyncInit()
 }if(window&&window.matomoAsyncInit){window.matomoAsyncInit()}if(!window.Matomo.getAsyncTrackers().length){if(b()){window.Matomo.addTracker()}else{_paq={push:function(c){var d=typeof console;if(d!=="undefined"&&console&&console.error){console.error("_paq.push() was used but Matomo tracker was not initialized before the matomo.js file was loaded. Make sure to configure the tracker via _paq.push before loading matomo.js. Alternatively, you can create a tracker via Matomo.addTracker() manually and then use _paq.push but it may not fully work as tracker methods may not be executed in the correct order.",c)}}}}}window.Matomo.trigger("MatomoInitialized",[]);window.Matomo.initialized=true}());(function(){var a=(typeof window.AnalyticsTracker);if(a==="undefined"){window.AnalyticsTracker=window.Matomo}}());if(typeof window.piwik_log!=="function"){window.piwik_log=function(c,e,g,f){function b(h){try{if(window["piwik_"+h]){return window["piwik_"+h]}}catch(i){}return}var d,a=window.Matomo.getTracker(g,e);
 a.setDocumentTitle(c);a.setCustomData(f);d=b("tracker_pause");if(d){a.setLinkTrackingTimer(d)}d=b("download_extensions");if(d){a.setDownloadExtensions(d)}d=b("hosts_alias");if(d){a.setDomains(d)}d=b("ignore_classes");if(d){a.setIgnoreClasses(d)}a.trackPageView();if(b("install_tracker")){piwik_track=function(i,j,k,h){a.setSiteId(j);a.setTrackerUrl(k);a.trackLink(i,h)};a.enableLinkTracking()}}}
