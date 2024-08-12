@@ -28,9 +28,7 @@ php_errors.log
 /libs/.htaccess
 /misc/.htaccess
 /misc/user/.htaccess
-/misc/cron/.htaccess
 /misc/DBIP-City.mmdb
-/misc/How to install Matomo.html
 /plugins/.htaccess
 /tests/resources/overlay-test-site-real/
 /tests/PHPUnit/.phpunit.result.cache
@@ -49,9 +47,6 @@ php_errors.log
 /plugins/.gitignore
 /js/container*.js
 /.docker
-docker-compose.yml
-/matomo.js
-/piwik.js
 
 # Ignore development plugins
 /plugins/VisitorGenerator
