@@ -5,7 +5,7 @@
  * Description: All keywords searched by your users on search engines are now visible into your Referrers reports! The ultimate solution to 'Keyword not defined'.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/SearchEngineKeywordsPerformance
- * Version: 5.0.13
+ * Version: 5.0.14
  */
 ?><?php
 
@@ -33,6 +33,7 @@ use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Notification;
 use Piwik\Nonce;
+use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin\Manager;
 use Piwik\Plugin\ViewDataTable;
@@ -903,5 +904,28 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
             $componentExtensions[0] = $componentExtensions[0] ?? ['plugin' => 'SearchEngineKeywordsPerformance', 'component' => 'ConfigureConnection'];
         }
         return $componentExtensions;
+    }
+
+
+    public static function isReportEnabled($reportType, $googleType = '')
+    {
+        $report = new \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\GetKeywords();
+        if ($reportType === 'Yandex') {
+            return $report->isYandexEnabled();
+        } elseif ($reportType === 'Bing') {
+            return $report->isBingEnabled();
+        } elseif ($reportType === 'Google' && !empty($googleType)) {
+            return $report->isGoogleEnabledForType($googleType);
+        }
+
+        return false;
+    }
+
+    public static function commonEmptyDataTable($period, $date)
+    {
+        if (Period::isMultiplePeriod($date, $period)) {
+            return new DataTable\Map();
+        }
+        return new DataTable();
     }
 }

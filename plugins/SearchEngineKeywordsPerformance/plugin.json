@@ -1,6 +1,6 @@
 {
   "name": "SearchEngineKeywordsPerformance",
-  "version": "5.0.13",
+  "version": "5.0.14",
   "description": "All keywords searched by your users on search engines are now visible into your Referrers reports! The ultimate solution to 'Keyword not defined'.",
   "theme": false,
   "require": {

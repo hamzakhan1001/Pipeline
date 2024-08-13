@@ -200,6 +200,9 @@ class API extends \Piwik\Plugin\API
             }
             return new DataTable();
         }
+        if (!SearchEngineKeywordsPerformance::isReportEnabled('Bing')) {
+            return SearchEngineKeywordsPerformance::commonEmptyDataTable($period, $date);
+        }
         $dataTable = $this->getDataTable(BingRecordBuilder::KEYWORDS_BING_RECORD_NAME, $idSite, $period, $date);
         return $dataTable;
     }
@@ -215,6 +218,9 @@ class API extends \Piwik\Plugin\API
      */
     public function getKeywordsYandex($idSite, $period, $date)
     {
+        if (!SearchEngineKeywordsPerformance::isReportEnabled('Yandex')) {
+            return SearchEngineKeywordsPerformance::commonEmptyDataTable($period, $date);
+        }
         $dataTable = $this->getDataTable(YandexRecordBuilders::KEYWORDS_YANDEX_RECORD_NAME, $idSite, $period, $date);
         return $dataTable;
     }
@@ -230,6 +236,9 @@ class API extends \Piwik\Plugin\API
      */
     public function getKeywordsGoogleWeb($idSite, $period, $date)
     {
+        if (!SearchEngineKeywordsPerformance::isReportEnabled('Google', 'web')) {
+            return SearchEngineKeywordsPerformance::commonEmptyDataTable($period, $date);
+        }
         $dataTable = $this->getDataTable(GoogleRecordBuilder::KEYWORDS_GOOGLE_WEB_RECORD_NAME, $idSite, $period, $date);
         return $dataTable;
     }
@@ -245,6 +254,9 @@ class API extends \Piwik\Plugin\API
      */
     public function getKeywordsGoogleImage($idSite, $period, $date)
     {
+        if (!SearchEngineKeywordsPerformance::isReportEnabled('Google', 'image')) {
+            return SearchEngineKeywordsPerformance::commonEmptyDataTable($period, $date);
+        }
         $dataTable = $this->getDataTable(GoogleRecordBuilder::KEYWORDS_GOOGLE_IMAGE_RECORD_NAME, $idSite, $period, $date);
         return $dataTable;
     }
@@ -260,6 +272,9 @@ class API extends \Piwik\Plugin\API
      */
     public function getKeywordsGoogleVideo($idSite, $period, $date)
     {
+        if (!SearchEngineKeywordsPerformance::isReportEnabled('Google', 'video')) {
+            return SearchEngineKeywordsPerformance::commonEmptyDataTable($period, $date);
+        }
         $dataTable = $this->getDataTable(GoogleRecordBuilder::KEYWORDS_GOOGLE_VIDEO_RECORD_NAME, $idSite, $period, $date);
         return $dataTable;
     }
@@ -275,6 +290,9 @@ class API extends \Piwik\Plugin\API
      */
     public function getKeywordsGoogleNews($idSite, $period, $date)
     {
+        if (!SearchEngineKeywordsPerformance::isReportEnabled('Google', 'news')) {
+            return SearchEngineKeywordsPerformance::commonEmptyDataTable($period, $date);
+        }
         $dataTable = $this->getDataTable(GoogleRecordBuilder::KEYWORDS_GOOGLE_NEWS_RECORD_NAME, $idSite, $period, $date);
         return $dataTable;
     }

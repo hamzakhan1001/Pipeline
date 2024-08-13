@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.0.14__
+* Added isReportEnabled check in API methods to prevent creating empty archives with done flag
+
 __5.0.13__
 * Added cover image for marketplace
 
