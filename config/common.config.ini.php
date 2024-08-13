@@ -22,10 +22,10 @@ username = "AKIA4ZPFCZXYZEPTXX75"
 password = "BHSdJB5girLwZOMK383XLuzWyQoRZlNSoOSA4zx0/kpW"
 
 [database]
-; host = "appghost.cyabb6bvejrw.us-east-1.rds.amazonaws.com"
-; tables_prefix = "ghost_"
-; schema = "Mariadb"
-; charset = "utf8mb4"
+host = "appghost.cyabb6bvejrw.us-east-1.rds.amazonaws.com"
+tables_prefix = "ghost_"
+schema = "Mariadb"
+charset = "utf8mb4"
 
 ; Do not allow users to trigger the Matomo archiving process.
 ; Ensures that no unexpected data processing triggers from UI or API.
