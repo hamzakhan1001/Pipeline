@@ -76,6 +76,7 @@ Plugins[] = "CustomAlerts"
 Plugins[] = "DeviceDetectorCache"
 Plugins[] = "DeviceFeatureWebGL"
 Plugins[] = "DiagnosticsExtended"
+Plugins[] = "ExtraTools"
 Plugins[] = "GhostBrand"
 Plugins[] = "GhostTheme"
 Plugins[] = "JsTrackerCustom"
@@ -90,7 +91,6 @@ Plugins[] = "TasksTimetable"
 Plugins[] = "TrackingSpamPrevention"
 Plugins[] = "TreemapVisualization"
 Plugins[] = "UserConsole"
-Plugins[] = "VisitorGenerator"
 
 [PluginsInstalled]
 PluginsInstalled[] = "Diagnostics"
@@ -187,7 +187,7 @@ PluginsInstalled[] = "HeatmapSessionRecording"
 PluginsInstalled[] = "MediaAnalytics"
 PluginsInstalled[] = "UsersFlow"
 PluginsInstalled[] = "CustomiseTranslations"
-PluginsInstalled[] = "VisitorGenerator"
+PluginsInstalled[] = "ExtraTools"
 
 [TrackingSpamPrevention]
 
