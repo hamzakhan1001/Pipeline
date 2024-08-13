@@ -12,6 +12,7 @@ feedback_email_address = "support@ghostmetrics.cloud"
 show_update_notification_to_superusers_only = 1
 enable_custom_logo = 0
 piwik_professional_support_ads_enabled = 0
+enable_marketplace = 0
 
 [mail]
 transport = "smtp"
