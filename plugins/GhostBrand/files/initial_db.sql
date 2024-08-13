@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: appghost.cyabb6bvejrw.us-east-1.rds.amazonaws.com
--- Generation Time: Aug 13, 2024 at 04:44 AM
+-- Generation Time: Aug 13, 2024 at 07:24 PM
 -- Server version: 10.6.16-MariaDB-log
 -- PHP Version: 8.1.2-1ubuntu2.18
 
@@ -348,19 +348,6 @@ CREATE TABLE `ghost_brute_force_log` (
   `attempted_at` datetime NOT NULL,
   `login` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ghost_brute_force_log`
---
-
-INSERT INTO `ghost_brute_force_log` (`id_brute_force_log`, `ip_address`, `attempted_at`, `login`) VALUES
-(1, '24.26.4.70', '2024-08-12 16:43:56', 'superuser@ghostmetrics.io'),
-(2, '24.26.4.70', '2024-08-12 16:44:26', 'support@ghostmetrics.cloud'),
-(3, '24.26.4.70', '2024-08-12 16:55:17', 'ghost.superuser'),
-(4, '38.40.18.27', '2024-08-13 03:43:18', 'ghost.superuser'),
-(5, '38.40.18.27', '2024-08-13 03:43:25', 'ghost.superuser'),
-(6, '38.40.18.27', '2024-08-13 03:43:28', 'ghost.superuser'),
-(7, '38.40.18.27', '2024-08-13 03:48:11', 'ghost.superuser');
 
 -- --------------------------------------------------------
 
@@ -1047,6 +1034,7 @@ INSERT INTO `ghost_option` (`option_name`, `option_value`, `autoload`) VALUES
 ('PrivacyManager.ipAddressMaskLength', '4', 0),
 ('PrivacyManager.ipAnonymizerEnabled', '1', 0),
 ('PrivacyManager.useAnonymizedIpForVisitEnrichment', '0', 0),
+('SharedSiteIdsToArchive_AllWebsites_ResetQueueTime', '1723575903171', 0),
 ('SitesManager_DefaultTimezone', 'America/Chicago', 0),
 ('tagmanager_salt', '2e6309caf671fc873e13FWee{2!91vU5YGHNlpAx', 0),
 ('TaskScheduler.timetable', 'a:1:{s:45:\"Piwik\\Plugins\\GeoIp2\\GeoIP2AutoUpdater.update\";i:1725321658;}', 0),
@@ -1061,7 +1049,7 @@ INSERT INTO `ghost_option` (`option_name`, `option_value`, `autoload`) VALUES
 ('UsersManager.lastSeen.ghost.superuser', '1723521326', 1),
 ('UsersManager.lastSeen.super user was set', '1723480136', 1),
 ('version_Actions', '5.1.0', 1),
-('version_ActivityLog', '5.0.2', 1),
+('version_ActivityLog', '5.0.3', 1),
 ('version_AdminNotification', '5.0.0', 1),
 ('version_AdvertisingConversionExport', '5.1.2', 1),
 ('version_Annotations', '5.1.0', 1),
@@ -1225,7 +1213,7 @@ INSERT INTO `ghost_option` (`option_name`, `option_value`, `autoload`) VALUES
 ('version_TagManagerExtended', '5.0.10', 1),
 ('version_TasksTimetable', '5.0.1', 1),
 ('version_Tour', '5.1.0', 1),
-('version_TrackingSpamPrevention', '5.0.2', 1),
+('version_TrackingSpamPrevention', '5.0.3', 1),
 ('version_Transitions', '5.1.0', 1),
 ('version_TreemapVisualization', '5.0.1', 1),
 ('version_TwoFactorAuth', '5.1.0', 1),
@@ -1520,13 +1508,6 @@ CREATE TABLE `ghost_tagmanager_container` (
   `deleted_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
---
--- Dumping data for table `ghost_tagmanager_container`
---
-
-INSERT INTO `ghost_tagmanager_container` (`idcontainer`, `idsite`, `context`, `name`, `description`, `ignoreGtmDataLayer`, `status`, `created_date`, `updated_date`, `deleted_date`) VALUES
-('Tt6cFkAG', 1, 'web', 'Default Container', 'This container was auto generated when the website was created.', 0, 'active', '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1544,13 +1525,6 @@ CREATE TABLE `ghost_tagmanager_container_release` (
   `release_date` datetime NOT NULL,
   `deleted_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `ghost_tagmanager_container_release`
---
-
-INSERT INTO `ghost_tagmanager_container_release` (`idcontainerrelease`, `idcontainer`, `idcontainerversion`, `idsite`, `status`, `environment`, `release_login`, `release_date`, `deleted_date`) VALUES
-(1, 'Tt6cFkAG', 1, 1, 'active', 'live', 'super user was set', '2024-08-12 16:53:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -1574,10 +1548,6 @@ CREATE TABLE `ghost_tagmanager_container_version` (
 --
 -- Dumping data for table `ghost_tagmanager_container_version`
 --
-
-INSERT INTO `ghost_tagmanager_container_version` (`idcontainerversion`, `idcontainer`, `idsite`, `status`, `revision`, `name`, `description`, `created_date`, `updated_date`, `deleted_date`) VALUES
-(1, 'Tt6cFkAG', 1, 'active', 0, '', '', '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL),
-(2, 'Tt6cFkAG', 1, 'active', 1, '0.1.0 - Auto generated', '', '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -1606,14 +1576,6 @@ CREATE TABLE `ghost_tagmanager_tag` (
   `deleted_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
---
--- Dumping data for table `ghost_tagmanager_tag`
---
-
-INSERT INTO `ghost_tagmanager_tag` (`idtag`, `idcontainerversion`, `idsite`, `type`, `name`, `description`, `status`, `parameters`, `fire_trigger_ids`, `block_trigger_ids`, `fire_limit`, `priority`, `fire_delay`, `start_date`, `end_date`, `created_date`, `updated_date`, `deleted_date`) VALUES
-(1, 1, 1, 'Matomo', 'Pageview', '', 'active', '{\"matomoConfig\":\"{{Matomo Configuration}}\"}', '[1]', '', 'unlimited', 999, 0, NULL, NULL, '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL),
-(2, 2, 1, 'Matomo', 'Pageview', '', 'active', '{\"matomoConfig\":\"{{Matomo Configuration}}\",\"trackingType\":\"pageview\",\"idGoal\":\"\",\"goalCustomRevenue\":\"\",\"documentTitle\":\"\",\"customUrl\":\"\",\"isEcommerceView\":false,\"productSKU\":\"\",\"productName\":\"\",\"categoryName\":\"\",\"price\":\"\",\"eventCategory\":\"\",\"eventAction\":\"\",\"eventName\":\"\",\"eventValue\":\"\"}', '[2]', '', 'unlimited', 999, 0, NULL, NULL, '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1634,14 +1596,6 @@ CREATE TABLE `ghost_tagmanager_trigger` (
   `updated_date` datetime NOT NULL,
   `deleted_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `ghost_tagmanager_trigger`
---
-
-INSERT INTO `ghost_tagmanager_trigger` (`idtrigger`, `idcontainerversion`, `idsite`, `type`, `name`, `description`, `status`, `parameters`, `conditions`, `created_date`, `updated_date`, `deleted_date`) VALUES
-(1, 1, 1, 'PageView', 'Pageview', '', 'active', '', '', '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL),
-(2, 2, 1, 'PageView', 'Pageview', '', 'active', '', '', '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -1664,14 +1618,6 @@ CREATE TABLE `ghost_tagmanager_variable` (
   `updated_date` datetime NOT NULL,
   `deleted_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `ghost_tagmanager_variable`
---
-
-INSERT INTO `ghost_tagmanager_variable` (`idvariable`, `idcontainerversion`, `idsite`, `type`, `name`, `description`, `status`, `parameters`, `lookup_table`, `default_value`, `created_date`, `updated_date`, `deleted_date`) VALUES
-(1, 1, 1, 'MatomoConfiguration', 'Matomo Configuration', '', 'active', '', '', '', '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL),
-(2, 2, 1, 'MatomoConfiguration', 'Matomo Configuration', '', 'active', '{\"matomoUrl\":\"\\/\\/test11.ghostmetrics.cloud\\/\",\"idSite\":\"1\",\"enableLinkTracking\":true,\"enableMediaAnalytics\":true,\"enableFileTracking\":false,\"enableCrossDomainLinking\":false,\"crossDomainLinkingTimeout\":180,\"enableDoNotTrack\":false,\"disablePerformanceTracking\":false,\"enableJSErrorTracking\":false,\"enableHeartBeatTimer\":false,\"heartBeatTime\":15,\"trackAllContentImpressions\":false,\"trackVisibleContentImpressions\":false,\"disableCookies\":false,\"requireConsent\":false,\"requireCookieConsent\":false,\"customCookieTimeOutEnable\":false,\"customCookieTimeOut\":393,\"referralCookieTimeOut\":182,\"sessionCookieTimeOut\":30,\"setSecureCookie\":false,\"cookieDomain\":\"\",\"cookieNamePrefix\":\"_pk_\",\"cookiePath\":\"\",\"cookieSameSite\":\"Lax\",\"disableBrowserFeatureDetection\":false,\"disableCampaignParameters\":false,\"domains\":[],\"alwaysUseSendBeacon\":false,\"disableAlwaysUseSendBeacon\":false,\"userId\":\"\",\"customDimensions\":[],\"registerAsDefaultTracker\":true,\"bundleTracker\":true,\"jsEndpoint\":\"matomo.js\",\"jsEndpointCustom\":\"custom.js\",\"trackingEndpoint\":\"matomo.php\",\"trackingEndpointCustom\":\"custom.php\",\"appendToTrackingUrl\":\"\",\"forceRequestMethod\":false,\"requestMethod\":\"GET\",\"requestContentType\":\"application\\/x-www-form-urlencoded; charset=UTF-8\",\"customRequestProcessing\":\"\"}', '', '', '2024-08-12 16:53:39', '2024-08-12 16:53:39', NULL);
 
 -- --------------------------------------------------------
 
