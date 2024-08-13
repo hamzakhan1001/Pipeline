@@ -129,6 +129,8 @@ import ItemSetting from './ItemSetting.vue';
 import ItemSocial from './ItemSocial.vue';
 import ItemUser from './ItemUser.vue';
 import ItemReportsInvalidated from './ItemReportsInvalidated.vue';
+import ItemGoogleClientConfig from './ItemGoogleClientConfig.vue';
+import ItemGoogleAnalyticsImport from './ItemGoogleAnalyticsImport.vue';
 import ActivityLogStore from './ActivityLog.store';
 import Paging from './Paging.vue';
 import { Entry } from '../types';
@@ -149,6 +151,8 @@ const ITEM_TYPE_TO_COMPONENT: Record<string, ReturnType<typeof defineComponent>>
   social: ItemSocial,
   user: ItemUser,
   reportsinvalidated: ItemReportsInvalidated,
+  googleclientconfig: ItemGoogleClientConfig,
+  googleanalyticsimport: ItemGoogleAnalyticsImport,
 };
 
 interface ActivityLogState {

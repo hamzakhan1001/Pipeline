@@ -180,6 +180,24 @@ class ActivityLog extends \Piwik\Plugin
         $translationKeys[] = "ActivityLog_IgnoreLogDeletionLimit";
         $translationKeys[] = "ActivityLog_ReportsInvalidated";
         $translationKeys[] = "ActivityLog_InvalidateReports";
+        $translationKeys[] = "ActivityLog_GoogleClientConfig";
+        $translationKeys[] = "ActivityLog_ClientId";
+        $translationKeys[] = "ActivityLog_ProjectId";
+        $translationKeys[] = "ActivityLog_RedirectUris";
+        $translationKeys[] = "ActivityLog_JavascriptOrigins";
+        $translationKeys[] = "ActivityLog_GoogleAnalyticsImport";
+        $translationKeys[] = "ActivityLog_Property";
+        $translationKeys[] = "ActivityLog_Account";
+        $translationKeys[] = "ActivityLog_StreamIds";
+        $translationKeys[] = "ActivityLog_ImportStartDate";
+        $translationKeys[] = "ActivityLog_ImportEndDate";
+        $translationKeys[] = "ActivityLog_LastDayImported";
+        $translationKeys[] = "ActivityLog_LastDayArchived";
+        $translationKeys[] = "ActivityLog_ReImports";
+        $translationKeys[] = "ActivityLog_ExtraCustomDimensions";
+        $translationKeys[] = "ActivityLog_None";
+        $translationKeys[] = "ActivityLog_Dimension";
+        $translationKeys[] = "ActivityLog_Scope";
     }
 
     public static function supportsWriteRole()

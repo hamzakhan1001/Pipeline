@@ -163,6 +163,17 @@ Other plugins' activity log events:
     - Search engine removed
     - Social network added
     - Social network removed
+* Google Analytics Importer
+    - Google client config added
+    - Google client config removed
+    - Google client config authorised
+    - GA Import created
+    - GA Import resumed
+    - GA Import deleted
+    - GA Import re-import date range
+* Connect Accounts (Matomo Cloud)
+    - Google client config authorised for Cloud
+    - Google client config disabled for Cloud
     
 __Do I get access to the raw data that was tracked?__
 

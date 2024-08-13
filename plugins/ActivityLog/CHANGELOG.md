@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.3
+- Added new activities to track events from GA Importer
+
 5.0.2
 - Added code to log correct user for resetPassword action
 
