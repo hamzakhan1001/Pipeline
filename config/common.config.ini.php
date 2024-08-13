@@ -21,6 +21,7 @@ host = "email-smtp.us-east-1.amazonaws.com"
 type = "Plain"
 username = "AKIA4ZPFCZXYZEPTXX75"
 password = "BHSdJB5girLwZOMK383XLuzWyQoRZlNSoOSA4zx0/kpW"
+encryption = "tls"
 
 [database]
 host = "appghost.cyabb6bvejrw.us-east-1.rds.amazonaws.com"
