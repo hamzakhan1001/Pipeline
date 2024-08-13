@@ -1,0 +1,18 @@
+{% set startDateTimezone = null %}
+{% if experiment.start_date_site_timezone %}
+    {% set startDateTimezone %}{{ experiment.start_date_site_timezone|default('')|prettyDate('day')|json_encode }}{% endset %}
+{% endif %}
+
+{% set endDateTimezone = null %}
+{% if experiment.end_date_site_timezone %}
+    {% set endDateTimezone %}{{ experiment.end_date_site_timezone|default('')|prettyDate('day')|json_encode }}{% endset %}
+{% endif %}
+
+<div
+    vue-entry="AbTesting.SummaryPage"
+    experiment="{{ experiment|default(null)|json_encode }}"
+    is-admin="{{ isAdmin|default(false)|json_encode }}"
+    start-date-timezone="{{ startDateTimezone }}"
+    end-date-timezone="{{ endDateTimezone }}"
+    readable-period="{{ readablePeriod|default(null)|json_encode }}"
+></div>

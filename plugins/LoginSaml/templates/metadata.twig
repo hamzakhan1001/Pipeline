@@ -1,0 +1,18 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+
+<div>
+    <div
+        vue-entry="LoginSaml.Metadata"
+        metadata-error="{{ metadataError|default(null)|json_encode }}"
+        sp-entityid="{{ spEntityid|default(null)|json_encode }}"
+        acs="{{ acs|default(null)|json_encode }}"
+        sls="{{ sls|default(null)|json_encode }}"
+        x509cert="{{ x509cert|default(null)|json_encode }}"
+        metadata="{{ metadata|default(null)|json_encode }}"
+        metadata-url="{{ metadataUrl|default(null)|json_encode }}"
+    ></div>
+</div>
+
+{% endblock %}

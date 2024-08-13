@@ -1,0 +1,10 @@
+{
+    "LoginSaml": {
+        "Title": "SAML-Konfiguration",
+        "StatusSettings": "SAML-Status",
+        "OptionsFORCESAML": "SAML-Login erzwingen",
+        "AttributeMappingUSERNAME": "Login (Benutzername)",
+        "AttributeMappingEMAIL": "E-Mail",
+        "AdvancedDEBUG": "Debug-Modus"
+    }
+}

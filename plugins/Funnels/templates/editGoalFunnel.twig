@@ -1,0 +1,8 @@
+<hr />
+<div class="row">
+    <div class="col s12">
+        <h3>{{ 'Funnels_Funnel'|translate }}</h3>
+        <div vue-entry="Funnels.ManageFunnel" goals="{{ goals|default([])|json_encode|e('html_attr') }}"></div>
+    </div>
+</div>
+<hr />

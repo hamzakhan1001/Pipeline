@@ -1,0 +1,25 @@
+.crashLog {
+  position: relative;
+
+  .dataTableAction, .limitSelection {
+    visibility: hidden;
+  }
+
+  .dataTableFeatures:hover {
+    .dataTableAction,.limitSelection {
+      visibility: visible;
+    }
+  }
+
+  .simplePeriodSelector {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    margin-bottom: 16px;
+
+    .dropdown {
+      right: 0;
+      bottom: 100%;
+    }
+  }
+}

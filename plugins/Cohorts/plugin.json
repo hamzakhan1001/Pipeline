@@ -1,0 +1,22 @@
+{
+    "name": "Cohorts",
+    "description": "Track your retention efforts over time and keep your visitors engaged and coming back for more.",
+    "version": "5.0.9",
+    "theme": false,
+    "require": {
+        "piwik": ">=5.0.0-rc5,<6.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "InnoCraft",
+            "email": "contact@innocraft.com",
+            "homepage": "https:\/\/www.innocraft.com"
+        }
+    ],
+    "price": {
+        "base": 85
+    },
+    "homepage": "https:\/\/plugins.matomo.org\/Cohorts",
+    "license": "InnoCraft EULA",
+    "keywords": ["cohorts", "retention", "user segments", "goals"]
+}

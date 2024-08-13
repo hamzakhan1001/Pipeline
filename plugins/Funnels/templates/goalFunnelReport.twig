@@ -1,0 +1,17 @@
+<div
+    vue-entry="Funnels.GoalFunnelReport"
+    funnel="{{ funnel|default(null)|json_encode }}"
+    funnel-flow="{{ funnelFlow|default({})|json_encode }}"
+    has-been-purged="{{ hasBeenPurged|default(null)|json_encode }}"
+    delete-reports-older-than="{{ deleteReportsOlderThan|default(null)|json_encode }}"
+    segment="{{ segment|default(null)|json_encode }}"
+    id-site="{{ idSite|default(null)|json_encode }}"
+    is-visitor-log-enabled="{{ isVisitorLogEnabled|default(null)|json_encode }}"
+></div>
+
+<style type="text/css">
+    {# we cannot add this to report.less because we only want to hide it the compare container in row evolution when this page is viewed #}
+    .ui-dialog .compare-container {
+        display:none;
+    }
+</style>

@@ -1,0 +1,16 @@
+{% if experiments|length %}
+  {% for experiment in experiments %}
+   <div
+       vue-entry="CoreHome.WidgetLoader"
+       widget-params="{{ ({
+           module: 'AbTesting',
+           action: 'getMetricsOverview',
+           idExperiment: experiment.idexperiment,
+           showSummary: 1,
+           idSite: idSite,
+       })|json_encode }}"
+   ></div>
+  {% endfor %}
+{% else %}
+    <p>{{ 'AbTesting_NoActiveExperiment'|translate }}</p>
+{% endif %}

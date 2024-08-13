@@ -1,0 +1,15 @@
+
+
+{{ 'CrashAnalytics_Crash'|translate }}: {{ action.message }}
+{% if action.stackTrace|default is empty %}
+&nbsp;&nbsp;&nbsp;&nbsp;at {{ action.resourceUri }}{% if action.resourceLine is defined and action.resourceColumn is defined %}:{{ action.resourceLine }}:{{ action.resourceColumn }}{% endif %}
+
+{% else %}
+&nbsp;&nbsp;&nbsp;&nbsp;{{ action.stackTrace|trim("\n", 'right')|e('html')|replace({"\n": "\n&nbsp;&nbsp;&nbsp;&nbsp;"})|raw }}
+{% endif %}
+{{ 'CrashAnalytics_Category'|translate }}: {{ action.category|default('CrashAnalytics_None'|translate) }}
+
+{{ 'CrashAnalytics_FirstSeen'|translate }}: {{ action.datetimeOccurredFirst }}
+{{ 'CrashAnalytics_LastSeen'|translate }}: {{ action.datetimeLastSeen }}{% if action.datetimeLastReappeared %}
+{{ 'CrashAnalytics_LastReappeared'|translate }}: {{ action.datetimeLastReappeared }}{% endif %}{% if action.datetimeIgnoredError is not empty %}
+{{ 'CrashAnalytics_IgnoredOn'|translate }}: {{ action.datetimeIgnoredError }}{% endif %}

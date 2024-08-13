@@ -1,0 +1,12 @@
+#MultiChannelConversionAttributionPluginSettings .multiPairFieldTable:nth-child(n+4) {
+    display: none !important;
+}
+
+#MultiChannelConversionAttributionPluginSettings .icon-minus {
+    display: none !important;
+}
+
+#MultiChannelConversionAttributionPluginSettings label[for="campaignDimensionCombination"] {
+    font-size: 13px !important;
+    color: unset !important;
+}

@@ -1,0 +1,7 @@
+<li class="crash-action"
+    title="{{ postEvent('Live.renderActionTooltip', action, visitInfo) }}">
+    <div>
+        <img src="{{ action.iconSVG|default(action.icon) }}" class="action-list-action-icon"/>
+        <span class="truncated-text-line">{{ action.title }}</span>
+    </div>
+</li>

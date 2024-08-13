@@ -1,0 +1,11 @@
+<div
+    vue-entry="Funnels.FunnelSummary"
+    funnel="{{ funnel|default(null)|json_encode }}"
+    goals-summary="{{ goalsSummary|default({})|json_encode }}"
+    is-visitor-log-enabled="{{ isVisitorLogEnabled|default(null)|json_encode }}"
+    segment="{{ segment|default(null)|json_encode }}"
+    pattern-translations="{{ patternTranslations|default(null)|json_encode }}"
+    funnel-flow="{{ funnelFlow|default({})|json_encode }}"
+    is-non-goal-funnel="{{ isNonGoalFunnel|default(false)|json_encode }}"
+    user-can-edit-funnels="{{ userCanEditFunnels|default(false)|json_encode }}"
+></div>

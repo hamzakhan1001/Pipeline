@@ -1,0 +1,97 @@
+.dataTable {
+  .actionMergeCrashes img {
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.mergeCrashes {
+  h2 {
+    text-align: left;
+    line-height: 1.3em;
+  }
+
+  p {
+    max-width: 850px;
+    font-size: .8em;
+    margin-bottom: 1em;
+  }
+
+  .pagination {
+    text-align: center;
+
+    a {
+      font-size: .7em;
+      color: #1976d2;
+    }
+
+    margin-bottom: 1em;
+
+    .divider {
+      margin-left: 12px;
+      margin-right: 12px;
+
+      &.disabled {
+        visibility: hidden;
+      }
+    }
+
+    a.disabled {
+      pointer-events: none;
+      visibility: hidden;
+    }
+  }
+
+  .footer {
+    text-align: right;
+
+    .modal-no {
+      font-size: .7em;
+      margin-left: 8px;
+      margin-right: 8px;
+      color: #1976d2;
+    }
+  }
+
+  .crashSearch {
+    table {
+      tbody {
+        td:first-child {
+          width: 60px;
+
+          [type="checkbox"] + span:not(.lever) {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+
+    &.loading {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}
+
+.confirmMergeCrashes {
+  ul {
+    font-size: 14px;
+    margin-bottom: 32px;
+    margin-top: 32px;
+  }
+
+  p {
+    line-height: 1.6em;
+  }
+
+  .alert {
+    margin-bottom: 0;
+
+    p {
+      margin-top: 0;
+    }
+  }
+}

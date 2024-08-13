@@ -1,0 +1,25 @@
+{% if showInconsistentDataAlertMessage %}
+<div class="system notification notification-info" id="inconsistentDataAlert">
+    {{ showInconsistentDataAlertMessage|raw }}
+</div>
+{% endif %}
+{% if not isWidgetized %}<div class="card"><div class="card-content">{% endif %}
+
+<div
+  vue-entry="MultiChannelConversionAttribution.ReportAttribution"
+  is-widgetized="{{ (isWidgetized == 1)|default(null)|json_encode|e('html_attr') }}"
+  report-help="{{ reportHelp|default(null)|json_encode|e('html_attr') }}"
+  goals="{{ goals|default([])|json_encode|e('html_attr') }}"
+  no-goal-enabled-message-key="{{ noGoalEnabledMessageKey|json_encode }}"
+  first-goal="{{ firstGoal|default(null)|json_encode|e('html_attr') }}"
+  campaign-dimension-combination-options="{{ campaignDimensionCombinationOptions|default(null)|json_encode|e('html_attr') }}"
+  default-campaign-dimension-combination="{{ defaultCampaignDimensionCombination|default(null)|json_encode|e('html_attr') }}"
+  selected-models="{{ selectedModels|default(null)|json_encode|e('html_attr') }}"
+  attribution-models="{{ attributionModels|default(null)|json_encode|e('html_attr') }}"
+  attribution-models-cancelable="{{ attributionModelsCancelable|default(null)|json_encode|e('html_attr') }}"
+  report-html="{{ report|raw|e('html_attr') }}"
+  settings-url="{{ settingsUrl|raw|e('html_attr')  }}"
+>
+</div>
+
+{% if not isWidgetized %}</div></div>{% endif %}

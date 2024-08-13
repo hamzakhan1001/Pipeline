@@ -1,0 +1,22 @@
+{
+    "name": "SEOWebVitals",
+    "description": "Improve your website performance, rank higher in search results and optimise your visitor experience with SEO Web Vitals.",
+    "version": "5.0.6",
+    "theme": false,
+    "require": {
+        "matomo": ">=5.0.0-rc5,<6.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "InnoCraft",
+            "email": "contact@innocraft.com",
+            "homepage": "https://www.innocraft.com"
+        }
+    ],
+    "price": {
+        "base": 75
+    },
+    "homepage": "https://matomo.org",
+    "license": "InnoCraft EULA",
+    "keywords": ["seo", "web vitals", "vitals", "performance", "search", "google", "engine", "optimisation", "optimization"]
+}

@@ -1,0 +1,28 @@
+{
+    "name": "CrashAnalytics",
+    "description": "Detect crashes to improve the user experience, increase conversions and recover revenue. Resolve them with insights to minimise developer hours.",
+    "version": "5.0.2",
+    "theme": false,
+    "require": {
+        "matomo": ">=5.0.0-b5,<6.0.0-b1"
+    },
+    "price": {
+        "base": 140
+    },
+    "preview": {
+        "demo_url": "https://demo.matomo.cloud/index.php?module=CoreHome&action=index&idSite=1&period=day&date=yesterday#?idSite=1&period=day&date=yesterday&category=CrashAnalytics_Crashes&subcategory=CrashAnalytics_Overview"
+    },
+    "authors": [
+        {
+            "name": "InnoCraft",
+            "email": "contact@innocraft.com",
+            "homepage": "https://www.innocraft.com"
+        }
+    ],
+    "archive": {
+        "exclude": ["/tracker.js"]
+    },
+    "homepage": "https://plugins.matomo.org/CrashAnalytics",
+    "license": "InnoCraft EULA",
+    "keywords": ["crash", "error", "javascript", "monitoring", "monitor", "exception", "php", "js", "log"]
+}
