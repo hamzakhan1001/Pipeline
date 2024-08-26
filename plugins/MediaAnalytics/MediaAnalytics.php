@@ -5,7 +5,7 @@
  * Description: Grow your business with advanced video & audio analytics. Get powerful insights into how your audience watches your videos and listens to your audio.
  * Author: InnoCraft
  * Author URI: https://www.media-analytics.net
- * Version: 5.0.8
+ * Version: 5.0.9
  */
 ?><?php
 /**
