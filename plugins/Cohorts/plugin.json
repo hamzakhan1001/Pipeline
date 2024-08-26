@@ -1,7 +1,7 @@
 {
     "name": "Cohorts",
     "description": "Track your retention efforts over time and keep your visitors engaged and coming back for more.",
-    "version": "5.0.9",
+    "version": "5.0.10",
     "theme": false,
     "require": {
         "piwik": ">=5.0.0-rc5,<6.0.0-b1"
@@ -14,7 +14,7 @@
         }
     ],
     "price": {
-        "base": 85
+        "base": 94
     },
     "homepage": "https:\/\/plugins.matomo.org\/Cohorts",
     "license": "InnoCraft EULA",

@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.5 - 2024-08-26
+- Pricing updated
+
 5.0.4
 - Added code to ignore direct entry for non-direct model, If data for non-direct is present
 

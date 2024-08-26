@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.4 - 2024-08-26
+- Pricing updated
+
 5.0.3
 - Added new activities to track events from GA Importer
 

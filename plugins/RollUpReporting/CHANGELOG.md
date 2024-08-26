@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.5 - 2024-08-26
+- Pricing updated
+
 5.0.4
 - Added plugin category for Marketplace
 

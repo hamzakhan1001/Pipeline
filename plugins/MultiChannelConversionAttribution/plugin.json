@@ -1,7 +1,7 @@
 {
     "name": "MultiChannelConversionAttribution",
     "description": "Get a clear understanding of how much credit each of your marketing channel is actually responsible for to shift your marketing efforts wisely.",
-    "version": "5.0.4",
+    "version": "5.0.5",
     "theme": false,
     "require": {
        "matomo": ">=5.0.0-rc5,<6.0.0-b1"
@@ -14,7 +14,7 @@
         }
     ],
     "price": {
-        "base": 75
+        "base": 83
     },
      "preview": {
     "video_url": "https://www.youtube-nocookie.com/embed/0_f_6sNQMSM",

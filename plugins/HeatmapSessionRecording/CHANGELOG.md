@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.6 - 2024-08-26
+- Pricing updated
+
 5.1.5
 - Added cover image for marketplace
 

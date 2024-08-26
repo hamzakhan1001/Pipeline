@@ -1,5 +1,9 @@
 ## Changelog
 
+5.3.4 - 2024-08-26
+- Restrict Tooltip component's CSS to apply only within Funnels plugin
+- Pricing update
+
 5.3.3
 - Fixed issue where yesterday didn't archive when a funnel was updated
 - Fixed issue with report metadata preventing Matomo mobile app from loading specific reports

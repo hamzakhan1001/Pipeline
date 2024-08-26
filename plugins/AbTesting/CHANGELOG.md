@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.4 - 2024-08-26
+- Pricing updated
+
 5.1.3
 - Add cover image for marketplace
 - Added code to skip setting campaign parameters instead of initializing environment

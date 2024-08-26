@@ -1,6 +1,6 @@
 {
   "name": "LoginSaml",
-  "version": "5.0.7",
+  "version": "5.0.8",
   "description": "Provides SAML support for Matomo. Compatible with any Identity Provider such as OneLogin, Okta, Ping Identity, ADFS, Google, Salesforce, SharePoint.",
   "theme": false,
   "require": {
@@ -15,7 +15,7 @@
     }
   ],
   "price": {
-    "base": 500
+    "base": 550
   },
   "homepage": "https://plugins.matomo.org/LoginSaml",
   "license": "InnoCraft EULA",

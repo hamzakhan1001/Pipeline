@@ -1,0 +1,25 @@
+{
+  "name": "WooCommerceAnalytics",
+  "description": "Drive more revenue, improve your sales funnel, and get accurate insights with our Matomo Analytics Ecommerce tracking integration for your WooCommerce",
+  "version": "5.1.2",
+  "theme": false,
+  "require": {
+    "matomo": ">=5.0.0-rc5,<6.0.0-b1"
+  },
+  "authors": [
+    {
+      "name": "InnoCraft",
+      "email": "contact@innocraft.com",
+      "homepage": "https://www.innocraft.com"
+    }
+  ],
+  "price": {
+    "base": 39
+  },
+  "archive": {
+    "exclude": ["/update_zip.sh"]
+  },
+  "homepage": "https://plugins.matomo.org/WooCommerceAnalytics",
+  "license": "InnoCraft EULA",
+  "keywords": ["woocommerce", "wordpress", "shop", "ecommerce", "integration", "piwik", "matomo", "cart", "purchases", "order"]
+}

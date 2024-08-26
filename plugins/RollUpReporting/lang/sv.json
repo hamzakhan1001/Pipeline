@@ -1,1 +1,18 @@
-{}
+{
+    "RollUpReporting": {
+        "ErrorCannotAssignRollUpToAnotherRollUp": "Det går inte att ange Roll-Up idsite %1$s till denna Roll-Up eftersom Roll-Up idsite %2$s redan inkluderar den webbplats du just nu uppdaterar.",
+        "ErrorNoSiteAssigned": "Åtminstone en barn-webbplats behöver anges till en Roll-Up webbplats",
+        "FindMeasurables": "Hitta uppgifter",
+        "FunnelCreationNotPossible": "Det är inte möjligt att skapa en konverteringstratt för en Roll-Up webbplats",
+        "GoalCreationNotPossible": "Det är inte möjligt att skapa mål för en Roll-Up webbplats",
+        "MatchingSearchConfirmTitle": "Är du säker på att du vill lägga till %s som matchar uppgifterna?",
+        "MatchingSearchConfirmTitleAlreadyAdded": "%s matchande uppgifter har redan lagts till",
+        "MatchingSearchMatchedAdd": "Dessa %1$s uppgifter matchade %2$s och kommer läggas till på denna Roll-Up",
+        "MatchingSearchNotFound": "Det finns ingen uppgift som matchar sökfrasen %s.",
+        "NoMeasurableAssignedYet": "Inga uppgifter har tilldelats ännu, vänligen välj en uppgift från ovanstående alternativ.",
+        "RollUpMeasurableSettingTitle": "Källa för uppgifterna",
+        "SelectMeasurable": "Välj en uppgift att lägga till denna Roll-Up",
+        "SelectMeasurablesMatchingSearch": "eller lägg till alla uppgifter som innehåller följande sökfras",
+        "SystemSettingCreationDateSyncTitle": "Synkronisera skapandedatum"
+    }
+}

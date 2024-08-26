@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.1.3__ - 2024-08-26
+- Pricing updated
+
 __5.1.2__
 * Added code to allow setting consent status via SystemSetting for Google export
 

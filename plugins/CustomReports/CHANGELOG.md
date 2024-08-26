@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.16 - 2024-08-26
+- Pricing updated
+
 5.0.15
 - Improved validation for dimensions being added to look for allowed dimensions
 

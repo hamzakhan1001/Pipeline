@@ -1,6 +1,6 @@
 {
   "name": "AbTesting",
-  "version": "5.1.3",
+  "version": "5.1.4",
   "description": "Increase revenue and conversions by comparing different versions of your websites or apps & detect the winning variation that will grow your business!",
   "theme": false,
   "require": {
@@ -14,7 +14,7 @@
     }
   ],
   "price": {
-    "base": 200
+    "base": 220
   },
   "archive": {
     "exclude": ["/tracker.js"]

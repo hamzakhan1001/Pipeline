@@ -1,1 +1,20 @@
-{}
+{
+    "MediaAnalytics": {
+        "AudioHours": "Ljud per timme i webbplatsens tidszon",
+        "AudioResources": "Ljudresurs URLer",
+        "ColumnFinishes": "Slutförare",
+        "ColumnImpressions": "Visningar",
+        "ColumnPlays": "Spelningar",
+        "ColumnTotalAudioPlays": "Antal ljudspelningar",
+        "ColumnTotalTimeWatched": "Tid spenderad på media",
+        "ColumnTotalVideoPlays": "Antal videospelningar",
+        "Hour": "Timme",
+        "Media": "Media",
+        "MediaType": "Mediatyp",
+        "Names": "Namn",
+        "PluginDescription": "Mediaanalys-plugin",
+        "Resources": "Resurser",
+        "VideoHours": "Videos per timme i webbplatsens tidszon",
+        "VideoResources": "Videoresurs URLer"
+    }
+}

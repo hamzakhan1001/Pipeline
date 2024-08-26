@@ -1,0 +1,7 @@
+[
+  {
+    "title": "Automatic product view tracking",
+    "description": "Now product views will automatically be tracked as long as you are using the Matomo JavaScript tracker to track pageviews.",
+    "version": "5.1.0"
+  }
+]
