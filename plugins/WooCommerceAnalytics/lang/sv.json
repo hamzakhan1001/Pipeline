@@ -1,0 +1,14 @@
+{
+    "WooCommerceAnalytics": {
+        "DownloadPlugin": "Ladda ner WooCommerce-plugin",
+        "InstallActivatePlugin": "Aktivera pluginet direkt efter installation eller under \"Plugins\".",
+        "InstallConfigure": "Konfigurera din Matomo-instans och aktivera spårning.",
+        "InstallDownload2": "Ladda ner \"%1$s WooCommerce Analytics\" pluginet nedan.",
+        "InstallGoSettings2": "Gå till \"WooCommerce =&gt; Inställningar =&gt; %1$s\".",
+        "InstallLoginWordPress": "Logga in på din WordPress / WooCommerce.",
+        "InstallWordPress": "Installera det nedladdade pluginet genom att gå till \"Plugins =&gt; Lägg till =&gt; Ladda upp plugin\".",
+        "UpdatingPlugin": "Uppdaterar pluginet i WooCommerce",
+        "WoocommerceIntegration": "Integration av WooCommerce",
+        "WoocommercePluginDescription": "Spåra WooCommerce-ordrar och kundvagnsuppdateringar till din Matomo."
+    }
+}

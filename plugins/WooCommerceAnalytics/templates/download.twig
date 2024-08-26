@@ -1,0 +1,7 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+    <div vue-entry="WooCommerceAnalytics.Download"
+         download-link="{{ linkTo({'action': 'download', 'module': 'WooCommerceAnalytics'}) }}">
+    </div>
+{% endblock %}
