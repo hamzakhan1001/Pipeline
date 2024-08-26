@@ -5,7 +5,7 @@
  * Description: Users Flow is a visual representation of the most popular paths your users take through your website & app which lets you understand your users needs
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/UsersFlow
- * Version: 5.0.3
+ * Version: 5.0.4
  */
 ?><?php
 /**
