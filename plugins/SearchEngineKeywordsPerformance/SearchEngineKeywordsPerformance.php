@@ -5,7 +5,7 @@
  * Description: All keywords searched by your users on search engines are now visible into your Referrers reports! The ultimate solution to 'Keyword not defined'.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/SearchEngineKeywordsPerformance
- * Version: 5.0.14
+ * Version: 5.0.15
  */
 ?><?php
 

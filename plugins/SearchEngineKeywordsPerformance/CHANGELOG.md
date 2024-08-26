@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.0.15__ - 2024-08-26
+- Pricing updated
+
 __5.0.14__
 * Added isReportEnabled check in API methods to prevent creating empty archives with done flag
 
