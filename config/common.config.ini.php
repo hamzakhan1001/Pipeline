@@ -28,8 +28,8 @@ host = "appghost.cyabb6bvejrw.us-east-1.rds.amazonaws.com"
 tables_prefix = "ghost_"
 schema = "Mariadb"
 charset = "utf8mb4"
+adapter = "MYSQLI"
 
 ; Do not allow users to trigger the Matomo archiving process.
 ; Ensures that no unexpected data processing triggers from UI or API.
 enable_browser_archiving_triggering = 0
-
