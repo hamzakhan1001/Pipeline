@@ -5,7 +5,7 @@
  * Description: Improve your website performance, rank higher in search results and optimise your visitor experience with SEO Web Vitals.
  * Author: InnoCraft
  * Author URI: https://matomo.org
- * Version: 5.0.6
+ * Version: 5.0.7
  */
 ?><?php
 /**
