@@ -1,1 +1,32 @@
-{}
+{
+    "FormAnalytics": {
+        "ColumnAvgFieldSize": "Genomsnittlig fältstorlek",
+        "ColumnAvgFieldSizeConverted": "Genomsnittlig fältstorlek vid konvertering",
+        "ColumnAvgFieldSizeSubmit": "Genomsnittlig fältstorlek vid postning",
+        "ColumnAvgHesitationTime": "Genomsnittlig tvekantid",
+        "ColumnAvgTimeSpent": "Genomsnittlig spenderad tid",
+        "ColumnAvgTimeToConversion": "Genomsnittlig tid innan konvertering i formulär",
+        "ColumnAvgTimeToFirstSubmit": "Genomsnittlig tid innan formulär postas",
+        "ColumnFormAvgHesitationTime": "Formulärets genomsnittliga tvekantid",
+        "ColumnFormAvgTimeSpent": "Genomsnittlig spenderad tid med formulär",
+        "ColumnFormConversionRate": "Formulärs konverteringsgrad",
+        "ColumnFormConversions": "Formulärkonverteringar",
+        "ColumnFormResubmitters": "Återsändare av formulär",
+        "ColumnFormStarters": "Formulärstartare",
+        "ColumnFormStarts": "Formulärstarter",
+        "ColumnFormSubmissions": "Inskickade formulär",
+        "ColumnFormSubmitters": "Inskickare av formulär",
+        "ColumnFormViewers": "Formulärtittare",
+        "ColumnFormViews": "Formulärvisningar",
+        "ColumnHesitationTime": "Tvekan i tid",
+        "ColumnTimeSpent": "Tid spenderad",
+        "ColumnTimeToConversion": "Tid innan formulärkonvertering",
+        "ColumnTimeToFirstSubmit": "Tid innan formulär postas",
+        "EditForm": "Redigera formulär",
+        "Filter": "Filter",
+        "GettingStarted": "Kom igång",
+        "NForms": "%s formulär",
+        "NoFormsFound": "Inga formulär hittades",
+        "Status": "Status"
+    }
+}
