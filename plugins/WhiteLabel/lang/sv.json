@@ -1,1 +1,14 @@
-{}
+{
+    "WhiteLabel": {
+        "SettingBrandNameInvalidChar": "Tecknet %s tillåts inte i ett produktnamn eller varumärke.",
+        "SettingBrandNameMaxLen": "Maximalt %s tecken tillåts för varumärke / produktnamn.",
+        "SettingBrandNameTitle": "Anpassat varumärke / produktnamn",
+        "SettingColorHelp": "Vänligen ange ett hexadecimalt värde, exempelvis \"ffffff\".",
+        "SettingEnableWhatsNewSectionDescription": "Om aktiverad kommer nyhetssektionen visas i den övre menyn.",
+        "SettingEnableWhatsNewSectionTitle": "Aktivera nyhetssektionen",
+        "SettingHeaderBackgroundColor": "Rubrikens bakgrundsfärg",
+        "SettingHeaderFontColor": "Rubrikens textfärg",
+        "SettingMarketplaceOnlySuperUserTitle": "Visa marknadsplatsen endast för superanvändare",
+        "SettingRemoveLinksToMatomo": "Nyhet: Ta bort länkar till matomo.org (experimentellt)"
+    }
+}
