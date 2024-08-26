@@ -13,161 +13,163 @@
   @license For license details see https://www.innocraft.com/license
 -->
 <template>
-  <ContentBlock>
-    <div class="funnelReportHeader">
-      <h2>
-        <EnrichedHeadline feature-name="Funnels" :inline-help="getFunnelReportHelpText">
-          {{ translate('Funnels_FunnelReport') }}
-        </EnrichedHeadline>
-      </h2>
-      <div class="legend" v-if="getFunnelSteps.length">
-        <div class="items" v-if="metadata.has_multiple_valid_segments"
-             :style="metadata.has_period_comparison
-             ? `grid-template-columns: repeat(${columnsPerRow}, auto);`
-             : 'grid-template-columns: repeat(3, auto);'">
-        <div class="item" v-for="(value, segmentKey) in metadata.segments" :key="segmentKey"
-               :title="parseLegendText(segmentKey).hover">
-            <div class="colorBoxSplit"></div>
-            <div class="text">
-              <span class="title">
-                {{ parseLegendText(segmentKey).title }}
-              </span>
-              <span class="subtitle" v-if="metadata.has_period_comparison">
-                {{ parseLegendText(segmentKey).subtitle }}
-              </span>
+  <div class="funnelReport">
+    <ContentBlock>
+      <div class="funnelReportHeader">
+        <h2>
+          <EnrichedHeadline feature-name="Funnels" :inline-help="getFunnelReportHelpText">
+            {{ translate('Funnels_FunnelReport') }}
+          </EnrichedHeadline>
+        </h2>
+        <div class="legend" v-if="getFunnelSteps.length">
+          <div class="items" v-if="metadata.has_multiple_valid_segments"
+               :style="metadata.has_period_comparison
+               ? `grid-template-columns: repeat(${columnsPerRow}, auto);`
+               : 'grid-template-columns: repeat(3, auto);'">
+          <div class="item" v-for="(value, segmentKey) in metadata.segments" :key="segmentKey"
+                 :title="parseLegendText(segmentKey).hover">
+              <div class="colorBoxSplit"></div>
+              <div class="text">
+                <span class="title">
+                  {{ parseLegendText(segmentKey).title }}
+                </span>
+                <span class="subtitle" v-if="metadata.has_period_comparison">
+                  {{ parseLegendText(segmentKey).subtitle }}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="items" v-else>
-          <div v-if="metadata.has_proceeded" class="item">
-            <div class="colorBoxProceeded"></div>
-            <div class="text">
-              <span class="title">{{ translate('Funnels_Progressions') }}</span>
+          <div class="items" v-else>
+            <div v-if="metadata.has_proceeded" class="item">
+              <div class="colorBoxProceeded"></div>
+              <div class="text">
+                <span class="title">{{ translate('Funnels_Progressions') }}</span>
+              </div>
             </div>
-          </div>
-          <div v-if="metadata.has_entries" class="item">
-            <div class="colorBoxEntries"></div>
-            <div class="text">
-              <span class="title">{{ translate('Funnels_Entries') }}</span>
+            <div v-if="metadata.has_entries" class="item">
+              <div class="colorBoxEntries"></div>
+              <div class="text">
+                <span class="title">{{ translate('Funnels_Entries') }}</span>
+              </div>
             </div>
-          </div>
-          <div v-if="metadata.has_skipped" class="item">
-            <div class="colorBoxSkipped"></div>
-            <div class="text">
-              <span class="title">{{ translate('Funnels_Skips') }}</span>
+            <div v-if="metadata.has_skipped" class="item">
+              <div class="colorBoxSkipped"></div>
+              <div class="text">
+                <span class="title">{{ translate('Funnels_Skips') }}</span>
+              </div>
             </div>
-          </div>
-          <div v-if="metadata.has_exits" class="item">
-            <div class="colorBoxExits"></div>
-            <div class="text">
-              <span class="title">{{ translate('Funnels_DropOff') }}</span>
+            <div v-if="metadata.has_exits" class="item">
+              <div class="colorBoxExits"></div>
+              <div class="text">
+                <span class="title">{{ translate('Funnels_DropOff') }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <table id="funnelConversionTable" v-if="getFunnelSteps.length">
-      <thead>
-      <tr>
-        <th v-for="(step, index) in metadata.steps" :key="step">
-          <div class="stepTitle">{{ translate('Funnels_Step') }} {{ index + 1 }}</div>
-          <div class="stepLabel">{{ step }}</div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td v-for="(segments, stepIndex) in getFunnelSteps" :key="stepIndex">
-          <div class="cellLabel">{{ translate('General_ColumnNbVisits') }}</div>
-          <div class="metricCount">
-            {{ formatAbbr(getFirstSegmentStep(stepIndex).step_nb_visits) }}
-          </div>
-          <div class="barsContainer">
-            <div v-for="(segment, segmentKey) in segments" :key="segmentKey"
-                 class="barStepContainer">
-              <div class="barStep">
-                <div class="barProceeded"
-                     :style="{ height: getBarHeight('proceeded', stepIndex, segment) }"
-                     @mouseenter=
+      <table id="funnelConversionTable" v-if="getFunnelSteps.length">
+        <thead>
+        <tr>
+          <th v-for="(step, index) in metadata.steps" :key="step">
+            <div class="stepTitle">{{ translate('Funnels_Step') }} {{ index + 1 }}</div>
+            <div class="stepLabel">{{ step }}</div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td v-for="(segments, stepIndex) in getFunnelSteps" :key="stepIndex">
+            <div class="cellLabel">{{ translate('General_ColumnNbVisits') }}</div>
+            <div class="metricCount">
+              {{ formatAbbr(getFirstSegmentStep(stepIndex).step_nb_visits) }}
+            </div>
+            <div class="barsContainer">
+              <div v-for="(segment, segmentKey) in segments" :key="segmentKey"
+                   class="barStepContainer">
+                <div class="barStep">
+                  <div class="barProceeded"
+                       :style="{ height: getBarHeight('proceeded', stepIndex, segment) }"
+                       @mouseenter=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'proceeded', 'show')"
-                     @mousemove=
+                       @mousemove=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'proceeded', 'move')"
-                     @mouseleave=
+                       @mouseleave=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'proceeded', 'hide')">
-                </div>
-                <div class="barEntries"
-                     :style="getBarHeight('entries', stepIndex, segment) === '0%'
-                      ? { display: 'none' }
-                      : { height: getBarHeight('entries', stepIndex, segment) }"
-                     @mouseenter=
+                  </div>
+                  <div class="barEntries"
+                       :style="getBarHeight('entries', stepIndex, segment) === '0%'
+                        ? { display: 'none' }
+                        : { height: getBarHeight('entries', stepIndex, segment) }"
+                       @mouseenter=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'entries', 'show')"
-                     @mousemove=
+                       @mousemove=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'entries', 'move')"
-                     @mouseleave=
+                       @mouseleave=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'entries', 'hide')">
-                </div>
-                <div class="barSkipped"
-                     :style="getBarHeight('skipped', stepIndex, segment) === '0%'
-                      ? { display: 'none' }
-                      : { height: getBarHeight('skipped', stepIndex, segment) }"
-                     @mouseenter=
+                  </div>
+                  <div class="barSkipped"
+                       :style="getBarHeight('skipped', stepIndex, segment) === '0%'
+                        ? { display: 'none' }
+                        : { height: getBarHeight('skipped', stepIndex, segment) }"
+                       @mouseenter=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'skipped', 'show')"
-                     @mousemove=
+                       @mousemove=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'skipped', 'move')"
-                     @mouseleave=
+                       @mouseleave=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'skipped', 'hide')">
-                </div>
-                <div class="barExits"
-                     :style="getBarHeight('exits', stepIndex, segment) === '0%'
-                      ? { display: 'none' }
-                      : { height: getBarHeight('exits', stepIndex, segment) }"
-                     @mouseenter=
+                  </div>
+                  <div class="barExits"
+                       :style="getBarHeight('exits', stepIndex, segment) === '0%'
+                        ? { display: 'none' }
+                        : { height: getBarHeight('exits', stepIndex, segment) }"
+                       @mouseenter=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'exits', 'show')"
-                     @mousemove=
+                       @mousemove=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'exits', 'move')"
-                     @mouseleave=
+                       @mouseleave=
                        "handleTooltip($event, segmentKey, stepIndex, segment, 'exits', 'hide')">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td v-for="(segments, stepIndex) in getFunnelSteps" :key="stepIndex">
-          <div class="cellLabel">
-            {{ getBottomLabel(getFunnelSteps.length === stepIndex + 1) }}
-          </div>
-          <div :class="getMetricValueClasses(getFunnelSteps.length === stepIndex + 1)">
-            <span class="metricCount">
-              {{ formatAbbr(getBottomMetric(stepIndex, getFirstSegmentStep(stepIndex))) }}
-            </span>
-            <span class="metricRate">
-              ({{ getBottomRate(stepIndex, getFirstSegmentStep(stepIndex)) }})
-            </span>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <p v-else>
-      <strong>{{ translate('CoreHome_ThereIsNoDataForThisReport') }}</strong>
-      <br />
-      <span>
-        {{ translate('Funnels_FunnelReportNotGeneratedYet') }}
-      </span>
-    </p>
-  </ContentBlock>
-  <Tooltip
-      ref="tooltip"
-      :title="tooltipTitle"
-      :subtitle="tooltipSubtitle"
-      :exits="tooltipExits"
-      :skipped="tooltipSkipped"
-      :entries="tooltipEntries"
-      :proceeded="tooltipProceeded"
-      :type="tooltipType"
-  />
+          </td>
+        </tr>
+        <tr>
+          <td v-for="(segments, stepIndex) in getFunnelSteps" :key="stepIndex">
+            <div class="cellLabel">
+              {{ getBottomLabel(getFunnelSteps.length === stepIndex + 1) }}
+            </div>
+            <div :class="getMetricValueClasses(getFunnelSteps.length === stepIndex + 1)">
+              <span class="metricCount">
+                {{ formatAbbr(getBottomMetric(stepIndex, getFirstSegmentStep(stepIndex))) }}
+              </span>
+              <span class="metricRate">
+                ({{ getBottomRate(stepIndex, getFirstSegmentStep(stepIndex)) }})
+              </span>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p v-else>
+        <strong>{{ translate('CoreHome_ThereIsNoDataForThisReport') }}</strong>
+        <br />
+        <span>
+          {{ translate('Funnels_FunnelReportNotGeneratedYet') }}
+        </span>
+      </p>
+    </ContentBlock>
+    <Tooltip
+        ref="tooltip"
+        :title="tooltipTitle"
+        :subtitle="tooltipSubtitle"
+        :exits="tooltipExits"
+        :skipped="tooltipSkipped"
+        :entries="tooltipEntries"
+        :proceeded="tooltipProceeded"
+        :type="tooltipType"
+    />
+  </div>
 </template>
 
 <script lang="ts">
