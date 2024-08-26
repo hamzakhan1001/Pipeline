@@ -5,7 +5,7 @@
  * Description: Track your retention efforts over time and keep your visitors engaged and coming back for more.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/Cohorts
- * Version: 5.0.9
+ * Version: 5.0.10
  */
 ?><?php
 /**

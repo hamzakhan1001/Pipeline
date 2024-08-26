@@ -1,1 +1,19 @@
-{}
+{
+    "Cohorts": {
+        "Cohort": "Kohort",
+        "Cohorts": "Kohorter",
+        "CohortsOverTime": "Kohorter över tid",
+        "CohortsSubcategoryHelp2": "Lär dig mer om kohort i användarguiden.",
+        "ColumnDocumentation1": "Den här kolumnen visar det valda mätvärdet för perioden som är %1$s %2$s efter att besökarna i kohorten först gjorde sitt besök.",
+        "ColumnDocumentation2": "Det specifika datumet kommer variera baserad på kohorten, vilket bestäms av raden.",
+        "ColumnDocumentationCohortPeriod": "Denna kolumn visar mätvärdet för kohortperioden, alltså perioden när kohortens besökare först dök upp.",
+        "EvolutionGraph": "Kohortens graf",
+        "GenericMetricTooltip": "Under %1$s var det %2$s från %3$s kohorten.",
+        "GetCohortsDocumentation": "Visar prestationen för olika kohorter över flera perioder direkt efter att kohorten dök upp.",
+        "ReturningVisitorsPercent": "Återkommande besökare %%",
+        "SelectAMetric": "Välj mätvärde att visa",
+        "VisitorFirstVisitTime": "Förvärvsdatum",
+        "VisitorRetentionTooltip": "Under %1$s, %2$s av besökarna som först besökte %3$s återkom till din webbplats.",
+        "VisitsByPeriodOfFirstVisit": "Besök efter period av första besök"
+    }
+}
