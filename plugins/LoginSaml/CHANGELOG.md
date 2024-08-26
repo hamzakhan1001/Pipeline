@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.8 - 2024-08-26
+- Pricing updated
+
 5.0.7
 - Added note explaining FriendlyName not working with some IDPs
 
