@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.5 - 2024-09-02
+- Added new activities to track GDPR export and find data subject action
+
 5.0.4 - 2024-08-26
 - Pricing updated
 
