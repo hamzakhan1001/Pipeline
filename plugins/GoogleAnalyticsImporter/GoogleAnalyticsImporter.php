@@ -5,7 +5,7 @@
  * Description: Import reports from a Google Analytics account into Matomo.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.20
+ * Version: 5.0.21
  */
 ?><?php
 

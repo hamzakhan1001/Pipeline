@@ -50,6 +50,8 @@
         "PrivacyAnonymizedSomeRawData": "triggered some raw data anonymizations",
         "PrivacyDeactivatedDoNotTrack": "disabled Do Not Track support",
         "PrivacyDeleteDataSubjects": "deleted %1$s visits using GDPR Tools",
+        "PrivacyExportDataSubjects": "exported %1$s visits using GDPR Tools",
+        "PrivacyFindDataSubjects": "found %1$s visits using GDPR Tools",
         "PrivacyAnonymizeIpDisabled": "disabled ip anonymisation",
         "PrivacyAnonymizeIpEnabled": "enabled ip anonymisation",
         "PrivacyChangedSettings": "changed privacy settings",
@@ -117,6 +119,7 @@
         "ExtraCustomDimensions": "Extra custom dimensions",
         "None": "None",
         "Dimension": "Dimension",
-        "Scope": "Scope"
+        "Scope": "Scope",
+        "TotalRecordsFound": "Total Records Found"
     }
 }

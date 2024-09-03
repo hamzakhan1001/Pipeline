@@ -19,6 +19,7 @@
 
     <Summary
       :is-admin="isAdmin"
+      :is-estimated-unique-visitor-enabled="isEstimatedUniqueVisitorEnabled"
       :experiment="experiment"
       :start-date-site-timezone-pretty="startDateTimezone"
       :end-date-site-timezone-pretty="endDateTimezone"
@@ -58,6 +59,7 @@ export default defineComponent({
       required: true,
     },
     isAdmin: Boolean,
+    isEstimatedUniqueVisitorEnabled: Boolean,
     startDateTimezone: String,
     endDateTimezone: String,
     readablePeriod: {

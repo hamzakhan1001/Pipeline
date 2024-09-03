@@ -12,6 +12,7 @@
     vue-entry="AbTesting.SummaryPage"
     experiment="{{ experiment|default(null)|json_encode }}"
     is-admin="{{ isAdmin|default(false)|json_encode }}"
+    is-estimated-unique-visitor-enabled="{{ isEstimatedUniqueVisitorEnabled|default(false)|json_encode }}"
     start-date-timezone="{{ startDateTimezone }}"
     end-date-timezone="{{ endDateTimezone }}"
     readable-period="{{ readablePeriod|default(null)|json_encode }}"

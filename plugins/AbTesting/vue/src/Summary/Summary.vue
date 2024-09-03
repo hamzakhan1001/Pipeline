@@ -33,13 +33,11 @@
         v-if="isAdmin"
         class="finishExperiment"
         @click.prevent="finishExperiment()"
-      >{{ translate('AbTesting_ActionFinishExperiment') }}</a>
-      <br /><br />
-      {{ translate('AbTesting_ReportWhenToDeclareWinner') }}
+      >{{ translate('AbTesting_ActionFinishExperiment') }}</a>.
     </span>
 
-    <span v-if="experiment.status === 'finished'">
-      <span v-html="$sanitize(reportStatusFinished)"/>
+    <span v-if="experiment.status === 'finished'" style="margin-left:3.5px">
+      <span v-html="$sanitize(reportStatusFinished)" style="margin-right:3.5px"/>
       <a
         v-if="isAdmin"
         :title="translate('AbTesting_ArchiveReportInfo')"
@@ -47,7 +45,16 @@
         class="archiveExperiment"
       >
         {{ translate('AbTesting_ActionArchiveExperiment') }}
-      </a>
+      </a>.
+    </span>
+    <span v-if="isEstimatedUniqueVisitorEnabled">
+      <br />
+      <strong>{{ translate('AbTesting_ReportingEfficiency') }}: </strong>
+      <span v-html="$sanitize(reportingEfficiencyDescription)"></span>
+    </span>
+    <span v-if="experiment.status === 'running'">
+      <br /><br />
+      {{ translate('AbTesting_ReportWhenToDeclareWinner') }}
     </span>
   </p>
 </template>
@@ -69,6 +76,7 @@ export default defineComponent({
       required: true,
     },
     isAdmin: Boolean,
+    isEstimatedUniqueVisitorEnabled: Boolean,
     startDateSiteTimezonePretty: String,
     endDateSiteTimezonePretty: String,
   },
@@ -87,6 +95,11 @@ export default defineComponent({
         this.startDateSiteTimezonePretty || '',
         this.endDateSiteTimezonePretty || '',
       );
+    },
+    reportingEfficiencyDescription() {
+      return translate('AbTesting_ReportingEfficiencyDescription',
+        '<a href="https://matomo.org/faq/funnels/what-is-estimated-unique-visitors-in-a-b-testing/" target="_blank" rel="noreferrer noopener">',
+        '</a>');
     },
   },
   methods: {

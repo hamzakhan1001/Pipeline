@@ -5,7 +5,7 @@
  * Description: Detection of bots & spiders and count their visits without tracking them in the visitor-log.
  * Author: Mikke Schirén
  * Author URI: https://github.com/digitalist-se/BotTracker
- * Version: 5.2.15
+ * Version: 5.2.16
  */
 ?><?php
 

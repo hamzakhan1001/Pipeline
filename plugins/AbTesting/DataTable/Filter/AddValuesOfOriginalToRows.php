@@ -14,9 +14,11 @@
  */
 namespace Piwik\Plugins\AbTesting\DataTable\Filter;
 
+use Piwik\Container\StaticContainer;
 use Piwik\DataTable\Row;
 use Piwik\DataTable;
 use Piwik\Plugins\AbTesting\Archiver;
+use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\Metrics;
 
 class AddValuesOfOriginalToRows extends BaseFilter
@@ -60,8 +62,15 @@ class AddValuesOfOriginalToRows extends BaseFilter
                 $this->copyMetric($row, $originalVariationRow, $this->metricName . Archiver::APPENDIX_TTEST_COUNT);
                 $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_VISITS);
                 $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_VISITS_ENTERED);
-                $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_UNIQUE_VISITORS);
-                $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_UNIQUE_VISITORS_ENTERED);
+                $configuration = StaticContainer::get(Configuration::class);
+                if ($configuration->shouldShowUniqueVisitors()) {
+                    $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_UNIQUE_VISITORS);
+                    $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_UNIQUE_VISITORS_ENTERED);
+                }
+                if ($configuration->shouldShowEstimatedUniqueVisitors()) {
+                    $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED);
+                    $this->copyMetric($row, $originalVariationRow, Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED);
+                }
             }
         }
     }

@@ -15,11 +15,12 @@
 
 namespace Piwik\Plugins\AbTesting\Archiver;
 
+use Piwik\Container\StaticContainer;
 use Piwik\DataAccess\LogAggregator;
-use Piwik\Db;
 use Piwik\Plugins\AbTesting\Archiver;
+use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\Metrics;
-
+use Piwik\Plugins\AbTesting\RecordBuilders\BucketUniqueVisitors;
 use Piwik\Tracker;
 
 class Aggregator
@@ -171,6 +172,53 @@ class Aggregator
         return $all;
     }
 
+    public function getEstimatedUniqueVisitorBucketQuery($experiment, $onlyEntered)
+    {
+        $hashFunction = "crc32(%s)";
+
+        $bucketCount = self::getBucketCount();
+        $hashColumn = sprintf($hashFunction, 'log_abtesting.idvisitor');
+
+        $select = "log_abtesting.idvariation as label,
+        $hashColumn & " . ($bucketCount - 1) . " as bucket_num,
+        min($hashColumn & ~(1 << " . (BucketUniqueVisitors::HASH_SIZE - 1) . ")) as bucket_hash_min";
+
+        $from = array('log_abtesting');
+
+        $where = $this->logAggregator->getWhereStatement('log_abtesting', 'server_time', "log_abtesting.idexperiment = " . (int)$experiment['idexperiment']);
+
+        if ($onlyEntered) {
+            $where .= ' AND log_abtesting.entered = 1';
+        }
+
+        $baseQuery = array('where' => $where, 'bind' => array(), 'from' => $from);
+
+        return $this->query($baseQuery, $select, $from = array(), $where = '', $groupBy = 'log_abtesting.idvariation, bucket_num', $orderBy = 'bucket_num');
+    }
+
+    public function getEstimatedUniqueVisitorBuckets($experiment, $onlyEntered = false)
+    {
+        $query = $this->getEstimatedUniqueVisitorBucketQuery($experiment, $onlyEntered);
+        $cursor = $this->logAggregator->getDb()->query($query['sql'], $query['bind']);
+        $all = $cursor->fetchAll();
+        $cursor->closeCursor();
+        unset($cursor);
+
+        return $all;
+    }
+
+    public static function getBucketCount()
+    {
+        $configuration = StaticContainer::get(Configuration::class);
+        $bucketCount = 1.04 / $configuration->getHyperLogLogErrorRate();
+        $bucketCount = $bucketCount * $bucketCount;
+        $bucketCount = log($bucketCount, 2);
+        $bucketCount = ceil($bucketCount);
+        $bucketCount = pow(2, $bucketCount);
+
+        return $bucketCount;
+    }
+
     public function aggregateGoalConversions($experiment, $idGoal, $conversionMetricName, $revenueMetricName)
     {
         $baseQuery = $this->getBaseQuery($experiment, 'log_conversion', 'server_time');
@@ -241,9 +289,9 @@ class Aggregator
         return $this->queryByVariation($baseQuery, $select, $from, $where);
     }
 
-    private function queryByVariation($baseQuery, $select, $from = array(), $where = '')
+    private function queryByVariation($baseQuery, $select, $from = array(), $where = '', $groupBy = 'log_abtesting.idvariation', $orderBy = '')
     {
-        $query = $this->query($baseQuery, $select, $from, $where, $groupBy = 'log_abtesting.idvariation');
+        $query = $this->query($baseQuery, $select, $from, $where, $groupBy, $orderBy);
 
         return $this->logAggregator->getDb()->query($query['sql'], $query['bind']);
     }
@@ -253,7 +301,7 @@ class Aggregator
         return $this->query($baseQuery, $select, $from, $where, $groupBy = 'log_abtesting.idvisit');
     }
 
-    private function query($baseQuery, $select, $from, $where, $groupBy)
+    private function query($baseQuery, $select, $from, $where, $groupBy, $orderBy = '')
     {
         foreach ($from as $table) {
             $baseQuery['from'][] = $table;
@@ -262,8 +310,6 @@ class Aggregator
         if (!empty($where)) {
             $baseQuery['where'] .= $where;
         }
-
-        $orderBy = '';
 
         // just fyi: we cannot add any bind as any argument as it would otherwise break segmentation
         $query = $this->logAggregator->generateQuery($select, $baseQuery['from'], $baseQuery['where'], $groupBy, $orderBy);
@@ -282,5 +328,4 @@ class Aggregator
 
         return array('where' => $where, 'from' => $from);
     }
-
 }

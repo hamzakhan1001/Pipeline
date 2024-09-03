@@ -19,12 +19,14 @@ use Piwik\ArchiveProcessor;
 use Piwik\ArchiveProcessor\Record;
 use Piwik\ArchiveProcessor\RecordBuilder;
 use Piwik\Config;
+use Piwik\Container\StaticContainer;
 use Piwik\Period;
 use Piwik\DataAccess\LogAggregator;
 use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Plugins\AbTesting\Archiver;
 use Piwik\Plugins\AbTesting\Archiver\Aggregator;
+use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\Metrics;
 use Piwik\Plugins\AbTesting\Stats\Strategy;
 use Piwik\Plugins\AbTesting\Tracker\RequestProcessor;
@@ -52,6 +54,11 @@ class Experiment extends RecordBuilder
      */
     private $dayColumnAggregationOps;
 
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
     public function __construct(array $experiment, Strategy $strategy)
     {
         parent::__construct();
@@ -67,6 +74,8 @@ class Experiment extends RecordBuilder
 
         $this->columnAggregationOps = $this->getMultipleReportsAggregationOperations();
         $this->dayColumnAggregationOps = ['aggregationTime' => 'max'];
+
+        $this->configuration = StaticContainer::get(Configuration::class);
     }
 
     public function getRecordMetadata(ArchiveProcessor $archiveProcessor): array
@@ -219,7 +228,7 @@ class Experiment extends RecordBuilder
 
         }
 
-        if (!empty($labels)) {
+        if (!empty($labels) && $this->configuration->isUniqueVisitorArchivingEnabled()) {
             $params = $archiveProcessor->getParams();
             $startDate = Date::factory($experiment['start_date'])->setTime('00:00:00');
             $today = Date::today();

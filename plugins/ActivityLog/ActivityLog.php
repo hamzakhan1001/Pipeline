@@ -198,6 +198,7 @@ class ActivityLog extends \Piwik\Plugin
         $translationKeys[] = "ActivityLog_None";
         $translationKeys[] = "ActivityLog_Dimension";
         $translationKeys[] = "ActivityLog_Scope";
+        $translationKeys[] = "ActivityLog_TotalRecordsFound";
     }
 
     public static function supportsWriteRole()

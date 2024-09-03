@@ -38,7 +38,9 @@ class Metrics
      */
     const METRIC_UNIQUE_VISITORS = 'nb_uniq_visitors';
     const METRIC_UNIQUE_VISITORS_ENTERED_AGGREGATED = 'nb_uniq_visitors_entered_aggregated';
+    const METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED = 'nb_est_uniq_visitors_entered_aggregated';
     const METRIC_UNIQUE_VISITORS_AGGREGATED = 'nb_uniq_visitors_aggregated';
+    const METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED = 'nb_est_uniq_visitors_aggregated';
     const METRIC_PAGEVIEWS = 'nb_pageviews';
     const METRIC_BOUNCE_COUNT = 'bounce_count';
     const METRIC_SUM_VISIT_LENGTH = 'sum_visit_length';
@@ -135,7 +137,7 @@ class Metrics
         return $metrics;
     }
 
-    public function getMetricOverviewNames($selectedSuccessMetrics, $hasUniqueMetrics=true)
+    public function getMetricOverviewNames($selectedSuccessMetrics, $hasUniqueMetrics = true, $showUniqueMetricsForcefully = false)
     {
         $metricNames = array(
             'label',
@@ -143,8 +145,15 @@ class Metrics
             Metrics::METRIC_VISITS_ENTERED,
         );
 
+        $configuration = StaticContainer::get(Configuration::class);
+
         if ($hasUniqueMetrics) {
-            $metricNames[] = Metrics::METRIC_UNIQUE_VISITORS;
+            if ($configuration->shouldShowUniqueVisitors() || $showUniqueMetricsForcefully) {
+                $metricNames[] = Metrics::METRIC_UNIQUE_VISITORS;
+            }
+            if ($configuration->shouldShowEstimatedUniqueVisitors()) {
+                $metricNames[] = Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED;
+            }
         }
 
         foreach ($selectedSuccessMetrics as $successMetric) {
@@ -166,7 +175,9 @@ class Metrics
     {
         $translations = array(
             Metrics::METRIC_VISITS_ENTERED => Piwik::translate('AbTesting_VisitsActivelyEntered'),
-            Metrics::METRIC_UNIQUE_VISITORS_ENTERED => Piwik::translate('AbTesting_UniqueVisitorsActivelyEntered')
+            Metrics::METRIC_UNIQUE_VISITORS_ENTERED => Piwik::translate('AbTesting_UniqueVisitorsActivelyEntered'),
+            Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED => Piwik::translate('AbTesting_EstimatedUniqueVisitors'),
+            Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED => Piwik::translate('AbTesting_EstimatedUniqueVisitorsEntered')
         );
 
         foreach ($this->getSuccessMetrics($idSite) as $metric) {
@@ -201,19 +212,31 @@ class Metrics
         return $translations;
     }
 
-    public function getMetricDetailNames($successMetric, $hasUniqueMetrics=true)
+    public function getMetricDetailNames($successMetric, $hasUniqueMetrics = true, $showUniqueMetricsForcefully = false)
     {
         $base = array('label');
+
+        $configuration = StaticContainer::get(Configuration::class);
 
         if (self::isBounceMetric($successMetric)) {
             $base[] = Metrics::METRIC_VISITS_ENTERED;
             if ($hasUniqueMetrics) {
-                $base[] = Metrics::METRIC_UNIQUE_VISITORS_ENTERED;
+                if ($configuration->shouldShowUniqueVisitors() || $showUniqueMetricsForcefully) {
+                    $base[] = Metrics::METRIC_UNIQUE_VISITORS_ENTERED;
+                }
+                if ($configuration->shouldShowEstimatedUniqueVisitors()) {
+                    $base[] = Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED;
+                }
             }
         } else {
             $base[] = Metrics::METRIC_VISITS;
             if ($hasUniqueMetrics) {
-                $base[] = Metrics::METRIC_UNIQUE_VISITORS;
+                if ($configuration->shouldShowUniqueVisitors() || $showUniqueMetricsForcefully) {
+                    $base[] = Metrics::METRIC_UNIQUE_VISITORS;
+                }
+                if ($configuration->shouldShowEstimatedUniqueVisitors()) {
+                    $base[] = Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED;
+                }
             }
         }
 
@@ -238,10 +261,15 @@ class Metrics
 
     public function getMetricDocumentations()
     {
+        $configuration = new Configuration();
+        $errorRate = $configuration->getHyperLogLogErrorRate();
+        $accuracyRate = ((1 - $errorRate) * 100) . '%';
         return array(
             self::METRIC_VISITS => Piwik::translate('AbTesting_ColumnVisitsDocumentation'),
             self::METRIC_UNIQUE_VISITORS => Piwik::translate('AbTesting_ColumnUniqueVisitorsDocumentation'),
             self::METRIC_UNIQUE_VISITORS_ENTERED => Piwik::translate('AbTesting_ColumnUniqueVisitorsDocumentation'),
+            self::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED => Piwik::translate('AbTesting_ColumnEstimatedUniqueVisitorsDocumentation', array($accuracyRate)),
+            self::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED => Piwik::translate('AbTesting_ColumnEstimatedUniqueVisitorsDocumentation', array($accuracyRate)),
             self::METRIC_VISITS_ENTERED => Piwik::translate('AbTesting_ColumnVisitsEnteredDocumentation'),
             BounceRate::METRIC_NAME => Piwik::translate('AbTesting_ColumnBounceRateDocumentation'),
             self::METRIC_PAGEVIEWS => Piwik::translate('General_ColumnPageviewsDocumentation'),
@@ -256,6 +284,8 @@ class Metrics
             self::METRIC_VISITS => Dimension::TYPE_NUMBER,
             self::METRIC_UNIQUE_VISITORS => Dimension::TYPE_NUMBER,
             self::METRIC_UNIQUE_VISITORS_ENTERED => Dimension::TYPE_NUMBER,
+            self::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED => Dimension::TYPE_NUMBER,
+            self::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED => Dimension::TYPE_NUMBER,
             self::METRIC_VISITS_ENTERED => Dimension::TYPE_NUMBER,
             self::METRIC_PAGEVIEWS => Dimension::TYPE_NUMBER,
             self::METRIC_BOUNCE_COUNT => Dimension::TYPE_NUMBER,

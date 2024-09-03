@@ -39,6 +39,7 @@ use Piwik\Plugins\AbTesting\Columns\Metrics\TotalMoney;
 use Piwik\Plugins\AbTesting\Input\AccessValidator;
 use Piwik\Plugins\AbTesting\Input\SuccessMetricInExperiment;
 use Piwik\Plugins\AbTesting\Model\Experiments;
+use Piwik\Plugins\AbTesting\RecordBuilders\BucketUniqueVisitors;
 use Piwik\Plugins\AbTesting\Stats\Strategy;
 use Piwik\Plugins\AbTesting\Tracker\RequestProcessor;
 use Piwik\Plugins\AbTesting\Tracker\Target;
@@ -77,14 +78,20 @@ class API extends \Piwik\Plugin\API
      */
     private $archiveInvalidator;
 
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
     public function __construct(Experiments $experiments, Metrics $metrics, Strategy $strategy, AccessValidator $accessValidator,
-                                Archive\ArchiveInvalidator $archiveInvalidator)
+                                Archive\ArchiveInvalidator $archiveInvalidator, Configuration $configuration)
     {
         $this->experimentsModel = $experiments;
         $this->metrics = $metrics;
         $this->stats = $strategy;
         $this->access = $accessValidator;
         $this->archiveInvalidator = $archiveInvalidator;
+        $this->configuration = $configuration;
     }
 
     private function checkSiteExists($idSite)
@@ -146,6 +153,12 @@ class API extends \Piwik\Plugin\API
 
         $table = $this->getDataTable($recordName, $idSite, $period, $date, $segment);
 
+        if ($table instanceof DataTable\Map) {
+            $this->addEstimatedUniqueRecordsToDataTableMap($table, $experiment, $idSite, $period, $date, $segment);
+        } else {
+            $this->addEstimatedUniqueRecordsToDataTable($table, $experiment, $idSite, $period, $date, $segment);
+        }
+
         // If the requested period covers the full test period we use the aggregated unqiue metrics
         if ($this->coversFullTestPeriod($experiment, $period, $date)) {
             $table->filter(function ($table) {
@@ -171,7 +184,7 @@ class API extends \Piwik\Plugin\API
             $hasUniqueMetrics = false;
         }
 
-        $metricsToShow = $this->metrics->getMetricOverviewNames($experiment['success_metrics'], $hasUniqueMetrics);
+        $metricsToShow = $this->metrics->getMetricOverviewNames($experiment['success_metrics'], $hasUniqueMetrics, AbTesting::shouldEnableUniqueVisitorMetricForcefully($experiment));
         $translations = $this->metrics->getMetricOverviewTranslations($idSite);
 
         foreach ($metricsToShow as $metric) {
@@ -265,6 +278,12 @@ class API extends \Piwik\Plugin\API
 
         $table = $this->getDataTable($recordName, $idSite, $period, $date, $segment);
 
+        if ($table instanceof DataTable\Map) {
+            $this->addEstimatedUniqueRecordsToDataTableMap($table, $experiment, $idSite, $period, $date, $segment);
+        } else {
+            $this->addEstimatedUniqueRecordsToDataTable($table, $experiment, $idSite, $period, $date, $segment);
+        }
+
         // If the requested period covers the full test period we use the aggregated unique metrics
         if ($this->coversFullTestPeriod($experiment, $period, $date)) {
             $table->filter(function ($table) {
@@ -292,7 +311,7 @@ class API extends \Piwik\Plugin\API
             $hasUniqueMetrics = false;
         }
 
-        $metricsToShow = $this->metrics->getMetricDetailNames($successMetric, $hasUniqueMetrics);
+        $metricsToShow = $this->metrics->getMetricDetailNames($successMetric, $hasUniqueMetrics, AbTesting::shouldEnableUniqueVisitorMetricForcefully($experiment));
         $translations = $this->metrics->getMetricDetailTranslations($idSite, $successMetric);
 
         if (Metrics::isConversionMetric($successMetric)) {
@@ -471,6 +490,10 @@ class API extends \Piwik\Plugin\API
 
             if (!empty($startDate)) {
                 $this->archiveInvalidator->reArchiveReport([$idSite], 'AbTesting', Archiver::getExperimentRecordName($idExperiment), $startDate);
+                if ($this->configuration->isEstimatedUniqueVisitorArchivingEnabled()) {
+                    $this->archiveInvalidator->reArchiveReport([$idSite], 'AbTesting', Archiver::getExperimentEstimatedUniqueVisitorBucketRecordName($idExperiment), $startDate);
+                    $this->archiveInvalidator->reArchiveReport([$idSite], 'AbTesting', Archiver::getExperimentEstimatedUniqueVisitorEnteredBucketRecordName($idExperiment), $startDate);
+                }
             }
         }
     }
@@ -668,6 +691,10 @@ class API extends \Piwik\Plugin\API
         $this->experimentsModel->deleteExperiment($idExperiment, $idSite);
 
         $this->archiveInvalidator->removeInvalidationsSafely([$idSite], 'AbTesting', Archiver::getExperimentRecordName($idExperiment));
+        if ($this->configuration->isEstimatedUniqueVisitorArchivingEnabled()) {
+            $this->archiveInvalidator->removeInvalidationsSafely([$idSite], 'AbTesting', Archiver::getExperimentEstimatedUniqueVisitorBucketRecordName($idExperiment));
+            $this->archiveInvalidator->removeInvalidationsSafely([$idSite], 'AbTesting', Archiver::getExperimentEstimatedUniqueVisitorEnteredBucketRecordName($idExperiment));
+        }
     }
 
     /**
@@ -733,6 +760,66 @@ class API extends \Piwik\Plugin\API
 
             $table->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $processedMetrics);
         });
+    }
+
+    private function addEstimatedUniqueRecordsToDataTable($table, $experiment, $idSite, $period, $date, $segment)
+    {
+        if (!$this->configuration->shouldShowEstimatedUniqueVisitors()) {
+            return;
+        }
+
+        $estimatedUniqueVisitorsData = [];
+
+        $estimatedUniqueVisitorBucketRecordName = Archiver::getExperimentEstimatedUniqueVisitorBucketRecordName($experiment['idexperiment']);
+        $estimatedUniqueVisitorBucketRecordTable = $this->getDataTable($estimatedUniqueVisitorBucketRecordName, $idSite, $period, $date, $segment);
+        BucketUniqueVisitors::setEstimatedUniqueVisitors($estimatedUniqueVisitorBucketRecordTable->getRows(), Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED, $estimatedUniqueVisitorsData);
+
+        $estimatedUniqueVisitorEnteredBucketRecordName = Archiver::getExperimentEstimatedUniqueVisitorEnteredBucketRecordName($experiment['idexperiment']);
+        $estimatedUniqueVisitorEnteredBucketRecordTable = $this->getDataTable($estimatedUniqueVisitorEnteredBucketRecordName, $idSite, $period, $date, $segment);
+        BucketUniqueVisitors::setEstimatedUniqueVisitors($estimatedUniqueVisitorEnteredBucketRecordTable->getRows(), Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED, $estimatedUniqueVisitorsData);
+
+        $this->addEstimatedValuesToTable($table, $estimatedUniqueVisitorsData);
+    }
+
+    private function addEstimatedUniqueRecordsToDataTableMap($table, $experiment, $idSite, $period, $date, $segment)
+    {
+        if (!$this->configuration->shouldShowEstimatedUniqueVisitors()) {
+            return;
+        }
+
+        $estimatedUniqueVisitorBucketRecordName = Archiver::getExperimentEstimatedUniqueVisitorBucketRecordName($experiment['idexperiment']);
+        $estimatedUniqueVisitorBucketRecordTableMap = $this->getDataTable($estimatedUniqueVisitorBucketRecordName, $idSite, $period, $date, $segment);
+
+        $estimatedUniqueVisitorEnteredBucketRecordName = Archiver::getExperimentEstimatedUniqueVisitorEnteredBucketRecordName($experiment['idexperiment']);
+        $estimatedUniqueVisitorEnteredBucketRecordTableMap = $this->getDataTable($estimatedUniqueVisitorEnteredBucketRecordName, $idSite, $period, $date, $segment);
+
+        foreach ($estimatedUniqueVisitorBucketRecordTableMap->getDataTables() as $key => $estimatedUniqueVisitorBucketRecordTable) {
+            $estimatedUniqueVisitorsData = [];
+            BucketUniqueVisitors::setEstimatedUniqueVisitors($estimatedUniqueVisitorBucketRecordTable->getRows(), Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED, $estimatedUniqueVisitorsData);
+            $estimatedUniqueVisitorEnteredBucketRecordTable = $estimatedUniqueVisitorEnteredBucketRecordTableMap->getTable($key);
+            BucketUniqueVisitors::setEstimatedUniqueVisitors($estimatedUniqueVisitorEnteredBucketRecordTable->getRows(), Metrics::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED, $estimatedUniqueVisitorsData);
+
+            $this->addEstimatedValuesToTable($table->getTable($key), $estimatedUniqueVisitorsData);
+        }
+    }
+
+    private function addEstimatedValuesToTable($table, $estimatedUniqueVisitorsData)
+    {
+        if (!empty($estimatedUniqueVisitorsData)) {
+            $table->filter(function ($table) use ($estimatedUniqueVisitorsData) {
+                $rows = $table->getRows();
+                foreach ($rows as &$row) {
+                    $label = $row->getColumn('label');
+                    if (!$label || $label === Archiver::LABEL_NOT_DEFINED || $label == RequestProcessor::VARIATION_ORIGINAL_ID || $label == RequestProcessor::VARIATION_NAME_ORIGINAL || $label == Piwik::translate('AbTesting_NameOriginalVariation')) {
+                        $label = '0';
+                    }
+                    if (!empty($estimatedUniqueVisitorsData[$label])) {
+                        unset($estimatedUniqueVisitorsData[$label]['label']);
+                        $row->addColumns($estimatedUniqueVisitorsData[$label]);
+                    }
+                }
+            });
+        }
     }
 }
 

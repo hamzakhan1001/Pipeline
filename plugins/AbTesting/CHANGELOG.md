@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.0 - 2024-09-02
+- Added an option to use HyperLogLog to calculate estimated unique visitors instead of unique visitors to improve archiving performance
+
 5.1.4 - 2024-08-26
 - Pricing updated
 
