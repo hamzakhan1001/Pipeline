@@ -21,8 +21,10 @@ use Piwik\Common;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
+use Piwik\Plugins\AbTesting\AbTesting;
 use Piwik\Plugins\AbTesting\Columns\Variation;
 use Piwik\Plugins\AbTesting\Dao\Experiment;
+use Piwik\Plugins\AbTesting\Model\Experiments;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
@@ -138,7 +140,7 @@ class GetMetricDetails extends Base
 
         $metrics = StaticContainer::get('Piwik\Plugins\AbTesting\Metrics');
 
-        $view->config->columns_to_display = $metrics->getMetricDetailNames($successMetric);
+        $view->config->columns_to_display = $metrics->getMetricDetailNames($successMetric, true, AbTesting::shouldEnableUniqueVisitorMetricForcefully($experiment));
         $view->config->addTranslations($metrics->getMetricDetailTranslations($idSite, $successMetric));
         $view->config->metrics_documentation = array_merge($view->config->metrics_documentation, $metrics->getMetricDocumentations());
 

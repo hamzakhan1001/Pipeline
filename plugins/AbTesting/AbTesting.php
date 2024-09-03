@@ -23,6 +23,7 @@ use Piwik\Exception\DI\DependencyException;
 use Piwik\Exception\DI\NotFoundException;
 use Piwik\Log\LoggerInterface;
 use Piwik\Piwik;
+use Piwik\Config;
 use Piwik\Plugins\AbTesting\Dao\Experiment;
 use Piwik\Plugins\AbTesting\Dao\LogTable;
 use Piwik\Plugins\AbTesting\Dao\Strategy;
@@ -101,6 +102,9 @@ class AbTesting extends Plugin
         $experiments = $experimentsService->getExperimentsWithReports($idSite);
 
         foreach ($experiments as $experiment) {
+            $recordBuilders[] = StaticContainer::getContainer()->make(\Piwik\Plugins\AbTesting\RecordBuilders\BucketUniqueVisitors::class, [
+                'experiment' => $experiment,
+            ]);
             $recordBuilders[] = StaticContainer::getContainer()->make(\Piwik\Plugins\AbTesting\RecordBuilders\Experiment::class, [
                 'experiment' => $experiment,
             ]);
@@ -232,6 +236,9 @@ class AbTesting extends Plugin
 
         $dao = new LogTable();
         $dao->install();
+
+        $configuration = StaticContainer::get(Configuration::class);
+        $configuration->install();
     }
 
     public function uninstall()
@@ -244,6 +251,9 @@ class AbTesting extends Plugin
 
         $dao = new LogTable();
         $dao->uninstall();
+
+        $configuration = StaticContainer::get(Configuration::class);
+        $configuration->uninstall();
     }
 
     public function isTrackerPlugin()
@@ -423,6 +433,8 @@ class AbTesting extends Plugin
         $result[] = 'AbTesting_ForwardUtmParams';
         $result[] = 'AbTesting_ForwardUtmParamsHelpText';
         $result[] = 'AbTesting_ForwardUtmParamsHelpTextNote';
+        $result[] = 'AbTesting_ReportingEfficiency';
+        $result[] = 'AbTesting_ReportingEfficiencyDescription';
     }
 
     public function getStylesheetFiles(&$stylesheets)
@@ -525,7 +537,7 @@ class AbTesting extends Plugin
 
         $list->addSegment($segment);
     }
-    
+
     private function getExperimentsModel()
     {
         return StaticContainer::get('Piwik\Plugins\AbTesting\Model\Experiments');
@@ -539,6 +551,11 @@ class AbTesting extends Plugin
     private function getExperimentsWithReports($idSite)
     {
         return Request::processRequest('AbTesting.getExperimentsWithReports', ['idSite' => $idSite, 'filter_limit' => -1], $default = []);
+    }
+
+    public static function shouldEnableUniqueVisitorMetricForcefully($experiment)
+    {
+        return in_array($experiment['status'], [Experiments::STATUS_ARCHIVED, Experiments::STATUS_FINISHED]);
     }
 
 }

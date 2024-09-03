@@ -21,6 +21,7 @@
     "ColumnVisitsDocumentation": "The number of visits which your A/B test has received. All visits of a visitor who has entered the A/B test once count towards this visit metric. Therefore this number is usually higher than the number of \"actively entered visits\".",
     "ColumnVisitsEnteredDocumentation": "The number of visits where a visitor has entered a target page of this A/B test.",
     "ColumnUniqueVisitorsDocumentation": "The number of unique visitors that have entered your A/B test.",
+    "ColumnEstimatedUniqueVisitorsDocumentation": "The number of estimated unique visitors that have entered your A/B test. The accuracy rate is configured at %1$s.",
     "ColumnBounceRateDocumentation": "The percentage of visits that only had a single pageview. This means, that the visitor left the target page directly after entering the A/B test.",
     "ColumnBouncesDocumentation": "The number of visits that started and ended when they entered an A/B test target page. This means that the visitor left after viewing only a target page.",
     "ChooseExperiment": "Choose A/B Test",
@@ -250,6 +251,10 @@
     "CodeCommentUseExperimentIdUrl": "you can also use the experiment ID as experiment name if you do not want to have the name in the URL",
     "ForwardUtmParams": "Forward campaign URL parameters",
     "ForwardUtmParamsHelpText": "When there is a redirect, forward campaign URL parameters. E.g. utm_source, utm_medium, utm_campaign, utm_content, utm_term, and utm_id.",
-    "ForwardUtmParamsHelpTextNote": "%1$sNote:%2$s If you have already installed the JavaScript tracking code, it will need to be updated when you change this setting. You can view the difference in the %3$sembed code tab%4$s. Check our %5$sdeveloper guide%6$s for more information."
+    "ForwardUtmParamsHelpTextNote": "%1$sNote:%2$s If you have already installed the JavaScript tracking code, it will need to be updated when you change this setting. You can view the difference in the %3$sembed code tab%4$s. Check our %5$sdeveloper guide%6$s for more information.",
+    "EstimatedUniqueVisitors": "Estimated Unique Visitors",
+    "EstimatedUniqueVisitorsEntered": "Estimated Unique Visitors Entered",
+    "ReportingEfficiency": "Reporting efficiency",
+    "ReportingEfficiencyDescription": "A/B tests use estimated unique visitor numbers to improve archiving times. %1$sLearn more%2$s."
   }
 }

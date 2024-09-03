@@ -25,8 +25,10 @@ use Piwik\DataAccess\LogAggregator;
 use Piwik\DataTable;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
+use Piwik\Plugins\AbTesting\AbTesting;
 use Piwik\Plugins\AbTesting\Archiver;
 use Piwik\Plugins\AbTesting\Columns\Variation;
+use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\Metrics;
 use Piwik\Plugins\AbTesting\Model\Experiments;
 use Piwik\Plugins\AbTesting\RecordBuilders\Experiment;
@@ -60,6 +62,14 @@ class GetMetricsOverview extends Base
         $viewDataTable = $request->getStringParameter('viewDataTable', '');
         if ($viewDataTable === 'graphEvolution' && $idExperiment = $request->getIntegerParameter('idExperiment', 0)) {
             $this->parameters = ['idExperiment' => $idExperiment];
+            $idSite = Common::getRequestVar('idSite', 0, 'int');
+            if ($idSite) {
+                $experiment = $this->getExperiment($idExperiment, $idSite);
+                if (!empty($experiment['success_metrics'])) {
+                    $metrics = StaticContainer::get('Piwik\Plugins\AbTesting\Metrics');
+                    $this->metrics = $metrics->getMetricOverviewNames($experiment['success_metrics'], true, AbTesting::shouldEnableUniqueVisitorMetricForcefully($experiment));
+                }
+            }
         }
     }
 
@@ -162,7 +172,7 @@ class GetMetricsOverview extends Base
 
         $metrics = StaticContainer::get('Piwik\Plugins\AbTesting\Metrics');
 
-        $view->config->columns_to_display = $metrics->getMetricOverviewNames($experiment['success_metrics']);
+        $view->config->columns_to_display = $metrics->getMetricOverviewNames($experiment['success_metrics'], true, AbTesting::shouldEnableUniqueVisitorMetricForcefully($experiment));
         $view->config->enable_sort = false;
         $view->config->show_pagination_control = false;
         $view->config->show_offset_information = false;

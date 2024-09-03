@@ -93,10 +93,12 @@ class Controller extends \Piwik\Plugin\Controller
 
         $readable = Period\Factory::build($_GET['period'], $_GET['date']);
         $readablePeriod = $readable->getPrettyString();
+        $configuration = new Configuration();
 
         return $this->renderTemplate('summary', array(
             'experiment' => $experiment,
             'isAdmin' => $isAdmin,
+            'isEstimatedUniqueVisitorEnabled' => $configuration->shouldShowEstimatedUniqueVisitors(),
             'readablePeriod' => $readablePeriod
         ));
     }
@@ -136,7 +138,7 @@ class Controller extends \Piwik\Plugin\Controller
             $view->config->columns_to_display = $view->config->custom_parameters['columns'];
         }
 
-        $selectable = $this->metrics->getMetricOverviewNames($experiment['success_metrics']);
+        $selectable = $this->metrics->getMetricOverviewNames($experiment['success_metrics'], true, AbTesting::shouldEnableUniqueVisitorMetricForcefully($experiment));
         $index = array_search('label', $selectable);
         if (false !== $index) {
             unset($selectable[$index]);

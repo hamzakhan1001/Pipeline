@@ -18,6 +18,7 @@ use Piwik\API\Request;
 
 use Piwik\Columns\Dimension;
 use Piwik\Common;
+use Piwik\Container\StaticContainer;
 use Piwik\DataTable;
 use Piwik\DataTable\Row;
 use Piwik\Date;
@@ -26,6 +27,7 @@ use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 
 
+use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\DataTable\Filter\AddValuesOfOriginalToRows;
 use Piwik\Plugins\AbTesting\Stats\SampleSize;
 use Piwik\Plugins\AbTesting\Metrics as PluginMetrics;
@@ -161,10 +163,19 @@ class RemainingVisitors extends ProcessedMetric
 
     public function getNumCurrentVisitorsForThisVariation(Row $row)
     {
+        $configuration = StaticContainer::get(Configuration::class);
         if (PluginMetrics::isBounceMetric($this->metricName)) {
-            $visitors = $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS_ENTERED_AGGREGATED) ?: $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS_ENTERED);
+            if ($configuration->shouldShowUniqueVisitors()) {
+                $visitors = $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS_ENTERED_AGGREGATED) ?: $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS_ENTERED);
+            } elseif ($configuration->shouldShowEstimatedUniqueVisitors()) {
+                $visitors = $row->getColumn(PluginMetrics::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED);
+            }
         } else {
-            $visitors = $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS_AGGREGATED) ?: $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS);
+            if ($configuration->shouldShowUniqueVisitors()) {
+                $visitors = $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS_AGGREGATED) ?: $row->getColumn(PluginMetrics::METRIC_UNIQUE_VISITORS);
+            } elseif ($configuration->shouldShowEstimatedUniqueVisitors()) {
+                $visitors = $row->getColumn(PluginMetrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED);
+            }
         }
 
         if (empty($visitors)) {

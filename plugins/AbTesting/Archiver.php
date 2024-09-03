@@ -22,6 +22,8 @@ class Archiver extends \Piwik\Plugin\Archiver
     const APPENDIX_TTEST_COUNT = '_count';
 
     const ABTESTING_ARCHIVE_RECORD = "AbTesting_experiment_";
+    const ABTESTING_ESTIMATED_UNIQUE_VISITORS_BUCKET_ARCHIVE_RECORD = "AbTesting_estimated_unique_visitors_bucket_data_";
+    const ABTESTING_ESTIMATED_UNIQUE_VISITORS_ENTERED_BUCKET_ARCHIVE_RECORD = "AbTesting_estimated_unique_visitors_entered_bucket_data_";
 
     const LABEL_NOT_DEFINED = 'AbTesting_ValueNotSet';
 
@@ -33,6 +35,16 @@ class Archiver extends \Piwik\Plugin\Archiver
     public static function getExperimentRecordName($idExperiment)
     {
         return static::ABTESTING_ARCHIVE_RECORD . (int) $idExperiment;
+    }
+
+    public static function getExperimentEstimatedUniqueVisitorBucketRecordName($idExperiment)
+    {
+        return static::ABTESTING_ESTIMATED_UNIQUE_VISITORS_BUCKET_ARCHIVE_RECORD . (int) $idExperiment;
+    }
+
+    public static function getExperimentEstimatedUniqueVisitorEnteredBucketRecordName($idExperiment)
+    {
+        return static::ABTESTING_ESTIMATED_UNIQUE_VISITORS_ENTERED_BUCKET_ARCHIVE_RECORD . (int) $idExperiment;
     }
 
     /**

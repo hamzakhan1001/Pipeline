@@ -16,12 +16,14 @@ namespace Piwik\Plugins\AbTesting\Columns\Metrics;
 
 
 use Piwik\Columns\Dimension;
+use Piwik\Container\StaticContainer;
 use Piwik\DataTable;
 use Piwik\DataTable\Row;
 
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 use Piwik\Plugins\AbTesting\Archiver;
+use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\Stats\Strategy;
 use Piwik\Plugins\AbTesting\DataTable\Filter\AddValuesOfOriginalToRows;
 use Piwik\Plugins\AbTesting\Metrics as PluginMetrics;
@@ -106,9 +108,14 @@ class SignificanceRate extends ProcessedMetric
             return '-';
         }
 
-        $visitMetric = PluginMetrics::METRIC_UNIQUE_VISITORS;
+        $configuration = StaticContainer::get(Configuration::class);
+        $visitMetric = $configuration->shouldShowEstimatedUniqueVisitors() ? PluginMetrics::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED : PluginMetrics::METRIC_UNIQUE_VISITORS;
         if (PluginMetrics::isBounceMetric($this->metricName)) {
-            $visitMetric = PluginMetrics::METRIC_UNIQUE_VISITORS_ENTERED;
+            if ($configuration->shouldShowUniqueVisitors()) {
+                $visitMetric = PluginMetrics::METRIC_UNIQUE_VISITORS_ENTERED;
+            } elseif ($configuration->shouldShowEstimatedUniqueVisitors()) {
+                $visitMetric = PluginMetrics::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED;
+            }
         }
 
         $controlVisits = (int) $row->getColumn(AddValuesOfOriginalToRows::COLUMN_NAME_PREFIX . $visitMetric);
