@@ -50,5 +50,12 @@ class Menu extends \Piwik\Plugin\Menu
         ) {
             $menu->remove('CoreAdminHome_WhatIsNew');
         }
+
+        if (!$this->settings->enableHelpSection->getValue()) {
+            $helpFeedbackKey = 'General_Help';
+            $help = Piwik::translate($helpFeedbackKey);
+            $menu->remove($help);
+            $menu->remove($helpFeedbackKey);
+        }
     }
 }

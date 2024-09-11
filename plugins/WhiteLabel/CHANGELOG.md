@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.3 - 2024-09-09
+- Added a SystemSetting to enable/disable help section
+
 5.0.2 - 2024-08-26
 - Pricing updated
 
