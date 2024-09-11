@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.9 - 2024-09-09
+- Translated the login button text
+
 5.0.8 - 2024-08-26
 - Pricing updated
 

@@ -228,11 +228,13 @@ class LoginSaml extends Plugin
             $samlLoginUrl .= "&target=".urlencode($referer);
         }
 
+        $samlLoginBtn = '<a class="btn pull-right" href="' . $samlLoginUrl . '">' . Piwik::translate('LoginSaml_SamlLogin') . '</a>';
+
         if (Config::isForceSamlEnabled() && !isset($_GET['normal']) && (!isset($_GET['action']) || $_GET['action'] != 'confirmResetPassword')) {
             if (!empty($_GET['samlErrorMessage'])) {
                 echo '<script>window.addEventListener("DOMContentLoaded", function () {$("#login_form").hide();})</script>';
                 echo '<div vue-entry="CoreHome.Notification" noclear="true" context="error">'.htmlspecialchars($_GET['samlErrorMessage'], ENT_QUOTES, 'UTF-8').'</div>';
-                echo '<a class="btn pull-right" href="'.$samlLoginUrl.'">SAML Login</a><br>';
+                echo $samlLoginBtn . '<br>';
                 exit();
             } else if (empty($_POST) || empty($_POST["form_login"]) || empty($_POST["form_password"])) {
                 Url::redirectToUrl($samlLoginUrl);
@@ -255,7 +257,7 @@ class LoginSaml extends Plugin
                     }
                     if (Config::isSamlEnabled()) {
                         // Here is the point where I can force the SAML SSO
-                        $content .= '<a class="btn pull-right" href="'.$samlLoginUrl.'">SAML Login</a>';
+                        $content .= $samlLoginBtn;
                     }
                     break;
             }

@@ -128,6 +128,7 @@
         "InvalidData": "Invalid data",
         "MissingData": "Missing data",
         "SystemCheckOpensslHelp": "You need to configure and rebuild PHP with \"openssl\" support enabled, --with-openssl.",
-        "SystemCheckMcryptHelp": "You need to configure and rebuild PHP with \"mcrypt\" support enabled, --with-mcrypt."
+        "SystemCheckMcryptHelp": "You need to configure and rebuild PHP with \"mcrypt\" support enabled, --with-mcrypt.",
+        "SamlLogin": "SAML Login"
     }
 }
