@@ -49,6 +49,9 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     public $headerFontColor;
 
     /** @var Setting */
+    public $enableHelpSection;
+
+    /** @var Setting */
     public $enableWhatsNewSection;
 
     protected function init()
@@ -60,6 +63,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         $this->marketplaceOnlySuperUser = $this->createMarketplaceOnlySuperUserSetting();
         $this->whitelabelTrackingEndpoint = $this->createWhitelabelTrackingEndpoint();
         $this->removeLinksToMatomo = $this->createRemoveLinksToMatomo();
+        $this->enableHelpSection = $this->enableHelpSection();
         $this->enableWhatsNewSection = $this->enableWhatsNewSection();
     }
 
@@ -110,6 +114,16 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         return $this->makeSetting('removeLinksToMatomo', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('WhiteLabel_SettingRemoveLinksToMatomo');
             $field->description = Piwik::translate('WhiteLabel_SettingRemoveLinksToMatomoDescription');
+            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+        });
+    }
+
+    private function enableHelpSection()
+    {
+        return $this->makeSetting('enableHelpSection', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+            $field->title = Piwik::translate('WhiteLabel_SettingEnableHelpSectionTitle');
+            $field->description = Piwik::translate('WhiteLabel_SettingEnableHelpSectionDescription');
+            $field->inlineHelp = Piwik::translate('WhiteLabel_SettingEnableHelpSectionInlineHelp', array('<br><strong>', '</strong>'));
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }

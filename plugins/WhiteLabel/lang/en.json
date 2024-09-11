@@ -15,6 +15,9 @@
         "SettingMarketplaceOnlySuperUserDescription": "By default, the Marketplace is visible to any logged in user. When you enable this setting, the Marketplace page will be only visible to users with Super User access. This can be useful if you don't want to show the Marketplace to your users but still want to be able to install and update plugins from the Marketplace easily.",
         "SettingEnableWhatsNewSectionTitle": "Enable What's New Section",
         "SettingEnableWhatsNewSectionDescription": "If enabled, it will show the 'What's new section' in the top menu bar.",
-        "SettingEnableWhatsNewSectionInlineHelp": "%1$sNote:%2$s If a custom brand name is set or if the feature to remove links to matomo.org is enabled, then this setting is ignored and the 'What's new section' is always hidden automatically."
+        "SettingEnableWhatsNewSectionInlineHelp": "%1$sNote:%2$s If a custom brand name is set or if the feature to remove links to matomo.org is enabled, then this setting is ignored and the 'What's new section' is always hidden automatically.",
+        "SettingEnableHelpSectionTitle": "Enable Help Section",
+        "SettingEnableHelpSectionDescription": "If enabled, it will show the 'Help icon' in the top menu bar.",
+        "SettingEnableHelpSectionInlineHelp": "%1$sNote:%2$s The help section will show Matomo links, even when a custom brand name is set or if the feature to remove links to matomo.org is enabled."
     }
 }
