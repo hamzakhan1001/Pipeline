@@ -5,7 +5,7 @@
  * Description: Migrate/copy any measurable (site, app, roll-up) from one Matomo to another Matomo
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.3
+ * Version: 5.0.4
  */
 ?><?php
 /**
