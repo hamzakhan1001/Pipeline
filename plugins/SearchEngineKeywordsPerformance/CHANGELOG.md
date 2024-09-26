@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.0.16__ - 2024-09-23
+- Made adjustments to improve code performance
+
 __5.0.15__ - 2024-08-26
 - Pricing updated
 

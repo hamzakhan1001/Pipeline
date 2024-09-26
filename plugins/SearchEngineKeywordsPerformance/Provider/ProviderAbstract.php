@@ -15,10 +15,11 @@
  */
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Provider;
 
-use Piwik\Date;
 use Piwik\Metrics\Formatter;
 use Piwik\Option;
+use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Helper\MeasurableHelper;
 use Piwik\Singleton;
+
 abstract class ProviderAbstract extends Singleton
 {
     /**
@@ -26,6 +27,7 @@ abstract class ProviderAbstract extends Singleton
      */
     const ID = '';
     const OPTION_PREFIX_LAST_ERROR_TIME = 'searchEngineKeywordsLastApiErrorTime_';
+
     /**
      * Returns internal provider id
      *
@@ -139,5 +141,10 @@ abstract class ProviderAbstract extends Singleton
             $message = '<strong>' . $this->getName() . '</strong> - Most recent error: ' . (new Formatter())->getPrettyTimeFromSeconds(time() - $this->getLastApiErrorTimestamp()) . ' ago';
         }
         return $message;
+    }
+
+    protected function getMeasurableHelper(): MeasurableHelper
+    {
+        return MeasurableHelper::getInstance();
     }
 }

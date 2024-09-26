@@ -15,11 +15,9 @@
  */
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Provider;
 
-use Piwik\Access;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
-use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
-use Piwik\Plugins\SitesManager\Model as SitesManagerModel;
+
 class Yandex extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\ProviderAbstract
 {
     /**
@@ -80,15 +78,8 @@ class Yandex extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Pro
      */
     public function getConfiguredSiteIds()
     {
-        $siteManagerModel = new SitesManagerModel();
-        $allSiteIds = $siteManagerModel->getSitesId();
         $configuredSites = [];
-        foreach ($allSiteIds as $siteId) {
-            if (!Piwik::isUserHasAdminAccess($siteId)) {
-                continue;
-                // skip sites without access
-            }
-            $settings = new MeasurableSettings($siteId);
+        foreach ($this->getMeasurableHelper()->getAllSiteSettings() as $siteId => $settings) {
             $siteConfig = [];
             $createdByUser = !is_null($settings->yandexConfigCreatedBy) ? $settings->yandexConfigCreatedBy->getValue() : '';
             if ($settings->yandexAccountAndHostId && $settings->yandexAccountAndHostId->getValue()) {
