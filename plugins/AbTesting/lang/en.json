@@ -21,7 +21,7 @@
     "ColumnVisitsDocumentation": "The number of visits which your A/B test has received. All visits of a visitor who has entered the A/B test once count towards this visit metric. Therefore this number is usually higher than the number of \"actively entered visits\".",
     "ColumnVisitsEnteredDocumentation": "The number of visits where a visitor has entered a target page of this A/B test.",
     "ColumnUniqueVisitorsDocumentation": "The number of unique visitors that have entered your A/B test.",
-    "ColumnEstimatedUniqueVisitorsDocumentation": "The number of estimated unique visitors that have entered your A/B test. The accuracy rate is configured at %1$s.",
+    "ColumnEstimatedUniqueVisitorsDocumentationMessage": "The estimated number of unique visitors that entered your A/B test. The estimation algorithm uses the entire dataset (no data sampling) and a %1$s accuracy rate. This means that the actual number of unique visitors is typically within a small range around the estimate. For example, with an estimated 500 unique visitors, the actual number of unique visitors is usually between %2$s and %3$s.",
     "ColumnBounceRateDocumentation": "The percentage of visits that only had a single pageview. This means, that the visitor left the target page directly after entering the A/B test.",
     "ColumnBouncesDocumentation": "The number of visits that started and ended when they entered an A/B test target page. This means that the visitor left after viewing only a target page.",
     "ChooseExperiment": "Choose A/B Test",
