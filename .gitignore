@@ -46,6 +46,8 @@ php_errors.log
 /plugins/.gitignore
 /js/container*.js
 /.docker
+.user.ini
+phpinfo.php
 
 # Ignore development plugins
 /plugins/VisitorGenerator
