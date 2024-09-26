@@ -51,6 +51,8 @@ class Metrics
 
     const METRIC_GOAL_APPENDIX = '_goal_';
 
+    const ESTIMATED_UNIQUE_VISITORS_DOCUMENTATION_BASE_VALUE = 500;
+
     public static function getGoalIdFromMetricName($metricName)
     {
         $metricName = str_replace(self::METRIC_AVERAGE_PREFIX, '', $metricName);
@@ -264,12 +266,15 @@ class Metrics
         $configuration = new Configuration();
         $errorRate = $configuration->getHyperLogLogErrorRate();
         $accuracyRate = ((1 - $errorRate) * 100) . '%';
+        $rangeValue = (int) (self::ESTIMATED_UNIQUE_VISITORS_DOCUMENTATION_BASE_VALUE * $errorRate);
+        $rangeValueStart = self::ESTIMATED_UNIQUE_VISITORS_DOCUMENTATION_BASE_VALUE - $rangeValue;
+        $rangeValueEnd = self::ESTIMATED_UNIQUE_VISITORS_DOCUMENTATION_BASE_VALUE + $rangeValue;
         return array(
             self::METRIC_VISITS => Piwik::translate('AbTesting_ColumnVisitsDocumentation'),
             self::METRIC_UNIQUE_VISITORS => Piwik::translate('AbTesting_ColumnUniqueVisitorsDocumentation'),
             self::METRIC_UNIQUE_VISITORS_ENTERED => Piwik::translate('AbTesting_ColumnUniqueVisitorsDocumentation'),
-            self::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED => Piwik::translate('AbTesting_ColumnEstimatedUniqueVisitorsDocumentation', array($accuracyRate)),
-            self::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED => Piwik::translate('AbTesting_ColumnEstimatedUniqueVisitorsDocumentation', array($accuracyRate)),
+            self::METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED => Piwik::translate('AbTesting_ColumnEstimatedUniqueVisitorsDocumentationMessage', array($accuracyRate, $rangeValueStart, $rangeValueEnd)),
+            self::METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED => Piwik::translate('AbTesting_ColumnEstimatedUniqueVisitorsDocumentationMessage', array($accuracyRate, $rangeValueStart, $rangeValueEnd)),
             self::METRIC_VISITS_ENTERED => Piwik::translate('AbTesting_ColumnVisitsEnteredDocumentation'),
             BounceRate::METRIC_NAME => Piwik::translate('AbTesting_ColumnBounceRateDocumentation'),
             self::METRIC_PAGEVIEWS => Piwik::translate('General_ColumnPageviewsDocumentation'),

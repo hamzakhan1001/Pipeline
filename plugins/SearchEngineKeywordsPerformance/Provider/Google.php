@@ -15,11 +15,9 @@
  */
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Provider;
 
-use Piwik\Access;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
-use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
-use Piwik\Plugins\SitesManager\Model as SitesManagerModel;
+
 class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\ProviderAbstract
 {
     /**
@@ -73,15 +71,8 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Pro
      */
     public function getConfiguredSiteIds()
     {
-        $siteManagerModel = new SitesManagerModel();
-        $allSiteIds = $siteManagerModel->getSitesId();
         $configuredSites = [];
-        foreach ($allSiteIds as $siteId) {
-            if (!Piwik::isUserHasAdminAccess($siteId)) {
-                continue;
-                // skip sites without access
-            }
-            $settings = new MeasurableSettings($siteId);
+        foreach ($this->getMeasurableHelper()->getAllSiteSettings() as $siteId => $settings) {
             $createdByUser = !is_null($settings->googleConfigCreatedBy) ? $settings->googleConfigCreatedBy->getValue() : '';
             $siteConfig = [];
             if ($settings->googleSearchConsoleUrl && $settings->googleSearchConsoleUrl->getValue()) {
