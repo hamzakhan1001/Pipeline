@@ -77,6 +77,8 @@
         "ManageReportsSubcategoryHelp": "Custom Reports lets you create new reports to draw new insights that aren&#39;t possible with standard reports. This section enables you to create and manage Custom Reports for your site.",
         "WebsiteName": "Website name",
         "CommonUniqueMetric": "Sum of %1$s",
-        "CommonUniqueMetricDescription": "%1$s. When viewing a period that is not day, then this metric will become \"Sum of %2$s\". In such case, if the same %3$s appear in 2 or more days within the selected period, then it will be counted as 2 or the total number of days it has appeared and not 1."
+        "CommonUniqueMetricDescription": "%1$s. When viewing a period that is not day, then this metric will become \"Sum of %2$s\". In such case, if the same %3$s appear in 2 or more days within the selected period, then it will be counted as 2 or the total number of days it has appeared and not 1.",
+        "ProductsWithX": "Products with %s",
+        "ContentImpressions": "Content Impressions"
     }
 }

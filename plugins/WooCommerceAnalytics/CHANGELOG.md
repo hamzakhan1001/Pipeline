@@ -1,5 +1,9 @@
 ## Changelog
 
+5.1.3
+- Avoid fatal error in the WordPress plugin when an order item's product info cannot be found.
+- Better logging and a new diagnostic tool to lookup order metadata in the WordPress plugin.
+
 5.1.2 - 2024-08-26
 - Pricing updated
 

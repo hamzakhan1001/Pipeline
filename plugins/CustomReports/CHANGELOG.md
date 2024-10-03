@@ -1,5 +1,16 @@
 ## Changelog
 
+5.0.17 - 2024-09-26
+- Added some new metrics specifically for this plugin:
+  - Average Product Quantity
+  - Average Product Price
+  - Product Revenue (Total & avg)
+  - Total Click Outlinks (Clicked Outlinks)
+  - Content Impressions
+  - Content Interactions
+  - Content Interaction Rate
+  - Product Category (Dimension)
+
 5.0.16 - 2024-08-26
 - Pricing updated
 

@@ -5,7 +5,7 @@
  * Description: Pull out the information you need in order to be successful. Develop your custom strategy to meet your individualized goals while saving money & time.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.0.16
+ * Version: 5.0.17
  */
 ?><?php
 /**
@@ -26,10 +26,12 @@ namespace Piwik\Plugins\CustomReports;
 
 use Piwik\API\Request;
 use Piwik\Category\Subcategory;
+use Piwik\Columns\MetricsList;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
 use Piwik\Date;
 use Piwik\Piwik;
+use Piwik\Plugins\CustomReports\Columns\CustomMetricHelper;
 use Piwik\Plugins\CustomReports\Dao\CustomReportsDao;
 use Piwik\Plugins\CoreHome\SystemSummary;
 use Piwik\Plugins\CustomReports\Input\Dimensions;
@@ -75,7 +77,13 @@ class CustomReports extends \Piwik\Plugin
             'Db.getTablesInstalled' => 'getTablesInstalled',
             'ScheduledReports.processReports' => 'processReports',
             'Archiver.addRecordBuilders' => 'addRecordBuilders',
+            'Metric.addMetrics' => 'addMetrics',
         );
+    }
+
+    public function addMetrics(MetricsList $metricsList)
+    {
+        StaticContainer::get(CustomMetricHelper::class)->addCustomMetricsToList($metricsList);
     }
 
     public function addRecordBuilders(array &$recordBuilders): void
