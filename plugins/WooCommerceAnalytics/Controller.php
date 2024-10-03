@@ -74,12 +74,12 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             
             "name" => "WooCommerce Matomo Analytics",
             "slug" => "woocommerce-piwik-analytics",
-            "version" => '1.0.23',
-            "last_updated" => "2024-03-18 12:02:00",
+            "version" => '1.0.24',
+            "last_updated" => '2024-09-26 15:12:00',
             "download_url" => $piwikUrl . "index.php?module=WooCommerceAnalytics&action=download",
             "homepage" => Url::addCampaignParametersToMatomoLink("https://plugins.matomo.org/WooCommerceAnalytics/"),
             "requires" => "4.5",
-            "tested" => "6.3",
+            "tested" => "6.6",
             "author" => "InnoCraft",
             "author_homepage" => "https://www.innocraft.com",
             "sections" => array(
