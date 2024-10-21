@@ -1,5 +1,9 @@
 ## Changelog
 
+5.0.10 - 2024-10-08
+- Added check to handle invalid filter_limit for getCurrentMostPlays
+- Added code to enforce max last minutes
+
 5.0.9 - 2024-08-26
 - Pricing updated
 
