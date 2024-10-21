@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog;
 
 use Piwik\Menu\MenuAdmin;
@@ -28,9 +30,8 @@ class Menu extends \Piwik\Plugin\Menu
         }
         if (Piwik::hasUserSuperUserAccess()) {
             $menu->addDiagnosticItem('ActivityLog_ActivityLog', $this->urlForAction('index'), $orderId = 15);
-        } else if (!Piwik::isUserIsAnonymous() && Piwik::isUserHasSomeViewAccess()) {
+        } elseif (!Piwik::isUserIsAnonymous() && Piwik::isUserHasSomeViewAccess()) {
             $menu->addPersonalItem('ActivityLog_ActivityLog', $this->urlForAction('index'), $orderId = 15);
         }
     }
-
 }

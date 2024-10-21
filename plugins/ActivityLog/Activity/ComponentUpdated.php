@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,9 +13,9 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
-use Piwik\Columns\Dimension;
 use Piwik\Piwik;
 
 class ComponentUpdated extends Activity
@@ -32,7 +33,7 @@ class ComponentUpdated extends Activity
         list($component, $version) = $eventData;
 
         // do not track updates of bundled plugins, as they are always updated with Matomo Core
-        if($component !== 'core' && \Piwik\Plugin\Manager::getInstance()->isPluginBundledWithCore($component)) {
+        if ($component !== 'core' && \Piwik\Plugin\Manager::getInstance()->isPluginBundledWithCore($component)) {
             return false;
         }
 

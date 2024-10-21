@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
 use Piwik\Common;
@@ -25,9 +27,9 @@ use Piwik\Plugins\UserCountry\VisitorGeolocator;
 
 class Activity
 {
-    const USER_SYSTEM = 'Matomo System';
-    const USER_CLI = 'Console Command';
-    const USER_ANONYMOUS = 'anonymous';
+    public const USER_SYSTEM = 'Matomo System';
+    public const USER_CLI = 'Console Command';
+    public const USER_ANONYMOUS = 'anonymous';
 
     public static $fakeTime;
 

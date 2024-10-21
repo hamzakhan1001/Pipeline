@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
 use Piwik\Piwik;
@@ -35,8 +37,11 @@ class ScheduledReportDeleted extends Activity
 
         $idReport = $finalAPIParameters['idReport'];
 
-        $APIScheduledReports = ScheduledReportsAPI::getInstance()->getReports($idSite = false, $periodSearch = false,
-            $idReport);
+        $APIScheduledReports = ScheduledReportsAPI::getInstance()->getReports(
+            $idSite = false,
+            $periodSearch = false,
+            $idReport
+        );
         $report              = reset($APIScheduledReports);
         $idSite              = $report['idsite'];
 

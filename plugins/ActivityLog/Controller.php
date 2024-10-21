@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,15 +13,14 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog;
 
-use Piwik\Piwik;
 use Piwik\Plugin\ControllerAdmin;
 use Piwik\View;
 
 class Controller extends ControllerAdmin
 {
-
     public function index()
     {
         ActivityLog::checkPermission();
@@ -42,6 +42,6 @@ class Controller extends ControllerAdmin
 
         $this->setBasicVariablesView($view);
 
-        return '<div class="activityLogWidget">' .$view->render() . '</div>';
+        return '<div class="activityLogWidget">' . $view->render() . '</div>';
     }
 }

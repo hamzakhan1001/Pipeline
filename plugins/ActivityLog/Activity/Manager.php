@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
 use Piwik\Cache;
@@ -31,11 +33,11 @@ class Manager extends Singleton
     {
         $activities = $this->getMapOfIdToActivity();
         if (array_key_exists($classNameOrId, $activities)) {
-            return new $activities[$classNameOrId];
+            return new $activities[$classNameOrId]();
         }
 
         if (in_array($classNameOrId, $activities)) {
-            return new $classNameOrId;
+            return new $classNameOrId();
         }
 
         return new Activity();

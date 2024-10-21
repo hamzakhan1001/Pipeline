@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
 use Piwik\Piwik;
@@ -59,6 +61,4 @@ class UserChanged extends Activity
 
         return Piwik::translate('ActivityLog_UserChanged');
     }
-
-
 }
