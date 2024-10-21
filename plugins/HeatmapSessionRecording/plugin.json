@@ -1,7 +1,7 @@
 {
     "name": "HeatmapSessionRecording",
     "description": "Truly understand your visitors by seeing where they click, hover, type and scroll. Replay their actions in a video and ultimately increase conversions.",
-    "version": "5.1.6",
+    "version": "5.1.8",
     "theme": false,
     "require": {
         "matomo": ">=5.0.0-rc1,<6.0.0-b1"
