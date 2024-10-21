@@ -1,5 +1,9 @@
 ## Changelog
 
+5.1.0 - 2024-10-15
+- Fixes normal login flow to work only for superusers
+- Added code to skip password confirmation for create token auth
+
 5.0.9 - 2024-09-09
 - Translated the login button text
 

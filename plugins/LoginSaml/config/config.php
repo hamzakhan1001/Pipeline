@@ -87,10 +87,25 @@ return array(
 
     'observers.global' => \Piwik\DI::add([
         ['Login.userRequiresPasswordConfirmation', \Piwik\DI::value(function (&$requiresPasswordConfirmation, $login) {
+            $samlEnabled = \Piwik\Plugins\LoginSaml\Config::isSamlEnabled();
             $enablePasswordConfirmation = \Piwik\Plugins\LoginSaml\Config::getConfigOption('enable_password_confirmation');
-            if (!$enablePasswordConfirmation) {
-                $requiresPasswordConfirmation = false;
+            if ($samlEnabled && !$enablePasswordConfirmation) {
+                if (isset($_SESSION['saml_data']) && isset($_SESSION['saml_data']['saml_login']) && $_SESSION['saml_data']['saml_login']) {
+                    $requiresPasswordConfirmation = false;
+                }
             }
         })],
     ]),
+    'Piwik\Plugins\Login\PasswordVerifier' => Piwik\DI::decorate(function ($previous) {
+        $request = \Piwik\Request::fromRequest();
+        $enablePasswordConfirmation = \Piwik\Plugins\LoginSaml\Config::getConfigOption('enable_password_confirmation');
+        $samlEnabled = \Piwik\Plugins\LoginSaml\Config::isSamlEnabled();
+        if ($samlEnabled && !$enablePasswordConfirmation &&  $request->getStringParameter('module', '') === 'Login' && $request->getStringParameter('action', '') === 'confirmPassword') {
+            if (isset($_SESSION['saml_data']) && isset($_SESSION['saml_data']['saml_login']) && $_SESSION['saml_data']['saml_login']) {
+                $previous->setPasswordVerifiedCorrectly();
+            }
+        }
+
+        return $previous;
+    }),
 );
