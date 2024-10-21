@@ -84,6 +84,21 @@ class FunnelsModel
         }
     }
 
+    /**
+     * Checks whether the loaded funnel array matches the provided site ID.
+     *
+     * @param int $idSite
+     * @param array|null $funnel
+     * @return void
+     * @throws Exception If the funnel array is empty, doesn't have a idsite index, or the idsite doesn't match
+     */
+    public function checkFunnelMatchesSite(int $idSite, ?array $funnel)
+    {
+        if (!is_array($funnel) || empty($funnel['idsite']) || intval($funnel['idsite']) !== $idSite) {
+            throw new Exception(Piwik::translate('Funnels_ErrorFunnelDoesNotExistForSite'));
+        }
+    }
+
     public function getFunnel($idFunnel)
     {
         $funnel = $this->funnelDao->getFunnel($idFunnel);
@@ -123,6 +138,11 @@ class FunnelsModel
     public function deleteNonGoalFunnel($idSite, $idFunnel)
     {
         $funnel = $this->funnelDao->getFunnel($idFunnel);
+        try {
+            $this->checkFunnelMatchesSite(intval($idSite), $funnel);
+        } catch (Exception $e) {
+            return 0;
+        }
 
         if (!empty($funnel['idfunnel'])) {
             $now = Date::now()->getDatetime();
