@@ -38,6 +38,9 @@ abstract class AdapterAbstract
     /** @var SystemSettings */
     protected $systemSetting;
 
+    /** @var bool  */
+    protected $iterateAndReturnResultSet = false;
+
     public static function getId(): string
     {
         return static::ID;
@@ -169,15 +172,25 @@ abstract class AdapterAbstract
         }
 
         $db = Db::getReader();
-        try{
+        try {
             $queryResult = $db->query($query['sql'], $query['bind']);
         } catch (Exception $e) {
             $this->handleMaxExecutionTimeError($db, $e, $segment, $limit, $query);
             throw $e;
         }
 
-        return $queryResult;
+        // We need to do this to resolve PG-3713, as the issue was not reproducible locally or on Cloud, but with the help of patches we were able to resolve this issue and hence we added this code.
+        if ($this->iterateAndReturnResultSet) {
+            $rows = [];
+            while ($conversion = $queryResult->fetch()) {
+                $rows[] = $conversion;
+            }
+            $queryResult->closeCursor();
 
+            return $rows;
+        }
+
+        return $queryResult;
     }
 
     protected function convertTimezone($matomoTimezone)

@@ -43,6 +43,7 @@ class GoogleAds extends AdapterAbstract
 
     public function generate(): string
     {
+        $this->iterateAndReturnResultSet = true;
         if ($this->configuration->externalAttributedConversion) {
             $content = $this->getFileHeaderWithExternalAttributedConversion();
         } else {
@@ -50,20 +51,20 @@ class GoogleAds extends AdapterAbstract
         }
 
         if ($this->configuration->onlyDirectAttribution) {
-            $cursor = $this->fetchDirectlyAttributedConversions();
+            $conversionRows = $this->fetchDirectlyAttributedConversions();
         } else {
-            $cursor = $this->fetchAllAttributedConversions();
+            $conversionRows = $this->fetchAllAttributedConversions();
         }
 
-        while ($conversion = $cursor->fetch()) {
-            if ($this->configuration->externalAttributedConversion) {
-                $content .= $this->getConversionDataWithExternalAttributedConversion($conversion);
-            } else {
-                $content .= $this->getConversionDataWithoutExternalAttributedConversion($conversion);
+        if (!empty($conversionRows)) {
+            foreach ($conversionRows as $conversion) {
+                if ($this->configuration->externalAttributedConversion) {
+                    $content .= $this->getConversionDataWithExternalAttributedConversion($conversion);
+                } else {
+                    $content .= $this->getConversionDataWithoutExternalAttributedConversion($conversion);
+                }
             }
         }
-
-        $cursor->closeCursor();
 
         return $content;
     }

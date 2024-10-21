@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.1.4__ - 2024-10-08
+* Fixes GoogleAds returning only 1 row for some on-premise install
+
 __5.1.3__ - 2024-08-26
 - Pricing updated
 
