@@ -17,7 +17,7 @@ namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client\Configuration;
 
 use Piwik\Common;
 use Piwik\Option;
-class Yandex
+class Yandex extends BaseConfiguration
 {
     const OAUTH_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Yandex_Accounts';
     const CLIENT_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Yandex_Client';
@@ -60,6 +60,7 @@ class Yandex
     public function removeAccount($id)
     {
         $currentAccounts = (array) $this->getAccounts();
+        $this->checkPermissionToRemoveAccount($id, $currentAccounts);
         unset($currentAccounts[$id]);
         $this->setAccounts($currentAccounts);
     }

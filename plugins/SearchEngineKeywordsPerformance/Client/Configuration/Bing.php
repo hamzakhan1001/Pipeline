@@ -16,7 +16,7 @@
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client\Configuration;
 
 use Piwik\Option;
-class Bing
+class Bing extends BaseConfiguration
 {
     /**
      * Key used to store accounts in options table
@@ -62,6 +62,7 @@ class Bing
     public function removeAccount($apiKey)
     {
         $currentAccounts = (array) $this->getAccounts();
+        $this->checkPermissionToRemoveAccount($apiKey, $currentAccounts);
         unset($currentAccounts[$apiKey]);
         $this->setAccounts($currentAccounts);
     }

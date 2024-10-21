@@ -17,7 +17,7 @@ namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client\Configuration;
 
 use Piwik\Option;
 use Piwik\Common;
-class Google
+class Google extends BaseConfiguration
 {
     /**
      * Key used to store client config in options table
@@ -72,6 +72,7 @@ class Google
     {
         $currentAccounts = (array) $this->getAccounts();
         $id = (string) $id;
+        $this->checkPermissionToRemoveAccount($id, $currentAccounts);
         unset($currentAccounts[$id]);
         $this->setAccounts($currentAccounts);
     }
