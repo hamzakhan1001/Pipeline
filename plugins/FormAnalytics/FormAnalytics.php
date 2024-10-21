@@ -5,7 +5,7 @@
  * Description: Increase conversions on your online forms and lose less visitors by learning everything about your users behavior and their pain points on your forms
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/FormAnalytics
- * Version: 5.0.11
+ * Version: 5.0.12
  */
 ?><?php
 /**

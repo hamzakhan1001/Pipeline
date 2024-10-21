@@ -62,6 +62,8 @@ use Piwik\Config;
  */
 class API extends \Piwik\Plugin\API
 {
+    public const MAX_LAST_N_HOURS = 24;
+
     /**
      * @var Validator
      */
@@ -541,6 +543,7 @@ class API extends \Piwik\Plugin\API
         $this->validator->checkReportViewPermission($idSite);
 
         $lastMinutes = (int) $lastMinutes;
+        $this->checkLastNMinutes($lastMinutes);
         $serverTime = $this->getServerTimeForXMinutesAgo($lastMinutes);
 
         $counters = $this->logForm->getCounters($idSite, $serverTime, $segment);
@@ -579,6 +582,7 @@ class API extends \Piwik\Plugin\API
         $this->validator->checkReportViewPermission($idSite);
 
         $lastMinutes = (int) $lastMinutes;
+        $this->checkLastNMinutes($lastMinutes);
         $serverTime = $this->getServerTimeForXMinutesAgo($lastMinutes);
 
         $rows = $this->logForm->getCurrentMostPopularForms($idSite, $serverTime, $filter_limit, $segment);
@@ -734,4 +738,17 @@ class API extends \Piwik\Plugin\API
         return RuleMatcher::getAvailableConversionRuleList();
     }
 
+    /**
+     * Check whether the provided lastMinutes value is within the allowed range. If the value is too low or greater than
+     * the maxMinutes value, an exception is thrown.
+     *
+     * @param int $lastMinutes The parameter value provided to the API
+     * @return void
+     * @internal
+     * @throws Exception If the provided values aren't valid
+     */
+    private function checkLastNMinutes(int $lastMinutes)
+    {
+        (new \Piwik\Validators\NumberRange(0, self::MAX_LAST_N_HOURS * 60))->validate($lastMinutes);
+    }
 }

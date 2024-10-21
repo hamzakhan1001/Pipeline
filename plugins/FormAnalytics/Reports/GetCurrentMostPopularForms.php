@@ -83,7 +83,7 @@ class GetCurrentMostPopularForms extends Base
         if ($view->config->custom_parameters['updateInterval'] < 2000) {
             $view->config->custom_parameters['updateInterval'] = 2000; // we want at least 2 seconds interval
         }
-        $view->config->title = 'FormAnalytics_WidgetTitleMostPopularFormsLast' . (int) $lastMinutes;
+        $view->config->title = 'FormAnalytics_WidgetTitleMostPopularFormsLast' . ($lastMinutes === 1440 ? 3600 : $lastMinutes);
 
         if ($view->isViewDataTableId(HtmlTable::ID)) {
             $view->config->disable_row_evolution = true;
@@ -151,11 +151,11 @@ class GetCurrentMostPopularForms extends Base
         $config->setOrder($this->order);
         $widgetsList->addWidgetConfig($config);
 
-        $widgetsToAdd = array(60, 3600);
+        $widgetsToAdd = array(60, 1440);
 
         foreach ($widgetsToAdd as $index => $timeToAdd) {
             $config = $factory->createWidget();
-            $config->setName('FormAnalytics_WidgetTitleMostPopularFormsLast' . $timeToAdd);
+            $config->setName('FormAnalytics_WidgetTitleMostPopularFormsLast' . ($timeToAdd === 1440 ? 3600 : $timeToAdd));
             $config->setParameters(array('lastMinutes' => $timeToAdd));
             $config->setOrder($this->order + $index + 1);
             $config->setIsWide();

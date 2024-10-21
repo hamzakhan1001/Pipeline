@@ -36,8 +36,8 @@ class GetCounters extends Base
         $title = 'FormAnalytics_WidgetTitleLiveFormOverviewLast30';
 
         $lastMinutes = $this->getLastMinutes();
-        if (in_array($lastMinutes, array(30, 60, 3600))) {
-            $title = 'FormAnalytics_WidgetTitleLiveFormOverviewLast' . $lastMinutes;
+        if (in_array($lastMinutes, array(30, 60, 1440))) {
+            $title = 'FormAnalytics_WidgetTitleLiveFormOverviewLast' . ($lastMinutes === 1440 ? 3600 : $lastMinutes);
         }
 
         $this->name          = Piwik::translate($title);
@@ -107,10 +107,10 @@ class GetCounters extends Base
         $config->setOrder($this->order);
         $widgetsList->addWidgetConfig($config);
 
-        $widgetsToAdd = array(60, 3600);
+        $widgetsToAdd = array(60, 1440);
         foreach ($widgetsToAdd as $index => $timeToAdd) {
             $config = $factory->createWidget();
-            $config->setName('FormAnalytics_WidgetTitleLiveFormOverviewLast' . $timeToAdd);
+            $config->setName('FormAnalytics_WidgetTitleLiveFormOverviewLast' . ($timeToAdd === 1440 ? 3600 : $timeToAdd));
             $config->setParameters(array('lastMinutes' => $timeToAdd));
             $config->setOrder($this->order + $index + 1);
             if (60 == $timeToAdd && Common::getRequestVar('method', '', 'string') !== 'API.getWidgetMetadata') {
