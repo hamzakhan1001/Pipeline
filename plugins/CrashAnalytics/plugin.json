@@ -1,7 +1,7 @@
 {
     "name": "CrashAnalytics",
     "description": "Detect crashes to improve the user experience, increase conversions and recover revenue. Resolve them with insights to minimise developer hours.",
-    "version": "5.0.3",
+    "version": "5.0.4",
     "theme": false,
     "require": {
         "matomo": ">=5.0.0-b5,<6.0.0-b1"

@@ -5,7 +5,7 @@
  * Description: Detect crashes to improve the user experience, increase conversions and recover revenue. Resolve them with insights to minimise developer hours.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/CrashAnalytics
- * Version: 5.0.3
+ * Version: 5.0.4
  */
 ?><?php
 /**
