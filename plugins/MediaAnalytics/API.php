@@ -52,6 +52,8 @@ use Piwik\Site;
  */
 class API extends \Piwik\Plugin\API
 {
+    public const MAX_LAST_N_HOURS = 24;
+
     /**
      * @var LogTable
      */
@@ -126,6 +128,7 @@ class API extends \Piwik\Plugin\API
     {
         Piwik::checkUserHasViewAccess($idSite);
         $lastMinutes = (int)$lastMinutes;
+        $this->checkLastNMinutes($lastMinutes);
         $serverTime = $this->getServerTimeForXMinutesAgo($lastMinutes);
 
         $numPlays = $this->logTable->getNumPlays($idSite, $serverTime, $segment);
@@ -141,6 +144,7 @@ class API extends \Piwik\Plugin\API
     {
         Piwik::checkUserHasViewAccess($idSite);
         $lastMinutes = (int)$lastMinutes;
+        $this->checkLastNMinutes($lastMinutes);
         $serverTime = $this->getServerTimeForXMinutesAgo($lastMinutes);
 
         $spentTime = $this->logTable->getSumWatchedTime($idSite, $serverTime, $segment);
@@ -155,7 +159,11 @@ class API extends \Piwik\Plugin\API
     public function getCurrentMostPlays($idSite, $lastMinutes, $filter_limit = 5, $segment = false)
     {
         Piwik::checkUserHasViewAccess($idSite);
+        if (!is_numeric($filter_limit)) {
+            throw new \Exception(Piwik::translate('MediaAnalytics_InvalidParameterErrorMessage', ['filter_limit', $filter_limit]));
+        }
         $lastMinutes = (int)$lastMinutes;
+        $this->checkLastNMinutes($lastMinutes);
         $serverTime = $this->getServerTimeForXMinutesAgo($lastMinutes);
 
         $rows = $this->logTable->getMostPlays($idSite, $serverTime, $filter_limit, $segment);
@@ -533,5 +541,19 @@ class API extends \Piwik\Plugin\API
         $table->queueFilter('Piwik\Plugins\MediaAnalytics\DataTable\Filter\RenameUnknownLabel');
 
         return $table;
+    }
+
+    /**
+     * Check whether the provided lastMinutes value is within the allowed range. If the value is too low or greater than
+     * the maxMinutes value, an exception is thrown.
+     *
+     * @param int $lastMinutes The parameter value provided to the API
+     * @return void
+     * @internal
+     * @throws Exception If the provided values aren't valid
+     */
+    private function checkLastNMinutes(int $lastMinutes)
+    {
+        (new \Piwik\Validators\NumberRange(0, self::MAX_LAST_N_HOURS * 60))->validate($lastMinutes);
     }
 }

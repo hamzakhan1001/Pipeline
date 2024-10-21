@@ -387,7 +387,10 @@ class API extends PluginApi
     {
         $this->validator->checkReportViewPermission($idSite);
 
-        return $this->funnels->getFunnel($idFunnel);
+        $funnel = $this->funnels->getFunnel($idFunnel);
+        $this->funnels->checkFunnelMatchesSite($idSite, $funnel);
+
+        return $funnel;
     }
 
     /**
@@ -533,6 +536,8 @@ class API extends PluginApi
         // If this is an existing funnel, let's see if the steps have changed
         if (!$shouldReArchive) {
             $funnel = $this->funnels->getFunnel($idFunnel);
+            // Check the persisted site ID in case they provided a different site ID in the request
+            $this->funnels->checkFunnelMatchesSite($idSite, $funnel);
             if (!empty($funnel['steps']) && $steps != $funnel['steps']) {
                 $shouldReArchive = true;
             }

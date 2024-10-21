@@ -1,5 +1,11 @@
 ## Changelog
 
+5.1.8 - 2024-10-17
+- Fixes excluded_elements not working for escaped values for a heatmap
+
+5.1.7 - 2024-10-11
+- Fixes classes with word script being removed due to xss filtering
+
 5.1.6 - 2024-08-26
 - Pricing updated
 

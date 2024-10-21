@@ -1,5 +1,9 @@
 ## Changelog
 
+5.3.5 - 2024-10-08
+- Added code to use index forcefully to improve performance
+- Improved API access check
+
 5.3.4 - 2024-08-26
 - Restrict Tooltip component's CSS to apply only within Funnels plugin
 - Pricing update

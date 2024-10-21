@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -6,6 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\QueuedTracking;
 
 use Piwik\Plugins\QueuedTracking\Settings\NumWorkers;
@@ -53,12 +55,22 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     public $numRequestsToProcess;
 
     /** @var Setting */
-    public $useSentinelBackend;
+    public $useWhatRedisBackendType;
 
     /** @var Setting */
     public $sentinelMasterName;
 
-    protected function assignValueIsIntValidator (FieldConfig $field) {
+    public function getAvailableRedisBackendTypes()
+    {
+        return array(
+            1 => Piwik::translate('QueuedTracking_AvailableRedisBackendTypeStandAlone'),
+            2 => Piwik::translate('QueuedTracking_AvailableRedisBackendTypeSentinel'),
+            3 => Piwik::translate('QueuedTracking_AvailableRedisBackendTypeCluster')
+        );
+    }
+
+    protected function assignValueIsIntValidator(FieldConfig $field)
+    {
         $field->validate = function ($value) {
             if ((is_string($value) && !ctype_digit($value)) || (!is_string($value) && !is_int($value))) {
                 throw new \Exception(Piwik::translate('QueuedTracking_ExceptionValueIsNotInt'));
@@ -69,7 +81,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     protected function init()
     {
         $this->backend = $this->createBackendSetting();
-        $this->useSentinelBackend = $this->createUseSentinelBackend();
+        $this->useWhatRedisBackendType = $this->createUseWhatRedisBackendType();
         $this->sentinelMasterName = $this->createSetSentinelMasterName();
         $this->redisHost = $this->createRedisHostSetting();
         $this->redisPort = $this->createRedisPortSetting();
@@ -84,7 +96,17 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 
     public function isUsingSentinelBackend()
     {
-        return $this->useSentinelBackend->getValue();
+        return $this->useWhatRedisBackendType->getValue() === 2;
+    }
+
+    public function isUsingClusterBackend()
+    {
+        return $this->useWhatRedisBackendType->getValue() === 3;
+    }
+
+    public function getRedisType()
+    {
+        return $this->useWhatRedisBackendType->getValue();
     }
 
     public function getSentinelMasterName()
@@ -109,7 +131,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             $field->inlineHelp = Piwik::translate('QueuedTracking_RedisHostFieldHelp') . '</br></br>'
                 . Piwik::translate('QueuedTracking_RedisHostFieldHelpExtended') . '</br>';
 
-            if ($self->isUsingSentinelBackend()) {
+            if ($self->isUsingSentinelBackend() || $self->isUsingClusterBackend()) {
                 $field->inlineHelp .= '</br>' . Piwik::translate('QueuedTracking_RedisHostFieldHelpExtendedSentinel') . '</br>';
             }
 
@@ -143,20 +165,20 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             $field->uiControlAttributes = array('size' => 100);
             $field->inlineHelp = Piwik::translate('QueuedTracking_RedisPortFieldHelp') . '</br>';
 
-            if ($self->isUsingSentinelBackend()) {
+            if ($self->isUsingSentinelBackend() || $self->isUsingClusterBackend()) {
                 $field->inlineHelp .= '</br>' . Piwik::translate('QueuedTracking_RedisHostFieldHelpExtendedSentinel') . '</br>';
             }
 
             $field->validate = function ($value) use ($self) {
                 $self->checkMultipleServersOnlyConfiguredWhenSentinelIsEnabled($value);
 
-                if (!$self->isUsingSentinelBackend()) {
-                    (new NumberRange(0, 65535))->validate($value);
-                } else {
+                if ($self->isUsingSentinelBackend() || $self->isUsingClusterBackend()) {
                     $ports = explode(',', $value);
                     foreach ($ports as $port) {
                         (new NumberRange(0, 65535))->validate(trim($port));
                     }
+                } else {
+                    (new NumberRange(0, 65535))->validate($value);
                 }
             };
 
@@ -194,9 +216,9 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             $field->title = Piwik::translate('QueuedTracking_NumberOfQueueWorkersFieldTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
             $field->uiControlAttributes = array('size' => 5);
-            $field->inlineHelp = Piwik::translate('QueuedTracking_NumberOfQueueWorkersFieldHelp') . '</br>';
+            $field->inlineHelp = Piwik::translate('QueuedTracking_NumberOfQueueWorkersFieldHelpNew') . '</br>';
             $this->assignValueIsIntValidator($field);
-            $field->validators[] = new NumberRange(1, 16);
+            $field->validators[] = new NumberRange(1, 4096);
         });
 
         $this->addSetting($numQueueWorkers);
@@ -279,7 +301,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 
     public function checkMultipleServersOnlyConfiguredWhenSentinelIsEnabled($value)
     {
-        if ($this->isUsingSentinelBackend()) {
+        if ($this->isUsingSentinelBackend() || $this->isUsingClusterBackend()) {
             return;
         }
 
@@ -322,14 +344,14 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         });
     }
 
-    private function createUseSentinelBackend()
+    private function createUseWhatRedisBackendType()
     {
-        return $this->makeSetting('useSentinelBackend', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
-            $field->title = Piwik::translate('QueuedTracking_UseSentinelFieldTitle');
-            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
-            $field->uiControlAttributes = array('size' => 3);
+        return $this->makeSetting('useWhatRedisBackendType', $default = 1, FieldConfig::TYPE_INT, function (FieldConfig $field) {
+            $field->title = 'Redis type';
+            $field->uiControl = FieldConfig::UI_CONTROL_RADIO;
+            $field->availableValues = $this->getAvailableRedisBackendTypes();
             $field->condition = 'backend=="redis"';
-            $field->inlineHelp = Piwik::translate('QueuedTracking_UseSentinelFieldHelp') . '</br>';
+            $field->inlineHelp = Piwik::translate('QueuedTracking_WhatRedisBackEndType') . '</br>';
         });
     }
 
@@ -382,5 +404,4 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             }
         }
     }
-
 }

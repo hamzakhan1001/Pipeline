@@ -75,6 +75,7 @@
         "ErrorFunnelDoesNotExist": "The requested funnel does not exist",
         "ErrorGoalFunnelDoesNotExist": "The requested goal funnel does not exist",
         "ErrorGoalDoesNotExist": "The given goal does not exist for this site",
+        "ErrorFunnelDoesNotExistForSite": "The given funnel does not exist for this site",
         "ErrorNotAnArray": "\"%1$s\" has to be an array.",
         "ErrorXNotProvided": "Please provide a value for \"%1$s\".",
         "ErrorInnerIsNotAnArray": "Each \"%1$s\" within \"%2$s\" has to be an array.",

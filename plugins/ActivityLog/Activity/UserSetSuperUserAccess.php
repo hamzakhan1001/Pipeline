@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
 use Piwik\Piwik;
-use Piwik\Plugins\UsersManager\Model AS UsersModel;
+use Piwik\Plugins\UsersManager\Model as UsersModel;
 
 class UserSetSuperUserAccess extends Activity
 {

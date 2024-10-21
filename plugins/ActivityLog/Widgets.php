@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,9 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog;
 
-use \Piwik\Piwik;
+use Piwik\Piwik;
 
 class Widgets extends \Piwik\Widget\Widget
 {
@@ -26,5 +28,4 @@ class Widgets extends \Piwik\Widget\Widget
             $this->addWidget('ActivityLog_ActivityLog', $method = 'getActivityLog');
         }
     }
-
 }

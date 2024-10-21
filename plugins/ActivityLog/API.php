@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog;
 
 use Piwik\Date;
@@ -19,9 +21,7 @@ use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugins\ActivityLog\Activity\Manager;
-use Piwik\Plugins\Marketplace\Api\Exception;
-use Piwik\Plugins\UsersManager\Model AS UsersManagerModel;
-
+use Piwik\Plugins\UsersManager\Model as UsersManagerModel;
 
 /**
  * The Activity Log API is used to get the activity logs for users in your Matomo instance.
@@ -155,10 +155,11 @@ class API extends \Piwik\Plugin\API
         return new Model();
     }
 
-    private function checkPaginationCounts($offset, $limit) {
+    private function checkPaginationCounts($offset, $limit)
+    {
         if ($offset < 0) {
             throw new \Exception('Invalid offset value');
-        } else if ($limit < 0) {
+        } elseif ($limit < 0) {
             throw new \Exception('Invalid limit value');
         }
     }

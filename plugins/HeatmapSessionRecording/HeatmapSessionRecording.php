@@ -4,7 +4,7 @@
  * Description: Truly understand your visitors by seeing where they click, hover, type and scroll. Replay their actions in a video and ultimately increase conversions
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.1.6
+ * Version: 5.1.8
  * License: InnoCraft EULA
  * License URI: https://www.innocraft.com/license
  * Plugin URI: https://plugins.matomo.org/HeatmapSessionRecording

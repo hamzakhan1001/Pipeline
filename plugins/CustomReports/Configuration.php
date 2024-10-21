@@ -35,6 +35,8 @@ class Configuration
     const KEY_DISABLED_DIMENSIONS = 'custom_reports_disabled_dimensions';
     const KEY_EVOLUTION_UNIQUE_FORCE_AGGREGATION = 'custom_reports_periods_force_aggregate_report_unique_metrics_evolution';
 
+    const KEY_REARCHIVE_REPORTS_IN_PAST_LAST_N_MONTHS = 'custom_reports_rearchive_reports_in_past_last_n_months';
+
     public function install()
     {
         $config = $this->getConfig();
@@ -190,6 +192,30 @@ class Configuration
         }
 
         return (bool) $value;
+    }
+
+    /**
+     * @return int|string|null
+     */
+    public function getReArchiveReportsInPastLastNMonths()
+    {
+        $config = $this->getConfig();
+        $reArchiveLastN = null;
+        if (isset($config->CustomReports[self::KEY_REARCHIVE_REPORTS_IN_PAST_LAST_N_MONTHS])) {
+            $reArchiveLastN = $config->CustomReports[self::KEY_REARCHIVE_REPORTS_IN_PAST_LAST_N_MONTHS];
+        } elseif (isset($config->General['rearchive_reports_in_past_last_n_months'])) {
+            $reArchiveLastN = $config->General['rearchive_reports_in_past_last_n_months'];
+        }
+
+        if (!is_null($reArchiveLastN) && !is_numeric($reArchiveLastN)) {
+            $reArchiveLastN = (int)str_replace('last', '', $reArchiveLastN);
+        }
+
+        if ($reArchiveLastN < 0) {
+            $reArchiveLastN = null;
+        }
+
+        return $reArchiveLastN;
     }
 
     private function getConfig()

@@ -44,25 +44,25 @@ class Configuration
     public function install()
     {
         $config = $this->getConfig();
-        if (empty($config->AbTesting[self::KEY_ESTIMATED_UNIQUE_VISITOR_ENABLED])) {
+        if (!isset($config->AbTesting[self::KEY_ESTIMATED_UNIQUE_VISITOR_ENABLED])) {
             $config->AbTesting[self::KEY_ESTIMATED_UNIQUE_VISITOR_ENABLED] = self::DEFAULT_ESTIMATED_UNIQUE_VISITOR_ENABLED;
         }
-        if (empty($config->AbTesting[self::KEY_HYPERLOGLOG_ERROR_RATE])) {
+        if (!isset($config->AbTesting[self::KEY_HYPERLOGLOG_ERROR_RATE])) {
             $config->AbTesting[self::KEY_HYPERLOGLOG_ERROR_RATE] = self::DEFAULT_HYPERLOGLOG_ERROR_RATE;
         }
-        if (empty($config->AbTesting[self::KEY_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS])) {
+        if (!isset($config->AbTesting[self::KEY_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS])) {
             $config->AbTesting[self::KEY_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS] = self::DEFAULT_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS;
         }
 
-        if (empty($config->AbTesting[self::KEY_ARCHIVE_UNIQUE_VISITOR_ENABLED])) {
+        if (!isset($config->AbTesting[self::KEY_ARCHIVE_UNIQUE_VISITOR_ENABLED])) {
             $config->AbTesting[self::KEY_ARCHIVE_UNIQUE_VISITOR_ENABLED] = self::DEFAULT_ARCHIVE_UNIQUE_VISITOR_ENABLED;
         }
 
-        if (empty($config->AbTesting[self::KEY_SHOW_UNIQUE_VISITOR])) {
+        if (!isset($config->AbTesting[self::KEY_SHOW_UNIQUE_VISITOR])) {
             $config->AbTesting[self::KEY_SHOW_UNIQUE_VISITOR] = self::DEFAULT_SHOW_UNIQUE_VISITOR;
         }
 
-        if (empty($config->AbTesting[self::KEY_SHOW_ESTIMATED_UNIQUE_VISITOR])) {
+        if (!isset($config->AbTesting[self::KEY_SHOW_ESTIMATED_UNIQUE_VISITOR])) {
             $config->AbTesting[self::KEY_SHOW_ESTIMATED_UNIQUE_VISITOR] = self::DEFAULT_SHOW_ESTIMATED_UNIQUE_VISITOR;
         }
 

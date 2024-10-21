@@ -20,6 +20,7 @@ use Piwik\Common;
 use Piwik\Config;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
+use Piwik\Plugins\CustomReports\Configuration;
 use Piwik\Plugins\CustomReports\Dao\CustomReportsDao;
 use Piwik\Widget\Widget;
 use Piwik\Widget\WidgetConfig;
@@ -56,14 +57,8 @@ class GetManageReports extends Widget
         $browserArchivingDisabled = !Rules::isBrowserTriggerEnabled();
         $browserArchivingDisabled = json_encode($browserArchivingDisabled);
 
-        $general = Config::getInstance()->General;
-        $reArchiveLastN = null;
-        if (isset($general['rearchive_reports_in_past_last_n_months'])) {
-            $reArchiveLastN = $general['rearchive_reports_in_past_last_n_months'];
-            if (!is_numeric($reArchiveLastN)) {
-                $reArchiveLastN = (int)str_replace('last', '', $reArchiveLastN);
-            }
-        }
+        $configuration =  StaticContainer::get(Configuration::class);
+        $reArchiveLastN = $configuration->getReArchiveReportsInPastLastNMonths();
         $reArchiveLastN = json_encode($reArchiveLastN);
 
         return "<div vue-entry=\"CustomReports.ReportsManage\"

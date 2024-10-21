@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,11 +13,12 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
 use Piwik\Piwik;
 use Piwik\Site;
-use Piwik\Plugins\CustomAlerts\API AS CustomAlertsAPI;
+use Piwik\Plugins\CustomAlerts\API as CustomAlertsAPI;
 use Piwik\Plugins\SitesManager\API as SitesManagerAPI;
 
 class CustomAlertAdded extends Activity

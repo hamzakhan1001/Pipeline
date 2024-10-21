@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog;
 
 use Piwik\Common;
@@ -84,7 +86,6 @@ class Model
             $db->query($query, $bind);
 
             $insertId = $db->lastInsertId();
-
         } catch (\Exception $e) {
             $insertId = false;
         }

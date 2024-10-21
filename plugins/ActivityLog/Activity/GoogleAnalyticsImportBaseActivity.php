@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,9 +13,8 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
-namespace Piwik\Plugins\ActivityLog\Activity;
 
-use Piwik\Piwik;
+namespace Piwik\Plugins\ActivityLog\Activity;
 
 class GoogleAnalyticsImportBaseActivity extends Activity
 {
@@ -54,7 +54,9 @@ class GoogleAnalyticsImportBaseActivity extends Activity
                         'importStartTime' => $import['import_start_time'],
                         'importEndTime' => $import['import_end_time'],
                         'lastJobStartTime' => $import['last_job_start_time'],
-                        'reimportRanges' => is_array($import['reimport_ranges']) ? array_map(function ($range) { return is_array($range) ? implode(',', $range) : ''; }, $import['reimport_ranges']) : [],
+                        'reimportRanges' => is_array($import['reimport_ranges']) ? array_map(function ($range) {
+                            return is_array($range) ? implode(',', $range) : '';
+                        }, $import['reimport_ranges']) : [],
                         'extraCustomDimensions' => $import['extra_custom_dimensions'],
                         'streamIds' => $import['streamIds'],
                     ]

@@ -565,7 +565,7 @@ function HsrRecordingIframe (url) {
         })();
 
         for (var i = 0; i < excludedElements.length; i++) {
-            var selector = excludedElements[i];
+            var selector = this.decodeHTMLEntities(excludedElements[i]); // decodeHTMLEntities fixes cases like p>a[href="test.html"] or a[href="test.html"] as the quotes are escaped and results in error
             if (selector && style && style.sheet) {
                 if('insertRule' in style.sheet) {
                     style.sheet.insertRule(selector + "{ visibility: hidden; }", i);
@@ -575,6 +575,12 @@ function HsrRecordingIframe (url) {
 
             }
         }
+    };
+
+    this.decodeHTMLEntities = function (text) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = text;
+        return textArea.value;
     };
 
     this.getCoordinatesInFrame = function (selector, offsetx, offsety, offsetAccuracy, ignoreHiddenElement) {

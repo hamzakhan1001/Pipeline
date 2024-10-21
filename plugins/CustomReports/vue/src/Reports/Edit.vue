@@ -241,6 +241,11 @@
             </div>
           </div>
         </div>
+        <div
+          v-show="dependencyAdded"
+          class="alert alert-warning"
+          v-html="getProductRevenueDependencyMessage">
+        </div>
         <div class="form-group row segmentFilterGroup">
           <div class="col s12">
             <div>
@@ -391,7 +396,7 @@ import {
   NotificationsStore,
   NotificationType,
   clone,
-  MatomoUrl,
+  MatomoUrl, externalLink,
 } from 'CoreHome';
 import { Field, SaveButton } from 'CorePluginsAdmin';
 import { SegmentGenerator } from 'SegmentEditor';
@@ -404,9 +409,11 @@ interface ReportEditState {
   isLocked: boolean;
   isUnlocked: boolean;
   canEdit: boolean;
+  dependencyAdded: boolean;
 }
 
 const notificationId = 'reportsmanagement';
+const productMetricNotificationId = 'reportsmanagementProductMetric';
 
 function arrayFilterAndRemoveDuplicates<T>(values: T[]) {
   return [...new Set(values)].filter((v) => !!v);
@@ -443,6 +450,7 @@ export default defineComponent({
       isLocked: false,
       isUnlocked: false,
       canEdit: true,
+      dependencyAdded: false,
     };
   },
   created() {
@@ -484,6 +492,7 @@ export default defineComponent({
     },
     removeAnyReportNotification() {
       NotificationsStore.remove(notificationId);
+      NotificationsStore.remove(productMetricNotificationId);
       NotificationsStore.remove('ajaxHelper');
     },
     showNotification(message: string, context: NotificationType['context']) {
@@ -492,7 +501,24 @@ export default defineComponent({
         context,
         id: notificationId,
         type: 'transient',
+        prepend: true,
       });
+      setTimeout(() => {
+        NotificationsStore.scrollToNotification(instanceId);
+      }, 100);
+    },
+    showProductMetricNotification(message: string, shouldScrollToNotification: boolean) {
+      const instanceId = NotificationsStore.show({
+        message,
+        context: 'warning',
+        id: productMetricNotificationId,
+        type: 'transient',
+      });
+
+      if (!shouldScrollToNotification) {
+        return;
+      }
+
       setTimeout(() => {
         NotificationsStore.scrollToNotification(instanceId);
       }, 100);
@@ -644,6 +670,10 @@ export default defineComponent({
       });
     },
     showPreview() {
+      if (!this.isProductRevenueDependencyMet(true)) {
+        return;
+      }
+
       const idSite = this.report.site?.id && this.report.site.id !== 'all'
         ? this.report.site.id
         : Matomo.idSite;
@@ -717,6 +747,8 @@ export default defineComponent({
       this.setValueHasChanged();
     },
     changeMetric(metric: string, index: number) {
+      this.dependencyAdded = false;
+
       if (!this.report || !metric) {
         return;
       }
@@ -735,6 +767,7 @@ export default defineComponent({
       this.report.metrics = [...this.report.metrics];
       this.report.metrics[index] = metric;
       this.setValueHasChanged();
+      this.addMetricIfMissingDependency(metric);
     },
     setWebsiteChanged() {
       this.setValueHasChanged();
@@ -755,6 +788,8 @@ export default defineComponent({
       }
     },
     addMetric(metric: string) {
+      this.dependencyAdded = false;
+
       if (!this.report || !metric) {
         return;
       }
@@ -775,8 +810,24 @@ export default defineComponent({
         metric,
       ];
       this.setValueHasChanged();
+      this.addMetricIfMissingDependency(metric);
+    },
+    addMetricIfMissingDependency(metric: string) {
+      // If the metric isn't Product Revenue or the dependency is already met, return
+      if (!['sum_product_revenue', 'avg_product_revenue'].includes(metric)
+        || this.doesReportIncludeProductQuantityMetric()) {
+        return;
+      }
+
+      const dependency = metric === 'avg_product_revenue' ? 'avg_ecommerce_productquantity'
+        : 'sum_ecommerce_productquantity';
+
+      this.addMetric(dependency);
+      this.dependencyAdded = true;
     },
     removeMetric(index: number) {
+      this.dependencyAdded = false;
+
       if (this.isLocked) {
         this.confirmReportIsLocked(() => {
           this.removeMetric(index);
@@ -880,11 +931,38 @@ export default defineComponent({
         return false;
       }
 
+      // Don't fail validation since we automatically add the dependency
+      this.isProductRevenueDependencyMet(false);
+
       return true;
     },
     setSubcategory(subcategoryId: string) {
       this.report.subcategory = this.report.subcategory || { id: '' };
       this.report.subcategory.id = subcategoryId;
+    },
+    isProductRevenueDependencyMet(shouldScrollToNotification: boolean): boolean {
+      const linkString = externalLink('https://matomo.org/faq/custom-reports/why-is-there-an-error-when-i-try-to-run-a-custom-report-with-the-product-revenue-metric/');
+      const notificationText = translate('CustomReports_WarningProductRevenueMetricDependency', linkString, '</a>');
+
+      if (this.report.metrics.includes('sum_product_revenue')
+        && !this.doesReportIncludeProductQuantityMetric()) {
+        this.addMetric('sum_ecommerce_productquantity');
+        this.showProductMetricNotification(notificationText, shouldScrollToNotification);
+        return false;
+      }
+
+      if (this.report.metrics.includes('avg_product_revenue')
+        && !this.doesReportIncludeProductQuantityMetric()) {
+        this.addMetric('avg_ecommerce_productquantity');
+        this.showProductMetricNotification(notificationText, shouldScrollToNotification);
+        return false;
+      }
+
+      return true;
+    },
+    doesReportIncludeProductQuantityMetric(): boolean {
+      return this.report.metrics.includes('sum_ecommerce_productquantity')
+        || this.report.metrics.includes('avg_ecommerce_productquantity');
     },
   },
   computed: {
@@ -1003,6 +1081,10 @@ export default defineComponent({
       return this.edit
         ? translate('CoreUpdater_UpdateTitle')
         : translate('CustomReports_CreateNewReport');
+    },
+    getProductRevenueDependencyMessage() {
+      const linkString = externalLink('https://matomo.org/faq/custom-reports/why-is-there-an-error-when-i-try-to-run-a-custom-report-with-the-product-revenue-metric/');
+      return translate('CustomReports_WarningProductRevenueMetricDependency', linkString, '</a>');
     },
   },
 });

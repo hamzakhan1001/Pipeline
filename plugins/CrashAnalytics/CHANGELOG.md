@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.4 - 2024-10-21
+- Updated code to limit lastMinutes query parameter
+
 5.0.3 - 2024-08-26
 - Pricing updated
 

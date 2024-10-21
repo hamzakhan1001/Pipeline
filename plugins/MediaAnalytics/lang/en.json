@@ -161,6 +161,7 @@
         "MediaPlayersSubcategoryHelp": "This reports on the most used media players on your site so you can optimise your media delivery based on the most popular mediums and players.",
         "MediaRealTimeSubcategory": "Analyse your media performance in real-time with duration and play reports calculated for the last 30 minutes and the previous 24 hours.",
         "MediaVideoSubcategoryHelp": "The Video section provides detailed reports on exactly which videos have been played, how often, their completion rates and even their display resolution.",
-        "MediaRealTimeSubcategoryHelp": "Analyse your media performance in real-time with duration and play reports calculated for the last 30 minutes and the previous 24 hours."
+        "MediaRealTimeSubcategoryHelp": "Analyse your media performance in real-time with duration and play reports calculated for the last 30 minutes and the previous 24 hours.",
+        "InvalidParameterErrorMessage": "Invalid value for parameter %1$s: %2$s. The value must be numeric."
     }
 }

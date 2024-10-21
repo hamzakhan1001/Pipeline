@@ -337,7 +337,7 @@ class LoginSaml extends Plugin
             return;
         }
 
-        if (!isset($_GET['normal'])) {
+        if (isset($_GET['action']) && $_GET['action'] === 'assertionConsumerService') {
             return;
         }
 

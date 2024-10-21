@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.12 - 2024-10-21
+- Added limit to lastMinutes query to prevent DDOS
+
 5.0.11 - 2024-08-26
 - Pricing updated
 

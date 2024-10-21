@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.6 - 2024-10-21
+- Updated FAQ document to include a link of knowledge base instead of text
+
 5.0.5 - 2024-09-02
 - Added new activities to track GDPR export and find data subject action
 

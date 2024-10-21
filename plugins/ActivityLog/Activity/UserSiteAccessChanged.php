@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,12 +13,13 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\ActivityLog\Activity;
 
 use Piwik\Piwik;
 use Piwik\Site;
-use Piwik\Plugins\SitesManager\API AS SitesManagerAPI;
-use Piwik\Plugins\UsersManager\Model AS UsersModel;
+use Piwik\Plugins\SitesManager\API as SitesManagerAPI;
+use Piwik\Plugins\UsersManager\Model as UsersModel;
 
 class UserSiteAccessChanged extends Activity
 {
@@ -38,8 +40,7 @@ class UserSiteAccessChanged extends Activity
 
         if ($finalAPIParameters['parameters']['idSites'] === 'all') {
             $idSites = SitesManagerAPI::getInstance()->getSitesIdWithAdminAccess();
-        } // in case the idSites is an integer we build an array
-        else {
+        } else { // in case the idSites is an integer we build an array
             $idSites = Site::getIdSitesFromIdSitesString($finalAPIParameters['parameters']['idSites']);
         }
 

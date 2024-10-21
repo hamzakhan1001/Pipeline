@@ -178,7 +178,7 @@ class Populator
                             where lc.idlink_va = lvaprev.idlink_va 
                             limit 1) as idaction_prev,
                         null as idaction_next
-                        from $visitTable lv
+                        from $visitTable lv USE INDEX (index_idsite_datetime)
                         left join $conversionTable lc on lv.idvisit = lc.idvisit 
                         WHERE $visitorHadEnteredFunnelQuery
                             lv.idsite = ? 
@@ -281,7 +281,7 @@ class Populator
                                     lva.idaction_url,
                                     lva.idaction_name,
                                     lva.pageview_position
-                                    from $visitTable lv
+                                    from $visitTable lv USE INDEX (index_idsite_datetime)
                                     left join $visitActionTable lva on 
                                     lv.idvisit = lva.idvisit
                                     left join $actionTable la on 
@@ -367,7 +367,7 @@ class Populator
                                     lva.idaction_url,
                                     lva.idaction_name,
                                     lva.pageview_position
-                                    FROM $conversionTable AS lc
+                                    FROM $conversionTable AS lc USE INDEX (index_idsite_datetime)
                                     LEFT JOIN $visitActionTable lva ON lc.idvisit = lva.idvisit
                                     WHERE $subQueryRequiredStep
                                         lc.idsite = ? 
@@ -400,7 +400,7 @@ class Populator
 
         $sql = "UPDATE $table AS log_funnel
                  INNER JOIN (SELECT inner_funnel.idvisit, min(step_position) as minstep, max(step_position) as maxstep 
-                        FROM $tableVisit log_visit
+                        FROM $tableVisit log_visit  USE INDEX (index_idsite_datetime)
                         LEFT JOIN $table inner_funnel on inner_funnel.idvisit = log_visit.idvisit
                         WHERE inner_funnel.idfunnel = ? 
                               AND log_visit.idsite = ? 

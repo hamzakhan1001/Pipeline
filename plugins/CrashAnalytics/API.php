@@ -1177,13 +1177,7 @@ class API extends \Piwik\Plugin\API
     private function checkLastNMinutes($lastMinutes)
     {
         $lastMinutes = (int)$lastMinutes;
-        if ($lastMinutes <= 0) {
-            throw new \Exception("Invalid lastNMinutes value provided: $lastMinutes");
-        }
-
-        if ($lastMinutes > self::MAX_LAST_N_HOURS * 60) {
-            throw new \Exception("Invalid lastNMinutes value: $lastMinutes. The max value is 8 hours.");
-        }
+        (new \Piwik\Validators\NumberRange(0, self::MAX_LAST_N_HOURS * 60))->validate($lastMinutes);
     }
 
     private function getPrettyDateTime($d)

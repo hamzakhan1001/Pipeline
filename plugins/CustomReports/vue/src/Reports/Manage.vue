@@ -69,8 +69,11 @@ export default defineComponent({
     this.initState(MatomoUrl.hashParsed.value.idCustomReport as string);
   },
   methods: {
-    removeAnyReportNotification() {
+    removeAnyReportNotification(shouldHideProductMetricNotification = true) {
       NotificationsStore.remove('reportsmanagement');
+      if (shouldHideProductMetricNotification) {
+        NotificationsStore.remove('reportsmanagementProductMetric');
+      }
     },
     initState(idCustomReport?: string) {
       if (idCustomReport) {
@@ -94,7 +97,7 @@ export default defineComponent({
         this.idCustomReport = null;
       }
 
-      this.removeAnyReportNotification();
+      this.removeAnyReportNotification(!idCustomReport);
     },
   },
 });
