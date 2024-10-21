@@ -1,6 +1,9 @@
 ## Changelog
 
-5.2.1 - 2024-10-23
+5.2.2 - 2024-10-08
+- Updated configuration install to use isset instead of empty to set default values
+
+5.2.1 - 2024-09-23
 - Improved tooltip message for HyperLogLog metric
 
 5.2.0 - 2024-09-02
