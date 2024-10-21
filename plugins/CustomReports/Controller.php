@@ -66,14 +66,8 @@ class Controller extends \Piwik\Plugin\Controller
         $this->checkSitePermission();
         $this->validator->checkWritePermission($this->idSite);
 
-        $general = Config::getInstance()->General;
-        $reArchiveLastN = null;
-        if (isset($general['rearchive_reports_in_past_last_n_months'])) {
-            $reArchiveLastN = $general['rearchive_reports_in_past_last_n_months'];
-            if (!is_numeric($reArchiveLastN)) {
-                $reArchiveLastN = (int)str_replace('last', '', $reArchiveLastN);
-            }
-        }
+        $configuration =  StaticContainer::get(Configuration::class);
+        $reArchiveLastN = $configuration->getReArchiveReportsInPastLastNMonths();
 
         return $this->renderTemplate('manage', [
             'browserArchivingDisabled' => !ArchiveProcessor\Rules::isBrowserTriggerEnabled(),

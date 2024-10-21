@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.18 - 2024-10-21
+- Added config for setting custom reports historical archiving period
+
 5.0.17 - 2024-09-26
 - Added some new metrics specifically for this plugin:
   - Average Product Quantity

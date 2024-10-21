@@ -129,13 +129,29 @@ class API extends \Piwik\Plugin\API
             $segmentFilter = urldecode($segmentFilter);
         }
 
+        // If there's a Product Revenue metric without a Product Quantity metric, throw an exception
+        if (
+            (in_array('sum_product_revenue', $metricIds) || in_array('avg_product_revenue', $metricIds))
+            && !in_array('sum_ecommerce_productquantity', $metricIds)
+            && !in_array('avg_ecommerce_productquantity', $metricIds)
+        ) {
+            throw new \Exception(Piwik::translate('CustomReports_ErrorProductRevenueMetricDependency'));
+        }
+
         $idReport = $this->model->createCustomReport($idSite, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $createdDate);
         $report = $this->model->getCustomReportById($idReport);
+
+        $config = StaticContainer::get(Configuration::class);
+        $startDate = $config->getReArchiveReportsInPastLastNMonths();
+        if (!empty($startDate)) {
+            $startDate = Date::yesterday()->subMonth($startDate)->setDay(1);
+        }
 
         $this->archiveInvalidator->scheduleReArchiving(
             $idSite === 0 || $idSite === '0' || $idSite == 'all' ? 'all' : [$idSite],
             'CustomReports',
-            Archiver::makeRecordName($idReport, $report['revision'])
+            Archiver::makeRecordName($idReport, $report['revision']),
+            $startDate
         );
 
         $this->clearCache();
@@ -235,15 +251,30 @@ class API extends \Piwik\Plugin\API
             $shouldReArchive = true;
         }
 
+        // If there's a Product Revenue metric without a Product Quantity metric, throw an exception
+        if (
+            (in_array('sum_product_revenue', $metricIds) || in_array('avg_product_revenue', $metricIds))
+            && !in_array('sum_ecommerce_productquantity', $metricIds)
+            && !in_array('avg_ecommerce_productquantity', $metricIds)
+        ) {
+            throw new \Exception(Piwik::translate('CustomReports_ErrorProductRevenueMetricDependency'));
+        }
+
         $this->model->updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $updatedDate);
 
         if ($shouldReArchive) {
             $updatedReport = $this->model->getCustomReportById($idCustomReport);
+            $config = StaticContainer::get(Configuration::class);
+            $startDate = $config->getReArchiveReportsInPastLastNMonths();
+            if (!empty($startDate)) {
+                $startDate = Date::yesterday()->subMonth($startDate)->setDay(1);
+            }
 
             $this->archiveInvalidator->scheduleReArchiving(
                 $idSite === 0 || $idSite === '0' || $idSite == 'all' ? 'all' : [$idSite],
                 'CustomReports',
-                Archiver::makeRecordName($idCustomReport, $updatedReport['revision'])
+                Archiver::makeRecordName($idCustomReport, $updatedReport['revision']),
+                $startDate
             );
         }
 
@@ -323,7 +354,7 @@ class API extends \Piwik\Plugin\API
             throw new \Exception('Cannot delete report, site does not match');
         } elseif (!empty($report)) {
             $this->archiveInvalidator->removeInvalidationsSafely(
-                $idSite,
+                [$idSite],
                 'CustomReports',
                 Archiver::makeRecordName($idCustomReport, $report['revision'])
             );

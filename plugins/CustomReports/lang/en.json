@@ -79,6 +79,8 @@
         "CommonUniqueMetric": "Sum of %1$s",
         "CommonUniqueMetricDescription": "%1$s. When viewing a period that is not day, then this metric will become \"Sum of %2$s\". In such case, if the same %3$s appear in 2 or more days within the selected period, then it will be counted as 2 or the total number of days it has appeared and not 1.",
         "ProductsWithX": "Products with %s",
-        "ContentImpressions": "Content Impressions"
+        "ContentImpressions": "Content Impressions",
+        "ErrorProductRevenueMetricDependency": "Product Revenue metrics need an accompanying Product Quantity metric in the same report.",
+        "WarningProductRevenueMetricDependency": "Product Revenue metrics need an accompanying Product Quantity metric in the same report. The accompanying metric has been added automatically. %1$sLearn more%2$s."
     }
 }
