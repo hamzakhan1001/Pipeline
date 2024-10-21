@@ -5,9 +5,10 @@
  * Description: This plugin offers various options to prevent spammers and bots from making your data inaccurate so you can rely on your data again.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.3
+ * Version: 5.0.4
  */
 ?><?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -122,16 +123,20 @@ class TrackingSpamPrevention extends \Piwik\Plugin
         $browserLang = $request->getBrowserLanguage();
 
         $browserDetection = new BrowserDetection();
-        if ($settings->blockHeadless->getValue()
-            && $browserDetection->isHeadlessBrowser($request->getUserAgent())) {
+        if (
+            $settings->blockHeadless->getValue()
+            && $browserDetection->isHeadlessBrowser($request->getUserAgent())
+        ) {
             // note above user agent could have been overwritten with UA parameter but that's fine since it's easy to change useragent anyway
             Common::printDebug("Excluding visit as headless browser detected");
             $excluded = 'excluded: headless browser';
             return;
         }
 
-        if ($settings->block_clouds->getValue()
-            && $blockGeoIp->isExcludedProvider($ipString, $browserLang)) {
+        if (
+            $settings->block_clouds->getValue()
+            && $blockGeoIp->isExcludedProvider($ipString, $browserLang)
+        ) {
             // only needs to be done when cloud providers are blocked specifically
             Common::printDebug("Excluding visit as geoip detects a cloud provider");
             $excluded = 'excluded: geoip cloud provider';
@@ -145,8 +150,14 @@ class TrackingSpamPrevention extends \Piwik\Plugin
             return;
         }
 
-        if ($blockGeoIp->isExcludedCountry($ipString, $browserLang,
-            $settings->getExcludedCountryCodes(), $settings->getIncludedCountryCodes())) {
+        if (
+            $blockGeoIp->isExcludedCountry(
+                $ipString,
+                $browserLang,
+                $settings->getExcludedCountryCodes(),
+                $settings->getIncludedCountryCodes()
+            )
+        ) {
             Common::printDebug("Excluding visit as geoip detects an excluded (or not included) country");
             $excluded = 'excluded: country';
             return;
@@ -181,5 +192,4 @@ class TrackingSpamPrevention extends \Piwik\Plugin
     {
         return true;
     }
-
 }
