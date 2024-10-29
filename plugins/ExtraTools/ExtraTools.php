@@ -4,8 +4,8 @@
  * Plugin URI: http://plugins.matomo.org/ExtraTools
  * Description: Adds automatic installation from the console, db backups etc.
  * Author: Digitalist, Mikke Schirén
- * Author URI: https://www.digitalist.se/matomo
- * Version: 5.0.4
+ * Author URI: https://digitalist.cloud/matomo
+ * Version: 5.1.0
  */
 ?><?php
 

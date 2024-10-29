@@ -169,6 +169,12 @@ class Install
             if (isset($options['db-adapter'])) {
                 $config->database['adapter'] = $options['db-adapter'];
             }
+            if (isset($options['collation'])) {
+                $config->database['collation'] = $options['db-collation'];
+            }
+            if (isset($options['charset'])) {
+                $config->database['charset'] = $options['db-charset'];
+            }
         }
 
         if (isset($fileconfig)) {
@@ -182,6 +188,8 @@ class Install
                     'password',
                     'dbname',
                     'adapter',
+                    'collation',
+                    'charset'
                 ];
                 foreach ($keys as $key) {
                     if (isset($database[$key])) {
@@ -198,6 +206,7 @@ class Install
 
 
         if (isset($fileconfig['General'])) {
+            $this->log('Setting');
             $general = $fileconfig['General'];
             if (isset($general['session_save_handler'])) {
                 $config->General['session_save_handler'] = $general['session_save_handler'];
@@ -384,43 +393,41 @@ class Install
         $options = $this->options;
         $option_plugins = $options['plugins'];
 
-        if (isset($this->fileconfig)) {
-            $config_from_file = $this->fileconfig;
-            if (isset($config_from_file->Config)) {
-                $fileconfig = $config_from_file->Config;
+        $config_from_file = $this->fileconfig;
+        if (isset($config_from_file->Config)) {
+            $fileconfig = $config_from_file->Config;
+        }
+        if (isset($fileconfig['PluginsInstalled'])) {
+            $installplugins = $fileconfig['PluginsInstalled'];
+        } elseif (isset(($this->config->PluginsInstalled['PluginsInstalled']))) {
+            foreach ($this->config->PluginsInstalled['PluginsInstalled'] as $plugin) {
+                if (is_string(($plugin))) {
+                    $installplugins[] = $plugin;
+                }
             }
-            if (isset($fileconfig['PluginsInstalled'])) {
-                $installplugins = $fileconfig['PluginsInstalled'];
-            } elseif (isset(($this->config->PluginsInstalled))) {
-                foreach ($this->config->PluginsInstalled as $plugin) {
-                    if (is_string(($plugin))) {
-                        $installplugins[] = $plugin;
-                    }
+        } elseif (isset($option_plugins)) {
+            $installplugins = explode(',', $option_plugins);
+        }
+        if (isset($installplugins)) {
+            $install_tag_manager = false;
+            foreach ($installplugins as $plugin) {
+                if ($plugin == 'TagManager') {
+                        $install_tag_manager = true;
+                        unset($plugin);
                 }
-            } elseif (isset($option_plugins)) {
-                $plugins_to_activate[] = explode(',', $option_plugins);
+                if (isset($plugin)) {
+                    Manager::getInstance()->activatePlugin($plugin);
+                    $this->log("Activated $plugin");
+                }
             }
-            if (isset($installplugins)) {
-                $install_tag_manager = false;
-                foreach ($installplugins as $plugin) {
-                    if ($plugin == 'TagManager') {
-                            $install_tag_manager = true;
-                            unset($plugin);
-                    }
-                    if (isset($plugin)) {
-                        Manager::getInstance()->activatePlugin($plugin);
-                        $this->log("Activated $plugin");
-                    }
-                }
-                Manager::getInstance()->loadPluginTranslations();
-                Manager::getInstance()->loadActivatedPlugins();
-                Manager::getInstance()->installLoadedPlugins();
-                $config->PluginsInstalled = $installplugins;
-                if ($install_tag_manager == true) {
-                    $dao = new ContainersDao();
-                    $dao->install();
-                    $this->log("Activated TagManager (needs to be activated in UI)");
-                }
+            Manager::getInstance()->loadPluginTranslations();
+            Manager::getInstance()->loadActivatedPlugins();
+            Manager::getInstance()->installLoadedPlugins();
+            $config->PluginsInstalled['PluginsInstalled'] = $installplugins;
+            if ($install_tag_manager == true) {
+                $dao = new ContainersDao();
+                $dao->install();
+                $this->log("Activated TagManager (needs to be activated in UI)");
             }
         }
     }
