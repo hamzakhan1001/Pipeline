@@ -5,7 +5,7 @@
  * Description: This plugin offers various options to prevent spammers and bots from making your data inaccurate so you can rely on your data again.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.4
+ * Version: 5.0.5
  */
 ?><?php
 
@@ -123,9 +123,13 @@ class TrackingSpamPrevention extends \Piwik\Plugin
         $browserLang = $request->getBrowserLanguage();
 
         $browserDetection = new BrowserDetection();
+        $clientHints = json_encode($request->getClientHints());
         if (
-            $settings->blockHeadless->getValue()
-            && $browserDetection->isHeadlessBrowser($request->getUserAgent())
+            $settings->blockHeadless->getValue() &&
+            (
+                $browserDetection->isHeadlessBrowser($request->getUserAgent()) ||
+                $browserDetection->isHeadlessBrowser($clientHints)
+            )
         ) {
             // note above user agent could have been overwritten with UA parameter but that's fine since it's easy to change useragent anyway
             Common::printDebug("Excluding visit as headless browser detected");
