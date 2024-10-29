@@ -5,7 +5,7 @@
  * Description: Scale your large traffic Matomo service by queuing tracking requests in Redis or MySQL for better performance and reliability when experiencing peaks.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.1.0
+ * Version: 5.1.1
  */
 ?><?php
 
