@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -28,6 +29,7 @@ use Piwik\Plugins\MultiChannelConversionAttribution\Models\Base;
 use Piwik\Plugins\MultiChannelConversionAttribution\Models\LastNonDirect;
 use Piwik\Plugins\MultiChannelConversionAttribution\Models\Linear;
 use Piwik\Tracker\GoalManager;
+use Piwik\Version;
 
 class GoalAttribution extends RecordBuilder
 {
@@ -112,8 +114,8 @@ class GoalAttribution extends RecordBuilder
         $channelRecordCombined = new DataTable(); // for all goals
         foreach ($idGoals as $idGoal) {
             $daysPriorToConversion = $campaignDimensionCombination['period'];
-            $columnToQuery = 'logv.'.$campaignDimensionCombination['topLevel'];
-            $columnToQueryNonDirect = 'log_vvv.'.$campaignDimensionCombination['topLevel'];
+            $columnToQuery = 'logv.' . $campaignDimensionCombination['topLevel'];
+            $columnToQueryNonDirect = 'log_vvv.' . $campaignDimensionCombination['topLevel'];
             if (!empty($campaignDimensionCombination['subLevel'])) {
                 $columnToQuery = "concat(logv." . $campaignDimensionCombination['topLevel'] . ",' - ',logv." . $campaignDimensionCombination['subLevel'] . ")";
                 $columnToQueryNonDirect = "concat(log_vvv." . $campaignDimensionCombination['topLevel'] . ",' - ',log_vvv." . $campaignDimensionCombination['subLevel'] . ")";
@@ -142,8 +144,14 @@ class GoalAttribution extends RecordBuilder
 
             // inserting the blob manually rather than returning it so we don't have to hold on to a table for
             // every goal
-            $this->insertBlobRecord($archiveProcessor, $recordName, $channelRecordGoal, $this->maxRowsInTable,
-                $this->maxRowsInSubtable, $this->columnToSortByBeforeTruncation);
+            $this->insertBlobRecord(
+                $archiveProcessor,
+                $recordName,
+                $channelRecordGoal,
+                $this->maxRowsInTable,
+                $this->maxRowsInSubtable,
+                $this->columnToSortByBeforeTruncation
+            );
             Common::destroy($channelRecordGoal);
             unset($channelRecordGoal);
         }
@@ -159,7 +167,9 @@ class GoalAttribution extends RecordBuilder
     {
         // we cannot add any bind as any argument as it would otherwise break segmentation
 
-        $from = array('log_conversion',
+        $fromTable = version_compare(Version::VERSION, '5.2.0-b6', '>=')
+            ? ['table' => 'log_conversion', 'useIndex' => 'index_idsite_datetime'] : 'log_conversion';
+        $from = array($fromTable,
             array('table' => 'log_visit', 'joinOn' => 'log_conversion.idvisit = log_visit.idvisit'),
             array('table' => 'log_visit', 'tableAlias' => 'log_vpast', 'join' => 'RIGHT JOIN',
                 'joinOn' => 'log_conversion.idvisitor = log_vpast.idvisitor'));
@@ -170,10 +180,14 @@ class GoalAttribution extends RecordBuilder
         if ($ignoreDirectVisits) {
             $extraWhere = ' AND log_vpast.referer_type != ' . Common::REFERRER_TYPE_DIRECT_ENTRY;
         }
-        $where .= sprintf('AND log_conversion.idgoal = %d 
+        $where .= sprintf(
+            'AND log_conversion.idgoal = %d 
                            AND log_vpast.idsite = %d AND log_vpast.visit_last_action_time >= \'%s\' 
                            AND log_vpast.visit_last_action_time <= log_visit.visit_last_action_time' . $extraWhere,
-            (int) $idGoal, (int) $idSite, $sinceTime);
+            (int) $idGoal,
+            (int) $idSite,
+            $sinceTime
+        );
 
         $groupBy = 'log_conversion.idvisit, log_conversion.buster';
         $query = $aggregator->generateQuery($select, $from, $where, $groupBy, $orderBy = false);
@@ -184,7 +198,7 @@ class GoalAttribution extends RecordBuilder
 
         $visitTable = Common::prefixTable('log_visit');
         $sql = sprintf('
-          select log_vvv.referer_type as label, (case when log_vvv.referer_type=6 then '.$columnToQueryNonDirect.' else log_vvv.referer_name END) as sublabel, sum(revenue) as %s, count(*) as %s
+          select log_vvv.referer_type as label, (case when log_vvv.referer_type=6 then ' . $columnToQueryNonDirect . ' else log_vvv.referer_name END) as sublabel, sum(revenue) as %s, count(*) as %s
           from (%s) as yyy  
           left join %s as log_vvv on log_vvv.idvisitor = yyy.idvisitor 
                                 and log_vvv.idsite = %d 
@@ -211,7 +225,9 @@ class GoalAttribution extends RecordBuilder
 
         // we cannot add any bind as any argument as it would otherwise break segmentation
         $maxNumVisitsBack = 110;
-        $from = array('log_conversion',
+        $fromTable = version_compare(Version::VERSION, '5.2.0-b6', '>=')
+            ? ['table' => 'log_conversion', 'useIndex' => 'index_idsite_datetime'] : 'log_conversion';
+        $from = array($fromTable,
             array('table' => 'log_visit', 'joinOn' => 'log_conversion.idvisit = log_visit.idvisit'),
             array('table' => 'log_visit', 'tableAlias' => 'log_vpast', 'join' => 'RIGHT JOIN', 'joinOn' => 'log_conversion.idvisitor = log_vpast.idvisitor'));
 
@@ -230,19 +246,24 @@ class GoalAttribution extends RecordBuilder
 
         $db = $aggregator->getDb();
         $db->query('SET @rnk=0, @curscore=0;');
-        $sql = sprintf('
+        $sql = sprintf(
+            '
        select referer_type as label, referer_name as sublabel %s from (  
             select (@rnk:=IF(@curscore = concat(r.idvisit, \'_\', r.buster),@rnk+1,1)) num_pos,
                  r.num_total as num_total,
                 (@curscore:=concat(r.idvisit, \'_\', r.buster)) conversionId,
-                logv.idvisitor, logv.referer_type, (case when logv.referer_type=6 then '.$columnToQuery.' else logv.referer_name end) as referer_name, r.revenue
+                logv.idvisitor, logv.referer_type, (case when logv.referer_type=6 then ' . $columnToQuery . ' else logv.referer_name end) as referer_name, r.revenue
             from (%s) as r
-            RIGHT JOIN '.$logVisitTable.' logv on logv.idvisitor = r.idvisitor WHERE logv.idsite = %s 
+            RIGHT JOIN ' . $logVisitTable . ' logv on logv.idvisitor = r.idvisitor WHERE logv.idsite = %s 
                   AND logv.visit_last_action_time >= \'%s\' 
                   AND logv.visit_last_action_time <= lastactiontime
           ) as yyy where %s group by label, sublabel',
-
-            $aggregationSelect, $query['sql'], $idSite, $sinceTime, $outerWhere);
+            $aggregationSelect,
+            $query['sql'],
+            $idSite,
+            $sinceTime,
+            $outerWhere
+        );
 
         return $db->query($sql, $query['bind']);
     }

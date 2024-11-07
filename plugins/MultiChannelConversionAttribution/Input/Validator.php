@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MultiChannelConversionAttribution\Input;
 
 use Piwik\Piwik;
@@ -108,6 +110,4 @@ class Validator
             throw new Exception(Piwik::translate('MultiChannelConversionAttribution_ExceptionMessageCampaignCombinationDoesNotExist'));
         }
     }
-
 }
-

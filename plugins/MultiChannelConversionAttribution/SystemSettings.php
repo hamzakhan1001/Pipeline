@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -63,36 +64,54 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                     'period' => $period,
                     'module' => 'CoreHome',
                     'action' => 'index',
-                ]) . '#category=Goals_Goals&subcategory=MultiChannelConversionAttribution_MultiAttribution'."&idSite=$idSite&period=$period&date=$date";
+                ]) . '#category=Goals_Goals&subcategory=MultiChannelConversionAttribution_MultiAttribution' . "&idSite=$idSite&period=$period&date=$date";
             $showShowReArchiveFAQ = $this->configuration->shouldShowReArchiveFAQ();
-            $field->title = Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingTitleNew', array('<a href="'.$reportLink.'" target="_blank" rel="noreferrer noopener">', '</a>'));
+            $field->title = Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingTitleNew', array('<a href="' . $reportLink . '" target="_blank" rel="noreferrer noopener">', '</a>'));
             $inlineHelpText = Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine1', array('<b>', '</b>'));
             if ($showShowReArchiveFAQ) {
-                $inlineHelpText .= ' '.Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine1FAQ', array('<a href="' . $reportLink . '" target="_blank" rel="noreferrer noopener">', '</a>'));
+                $inlineHelpText .= ' ' . Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine1FAQ', array('<a href="' . $reportLink . '" target="_blank" rel="noreferrer noopener">', '</a>'));
             }
             $inlineHelpText .= '<br><br>';
-            $inlineHelpText .= Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine2', array('<b>', '</b>', '<a href="'.$reportLink.'" target="_blank" rel="noreferrer noopener">', '</a>')). '<br><br>';
+            $inlineHelpText .= Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine2', array('<b>', '</b>', '<a href="' . $reportLink . '" target="_blank" rel="noreferrer noopener">', '</a>')) . '<br><br>';
             $inlineHelpText .= Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine3', array('<b>', '</b>'));
             if ($showShowReArchiveFAQ) {
-                $inlineHelpText .= ' '.Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine3ReArchiveFaq',
-                        ['<a href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/how-to/faq_155/', null, null, 'App.MultiChannelConversionAttribution.campaignDimensionCombinationSetting') . '" target="_blank" rel="noreferrer noopener">', '</a>']);
+                $inlineHelpText .= ' ' . Piwik::translate(
+                    'MultiChannelConversionAttribution_CampaignDimensionCombinationSettingHelpLine3ReArchiveFaq',
+                    [
+                        '<a href="' . Url::addCampaignParametersToMatomoLink(
+                            'https://matomo.org/faq/how-to/faq_155/',
+                            null,
+                            null,
+                            'App.MultiChannelConversionAttribution.campaignDimensionCombinationSetting'
+                        ) . '" target="_blank" rel="noreferrer noopener">', '</a>'
+                    ]
+                );
             }
             $field->inlineHelp = $inlineHelpText;
             $field->uiControl = FieldConfig::UI_CONTROL_MULTI_TUPLE;
             $field->uiControlAttributes['rows'] = 3; //Available since Matomo 5
-            $field1 = new FieldConfig\MultiPair(Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationPeriodSettingTitle'), 'period',
-                FieldConfig::UI_CONTROL_TEXT);
+            $field1 = new FieldConfig\MultiPair(
+                Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationPeriodSettingTitle'),
+                'period',
+                FieldConfig::UI_CONTROL_TEXT
+            );
 
             $field1->availableValues = $self->getPeriodValues();
             $field1->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
 
-            $field2 = new FieldConfig\MultiPair(Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationTopLevelSettingTitle'), 'topLevel',
-                FieldConfig::UI_CONTROL_TEXT);
+            $field2 = new FieldConfig\MultiPair(
+                Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationTopLevelSettingTitle'),
+                'topLevel',
+                FieldConfig::UI_CONTROL_TEXT
+            );
             $field2->availableValues = $self->getCampaignOptions();
             $field2->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
 
-            $field3 = new FieldConfig\MultiPair(Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSubLevelSettingTitle'), 'subLevel',
-                FieldConfig::UI_CONTROL_TEXT);
+            $field3 = new FieldConfig\MultiPair(
+                Piwik::translate('MultiChannelConversionAttribution_CampaignDimensionCombinationSubLevelSettingTitle'),
+                'subLevel',
+                FieldConfig::UI_CONTROL_TEXT
+            );
             $field3->availableValues = $self->getCampaignOptions();
             $field3->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
 
@@ -103,20 +122,20 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 $combinations = [];
                 $campaignOptions = $self->getCampaignOptions();
                 $availablePeriods = $self->getPeriodValues();
-                foreach ($values as $index=>$value) {
+                foreach ($values as $index => $value) {
                     if (empty($value['period']) && empty($value['topLevel']) && empty($value['subLevel'])) {
                         continue;
                     }
                     $key = $value['period'] . '_' . $value['topLevel'] . (!empty($value['subLevel']) ? '_' . $value['subLevel'] : '');
                     if (empty($value['period']) || empty($value['topLevel'])) {
                         throw new \Exception(Piwik::translate('MultiChannelConversionAttribution_ExceptionMessagePeriodOrTopLevelEmpty'));
-                    } else if (!isset($availablePeriods[$value['period']])) {
+                    } elseif (!isset($availablePeriods[$value['period']])) {
                         throw new \Exception(Piwik::translate('MultiChannelConversionAttribution_ExceptionMessagePeriodInvalid', rtrim(implode(', ', $availablePeriods), ',')));
-                    } else if (isset($value['subLevel']) && $value['topLevel'] == $value['subLevel']) {
+                    } elseif (isset($value['subLevel']) && $value['topLevel'] == $value['subLevel']) {
                         throw new \Exception(Piwik::translate('MultiChannelConversionAttribution_ExceptionMessageSameTopAndSubLevel'));
-                    } else if (empty($campaignOptions[$value['topLevel']])) {
+                    } elseif (empty($campaignOptions[$value['topLevel']])) {
                         throw new \Exception(Piwik::translate('MultiChannelConversionAttribution_ExceptionMessageTopLevelEmpty'));
-                    } else if (!empty($value['subLevel']) && empty($campaignOptions[$value['subLevel']])) {
+                    } elseif (!empty($value['subLevel']) && empty($campaignOptions[$value['subLevel']])) {
                         $values[$index]['subLevel'] = '';
                         $key = $value['period'] . '_' . $value['topLevel'];
                     }
@@ -130,10 +149,10 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             };
             $field->transform = function ($values) use ($self) {
                 $campaignOptions = $self->getCampaignOptions();
-                foreach ($values as $index=>$value) {
+                foreach ($values as $index => $value) {
                     if (empty($value['period']) && empty($value['topLevel']) && empty($value['subLevel'])) {
                         unset($values[$index]);
-                    } else if (!empty($value['subLevel']) && empty($campaignOptions[$value['subLevel']])) {
+                    } elseif (!empty($value['subLevel']) && empty($campaignOptions[$value['subLevel']])) {
                         $values[$index]['subLevel'] = '';
                     }
                 }
@@ -146,14 +165,14 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     public function getCampaignOptions()
     {
         $campaignOptions = ['referer_name' => 'Campaign Name', 'referer_keyword' => 'Campaign Keyword'];
-        if(\Piwik\Plugin\Manager::getInstance()->isPluginActivated('MarketingCampaignsReporting')) {
+        if (\Piwik\Plugin\Manager::getInstance()->isPluginActivated('MarketingCampaignsReporting')) {
             $campaignContent = new \Piwik\Plugins\MarketingCampaignsReporting\Columns\CampaignContent();
             $campaignOptions[$campaignContent->getColumnName()] = $campaignContent->getName();
 
-            $campaignGroup= new  \Piwik\Plugins\MarketingCampaignsReporting\Columns\CampaignGroup();
+            $campaignGroup = new  \Piwik\Plugins\MarketingCampaignsReporting\Columns\CampaignGroup();
             $campaignOptions[$campaignGroup->getColumnName()] = $campaignGroup->getName();
 
-            $campaignId= new  \Piwik\Plugins\MarketingCampaignsReporting\Columns\CampaignId();
+            $campaignId = new  \Piwik\Plugins\MarketingCampaignsReporting\Columns\CampaignId();
             $campaignOptions[$campaignId->getColumnName()] = $campaignId->getName();
 
             $campaignMedium = new  \Piwik\Plugins\MarketingCampaignsReporting\Columns\CampaignMedium();

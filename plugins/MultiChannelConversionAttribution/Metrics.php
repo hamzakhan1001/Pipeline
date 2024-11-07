@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MultiChannelConversionAttribution;
 
 use Piwik\Piwik;
@@ -24,8 +26,8 @@ use Piwik\Plugins\MultiChannelConversionAttribution\Models\Base;
  */
 class Metrics
 {
-    const SUM_CONVERSIONS = 'nb_attribution_conversions';
-    const SUM_REVENUE = 'nb_attribution_revenue';
+    public const SUM_CONVERSIONS = 'nb_attribution_conversions';
+    public const SUM_REVENUE = 'nb_attribution_revenue';
 
     public static function completeAttributionMetric($metric, Base $attribution)
     {
@@ -50,11 +52,10 @@ class Metrics
     {
         $metrics = array();
         foreach (Base::getAll() as $attribution) {
-            $metrics[self::completeAttributionMetric(Metrics::SUM_CONVERSIONS, $attribution)] =  Piwik::translate('MultiChannelConversionAttribution_ColumnConversionsDocumentation', array('"' . $attribution->getName(). '"'));
-            $metrics[self::completeAttributionMetric(Metrics::SUM_REVENUE, $attribution)] = Piwik::translate('MultiChannelConversionAttribution_ColumnRevenueDocumentation', array('"' . $attribution->getName(). '"'));
+            $metrics[self::completeAttributionMetric(Metrics::SUM_CONVERSIONS, $attribution)] =  Piwik::translate('MultiChannelConversionAttribution_ColumnConversionsDocumentation', array('"' . $attribution->getName() . '"'));
+            $metrics[self::completeAttributionMetric(Metrics::SUM_REVENUE, $attribution)] = Piwik::translate('MultiChannelConversionAttribution_ColumnRevenueDocumentation', array('"' . $attribution->getName() . '"'));
         }
 
         return $metrics;
     }
-
 }

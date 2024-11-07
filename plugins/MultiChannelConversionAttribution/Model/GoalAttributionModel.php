@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MultiChannelConversionAttribution\Model;
 
 use Exception;
@@ -24,9 +26,8 @@ use Piwik\Tracker\GoalManager;
 
 class GoalAttributionModel
 {
-
-    const ALL_GOAL_ID = '-2';
-    const ALL_GOAL_NAME = 'All Goals';
+    public const ALL_GOAL_ID = '-2';
+    public const ALL_GOAL_NAME = 'All Goals';
 
     /**
      * @var GoalAttributionDao
@@ -50,7 +51,7 @@ class GoalAttributionModel
         if ($idGoal == GoalManager::IDGOAL_ORDER && $this->hasEcommerce($idSite)) {
             // valid as ecommerce is automatically added currently (checkGoalExists won't fail for idGoal Order)
             return;
-        } else if ($idGoal === self::ALL_GOAL_ID) {
+        } elseif ($idGoal === self::ALL_GOAL_ID) {
             // valid as all goals is automatically added currently (checkGoalExists won't fail for All Goals)
             return;
         }
@@ -127,7 +128,7 @@ class GoalAttributionModel
             }
         }
 
-        usort($goals, function($a, $b) {
+        usort($goals, function ($a, $b) {
             return strnatcasecmp($a['name'], $b['name']);
         });
 
@@ -189,7 +190,7 @@ class GoalAttributionModel
                 'idsite' => $idSite,
                 'idgoal' => GoalManager::IDGOAL_ORDER,
             );
-        } else if ($idGoal == self::ALL_GOAL_ID) {
+        } elseif ($idGoal == self::ALL_GOAL_ID) {
             return array(
                 'name' => self::ALL_GOAL_NAME,
                 'idsite' => $idSite,
@@ -197,6 +198,4 @@ class GoalAttributionModel
             );
         }
     }
-
 }
-
