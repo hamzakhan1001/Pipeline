@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,15 +16,14 @@
 
 namespace Piwik\Plugins\UsersFlow\Archiver;
 
-use Piwik\Db;
 use Piwik\Piwik;
 use Piwik\Plugin;
-use Piwik\Plugins\UsersFlow\API;
 use Piwik\Plugins\UsersFlow\Archiver;
 use Piwik\Plugins\UsersFlow\Configuration;
 use Piwik\Plugins\UsersFlow\Metrics;
 use Piwik\DataAccess\LogAggregator as PiwikLogAggregator;
 use Piwik\Tracker\Action;
+use Piwik\Version;
 
 class LogAggregator
 {
@@ -86,10 +86,12 @@ class LogAggregator
 
         $doExploreTraffic = !empty($exploreStep) && !empty($exploreValueToMatch);
 
-        $from = array('log_link_visit_action', array(
+        $fromTable = version_compare(Version::VERSION, '5.2.0-b6', '>=')
+            ? ['table' => 'log_link_visit_action', 'useIndex' => 'index_idsite_servertime'] : 'log_link_visit_action';
+        $from = [$fromTable, [
             'table'  => 'log_action',
             'joinOn' => "log_link_visit_action.$columnToFetch = log_action.idaction"
-        ));
+        ]];
 
         $extraWhere = '';
         $keyToBeReplacedWithBind = "'TO_BE_REPLACED_WITH_BIND'";
@@ -189,5 +191,4 @@ class LogAggregator
 
         return array('sql' => trim($sql), 'bind' => $bind);
     }
-
 }

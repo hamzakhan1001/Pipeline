@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,9 +20,8 @@ use Piwik\Piwik;
 
 class DataSources
 {
-
-    const DATA_SOURCE_PAGE_URL = 'page_url';
-    const DATA_SOURCE_PAGE_TITLE = 'page_title';
+    public const DATA_SOURCE_PAGE_URL = 'page_url';
+    public const DATA_SOURCE_PAGE_TITLE = 'page_title';
 
     public static function getValidDataSource($dataSource)
     {
@@ -47,5 +47,4 @@ class DataSources
             array('value' => self::DATA_SOURCE_PAGE_TITLE, 'name' => Piwik::translate('Actions_WidgetPageTitles')),
         );
     }
-
 }

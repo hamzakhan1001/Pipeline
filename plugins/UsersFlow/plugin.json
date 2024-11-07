@@ -1,7 +1,7 @@
 {
     "name": "UsersFlow",
     "description": "Users Flow is a visual representation of the most popular paths your users take through your website & app which lets you understand your users needs",
-    "version": "5.0.4",
+    "version": "5.0.5",
     "theme": false,
     "require": {
         "matomo": ">=5.0.0-b4,<6.0.0-b1"

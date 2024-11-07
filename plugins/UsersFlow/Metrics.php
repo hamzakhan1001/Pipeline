@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,11 +18,10 @@ namespace Piwik\Plugins\UsersFlow;
 
 class Metrics
 {
-    const NB_VISITS = 'nb_visits';
-    const NB_PROCEEDED = 'nb_proceeded';
-    const NB_EXITS = 'nb_exits';
-    const NB_PAGES_IN_GROUP = 'nb_pages_in_group';
-    const RATE_PROCEEDED = 'proceeded_rate';
-    const RATE_EXIT = 'exit_rate';
-
+    public const NB_VISITS = 'nb_visits';
+    public const NB_PROCEEDED = 'nb_proceeded';
+    public const NB_EXITS = 'nb_exits';
+    public const NB_PAGES_IN_GROUP = 'nb_pages_in_group';
+    public const RATE_PROCEEDED = 'proceeded_rate';
+    public const RATE_EXIT = 'exit_rate';
 }

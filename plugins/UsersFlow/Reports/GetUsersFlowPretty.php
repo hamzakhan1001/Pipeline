@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -31,7 +32,6 @@ use Piwik\Widget\WidgetsList;
 
 class GetUsersFlowPretty extends Base
 {
-
     protected $recursiveLabelSeparator = ' → ';
 
     protected function init()
@@ -69,9 +69,7 @@ class GetUsersFlowPretty extends Base
             $view->config->addTranslations(array('label' => Piwik::translate('UsersFlow_Path')));
 
             $view->config->columns_to_display = array('label', Metrics::NB_VISITS);
-
         } else {
-
             $idSubtable = Common::getRequestVar('idSubtable', 0, 'int');
             if (empty($idSubtable)) {
                 $view->config->addTranslations(array('label' => Piwik::translate('UsersFlow_ColumnInteractionPosition')));
@@ -137,6 +135,5 @@ class GetUsersFlowPretty extends Base
             ->setName($name)
             ->setParameters(array('dataSource' => DataSources::DATA_SOURCE_PAGE_TITLE))->setOrder(2003);
         $widgetsList->addWidgetConfig($config);
-
     }
 }
