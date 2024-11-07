@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -13,9 +14,9 @@
  * @license For license details see https://www.innocraft.com/license
  *
  */
+
 namespace Piwik\Plugins\Funnels\Widgets;
 
-use Piwik\Access;
 use Piwik\API\Request;
 use Piwik\Common;
 use Piwik\Plugins\Funnels\Funnels;
@@ -45,5 +46,4 @@ class Overview extends Widget
             $config->disable();
         }
     }
-
 }

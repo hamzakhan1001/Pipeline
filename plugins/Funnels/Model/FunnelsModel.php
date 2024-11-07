@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,12 +13,12 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels\Model;
 
 use Exception;
 use Piwik\API\Request;
 use Piwik\Cache as PiwikCache;
-use Piwik\CacheId;
 use Piwik\Container\StaticContainer;
 use Piwik\Date;
 use Piwik\Exception\UnexpectedWebsiteFoundException;
@@ -29,7 +30,7 @@ use Piwik\Site;
 
 class FunnelsModel
 {
-    const KEY_FINAL_STEP_POSITION = 'final_step_position';
+    public const KEY_FINAL_STEP_POSITION = 'final_step_position';
 
     /**
      * @var FunnelDao
@@ -160,7 +161,6 @@ class FunnelsModel
         $cacheId = $this->getCacheId($idSite);
         $cache = $this->getFunnelsTransientCache();
         if ($cache->contains($cacheId)) {
-
             return $cache->fetch($cacheId);
         }
 
@@ -342,4 +342,3 @@ class FunnelsModel
         }
     }
 }
-

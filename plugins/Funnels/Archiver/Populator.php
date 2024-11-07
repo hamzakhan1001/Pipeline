@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels\Archiver;
 
 use Piwik\Common;
@@ -25,7 +27,6 @@ use Piwik\Tracker\Action;
 
 class Populator
 {
-
     /**
      * @var LogTable
      */
@@ -47,7 +48,8 @@ class Populator
         return Db::get();
     }
 
-    public function deleteFunnelData($funnel, $startDateTime, $endDateTime) {
+    public function deleteFunnelData($funnel, $startDateTime, $endDateTime)
+    {
         if (empty($funnel['steps'])) {
             // there is no funnel when there are no steps
             return 'nosteps';
@@ -277,7 +279,7 @@ class Populator
                         FROM (SELECT lv.idvisit,
                                     lva.idlink_va, 
                                     lva.idaction_url_ref as idaction_prev, 
-                                    lva.".$actionColumn." as idaction,
+                                    lva." . $actionColumn . " as idaction,
                                     lva.idaction_url,
                                     lva.idaction_name,
                                     lva.pageview_position
@@ -416,7 +418,4 @@ class Populator
         $bind = array($idFunnel, $idSite, $startDateTime, $endDateTime, $idFunnel);
         Db::query($sql, $bind);
     }
-
-
 }
-

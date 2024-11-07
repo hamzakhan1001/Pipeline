@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels\Reports;
 
 use Piwik\Plugin\Report;
@@ -26,6 +28,6 @@ abstract class Base extends Report
 
     protected function getIdSiteFromInfos($infos)
     {
-        return (int ) $infos['idSite'];
+        return (int) $infos['idSite'];
     }
 }

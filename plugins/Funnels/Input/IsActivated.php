@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\Funnels\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class IsActivated
@@ -36,6 +37,4 @@ class IsActivated
             throw new Exception($message);
         }
     }
-
-
 }

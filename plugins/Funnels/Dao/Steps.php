@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels\Dao;
 
 use Piwik\Common;
-
 use Piwik\Db;
 use Piwik\DbHelper;
 
@@ -44,7 +45,6 @@ class Steps
                   `pattern` VARCHAR(1000) NOT NULL,
                   `required` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
                   PRIMARY KEY(`idfunnel`, `position`)");
-
     }
 
     public function uninstall()
@@ -114,6 +114,4 @@ class Steps
         $db = $this->getDb();
         $db->insert($this->tablePrefixed, $values);
     }
-
 }
-

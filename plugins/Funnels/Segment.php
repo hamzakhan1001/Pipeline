@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -23,8 +24,8 @@ use Piwik\Segment\SegmentExpression;
  */
 class Segment extends \Piwik\Plugin\Segment
 {
-    const NAME_FUNNEL_SEGMENT = 'funnels_name';
-    const NAME_FUNNEL_STEP_POSITION = 'funnels_step_position';
+    public const NAME_FUNNEL_SEGMENT = 'funnels_name';
+    public const NAME_FUNNEL_STEP_POSITION = 'funnels_step_position';
 
     protected function init()
     {
@@ -78,4 +79,3 @@ class Segment extends \Piwik\Plugin\Segment
         return array('SQL' => $sql, 'bind' => $valueToMatch);
     }
 }
-

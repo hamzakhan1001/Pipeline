@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,6 @@
 
 namespace Piwik\Plugins\Funnels\Reports;
 
-use Piwik\Access;
 use Piwik\API\Request;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
@@ -158,5 +158,4 @@ class GetFunnelFlow extends Base
         return Request::processRequest('Funnels.getAllActivatedFunnelsForSite', [
             'idSite' => $idSite, 'filter_limit' => -1], $default = []);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,8 +22,8 @@ use Piwik\Plugins\Funnels\Db\Pattern;
 
 class Step
 {
-    const NAME_MAX_LENGTH = 150;
-    const PATTERN_MAX_LENGTH = 1000;
+    public const NAME_MAX_LENGTH = 150;
+    public const PATTERN_MAX_LENGTH = 1000;
 
     /**
      * @var array
@@ -33,7 +34,7 @@ class Step
      * @var int
      */
     private $index;
-    
+
     public function __construct($step, $index)
     {
         $this->step = $step;

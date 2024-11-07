@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels\Dao;
 
 use Piwik\Common;
@@ -21,7 +23,7 @@ use Piwik\DbHelper;
 
 class LogTable
 {
-    const BULK_INSERT_LIMIT = 1000;
+    public const BULK_INSERT_LIMIT = 1000;
 
     private $table = 'log_funnel';
     private $tablePrefixed = '';
@@ -194,6 +196,4 @@ class LogTable
 
         unset($chunks);
     }
-
 }
-

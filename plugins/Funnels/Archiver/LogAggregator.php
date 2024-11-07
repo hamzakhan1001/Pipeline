@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\Funnels\Archiver;
 
 use Piwik\Common;
 use Piwik\DataAccess\LogAggregator as PiwikLogAggregator;
-use Piwik\Db;
 use Piwik\Plugins\Funnels\Archiver;
 use Piwik\Plugins\Funnels\Funnels;
 use Piwik\Plugins\Funnels\Metrics;
@@ -63,24 +63,28 @@ class LogAggregator
 
     public function aggregateEntriesActions($idFunnel)
     {
-        $select = sprintf('log_funnel.step_position as label, 
+        $select = sprintf(
+            'log_funnel.step_position as label, 
                            ifnull(log_action.name, if(log_funnel.idaction_prev = 0, \'%s\',\'%s\')) as sublabel, 
                            count(log_funnel.idfunnel) as %s',
-                           Archiver::LABEL_VISIT_ENTRY,
-                           Archiver::LABEL_NOT_DEFINED,
-                           Metrics::NUM_HITS);
+            Archiver::LABEL_VISIT_ENTRY,
+            Archiver::LABEL_NOT_DEFINED,
+            Metrics::NUM_HITS
+        );
 
         return $this->aggregateActions($select, 'min_step', 'idaction_prev', $idFunnel);
     }
 
     public function aggregateExitActions($idFunnel)
     {
-        $select = sprintf('log_funnel.step_position as label, 
+        $select = sprintf(
+            'log_funnel.step_position as label, 
                            ifnull(log_action.name, if(log_funnel.idaction_next is null, \'%s\',\'%s\')) as sublabel, 
                            count(log_funnel.idfunnel) as %s',
-                           Archiver::LABEL_VISIT_EXIT,
-                           Archiver::LABEL_NOT_DEFINED,
-                           Metrics::NUM_HITS);
+            Archiver::LABEL_VISIT_EXIT,
+            Archiver::LABEL_NOT_DEFINED,
+            Metrics::NUM_HITS
+        );
 
         return $this->aggregateActions($select, 'max_step', 'idaction_next', $idFunnel);
     }
@@ -103,24 +107,28 @@ class LogAggregator
 
     public function aggregateActionReferrers($idFunnel)
     {
-        $switchRef = sprintf('case when log_visit.referer_type = %s then log_visit.referer_keyword 
+        $switchRef = sprintf(
+            'case when log_visit.referer_type = %s then log_visit.referer_keyword 
                                    when log_visit.referer_type = %s then log_visit.referer_name
                                    when log_visit.referer_type = %s then log_visit.referer_name
                                    when log_visit.referer_type = %s then log_visit.referer_name
                                    else \'%s\'
                                    end',
-                                Common::REFERRER_TYPE_SEARCH_ENGINE,
-                                Common::REFERRER_TYPE_WEBSITE,
-                                Common::REFERRER_TYPE_CAMPAIGN,
-                                Funnels::REFERRER_TYPE_SOCIAL_NETWORK,
-                                Archiver::LABEL_DIRECT_ENTRY);
+            Common::REFERRER_TYPE_SEARCH_ENGINE,
+            Common::REFERRER_TYPE_WEBSITE,
+            Common::REFERRER_TYPE_CAMPAIGN,
+            Funnels::REFERRER_TYPE_SOCIAL_NETWORK,
+            Archiver::LABEL_DIRECT_ENTRY
+        );
 
-        $select = sprintf('log_funnel.step_position as label, 
+        $select = sprintf(
+            'log_funnel.step_position as label, 
                            log_visit.referer_type as referer_type, 
                            %s as sublabel, 
                            count(log_funnel.idfunnel) as %s',
-                          $switchRef,
-                          Metrics::NUM_HITS);
+            $switchRef,
+            Metrics::NUM_HITS
+        );
 
         $where = sprintf('log_funnel.min_step = log_funnel.step_position and log_funnel.idaction_prev = 0');
         $groupBy = 'log_funnel.step_position, referer_type, sublabel';
@@ -155,5 +163,4 @@ class LogAggregator
 
         return $this->logAggregator->getDb()->query($query['sql'], $query['bind']);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -33,5 +34,4 @@ class Funnel extends LogTable
     {
         return 'idvisit';
     }
-
 }

@@ -44,6 +44,7 @@
         "ErrorActivatedFunnelWithNoSteps": "S’mund të aktivizohet një hinkë pa hapa",
         "ErrorArrayMissingKey": "Mungon kyç matrice “%1$s” te “%2$s” në pozicionin “%3$s”.",
         "ErrorFunnelDoesNotExist": "Hinka e kërkuar s’ekziston",
+        "ErrorFunnelDoesNotExistForSite": "Hinka në fjalë nuk ekziston për këtë sajt",
         "ErrorGoalDoesNotExist": "Objektivi i dhënë nuk ekziston për këtë sajt",
         "ErrorGoalFunnelDoesNotExist": "Hinka e kërkuar e synimit s’ekziston",
         "ErrorInnerIsNotAnArray": "Çdo “%1$s” brenda “%2$s” duhet të jetë një matricë.",

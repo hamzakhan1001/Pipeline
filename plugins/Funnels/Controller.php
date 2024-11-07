@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,13 +13,13 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels;
 
 use Piwik\API\Request;
 use Piwik\Common;
 use Piwik\Config;
 use Piwik\DataTable;
-use Piwik\Date;
 use Piwik\Http\BadRequestException;
 use Piwik\NumberFormatter;
 use Piwik\Piwik;
@@ -459,7 +460,10 @@ class Controller extends PluginController
 
         $revenue = $goalsSummary->getColumn('revenue');
         $revenueFormatted = $numberFormatter->formatCurrency(
-            $revenue, $currencySymbol, GoalManager::REVENUE_PRECISION);
+            $revenue,
+            $currencySymbol,
+            GoalManager::REVENUE_PRECISION
+        );
 
         return $this->renderTemplate('funnelSummary', array(
             'idsite' => $this->idSite,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -6,10 +7,10 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Funnels\Widgets;
 
 use Piwik\API\Request;
-use Piwik\Common;
 use Piwik\Widget\WidgetConfig;
 
 class AddNewFunnel extends \Piwik\Widget\Widget

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels\Dao;
 
 use Piwik\Common;
-use Piwik\Date;
 use Piwik\Db;
 use Piwik\DbHelper;
 
@@ -351,6 +352,4 @@ class Funnel
         $bind = array($dateTime, $idFunnel);
         $this->getDb()->query($query, $bind);
     }
-
 }
-

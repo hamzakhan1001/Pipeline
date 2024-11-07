@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels;
 
 class Metrics
@@ -19,27 +21,27 @@ class Metrics
     /**
      * Used for action reports when eg listing the entry / exit URLs
      */
-    const NUM_HITS = 'nb_hits';
+    public const NUM_HITS = 'nb_hits';
 
     /**
      * Used for funnel steps
      */
-    const NUM_STEP_ENTRIES = 'step_nb_entries';
-    const NUM_STEP_EXITS = 'step_nb_exits';
-    const NUM_STEP_PROCEEDS = 'step_nb_proceeded';
-    const NUM_STEP_VISITS = 'step_nb_visits';
-    const NUM_STEP_VISITS_ACTUAL = 'step_nb_visits_actual';
-    const RATE_PROCEEDED = 'step_proceeded_rate';
-    const RATE_EXITED = 'step_exited_rate';
-    const NUM_STEP_SKIPS = 'step_nb_skipped';
-    const NUM_STEP_PROGRESSIONS = 'step_nb_progressions';
+    public const NUM_STEP_ENTRIES = 'step_nb_entries';
+    public const NUM_STEP_EXITS = 'step_nb_exits';
+    public const NUM_STEP_PROCEEDS = 'step_nb_proceeded';
+    public const NUM_STEP_VISITS = 'step_nb_visits';
+    public const NUM_STEP_VISITS_ACTUAL = 'step_nb_visits_actual';
+    public const RATE_PROCEEDED = 'step_proceeded_rate';
+    public const RATE_EXITED = 'step_exited_rate';
+    public const NUM_STEP_SKIPS = 'step_nb_skipped';
+    public const NUM_STEP_PROGRESSIONS = 'step_nb_progressions';
 
     /**
      * Used for metrics that apply to the funnel as a total
      */
-    const SUM_FUNNEL_ENTRIES = 'funnel_sum_entries';
-    const SUM_FUNNEL_EXITS = 'funnel_sum_exits';
-    const NUM_CONVERSIONS = 'funnel_nb_conversions';
-    const RATE_CONVERSION = 'funnel_conversion_rate';
-    const RATE_ABANDONED = 'funnel_abandoned_rate';
+    public const SUM_FUNNEL_ENTRIES = 'funnel_sum_entries';
+    public const SUM_FUNNEL_EXITS = 'funnel_sum_exits';
+    public const NUM_CONVERSIONS = 'funnel_nb_conversions';
+    public const RATE_CONVERSION = 'funnel_conversion_rate';
+    public const RATE_ABANDONED = 'funnel_abandoned_rate';
 }

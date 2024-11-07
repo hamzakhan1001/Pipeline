@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -34,5 +35,4 @@ class GetFunnelExits extends GetFunnelEntries
         $this->documentation = '';
         $this->order = 101;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -32,8 +33,6 @@ use Piwik\Plugins\Funnels\Metrics;
 use Piwik\Plugins\Funnels\Model\FunnelNotFoundException;
 use Piwik\Plugins\Funnels\Model\FunnelsModel;
 use Piwik\Report\ReportWidgetFactory;
-use Piwik\Site;
-use Piwik\Url;
 use Piwik\Widget\WidgetsList;
 
 class GetMetrics extends Base
@@ -118,8 +117,8 @@ class GetMetrics extends Base
                 $view->config->setNotLinkableWithAnyEvolutionGraph();
                 $view->config->title_attributes = array('piwik-funnel-page-link' => $funnel['idfunnel']);
                 $view->config->show_footer_message = '<a class="openFunnelReport"
-                href="#" piwik-funnel-page-link="' . (int) $funnel['idfunnel'] .'"
-   ><span class="icon-show"></span> ' . Piwik::translate('Funnels_ViewFunnelReport') .'</a>';
+                href="#" piwik-funnel-page-link="' . (int) $funnel['idfunnel'] . '"
+   ><span class="icon-show"></span> ' . Piwik::translate('Funnels_ViewFunnelReport') . '</a>';
             } elseif ($funnelsOverview) {
                 // here we configure the sparklines for showing it in the "all funnels overview" page
                 $view->config->title_attributes = array('piwik-funnel-page-link' => $funnel['idfunnel']);
@@ -141,7 +140,6 @@ class GetMetrics extends Base
             $view->config->filters[] = function (DataTable $table) use ($numberFormatter, $idSite) {
                 $firstRow = $table->getFirstRow();
                 if ($firstRow) {
-
                     $conversionRate = $firstRow->getColumn('conversion_rate');
                     if (false !== $conversionRate) {
                         $firstRow->setColumn('conversion_rate', $numberFormatter->formatPercent($conversionRate, $precision = 1));
@@ -291,5 +289,4 @@ class GetMetrics extends Base
             return Request::processRequest('Funnels.getFunnel', ['idSite' => $idSite, 'idFunnel' => $idFunnel], $default = []);
         });
     }
-
 }

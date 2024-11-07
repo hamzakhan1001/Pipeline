@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Funnels\RecordBuilders;
 
 use Matomo\Cache\Transient;
@@ -52,9 +54,13 @@ abstract class Base extends RecordBuilder
      */
     private $funnels;
 
-    public function __construct(array $funnel, Transient $cache, Populator $populator, FunnelsModel $funnelsModel,
-                                Configuration $configuration)
-    {
+    public function __construct(
+        array $funnel,
+        Transient $cache,
+        Populator $populator,
+        FunnelsModel $funnelsModel,
+        Configuration $configuration
+    ) {
         parent::__construct();
 
         $this->cache = $cache;
@@ -63,10 +69,12 @@ abstract class Base extends RecordBuilder
         $this->funnels = $funnelsModel;
 
         $this->columnAggregationOps = [
-            'referer_type' => function ($thisValue, $otherValue ) {
+            'referer_type' => function ($thisValue, $otherValue) {
                 // edge case. when two different referrer types have the same label, instead of aggregating we unset the
                 // referer_type as it cannot be clearly assigned to either.
-                if ($thisValue != $otherValue) { return ''; }
+                if ($thisValue != $otherValue) {
+                    return '';
+                }
                 return $thisValue;
             },
         ];
@@ -147,7 +155,8 @@ abstract class Base extends RecordBuilder
                 $nowString = $now->toString();
                 $dateString = $archiveProcessor->getParams()->getPeriod()->toString();
                 $isToday = $nowString === $dateString;
-                if (($isToday && $lfLogic->isOverTodaysRequiredWaitTime($idSite))
+                if (
+                    ($isToday && $lfLogic->isOverTodaysRequiredWaitTime($idSite))
                     || (!$isToday && $lfLogic->hasThereBeenNewActionsSinceLastArchive($idSite, $startDateTimestamp, $endDateTimestamp))
                 ) {
                     // Since things have changed, let's populate the max actions right now
