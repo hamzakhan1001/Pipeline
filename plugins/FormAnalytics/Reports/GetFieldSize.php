@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Reports;
 
 use Piwik\Piwik;
@@ -51,5 +53,4 @@ class GetFieldSize extends BaseFormFieldReport
         $view->config->show_footer_message = Piwik::translate('FormAnalytics_ReportFieldSizeFooterMessage');
         $view->config->columns_to_display = array_merge(['label'], $this->metrics);
     }
-
 }

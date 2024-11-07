@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,9 +13,9 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Dao;
 
-use mysql_xdevapi\Exception;
 use Piwik\Common;
 use Piwik\Db;
 use Piwik\DbHelper;
@@ -42,8 +43,13 @@ class LogForm
     public function findDeletedLogFormIds($numMaxEntries)
     {
         // DELETE ALL LOG ENTRIES WHOSE IDSITEFORM DOES NO LONGER EXIST
-        $sql = sprintf('SELECT DISTINCT log_form.idlogform FROM %s log_form LEFT OUTER JOIN %s site_form ON log_form.idsiteform = site_form.idsiteform WHERE site_form.idsiteform IS NULL or site_form.`status` = "%s" LIMIT %s',
-                        $this->tablePrefixed, Common::prefixTable('site_form'), FormsModel::STATUS_DELETED, (int) $numMaxEntries);
+        $sql = sprintf(
+            'SELECT DISTINCT log_form.idlogform FROM %s log_form LEFT OUTER JOIN %s site_form ON log_form.idsiteform = site_form.idsiteform WHERE site_form.idsiteform IS NULL or site_form.`status` = "%s" LIMIT %s',
+            $this->tablePrefixed,
+            Common::prefixTable('site_form'),
+            FormsModel::STATUS_DELETED,
+            (int) $numMaxEntries
+        );
         $rows = Db::fetchAll($sql);
 
         return array_column($rows, 'idlogform');
@@ -181,8 +187,10 @@ class LogForm
 
         if (!empty($idLogForm)) {
             // we make sure we have recorded a time spent for this form
-            $sql = sprintf('UPDATE %s SET converted = 1, time_spent = IF(time_spent > 0, time_spent, 1) WHERE idlogform = ?',
-                           $this->tablePrefixed);
+            $sql = sprintf(
+                'UPDATE %s SET converted = 1, time_spent = IF(time_spent > 0, time_spent, 1) WHERE idlogform = ?',
+                $this->tablePrefixed
+            );
 
             $bind = array($idLogForm);
 
@@ -250,7 +258,7 @@ class LogForm
                 $idLogForm = $this->findRecord($idVisit, $idSiteForm, $idFormView);
                 $this->updateRecord($idLogForm, $idFormView, $isViewed, $isStarted, $isSubmitted, $serverTime, $timeHesitation, $timeSpent, $timeToSubmission, $isConverted);
                 return $idLogForm;
-            } else if (stripos($e->getMessage(), 'Deadlock found when trying to get lock') !== false && $retry < $this->noOfRetriesOnDeadlock) {
+            } elseif (stripos($e->getMessage(), 'Deadlock found when trying to get lock') !== false && $retry < $this->noOfRetriesOnDeadlock) {
                 $retry++;
                 return $this->addRecord($idVisitor, $idVisit, $idSite, $idSiteForm, $idFormView, $isViewed, $isStarted, $isSubmitted, $serverTime, $timeHesitation, $timeSpent, $timeToSubmission, $isConverted, $retry);
             }
@@ -271,7 +279,8 @@ class LogForm
             // field size allows us to max store about 4 hours
         }
 
-        $sql = sprintf('UPDATE %s SET
+        $sql = sprintf(
+            'UPDATE %s SET
                         form_last_action_time = ?, 
                         num_views = num_views + ?, 
                         num_starts = num_starts + ?, 
@@ -282,7 +291,8 @@ class LogForm
                         last_idformview = ?,
                         converted = ?
                         WHERE idlogform = ?',
-                        $this->tablePrefixed);
+            $this->tablePrefixed
+        );
 
         $bind = array();
         $bind[] = $serverTime;
@@ -303,7 +313,7 @@ class LogForm
             if (Db::get()->isErrNo($e, \Piwik\Updater\Migration\Db::ERROR_CODE_DUPLICATE_ENTRY)) {
                 //Race condition where this is already updated, return false
                 return false;
-            } else if (stripos($e->getMessage(), 'Deadlock found when trying to get lock') !== false && $retry  < $this->noOfRetriesOnDeadlock) {
+            } elseif (stripos($e->getMessage(), 'Deadlock found when trying to get lock') !== false && $retry  < $this->noOfRetriesOnDeadlock) {
                 $retry++;
                 return $this->updateRecord($idLogForm, $idFormView, $isViewed, $isStarted, $isSubmitted, $serverTime, $timeHesitation, $timeSpent, $timeToSubmission, $isConverted, $retry);
             }
@@ -325,18 +335,20 @@ class LogForm
 
     public function getCounters($idSite, $fromServerTime, $segment)
     {
-        $select = sprintf('count(log_form.num_views) as %s,
+        $select = sprintf(
+            'count(log_form.num_views) as %s,
                            sum(if(log_form.num_starts > 0, 1, 0)) as %s,
                            sum(log_form.time_spent) as %s,
                            sum(if(log_form.num_submissions > 0, 1, 0)) as %s,
                            sum(if(log_form.num_submissions > 1, 1, 0)) as %s,
                            sum(log_form.converted) as %s',
-                           Metrics::SUM_FORM_VIEWERS,
-                           Metrics::SUM_FORM_STARTERS,
-                           Metrics::SUM_FORM_TIME_SPENT,
-                           Metrics::SUM_FORM_SUBMITTERS,
-                           Metrics::SUM_FORM_RESUBMITTERS,
-                           Metrics::SUM_FORM_CONVERSIONS);
+            Metrics::SUM_FORM_VIEWERS,
+            Metrics::SUM_FORM_STARTERS,
+            Metrics::SUM_FORM_TIME_SPENT,
+            Metrics::SUM_FORM_SUBMITTERS,
+            Metrics::SUM_FORM_RESUBMITTERS,
+            Metrics::SUM_FORM_CONVERSIONS
+        );
 
         $where = sprintf('%1$s.idsite = ? and %1$s.form_last_action_time > ?', $this->table);
         $segment = new Segment($segment, $idSite);
@@ -348,18 +360,20 @@ class LogForm
 
     public function getCurrentMostPopularForms($idSite, $fromServerTime, $limit, $segment)
     {
-        $select = sprintf('site_form.name as label,
+        $select = sprintf(
+            'site_form.name as label,
                            site_form.idsiteform,
                            count(log_form.num_views) as %s,
                            sum(if(log_form.num_starts > 0, 1, 0)) as %s,
                            sum(if(log_form.num_submissions > 0, 1, 0)) as %s,
                            sum(if(log_form.num_submissions > 1, 1, 0)) as %s,
                            sum(log_form.converted) as %s',
-                           Metrics::SUM_FORM_VIEWERS,
-                           Metrics::SUM_FORM_STARTERS,
-                           Metrics::SUM_FORM_SUBMITTERS,
-                           Metrics::SUM_FORM_RESUBMITTERS,
-                           Metrics::SUM_FORM_CONVERSIONS);
+            Metrics::SUM_FORM_VIEWERS,
+            Metrics::SUM_FORM_STARTERS,
+            Metrics::SUM_FORM_SUBMITTERS,
+            Metrics::SUM_FORM_RESUBMITTERS,
+            Metrics::SUM_FORM_CONVERSIONS
+        );
 
         $where = sprintf('%1$s.idsite = ? and %1$s.form_last_action_time > ? and site_form.`status` = \'running\' ', $this->table);
         $segment = new Segment($segment, $idSite);
@@ -374,6 +388,4 @@ class LogForm
         $db = $this->getDbReader();
         return $db->fetchAll($query['sql'], $query['bind']);
     }
-
 }
-

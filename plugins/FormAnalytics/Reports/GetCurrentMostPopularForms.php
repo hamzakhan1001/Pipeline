@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,13 +13,12 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Reports;
 
 use Piwik\Common;
 use Piwik\DataTable;
-use Piwik\DataTable\Filter\Sort;
 use Piwik\Piwik;
-use Piwik\Plugin\ProcessedMetric;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Config;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
@@ -126,7 +126,7 @@ class GetCurrentMostPopularForms extends Base
                     $idSiteForm = $row->getColumn('idsiteform');
 
                     if (!empty($idSiteForm)) {
-                        $row->setMetadata('html_label_prefix', '<a title="' . $title .'" href="javascript:void 0;" piwik-form-page-link="' . (int) $idSiteForm . '"><span class="icon-show"></span></a>');
+                        $row->setMetadata('html_label_prefix', '<a title="' . $title . '" href="javascript:void 0;" piwik-form-page-link="' . (int) $idSiteForm . '"><span class="icon-show"></span></a>');
                     }
                 }
             }, $parameters = array(), $priority = true);
@@ -165,7 +165,5 @@ class GetCurrentMostPopularForms extends Base
             }
             $widgetsList->addWidgetConfig($config);
         }
-
     }
-
 }

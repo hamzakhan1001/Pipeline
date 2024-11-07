@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Dao;
 
 use Piwik\Common;
@@ -21,10 +23,10 @@ use Piwik\Plugins\FormAnalytics\Tracker\RequestProcessor;
 
 class LogFormField
 {
-    const MAX_FIELD_NAME_LENGTH = 75;
-    const MAX_LIMIT_TYNIINT = 255;
-    const MAX_LIMIT_SMALLINT = 65535;
-    const MAX_LIMIT_MEDIUMINT = 16777210;
+    public const MAX_FIELD_NAME_LENGTH = 75;
+    public const MAX_LIMIT_TYNIINT = 255;
+    public const MAX_LIMIT_SMALLINT = 65535;
+    public const MAX_LIMIT_MEDIUMINT = 16777210;
 
     private $db;
 
@@ -95,25 +97,35 @@ class LogFormField
         return !empty($hasRecord);
     }
 
-    public function record($idLogForm,
-                           $idLogFormPage,
-                           $idFormView,
-                           $idPageView,
-                           $isSubmitted,
-                           $fieldName,
-                           $fieldSize,
-                           $isBlank,
-                           $timeSpent,
-                           $hesitationTime,
-                           $numChanges,
-                           $numFocus,
-                           $numDeletes,
-                           $numCursor)
-    {
+    public function record(
+        $idLogForm,
+        $idLogFormPage,
+        $idFormView,
+        $idPageView,
+        $isSubmitted,
+        $fieldName,
+        $fieldSize,
+        $isBlank,
+        $timeSpent,
+        $hesitationTime,
+        $numChanges,
+        $numFocus,
+        $numDeletes,
+        $numCursor
+    ) {
         // if exists, then update
         // otherwise create
-        $this->format($idFormView,$fieldName,$fieldSize,$timeSpent, $hesitationTime,
-                      $numChanges, $numFocus,$numDeletes,$numCursor);
+        $this->format(
+            $idFormView,
+            $fieldName,
+            $fieldSize,
+            $timeSpent,
+            $hesitationTime,
+            $numChanges,
+            $numFocus,
+            $numDeletes,
+            $numCursor
+        );
 
         $values = array(
             'idlogform' => $idLogForm,
@@ -147,37 +159,39 @@ class LogFormField
         try {
             $db->query($sql, $bind);
         } catch (\Exception $e) {
-
             if ($db->isErrNo($e, \Piwik\Updater\Migration\Db::ERROR_CODE_DUPLICATE_ENTRY)) {
                 // race condition where two tried to insert at same time... we need to update instead
-                $this->updateRecord($idLogForm,
-                                    $idFormView,
-                                    $isSubmitted,
-                                    $fieldName,
-                                    $fieldSize,
-                                    $isBlank,
-                                    $timeSpent,
-                                    $hesitationTime,
-                                    $numChanges,
-                                    $numFocus,
-                                    $numDeletes,
-                                    $numCursor);
+                $this->updateRecord(
+                    $idLogForm,
+                    $idFormView,
+                    $isSubmitted,
+                    $fieldName,
+                    $fieldSize,
+                    $isBlank,
+                    $timeSpent,
+                    $hesitationTime,
+                    $numChanges,
+                    $numFocus,
+                    $numDeletes,
+                    $numCursor
+                );
                 return;
             }
             throw $e;
         }
     }
 
-    private function format(&$idFormView,
-                            &$fieldName,
-                            &$fieldSize,
-                            &$timeSpent,
-                            &$hesitationTime,
-                            &$numChanges,
-                            &$numFocus,
-                            &$numDeletes,
-                            &$numCursor)
-    {
+    private function format(
+        &$idFormView,
+        &$fieldName,
+        &$fieldSize,
+        &$timeSpent,
+        &$hesitationTime,
+        &$numChanges,
+        &$numFocus,
+        &$numDeletes,
+        &$numCursor
+    ) {
 
         $fieldName = !empty($fieldName) ? substr($fieldName, 0, self::MAX_FIELD_NAME_LENGTH) : '';
         $idFormView = !empty($idFormView) ? substr($idFormView, 0, 6) : '';
@@ -208,21 +222,31 @@ class LogFormField
         }
     }
 
-    public function updateRecord($idLogForm,
-                                 $idFormView,
-                                 $isSubmitted,
-                                 $fieldName,
-                                 $fieldSize,
-                                 $isBlank,
-                                 $timeSpent,
-                                 $hesitationTime,
-                                 $numChanges,
-                                 $numFocus,
-                                 $numDeletes,
-                                 $numCursor)
-    {
-        $this->format($idFormView,$fieldName,$fieldSize,$timeSpent, $hesitationTime,
-                    $numChanges, $numFocus,$numDeletes,$numCursor);
+    public function updateRecord(
+        $idLogForm,
+        $idFormView,
+        $isSubmitted,
+        $fieldName,
+        $fieldSize,
+        $isBlank,
+        $timeSpent,
+        $hesitationTime,
+        $numChanges,
+        $numFocus,
+        $numDeletes,
+        $numCursor
+    ) {
+        $this->format(
+            $idFormView,
+            $fieldName,
+            $fieldSize,
+            $timeSpent,
+            $hesitationTime,
+            $numChanges,
+            $numFocus,
+            $numDeletes,
+            $numCursor
+        );
 
         $sql = 'field_size = ?, left_blank = ?';
 
@@ -281,8 +305,11 @@ class LogFormField
             $bind[] = $numCursor;
         }
 
-        $sql = sprintf('UPDATE %s SET %s WHERE idlogform = ? AND field_name = ? AND idformview = ?',
-                        $this->tablePrefixed, $sql);
+        $sql = sprintf(
+            'UPDATE %s SET %s WHERE idlogform = ? AND field_name = ? AND idformview = ?',
+            $this->tablePrefixed,
+            $sql
+        );
         $bind[] = $idLogForm;
         $bind[] = $fieldName;
         $bind[] = $idFormView;
@@ -290,6 +317,4 @@ class LogFormField
         $db = $this->getDb();
         $db->query($sql, $bind);
     }
-
 }
-

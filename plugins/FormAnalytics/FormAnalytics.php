@@ -5,9 +5,10 @@
  * Description: Increase conversions on your online forms and lose less visitors by learning everything about your users behavior and their pain points on your forms
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/FormAnalytics
- * Version: 5.0.12
+ * Version: 5.0.13
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -59,11 +60,11 @@ if (defined( 'ABSPATH')
 
 class FormAnalytics extends Plugin
 {
-    const TRACKER_CACHE_RUNNING_FORMS_KEY = 'forms';
-    const TRACKER_CACHE_ALL_FORMS_KEY = 'forms_all';
-    const TRACKER_CACHE_NUM_AUTO_CREATED = 'num_forms_auto_created';
-    const TRACKER_READY_HOOK_NAME = '/*!! formAnalyticsTrackerReadyHook */';
-    const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! formAnalyticsTrackerReadyHook */';
+    public const TRACKER_CACHE_RUNNING_FORMS_KEY = 'forms';
+    public const TRACKER_CACHE_ALL_FORMS_KEY = 'forms_all';
+    public const TRACKER_CACHE_NUM_AUTO_CREATED = 'num_forms_auto_created';
+    public const TRACKER_READY_HOOK_NAME = '/*!! formAnalyticsTrackerReadyHook */';
+    public const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! formAnalyticsTrackerReadyHook */';
 
     public function registerEvents()
     {
@@ -343,7 +344,7 @@ class FormAnalytics extends Plugin
         $segment->setName('FormAnalytics_SegmentFormStarts');
         $segment->setAcceptedValues(Piwik::translate('FormAnalytics_SegmentFormStartsDescription'));
         $segment->setSqlSegment('log_form.num_starts');
-        $segment->setSuggestedValuesCallback(function ($idSite, $maxValuesToReturn)  {
+        $segment->setSuggestedValuesCallback(function ($idSite, $maxValuesToReturn) {
 
             return range(1, $maxValuesToReturn);
         });
@@ -409,12 +410,12 @@ class FormAnalytics extends Plugin
     }
 
     public function addActionTypes(&$types)
-     {
+    {
          $types[] = [
              'id' => ActionForm::TYPE_FORM,
              'name' => 'form'
          ];
-     }
+    }
 
     private function getFormsByStatuses($idSite, $status)
     {

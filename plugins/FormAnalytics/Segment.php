@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,7 +13,9 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics;
+
 use Piwik\Common;
 use Piwik\Plugins\FormAnalytics\Model\FormsModel;
 use Piwik\Segment\SegmentExpression;
@@ -22,11 +25,11 @@ use Piwik\Segment\SegmentExpression;
  */
 class Segment extends \Piwik\Plugin\Segment
 {
-    const FORM_NAME_SEGMENT = 'form_name';
-    const FORM_CONVERTED_SEGMENT = 'form_converted';
-    const FORM_SPENT_TIME_SEGMENT = 'form_timespent';
-    const FORM_NUM_SUBMISSIONS_SEGMENT = 'form_num_submissions';
-    const FORM_NUM_STARTS_SEGMENT = 'form_num_starts';
+    public const FORM_NAME_SEGMENT = 'form_name';
+    public const FORM_CONVERTED_SEGMENT = 'form_converted';
+    public const FORM_SPENT_TIME_SEGMENT = 'form_timespent';
+    public const FORM_NUM_SUBMISSIONS_SEGMENT = 'form_num_submissions';
+    public const FORM_NUM_STARTS_SEGMENT = 'form_num_starts';
 
     public static function getAllSegments()
     {
@@ -86,4 +89,3 @@ class Segment extends \Piwik\Plugin\Segment
         return array('SQL' => $sql, 'bind' => $valueToMatch);
     }
 }
-

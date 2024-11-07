@@ -1,4 +1,5 @@
 <?php
+
 /*!
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -20,7 +21,6 @@ use Piwik\Log\LoggerInterface;
 
 class Tasks extends \Piwik\Plugin\Tasks
 {
-
     /**
      * @var LogForm
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,12 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Reports;
 
-use Piwik\Access;
 use Piwik\API\Request;
 use Piwik\Common;
-use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
 use Piwik\Plugin\Report;
 use Piwik\Plugins\FormAnalytics\Model\FormsModel;
@@ -95,7 +95,6 @@ abstract class Base extends Report
         $subcategory = $this->subcategoryId;
 
         foreach ($forms as $form) {
-
             $this->subcategoryId = $form['idsiteform'];
             $this->name = Piwik::translate('FormAnalytics_FormX', '"' . Common::sanitizeInputValue($form['name']) . '"') . ' - ' . $name;
             $this->parameters = array('idForm' => $form['idsiteform']);

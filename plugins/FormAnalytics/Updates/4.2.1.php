@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -78,6 +79,5 @@ class Updates_4_2_1 extends PiwikUpdates
                 }
             }
         }
-
     }
 }

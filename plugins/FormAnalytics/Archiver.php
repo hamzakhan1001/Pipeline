@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,14 +18,14 @@ namespace Piwik\Plugins\FormAnalytics;
 
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const FORM_NUMERIC_RECORD_PREFIX = 'FormAnalytics';
+    public const FORM_NUMERIC_RECORD_PREFIX = 'FormAnalytics';
 
-    const FORM_FIELDS_RECORD = 'FormAnalytics_fields';
-    const FORM_PAGE_URLS_RECORD = 'FormAnalytics_form_pageurls';
-    const FORM_DROP_OFF_RECORD = 'FormAnalytics_dropoff_fields';
-    const FORM_ENTRY_FIELDS_RECORD = 'FormAnalytics_entry_fields';
+    public const FORM_FIELDS_RECORD = 'FormAnalytics_fields';
+    public const FORM_PAGE_URLS_RECORD = 'FormAnalytics_form_pageurls';
+    public const FORM_DROP_OFF_RECORD = 'FormAnalytics_dropoff_fields';
+    public const FORM_ENTRY_FIELDS_RECORD = 'FormAnalytics_entry_fields';
 
-    const MAX_ROWS_LIMIT = 500;
+    public const MAX_ROWS_LIMIT = 500;
 
     public static function completeRecordName($recordName, $idSiteForm)
     {

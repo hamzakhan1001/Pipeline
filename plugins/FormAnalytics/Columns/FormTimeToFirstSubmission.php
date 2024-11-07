@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Columns;
 
 use Piwik\Columns\DimensionMetricFactory;
@@ -46,7 +48,7 @@ class FormTimeToFirstSubmission extends BaseDimension
         $metric->setName('max_form_time_to_first_submission');
         $metricsList->addMetric($metric);
 
-        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_TIME_TO_FIRST_SUBMISSION, Metrics::SUM_FORM_SUBMITTERS,ComputedMetric::AGGREGATION_AVG);
+        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_TIME_TO_FIRST_SUBMISSION, Metrics::SUM_FORM_SUBMITTERS, ComputedMetric::AGGREGATION_AVG);
         $metric->setName(Metrics::AVG_FORM_TIME_TO_FIRST_SUBMISSION);
         $metric->setTranslatedName(Piwik::translate('FormAnalytics_ColumnAvgTimeToFirstSubmit'));
         $metric->setDocumentation(Piwik::translate('FormAnalytics_ColumnDescriptionAvgFormTimeToFirstSubmission'));

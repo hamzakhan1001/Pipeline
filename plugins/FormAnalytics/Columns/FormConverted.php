@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Columns;
 
 use Piwik\Columns\DimensionMetricFactory;
@@ -42,7 +44,7 @@ class FormConverted extends BaseDimension
         $metric->setDocumentation(Piwik::translate('FormAnalytics_ColumnDescriptionNbFormConversions'));
         $metricsList->addMetric($metric);
 
-        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_CONVERSIONS, Metrics::SUM_FORM_STARTERS,ComputedMetric::AGGREGATION_RATE);
+        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_CONVERSIONS, Metrics::SUM_FORM_STARTERS, ComputedMetric::AGGREGATION_RATE);
         $metric->setName(Metrics::RATE_FORM_CONVERSION);
         $metric->setTranslatedName(Piwik::translate('FormAnalytics_ColumnFormConversionRate'));
         $metric->setDocumentation(Piwik::translate('FormAnalytics_ColumnDescriptionFormConversionRate'));

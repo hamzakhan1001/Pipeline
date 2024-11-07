@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -18,7 +19,6 @@ namespace Piwik\Plugins\FormAnalytics\ProfileSummary;
 use Piwik\API\Request;
 use Piwik\Common;
 use Piwik\Piwik;
-use Piwik\Plugins\FormAnalytics\API;
 use Piwik\Plugins\Live\ProfileSummary\ProfileSummaryAbstract;
 use Piwik\View;
 
@@ -50,7 +50,7 @@ class FormSummary extends ProfileSummaryAbstract
         $view->forms       = [];
         $forms             = Request::processRequest('FormAnalytics.getForms', ['idSite' => $idSite]);
 
-        foreach ($forms AS $form) {
+        foreach ($forms as $form) {
             $view->forms[$form['idsiteform']] = $form;
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -11,9 +12,6 @@ namespace Piwik\Plugins\FormAnalytics;
 
 use Piwik\Common;
 use Piwik\DbHelper;
-use Piwik\Plugins\FormAnalytics\Dao\SiteForm;
-use Piwik\Plugins\FormAnalytics\Model\FormsModel;
-use Piwik\Plugins\SitesManager\API as APISitesManager;
 use Piwik\Updater;
 use Piwik\Updates as PiwikUpdates;
 use Piwik\Updater\Migration;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\FormAnalytics\Widgets;
 
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
-use Piwik\Piwik;
 use Piwik\Widget\Widget;
 use Piwik\Widget\WidgetConfig;
 
@@ -52,5 +52,4 @@ class GetManageForms extends Widget
 
         return '<div vue-entry="FormAnalytics.FormsManage"></div>';
     }
-
 }

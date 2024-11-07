@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Reports;
 
 use Piwik\Piwik;
@@ -76,5 +78,4 @@ class GetFieldTimings extends BaseFormFieldReport
 
         $this->setMetricsForGraphBasedOnColumnsToDisplay($view);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,14 +16,14 @@
 
 namespace Piwik\Plugins\FormAnalytics\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Common;
 use Piwik\Piwik;
 use Piwik\Plugins\FormAnalytics\Tracker\RuleMatcher;
 
 abstract class Rule
 {
-    const VALUE_MAX_LENGTH = 1000;
+    public const VALUE_MAX_LENGTH = 1000;
 
     /**
      * @var array
@@ -116,6 +117,5 @@ abstract class Rule
                 throw new Exception(Piwik::translate('FormAnalytics_ErrorInvalidRegExp', $value));
             }
         }
-
     }
 }

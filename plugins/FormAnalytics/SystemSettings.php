@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics;
 
 use Piwik\Piwik;
@@ -20,12 +22,12 @@ use Piwik\Settings\FieldConfig;
 
 class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 {
-    const FORM_CREATION_DISABLED = 'disabled';
-    const FORM_CREATION_UP_TO_3 = 'up_to_3';
-    const FORM_CREATION_UP_TO_10 = 'up_to_10';
-    const FORM_CREATION_UP_TO_50 = 'up_to_50';
-    const FORM_CREATION_UP_TO_150 = 'up_to_150';
-    const FORM_CREATION_UNLIMITED = 'unlimited';
+    public const FORM_CREATION_DISABLED = 'disabled';
+    public const FORM_CREATION_UP_TO_3 = 'up_to_3';
+    public const FORM_CREATION_UP_TO_10 = 'up_to_10';
+    public const FORM_CREATION_UP_TO_50 = 'up_to_50';
+    public const FORM_CREATION_UP_TO_150 = 'up_to_150';
+    public const FORM_CREATION_UNLIMITED = 'unlimited';
 
     /** @var Setting */
     public $autoCreateForm;
@@ -51,5 +53,4 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             );
         });
     }
-
 }

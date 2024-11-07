@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Reports;
 
 use Piwik\Common;
@@ -203,7 +205,6 @@ class Get extends Base
         $forms = $this->getCachedFormsForSite($idSite);
 
         foreach ($forms as $form) {
-
             if (!empty($form['in_overview'])) {
                 $config = $factory->createWidget();
                 $config->forceViewDataTable(Sparklines::ID);
@@ -272,5 +273,4 @@ class Get extends Base
 
         $this->configureReportMetadataForAllForms($availableReports, $infos);
     }
-
 }

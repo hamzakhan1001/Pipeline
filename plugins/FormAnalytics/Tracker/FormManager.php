@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Tracker;
 
 use Piwik\Common;
@@ -228,8 +230,10 @@ class FormManager
                 return; // those have form ids that change on each page view, eg "hsForm_23493b7b-1114-44e0-be4d-35d94ccfa449_4451"
             }
 
-            if ($this->isFormBlockedFromAutoCreation($formName)
-                || $this->isFormBlockedFromAutoCreation($formId)) {
+            if (
+                $this->isFormBlockedFromAutoCreation($formName)
+                || $this->isFormBlockedFromAutoCreation($formId)
+            ) {
                 return;
             }
 
@@ -306,8 +310,10 @@ class FormManager
         $changed = false;
 
         foreach ($fields as $field) {
-            if (empty($field[RequestProcessor::PARAM_FORM_FIELD_NAME])
-                || empty($field[RequestProcessor::PARAM_FORM_FIELD_TYPE])) {
+            if (
+                empty($field[RequestProcessor::PARAM_FORM_FIELD_NAME])
+                || empty($field[RequestProcessor::PARAM_FORM_FIELD_TYPE])
+            ) {
                 continue;
             }
 
