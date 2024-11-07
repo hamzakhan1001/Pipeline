@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -13,15 +14,14 @@
  * @license For license details see https://www.innocraft.com/license
  *
  */
+
 namespace Piwik\Plugins\RollUpReporting;
 
 class Type extends \Piwik\Measurable\Type
 {
-    const ID = 'rollup';
+    public const ID = 'rollup';
     protected $name = 'Roll-Up';
     protected $namePlural = 'Roll-Ups';
     protected $description = 'Roll-Ups let you aggregate data from multiple websites and apps into one single parent site.';
     protected $howToSetupUrl = '';
-
 }
-

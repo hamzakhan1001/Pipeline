@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\RollUpReporting;
 
 use Piwik\Common;
@@ -21,12 +23,11 @@ use Piwik\Site;
 
 class Model
 {
-
     private $table = 'site_rollup';
     private $tablePrefixed = '';
 
-    const KEY_ALL_WEBSITES = 'all';
-    const TYPE_ROLLUP_SITE = 'rollup';
+    public const KEY_ALL_WEBSITES = 'all';
+    public const TYPE_ROLLUP_SITE = 'rollup';
 
     public function __construct()
     {
@@ -196,4 +197,3 @@ class Model
         $this->getDb()->query($query, $bind);
     }
 }
-

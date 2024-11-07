@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -100,7 +101,6 @@ class RollUpBackend implements BackendInterface
                 $sourceIdSites = array_diff($sourceIdSites, $parentIdSites); // we do not want to add any roll-ups
                 $sourceIdSites = array_diff($sourceIdSites, array($this->idSite)); // we do not want to assign it to itself
                 $sourceIdSites = array_unique($sourceIdSites);
-
             } elseif (self::hasAssignedAllSites($this->idSite)) {
                 self::unsetAssignAllSites($this->idSite);
             }
@@ -175,5 +175,4 @@ class RollUpBackend implements BackendInterface
     {
         $this->model->removeParentSite($this->idSite);
     }
-
 }

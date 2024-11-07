@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -308,7 +309,7 @@ class RollUpReporting extends Plugin
             if (!empty($childIdSites)) {
                 $idSites = array_filter(
                     array_values(array_unique($childIdSites)),
-                    function($idSite) {
+                    function ($idSite) {
                         if (self::$requestedLiveApi === 'getLastVisitsDetails') {
                             return Live::isVisitorLogEnabled($idSite);
                         } elseif (self::$requestedLiveApi === 'getVisitorProfile' || self::$requestedLiveApi === 'getFirstVisitForVisitorId') {
@@ -346,7 +347,9 @@ class RollUpReporting extends Plugin
             (
                 (
                     (
-                        (!$segment) || (is_object($segment) && $segment->isEmpty())
+                        (!$segment) ||
+                        (is_object($segment) &&
+                        $segment->isEmpty())
                     ) &&
                     $this->getConfiguration()->shouldForceAggregateRawDataForDay()
                 ) ||
@@ -355,8 +358,8 @@ class RollUpReporting extends Plugin
                     !$segment->isEmpty() &&
                     $this->getConfiguration()->shouldForceAggregateRawDataForDaySegment()
                 )
-            )
-            && !$isPrivacyDeleteData
+            ) &&
+            !$isPrivacyDeleteData
         ) {
             return;
         }
@@ -381,7 +384,6 @@ class RollUpReporting extends Plugin
         $idSite = $params->getSite()->getId();
 
         if ($this->isRollUpIdSite($idSite) && $params->isDayArchive()) {
-
             if ($params->getSegment()->isEmpty()) {
                 // for now this config stays undocumented until we know if we should apply it or not...
                 // note we cannot do this by default as users may have 3rd party plugins installed whose archiver
@@ -397,7 +399,6 @@ class RollUpReporting extends Plugin
                     $shouldAggregateRawData = true;
                 }
             }
-
         }
     }
 
@@ -405,7 +406,7 @@ class RollUpReporting extends Plugin
     {
         return StaticContainer::get(Configuration::class);
     }
-    
+
     /**
      * @param array $idSites
      * @param Period $period
@@ -519,23 +520,25 @@ class RollUpReporting extends Plugin
         $idSite = $this->getIdSite();
 
         $pluginsThatDefineUrlMetadata = array('Actions', 'Funnels', 'UsersFlow', 'CustomDimensions');
-        if (!empty($returnedValue)
+        if (
+            !empty($returnedValue)
             && $this->isRollUpIdSite($idSite)
             && $returnedValue instanceof DataTable\DataTableInterface
             && in_array('nb_uniq_visitors', $returnedValue->getColumns())
             && $params['module'] == 'VisitsSummary'
-            && Common::getRequestVar('period' , 'day') != 'day'
+            && Common::getRequestVar('period', 'day') != 'day'
             && Config::getInstance()->General['enable_processing_unique_visitors_multiple_sites'] == 0
         ) {
-            $returnedValue->filter('ColumnDelete',array(['nb_uniq_visitors']));
+            $returnedValue->filter('ColumnDelete', array(['nb_uniq_visitors']));
         }
 
-        if (!empty($returnedValue)
+        if (
+            !empty($returnedValue)
             && $this->isRollUpIdSite($idSite)
             && !empty($params['module'])
             && in_array($params['module'], $pluginsThatDefineUrlMetadata, $strict = true)
-            && $returnedValue instanceof DataTable\DataTableInterface) {
-
+            && $returnedValue instanceof DataTable\DataTableInterface
+        ) {
             $returnedValue->filter('Piwik\Plugins\RollUpReporting\DataTable\Filter\RemoveUrlMetadata');
         }
     }
@@ -672,7 +675,7 @@ class RollUpReporting extends Plugin
     }
 
 
-    function getNoAccessNotification(&$message)
+    public function getNoAccessNotification(&$message)
     {
         $idSite = $this->getIdSite();
         if ($this->isRollUpIdSite($idSite)) {

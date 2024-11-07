@@ -72,3 +72,13 @@ The Roll-Up Reporting plugin lets you aggregate data from multiple websites and 
 Transform the way you manage your analytics with Roll-Up Reporting. Consolidate your data, gain sharp insights, and make decisions with confidence. It's your digital realm, simplified and empowered—all in one dashboard.
 
 Start your 30-day free trial and enjoy the power of consolidated analytics.
+
+### Features
+
+* Lets you easily assign all websites and apps to a Roll-Up
+* Optionally, give users only access to a Roll-Up without having to give them access to individual websites.
+* View your Roll-Up reports on the go with the [Matomo Mobile](https://plugins.matomo.org) app.
+* All reports including real time reports are available via the [Matomo HTTP Reporting API](https://developer.matomo.org/api-reference/tracking-api), and support [Matomo segments](https://matomo.org/docs/segmentation/).
+* Manage Roll-Up properties via the [Matomo HTTP Reporting API](https://developer.matomo.org/api-reference/tracking-api).
+* Export any report directly in your app, dashboard, or even TV screen! Even your real time reports can be [embedded](https://matomo.org/docs/embed-piwik-report/) anywhere.
+* Get automatic [email and sms reports](https://matomo.org/docs/email-reports/) for your Roll-Up properties, or send them to your colleagues or customers.

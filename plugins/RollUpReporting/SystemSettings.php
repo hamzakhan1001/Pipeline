@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -38,4 +39,3 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         });
     }
 }
-

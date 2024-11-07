@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -14,6 +15,7 @@
  */
 
 namespace Piwik\Plugins\RollUpReporting;
+
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
 use Piwik\Plugins\RollUpReporting\Settings\Storage\RollUpBackend;
@@ -30,9 +32,9 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
     /** @var Setting */
     public $siteGroup;
 
-    const ROLLUP_FIELDNAME = 'rollup_idsites';
+    public const ROLLUP_FIELDNAME = 'rollup_idsites';
 
-    const KEY_NO_SITE_DEFINED = 'nositedefined';
+    public const KEY_NO_SITE_DEFINED = 'nositedefined';
 
     protected function init()
     {
@@ -136,6 +138,4 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
             };
         });
     }
-
-
 }
