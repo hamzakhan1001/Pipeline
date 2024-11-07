@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\CustomReports\Dao;
 
 use Piwik\Common;
@@ -32,7 +34,7 @@ class CustomReportsDao
     private $table = 'custom_reports';
     private $tablePrefixed = '';
 
-    const DEFAULT_CATEGORY = 'CustomReports_CustomReports';
+    public const DEFAULT_CATEGORY = 'CustomReports_CustomReports';
 
     public function __construct()
     {
@@ -56,7 +58,7 @@ class CustomReportsDao
                   `report_type` VARCHAR(10) NOT NULL DEFAULT '" . Table::ID . "',
                   `name` VARCHAR(" . Name::MAX_LENGTH . ") NOT NULL,
                   `description` VARCHAR(" . Description::MAX_LENGTH . ") NOT NULL DEFAULT '',
-                  `category` VARCHAR(" . Category::MAX_LENGTH . ") NOT NULL DEFAULT '". self::DEFAULT_CATEGORY."',
+                  `category` VARCHAR(" . Category::MAX_LENGTH . ") NOT NULL DEFAULT '" . self::DEFAULT_CATEGORY . "',
                   `subcategory` VARCHAR(" . Subcategory::MAX_LENGTH . ") NOT NULL DEFAULT '',
                   `dimensions` TEXT NOT NULL,
                   `metrics` TEXT NOT NULL,
@@ -94,18 +96,23 @@ class CustomReportsDao
         $bind = array_values($columns);
         $placeholder = Common::getSqlStringFieldsArray($columns);
 
-        $sql = sprintf('INSERT INTO %s (`%s`) VALUES(%s)',
-            $this->tablePrefixed, implode('`,`', array_keys($columns)), $placeholder);
+        $sql = sprintf(
+            'INSERT INTO %s (`%s`) VALUES(%s)',
+            $this->tablePrefixed,
+            implode('`,`', array_keys($columns)),
+            $placeholder
+        );
 
         $db = $this->getDb();
 
         try {
             $db->query($sql, $bind);
-
         } catch (Exception $e) {
-            if ($e->getCode() == 23000
+            if (
+                $e->getCode() == 23000
                 || strpos($e->getMessage(), 'Duplicate entry') !== false
-                || strpos($e->getMessage(), ' 1062 ') !== false) {
+                || strpos($e->getMessage(), ' 1062 ') !== false
+            ) {
                 throw new Exception(Piwik::translate('CustomReports_ErrorReportNameDuplicate'));
             }
             throw $e;
@@ -301,4 +308,3 @@ class CustomReportsDao
         return Date::now()->getDatetime();
     }
 }
-

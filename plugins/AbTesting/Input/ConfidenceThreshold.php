@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class ConfidenceThreshold
@@ -51,5 +52,4 @@ class ConfidenceThreshold
             throw new Exception(Piwik::translate('AbTesting_ErrorXNotWhitelisted', array($title, $whitelisted)));
         }
     }
-
 }

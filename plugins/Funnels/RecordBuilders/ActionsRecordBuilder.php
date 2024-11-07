@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\Funnels\RecordBuilders;
 
 use Piwik\DataTable;
 use Piwik\Plugins\Funnels\Metrics;
-use Piwik\Plugins\Funnels\Model\FunnelsModel;
 
 abstract class ActionsRecordBuilder extends Base
 {

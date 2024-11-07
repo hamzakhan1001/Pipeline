@@ -14,8 +14,8 @@ use Piwik\Plugins\SitesManager\API as SitesManagerApi;
 
 class LogFunnelOptionLogic
 {
-    const MAX_LINK_VISIT_ACTION_OPTION_NAME_PREFIX = 'max_idlink_va';
-    const FUNNEL_ARCHIVING_TODAY_OPTION_NAME_PREFIX = 'funnel_archiving_today';
+    public const MAX_LINK_VISIT_ACTION_OPTION_NAME_PREFIX = 'max_idlink_va';
+    public const FUNNEL_ARCHIVING_TODAY_OPTION_NAME_PREFIX = 'funnel_archiving_today';
 
     /**
      * Builds the name to use for the option for the site and date.
@@ -35,7 +35,7 @@ class LogFunnelOptionLogic
      * @param int $idSite
      * @return string
      */
-    public function buildLatestTodayFunnelArchiveOptionName(int $idSite):string
+    public function buildLatestTodayFunnelArchiveOptionName(int $idSite): string
     {
         return self::FUNNEL_ARCHIVING_TODAY_OPTION_NAME_PREFIX . "_{$idSite}_timestamp";
     }

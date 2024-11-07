@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -50,4 +51,3 @@ class Updates_3_4_0 extends PiwikUpdates
         $updater->executeMigrations(__FILE__, $this->getMigrations($updater));
     }
 }
-

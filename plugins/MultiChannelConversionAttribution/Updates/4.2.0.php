@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -48,7 +49,7 @@ class Updates_4_2_0 extends Updates
                 foreach ($daysPriorConversions as $daysPriorToConversion) {
                     $oldArchiveName = self::completeChannelAttributionRecordNameOld($idGoal, $daysPriorToConversion);
                     $newArchiveName = self::completeChannelAttributionRecordNameNew($idGoal, ['period' => $daysPriorToConversion, 'topLevel' => 'referer_name']);
-                    $updateQueries[] = 'Update `%1$s` set name='. "'$newArchiveName'". ' where name='. "'$oldArchiveName'";
+                    $updateQueries[] = 'Update `%1$s` set name=' . "'$newArchiveName'" . ' where name=' . "'$oldArchiveName'";
                 }
             }
         }
@@ -98,6 +99,6 @@ class Updates_4_2_0 extends Updates
 
     public static function completeChannelAttributionRecordNameNew($idGoal, $rowOption)
     {
-        return Archiver::RECORD_CHANNEL_TYPES . '_' . (int) $idGoal . '_prior' . (int) $rowOption['period'].'_'.$rowOption['topLevel']. (!empty($rowOption['subLevel']) ? '_'.$rowOption['subLevel']:'');
+        return Archiver::RECORD_CHANNEL_TYPES . '_' . (int) $idGoal . '_prior' . (int) $rowOption['period'] . '_' . $rowOption['topLevel'] . (!empty($rowOption['subLevel']) ? '_' . $rowOption['subLevel'] : '');
     }
 }

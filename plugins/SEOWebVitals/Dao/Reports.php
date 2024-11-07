@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,14 +20,13 @@ use Piwik\Common;
 use Piwik\Date;
 use Piwik\Db;
 use Piwik\DbHelper;
-use Piwik\Plugins\SEOWebVitals\SEOWebVitals;
 
 class Reports
 {
     private $table = 'log_webvitals_report';
     private $tablePrefixed = '';
 
-    const STRATEGYMAP = [
+    public const STRATEGYMAP = [
         PageSpeedApi::STRATEGY_MOBILE => 2,
         PageSpeedApi::STRATEGY_DESKTOP => 3,
     ];
@@ -78,7 +78,8 @@ class Reports
         return $data;
     }
 
-    private function encodeStrategy($strategy) {
+    private function encodeStrategy($strategy)
+    {
         if (isset(self::STRATEGYMAP[$strategy])) {
             return self::STRATEGYMAP[$strategy];
         }
@@ -150,17 +151,23 @@ class Reports
             return $reportId;
         }
 
-        $sql = sprintf('INSERT INTO %s (`%s`) VALUES(%s)',
-            $this->tablePrefixed, implode('`,`', array_keys($columns)), $placeholder);
+        $sql = sprintf(
+            'INSERT INTO %s (`%s`) VALUES(%s)',
+            $this->tablePrefixed,
+            implode('`,`', array_keys($columns)),
+            $placeholder
+        );
 
         $db = $this->getDb();
 
         try {
             $db->query($sql, $bind);
         } catch (\Exception $e) {
-            if ($e->getCode() == 23000
+            if (
+                $e->getCode() == 23000
                 || strpos($e->getMessage(), 'Duplicate entry') !== false
-                || strpos($e->getMessage(), ' 1062 ') !== false) {
+                || strpos($e->getMessage(), ' 1062 ') !== false
+            ) {
                 throw new \Exception('Duplicate report found');
             }
             throw $e;

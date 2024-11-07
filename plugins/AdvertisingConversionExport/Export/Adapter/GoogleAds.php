@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -22,7 +23,7 @@ use Piwik\Plugins\AdvertisingConversionExport\ClickIdProvider\Google;
 
 class GoogleAds extends AdapterAbstract
 {
-    const ID = 'GoogleAds';
+    public const ID = 'GoogleAds';
 
     public static function getName(): string
     {
@@ -33,7 +34,8 @@ class GoogleAds extends AdapterAbstract
     {
         $faqURL = Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/reports/how-to-set-up-conversion-import-in-google-ads/');
 
-        return Piwik::translate('AdvertisingConversionExport_GoogleAdsExportDescription') . '. ' . Piwik::translate('AdvertisingConversionExport_GoogleAdsExportFAQText', array('<a href="' . $faqURL . '" target="_blank" rel="noreferrer noopener">', '</a>'));
+        return Piwik::translate('AdvertisingConversionExport_GoogleAdsExportDescription') . '. '
+            . Piwik::translate('AdvertisingConversionExport_GoogleAdsExportFAQText', array('<a href="' . $faqURL . '" target="_blank" rel="noreferrer noopener">', '</a>'));
     }
 
     protected function getClickIdProvider()
@@ -120,7 +122,6 @@ HEAD;
 {$clickId},{$conversionName},{$conversionTime},{$attributedCredit},{$conversionValue},{$conversionCurrency},{$adUserData},{$adPersonalization}
 
 CONVERSION;
-
     }
 
     private function getConversionDataWithoutExternalAttributedConversion($conversion)
@@ -138,6 +139,5 @@ CONVERSION;
 {$clickId},{$conversionName},{$conversionTime},{$conversionValue},{$conversionCurrency},{$adUserData},{$adPersonalization}
 
 CONVERSION;
-
     }
 }

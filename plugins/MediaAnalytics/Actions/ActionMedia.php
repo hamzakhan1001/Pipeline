@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,21 +22,21 @@ use Piwik\Tracker\Request;
 
 class ActionMedia extends Action
 {
-    const TYPE_MEDIA = 94;
+    public const TYPE_MEDIA = 94;
 
-    const PARAM_ID_VIEW = 'ma_id';
-    const PARAM_RESOURCE = 'ma_re';
-    const PARAM_MEDIA_TYPE = 'ma_mt';
-    const PARAM_PLAYER_NAME = 'ma_pn';
-    const PARAM_MEDIA_TITLE = 'ma_ti';
-    const PARAM_SPENT_TIME = 'ma_st';
-    const PARAM_PROGRESS = 'ma_ps';
-    const PARAM_MEDIA_LENGTH = 'ma_le';
-    const PARAM_MEDIA_WIDTH = 'ma_w';
-    const PARAM_MEDIA_HEIGHT = 'ma_h';
-    const PARAM_TIME_TO_INITIAL_PLAY = 'ma_ttp';
-    const PARAM_FULLSCREEN = 'ma_fs';
-    const PARAM_SEGMENTS = 'ma_se';
+    public const PARAM_ID_VIEW = 'ma_id';
+    public const PARAM_RESOURCE = 'ma_re';
+    public const PARAM_MEDIA_TYPE = 'ma_mt';
+    public const PARAM_PLAYER_NAME = 'ma_pn';
+    public const PARAM_MEDIA_TITLE = 'ma_ti';
+    public const PARAM_SPENT_TIME = 'ma_st';
+    public const PARAM_PROGRESS = 'ma_ps';
+    public const PARAM_MEDIA_LENGTH = 'ma_le';
+    public const PARAM_MEDIA_WIDTH = 'ma_w';
+    public const PARAM_MEDIA_HEIGHT = 'ma_h';
+    public const PARAM_TIME_TO_INITIAL_PLAY = 'ma_ttp';
+    public const PARAM_FULLSCREEN = 'ma_fs';
+    public const PARAM_SEGMENTS = 'ma_se';
 
     public function __construct(Request $request)
     {

@@ -72,6 +72,7 @@
         "ErrorActivatedFunnelWithNoSteps": "Adımları olmayan bir huni etkinleştirilemez",
         "ErrorArrayMissingKey": "\"%2$s\" içinde \"%3$s\" konumundaki \"%1$s\" dizi anahtarı eksik.",
         "ErrorFunnelDoesNotExist": "İstenilen huni bulunamadı",
+        "ErrorFunnelDoesNotExistForSite": "Bu site için belirtilen huni bulunamadı",
         "ErrorGoalDoesNotExist": "Belirtilen hedef bu site için bulunamadı",
         "ErrorGoalFunnelDoesNotExist": "İstenilen hedef hunisi bulunamadı",
         "ErrorInnerIsNotAnArray": "\"%2$s\" içindeki her \"%1$s\" bir dizi olmalıdır.",

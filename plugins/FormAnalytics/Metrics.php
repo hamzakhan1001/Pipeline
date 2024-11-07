@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,11 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics;
 
 use Piwik\Piwik;
 use Piwik\Columns\Dimension;
-
 
 /**
  * API for plugin FormAnalytics
@@ -25,87 +26,87 @@ use Piwik\Columns\Dimension;
  */
 class Metrics
 {
-    const SUM_FORM_VIEWS = 'nb_form_views';
-    const SUM_FORM_VIEWERS = 'nb_form_viewers';
+    public const SUM_FORM_VIEWS = 'nb_form_views';
+    public const SUM_FORM_VIEWERS = 'nb_form_viewers';
 
-    const SUM_FORM_STARTS = 'nb_form_starts';
-    const SUM_FORM_STARTERS = 'nb_form_starters';
-    const RATE_FORM_STARTERS = 'form_starters_rate';
+    public const SUM_FORM_STARTS = 'nb_form_starts';
+    public const SUM_FORM_STARTERS = 'nb_form_starters';
+    public const RATE_FORM_STARTERS = 'form_starters_rate';
 
-    const SUM_FORM_SUBMISSIONS = 'nb_form_submissions';
-    const SUM_FORM_SUBMITTERS = 'nb_form_submitters';
-    const RATE_FORM_SUBMITTER = 'form_submitter_rate';
+    public const SUM_FORM_SUBMISSIONS = 'nb_form_submissions';
+    public const SUM_FORM_SUBMITTERS = 'nb_form_submitters';
+    public const RATE_FORM_SUBMITTER = 'form_submitter_rate';
 
-    const SUM_FORM_RESUBMITTERS = 'nb_form_resubmitters';
-    const RATE_FORM_RESUBMITTERS = 'form_resubmitters_rate';
+    public const SUM_FORM_RESUBMITTERS = 'nb_form_resubmitters';
+    public const RATE_FORM_RESUBMITTERS = 'form_resubmitters_rate';
 
-    const SUM_FORM_CONVERSIONS = 'nb_form_conversions';
-    const RATE_FORM_CONVERSION = 'form_conversion_rate';
+    public const SUM_FORM_CONVERSIONS = 'nb_form_conversions';
+    public const RATE_FORM_CONVERSION = 'form_conversion_rate';
 
-    const SUM_FORM_HESITATION_TIME = 'nb_form_time_hesitation';
-    const AVG_FORM_HESITATION_TIME = 'avg_form_time_hesitation';
-    const AVG_FORM_TIME_SPENT = 'avg_form_time_spent';
+    public const SUM_FORM_HESITATION_TIME = 'nb_form_time_hesitation';
+    public const AVG_FORM_HESITATION_TIME = 'avg_form_time_hesitation';
+    public const AVG_FORM_TIME_SPENT = 'avg_form_time_spent';
 
-    const SUM_FORM_TIME_TO_FIRST_SUBMISSION = 'nb_form_time_to_first_submission';
-    const AVG_FORM_TIME_TO_FIRST_SUBMISSION = 'avg_form_time_to_first_submission';
-    const SUM_FORM_TIME_TO_CONVERSION = 'nb_form_time_to_conversion';
-    const SUM_FORM_TIME_SPENT = 'nb_form_time_spent';
-    const AVG_FORM_TIME_TO_CONVERSION = 'avg_form_time_to_conversion';
+    public const SUM_FORM_TIME_TO_FIRST_SUBMISSION = 'nb_form_time_to_first_submission';
+    public const AVG_FORM_TIME_TO_FIRST_SUBMISSION = 'avg_form_time_to_first_submission';
+    public const SUM_FORM_TIME_TO_CONVERSION = 'nb_form_time_to_conversion';
+    public const SUM_FORM_TIME_SPENT = 'nb_form_time_spent';
+    public const AVG_FORM_TIME_TO_CONVERSION = 'avg_form_time_to_conversion';
 
-    const SUM_FIELD_ENTRIES = 'nb_field_entries';
-    const SUM_FIELD_UNIQUE_ENTRIES = 'nb_field_uniq_entries';
+    public const SUM_FIELD_ENTRIES = 'nb_field_entries';
+    public const SUM_FIELD_UNIQUE_ENTRIES = 'nb_field_uniq_entries';
 
-    const SUM_FIELD_DROPOFFS = 'nb_field_dropoff';
-    const SUM_FIELD_UNIQUE_DROPOFFS = 'nb_field_uniq_dropoff';
+    public const SUM_FIELD_DROPOFFS = 'nb_field_dropoff';
+    public const SUM_FIELD_UNIQUE_DROPOFFS = 'nb_field_uniq_dropoff';
 
-    const SUM_FIELD_UNIQUE_INTERACTIONS = 'nb_field_uniq_interactions';
-    const SUM_FIELD_INTERACTIONS = 'nb_field_interactions';
-    const SUM_FIELD_INTERACTIONS_SUBMIT = 'nb_field_interactions_submitted';
-    const SUM_FIELD_INTERACTIONS_UNSUBMIT = 'nb_field_interactions_unsubmitted';
+    public const SUM_FIELD_UNIQUE_INTERACTIONS = 'nb_field_uniq_interactions';
+    public const SUM_FIELD_INTERACTIONS = 'nb_field_interactions';
+    public const SUM_FIELD_INTERACTIONS_SUBMIT = 'nb_field_interactions_submitted';
+    public const SUM_FIELD_INTERACTIONS_UNSUBMIT = 'nb_field_interactions_unsubmitted';
 
-    const SUM_FIELD_TIME_SPENT = 'nb_field_time_spent';
-    const SUM_FIELD_FIELDS_WITH_TIME_SPENT = 'nb_field_with_time_spent';
-    const AVG_FIELD_TIME_SPENT = 'avg_field_time_spent';
-    const SUM_FIELD_HESITATION_TIME = 'nb_field_hesitation_time';
-    const SUM_FIELD_FIELDS_WITH_HESITATION_TIME = 'nb_field_with_hesitation_time';
-    const AVG_FIELD_HESITATION_TIME = 'avg_field_hesitation_time';
+    public const SUM_FIELD_TIME_SPENT = 'nb_field_time_spent';
+    public const SUM_FIELD_FIELDS_WITH_TIME_SPENT = 'nb_field_with_time_spent';
+    public const AVG_FIELD_TIME_SPENT = 'avg_field_time_spent';
+    public const SUM_FIELD_HESITATION_TIME = 'nb_field_hesitation_time';
+    public const SUM_FIELD_FIELDS_WITH_HESITATION_TIME = 'nb_field_with_hesitation_time';
+    public const AVG_FIELD_HESITATION_TIME = 'avg_field_hesitation_time';
 
-    const SUM_FIELD_SUBMITTED = 'nb_field_views_submitted';
-    const SUM_FIELD_CONVERTED = 'nb_field_views_converted';
+    public const SUM_FIELD_SUBMITTED = 'nb_field_views_submitted';
+    public const SUM_FIELD_CONVERTED = 'nb_field_views_converted';
 
-    const SUM_FIELD_LEFTBLANK_SUBMITTED = 'nb_field_leftblank_submitted';
-    const RATE_FIELD_LEFTBLANK_SUBMITTED = 'avg_field_leftblank_submitted';
-    const SUM_FIELD_LEFTBLANK_CONVERTED = 'nb_field_leftblank_converted';
-    const RATE_FIELD_LEFTBLANK_CONVERTED = 'avg_field_leftblank_converted';
+    public const SUM_FIELD_LEFTBLANK_SUBMITTED = 'nb_field_leftblank_submitted';
+    public const RATE_FIELD_LEFTBLANK_SUBMITTED = 'avg_field_leftblank_submitted';
+    public const SUM_FIELD_LEFTBLANK_CONVERTED = 'nb_field_leftblank_converted';
+    public const RATE_FIELD_LEFTBLANK_CONVERTED = 'avg_field_leftblank_converted';
 
-    const SUM_FIELD_SUBMITTED_WITH_FIELDSIZE = 'nb_field_submitted_with_fieldsize';
-    const SUM_FIELD_CONVERTED_WITH_FIELDSIZE = 'nb_field_converted_with_fieldsize';
-    const SUM_FIELD_WITH_FIELDSIZE = 'nb_field_with_fieldsize';
-    const SUM_FIELD_FIELDSIZE_SUBMITTED = 'nb_field_size_submitted';
-    const SUM_FIELD_FIELDSIZE_UNSUBMITTED = 'nb_field_size_unsubmitted';
-    const SUM_FIELD_FIELDSIZE_CONVERTED = 'nb_field_size_converted';
-    const SUM_FIELD_FIELDSIZE = 'nb_field_size';
+    public const SUM_FIELD_SUBMITTED_WITH_FIELDSIZE = 'nb_field_submitted_with_fieldsize';
+    public const SUM_FIELD_CONVERTED_WITH_FIELDSIZE = 'nb_field_converted_with_fieldsize';
+    public const SUM_FIELD_WITH_FIELDSIZE = 'nb_field_with_fieldsize';
+    public const SUM_FIELD_FIELDSIZE_SUBMITTED = 'nb_field_size_submitted';
+    public const SUM_FIELD_FIELDSIZE_UNSUBMITTED = 'nb_field_size_unsubmitted';
+    public const SUM_FIELD_FIELDSIZE_CONVERTED = 'nb_field_size_converted';
+    public const SUM_FIELD_FIELDSIZE = 'nb_field_size';
 
-    const AVG_FIELD_FIELDSIZE_SUBMITTED = 'avg_field_size_submitted';
-    const AVG_FIELD_FIELDSIZE_UNSUBMITTED = 'avg_field_size_unsubmitted';
-    const AVG_FIELD_FIELDSIZE_CONVERTED = 'avg_field_size_converted';
-    const AVG_FIELD_FIELDSIZE = 'avg_field_size';
+    public const AVG_FIELD_FIELDSIZE_SUBMITTED = 'avg_field_size_submitted';
+    public const AVG_FIELD_FIELDSIZE_UNSUBMITTED = 'avg_field_size_unsubmitted';
+    public const AVG_FIELD_FIELDSIZE_CONVERTED = 'avg_field_size_converted';
+    public const AVG_FIELD_FIELDSIZE = 'avg_field_size';
 
-    const SUM_FIELD_UNIQUE_REFOCUS = 'nb_field_uniq_refocuses';
-    const SUM_FIELD_REFOCUSES = 'nb_field_refocuses';
-    const SUM_FIELD_UNIQUE_AMENDMENTS = 'nb_field_uniq_amendments';
-    const SUM_FIELD_AMENDMENTS = 'nb_field_amendments';
-    const SUM_FIELD_TOTAL_CHANGES = 'nb_field_changes';
-    const SUM_FIELD_UNIQUE_CHANGES = 'nb_field_uniq_changes';
-    const RATE_FIELD_AMENDMENTS = 'field_amendments_rate';
-    const RATE_FIELD_REFOCUS = 'field_refocus_rate';
-    const RATE_FIELD_DELETES = 'field_delete_rate';
-    const RATE_FIELD_CURSORS = 'field_cursor_rate';
+    public const SUM_FIELD_UNIQUE_REFOCUS = 'nb_field_uniq_refocuses';
+    public const SUM_FIELD_REFOCUSES = 'nb_field_refocuses';
+    public const SUM_FIELD_UNIQUE_AMENDMENTS = 'nb_field_uniq_amendments';
+    public const SUM_FIELD_AMENDMENTS = 'nb_field_amendments';
+    public const SUM_FIELD_TOTAL_CHANGES = 'nb_field_changes';
+    public const SUM_FIELD_UNIQUE_CHANGES = 'nb_field_uniq_changes';
+    public const RATE_FIELD_AMENDMENTS = 'field_amendments_rate';
+    public const RATE_FIELD_REFOCUS = 'field_refocus_rate';
+    public const RATE_FIELD_DELETES = 'field_delete_rate';
+    public const RATE_FIELD_CURSORS = 'field_cursor_rate';
 
-    const SUM_FIELD_UNIQUE_DELETES = 'nb_field_uniq_deletes';
-    const SUM_FIELD_DELETES = 'nb_field_deletes';
-    const SUM_FIELD_UNIQUE_CURSOR = 'nb_field_uniq_cursor';
-    const SUM_FIELD_CURSOR = 'nb_field_cursor';
+    public const SUM_FIELD_UNIQUE_DELETES = 'nb_field_uniq_deletes';
+    public const SUM_FIELD_DELETES = 'nb_field_deletes';
+    public const SUM_FIELD_UNIQUE_CURSOR = 'nb_field_uniq_cursor';
+    public const SUM_FIELD_CURSOR = 'nb_field_cursor';
 
     public static function getNumericFormMetrics()
     {
@@ -296,5 +297,4 @@ class Metrics
             Metrics::RATE_FIELD_CURSORS => Piwik::translate('FormAnalytics_ColumnDescriptionRateFieldCursors') . ' ' . Piwik::translate('FormAnalytics_MetricOnlyForTextField'),
         );
     }
-
 }

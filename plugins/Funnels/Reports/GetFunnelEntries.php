@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -82,5 +83,4 @@ class GetFunnelEntries extends Base
     {
         // we do not add it to the report metadata
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -28,15 +29,18 @@ use Piwik\Plugins\Funnels\Model\FunnelsModel;
 
 class FunnelEntries extends ActionsRecordBuilder
 {
-
     /**
      * @var int
      */
     private $maximumRowsInReferrers;
 
-    public function __construct(array $funnel, Transient $cache, Populator $populator, FunnelsModel $funnelsModel,
-                                Configuration $configuration)
-    {
+    public function __construct(
+        array $funnel,
+        Transient $cache,
+        Populator $populator,
+        FunnelsModel $funnelsModel,
+        Configuration $configuration
+    ) {
         parent::__construct($funnel, $cache, $populator, $funnelsModel, $configuration);
         $this->maximumRowsInReferrers = $configuration->getMaxRowsInReferrers();
         $this->columnToSortByBeforeTruncation = Metrics::NUM_HITS;
@@ -107,7 +111,6 @@ class FunnelEntries extends ActionsRecordBuilder
                         $refererStepRow->removeSubtable();
                     }
                 }
-
             }
         }
     }

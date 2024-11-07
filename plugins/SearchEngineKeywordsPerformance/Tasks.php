@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance;
 
 use Piwik\Option;
@@ -20,6 +21,7 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\Importer\Google as GoogleImpor
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Importer\Bing as BingImporter;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Importer\Yandex as YandexImporter;
 use Piwik\Plugins\SitesManager\API as SitesManagerAPI;
+
 class Tasks extends \Piwik\Plugin\Tasks
 {
     /**

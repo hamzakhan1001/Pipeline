@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,9 +18,9 @@ namespace Piwik\Plugins\CustomReports;
 
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const RECORDNAME_PREFIX = "CustomReports_customreport_";
+    public const RECORDNAME_PREFIX = "CustomReports_customreport_";
 
-    const LABEL_NOT_DEFINED = 'CustomReports_LabelNotDefined';
+    public const LABEL_NOT_DEFINED = 'CustomReports_LabelNotDefined';
 
     public static function makeRecordName($idCustomReport, $revision)
     {

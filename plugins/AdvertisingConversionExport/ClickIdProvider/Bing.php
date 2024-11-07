@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,8 +20,8 @@ use Piwik\Plugins\AdvertisingConversionExport\Export\Adapter\MicrosoftAds;
 
 class Bing extends ClickIdProviderAbstract
 {
-    const ID = 'Bing';
-    const CLICK_ID_REQUEST_PARAM = 'msclkid';
+    public const ID = 'Bing';
+    public const CLICK_ID_REQUEST_PARAM = 'msclkid';
 
     public function getName(): string
     {

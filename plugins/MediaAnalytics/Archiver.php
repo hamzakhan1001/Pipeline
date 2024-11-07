@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -25,31 +26,31 @@ use Piwik\Plugins\MediaAnalytics\Widgets\BaseWidget;
  */
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const RECORD_VIDEO_RESOURCES = "MediaAnalytics_video_resources_record";
-    const RECORD_VIDEO_GROUPEDRESOURCES = "MediaAnalytics_video_groupedresources_record";
-    const RECORD_VIDEO_TITLES = "MediaAnalytics_video_title_record";
-    const RECORD_VIDEO_RESOLUTIONS = "MediaAnalytics_video_resolutions_record";
-    const RECORD_VIDEO_HOURS = "MediaAnalytics_video_hours_record";
+    public const RECORD_VIDEO_RESOURCES = "MediaAnalytics_video_resources_record";
+    public const RECORD_VIDEO_GROUPEDRESOURCES = "MediaAnalytics_video_groupedresources_record";
+    public const RECORD_VIDEO_TITLES = "MediaAnalytics_video_title_record";
+    public const RECORD_VIDEO_RESOLUTIONS = "MediaAnalytics_video_resolutions_record";
+    public const RECORD_VIDEO_HOURS = "MediaAnalytics_video_hours_record";
 
-    const RECORD_AUDIO_RESOURCES = "MediaAnalytics_audio_resources_record";
-    const RECORD_AUDIO_GROUPEDRESOURCES = "MediaAnalytics_audio_groupedresources_record";
-    const RECORD_AUDIO_TITLES = "MediaAnalytics_audio_title_record";
-    const RECORD_AUDIO_HOURS= "MediaAnalytics_audio_hours_record";
+    public const RECORD_AUDIO_RESOURCES = "MediaAnalytics_audio_resources_record";
+    public const RECORD_AUDIO_GROUPEDRESOURCES = "MediaAnalytics_audio_groupedresources_record";
+    public const RECORD_AUDIO_TITLES = "MediaAnalytics_audio_title_record";
+    public const RECORD_AUDIO_HOURS = "MediaAnalytics_audio_hours_record";
 
-    const RECORD_PLAYER_NAMES = "MediaAnalytics_playernames_record";
+    public const RECORD_PLAYER_NAMES = "MediaAnalytics_playernames_record";
 
-    const NUMERIC_RECORD_PREFIX = 'MediaAnalytics_';
+    public const NUMERIC_RECORD_PREFIX = 'MediaAnalytics_';
 
-    const LABEL_NOT_DEFINED = 'MEDIA_LABEL_NOT_DEFINED';
+    public const LABEL_NOT_DEFINED = 'MEDIA_LABEL_NOT_DEFINED';
 
-    const SECONDARY_DIMENSION_HOURS = 'hours';
-    const SECONDARY_DIMENSION_RESOLUTION = 'resolution';
-    const SECONDARY_DIMENSION_SPENT_TIME = 'spent_time';
-    const SECONDARY_DIMENSION_MEDIA_PROGRESS = 'media_progress';
-    const SECONDARY_DIMENSION_MEDIA_SEGMENTS = 'media_segments';
+    public const SECONDARY_DIMENSION_HOURS = 'hours';
+    public const SECONDARY_DIMENSION_RESOLUTION = 'resolution';
+    public const SECONDARY_DIMENSION_SPENT_TIME = 'spent_time';
+    public const SECONDARY_DIMENSION_MEDIA_PROGRESS = 'media_progress';
+    public const SECONDARY_DIMENSION_MEDIA_SEGMENTS = 'media_segments';
 
-    const METADATA_ROW = 'metadata';
-    const GROUPED_MEDIA_SEGMENT_APPENDIX = '_grouped';
+    public const METADATA_ROW = 'metadata';
+    public const GROUPED_MEDIA_SEGMENT_APPENDIX = '_grouped';
 
     public static function isUniqueVisitorsEnabled($periodLabel)
     {
@@ -113,7 +114,8 @@ class Archiver extends \Piwik\Plugin\Archiver
     {
         return array(
             'url' => function ($thisColumnValue, $columnToSumValue, Row $thisRow, Row $thatRow) {
-                if ($thisRow->isSummaryRow()
+                if (
+                    $thisRow->isSummaryRow()
                     || $thatRow->isSummaryRow()
                 ) {
                     return null;
@@ -121,7 +123,7 @@ class Archiver extends \Piwik\Plugin\Archiver
                 if (!empty($thisColumnValue)) {
                     return $thisColumnValue;
                 }
-                if (!empty($columnToSumValue)){
+                if (!empty($columnToSumValue)) {
                     return $columnToSumValue;
                 }
             },
@@ -146,15 +148,15 @@ class Archiver extends \Piwik\Plugin\Archiver
         }
 
         foreach ($segmentColumns as $segmentColumn) {
-            $select .= $aggregationStart . 'log_media_plays.'.$segmentColumn.$aggregationEnd.' as ' . $columnPrefix . $segmentColumn . ',';
+            $select .= $aggregationStart . 'log_media_plays.' . $segmentColumn . $aggregationEnd . ' as ' . $columnPrefix . $segmentColumn . ',';
         }
 
         foreach ($groupedSegments as $groupedSegment => $smallSegments) {
             $smallSegments = array_map(function ($smallSegment) {
-                return 'log_media_plays.'.LogMediaPlays::makeSegmentColumn($smallSegment);
+                return 'log_media_plays.' . LogMediaPlays::makeSegmentColumn($smallSegment);
             }, $smallSegments);
 
-            $select .= $aggregationStart .'GREATEST(' .implode(',', $smallSegments). ')'.$aggregationEnd.' as ' . $columnPrefix . LogMediaPlays::makeSegmentGroupColumn($groupedSegment) . ',';
+            $select .= $aggregationStart . 'GREATEST(' . implode(',', $smallSegments) . ')' . $aggregationEnd . ' as ' . $columnPrefix . LogMediaPlays::makeSegmentGroupColumn($groupedSegment) . ',';
         }
         $select = rtrim($select, ',');
 

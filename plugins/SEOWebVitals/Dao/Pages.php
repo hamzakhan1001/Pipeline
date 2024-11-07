@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -20,7 +21,6 @@ use Piwik\Plugins\SEOWebVitals\MeasurableSettings;
 
 class Pages
 {
-
     public static function startsWithHttpProtocol($url)
     {
         if (empty($url)) {
@@ -48,5 +48,4 @@ class Pages
 
         return $urlsToMonitor;
     }
-
 }

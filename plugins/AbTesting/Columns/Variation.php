@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Columns;
 
 use Piwik\Columns\Dimension;
@@ -19,7 +21,6 @@ use Piwik\Piwik;
 
 class Variation extends Dimension
 {
-
     /**
      * The name of the dimension which will be visible for instance in the UI of a related report and in the mobile app.
      * @return string

@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Common;
@@ -29,7 +30,7 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\Model\Google as ModelGoogle;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\SearchEngineKeywordsPerformance;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\SystemSettings;
 use Piwik\Url;
-use Piwik\Version;
+
 abstract class Base extends \Piwik\Plugin\Report
 {
     protected $idSite = \false;
@@ -133,7 +134,7 @@ abstract class Base extends \Piwik\Plugin\Report
         $date = Common::getRequestVar('date', \false, 'string');
         $idSite = Common::getRequestVar('idSite', \false, 'string');
         // Append a footer message if data was not yet reported as final
-        $view->config->filters[] = function ($table) use($view) {
+        $view->config->filters[] = function ($table) use ($view) {
             if ($table->getMetadata(Google::DATATABLE_METADATA_TEMPORARY) === \true && \false === strpos($view->config->show_footer_message, Piwik::translate('SearchEngineKeywordsPerformance_GoogleDataNotFinal'))) {
                 $view->config->show_footer_message .= '<p style="margin-bottom:2em" class=" alert-info alert">' . Piwik::translate('SearchEngineKeywordsPerformance_GoogleDataNotFinal') . '</p>';
             }
@@ -157,7 +158,10 @@ abstract class Base extends \Piwik\Plugin\Report
             $lastDateMessage = Piwik::translate('SearchEngineKeywordsPerformance_LatestAvailableDate', '<a href="javascript:broadcast.propagateNewPage(\'date=' . $lastDateForType . '\')">' . $periodObjType->getLocalizedShortString() . '</a>');
         }
         if ($periodObj->getDateEnd()->isLater(Date::now()->subDay(5))) {
-            $message .= '<p style="margin-bottom:2em" class=" alert-info alert">' . Piwik::translate('CoreHome_ThereIsNoDataForThisReport') . '<br />' . Piwik::translate('SearchEngineKeywordsPerformance_GoogleDataProvidedWithDelay') . '<br />' . $lastDateMessage . '</p>';
+            $message .= '<p style="margin-bottom:2em" class=" alert-info alert">'
+                . Piwik::translate('CoreHome_ThereIsNoDataForThisReport')
+                . '<br />' . Piwik::translate('SearchEngineKeywordsPerformance_GoogleDataProvidedWithDelay')
+                . '<br />' . $lastDateMessage . '</p>';
             $view->config->no_data_message = $message;
         }
         if (empty($message) && $lastDateMessage) {
@@ -167,7 +171,7 @@ abstract class Base extends \Piwik\Plugin\Report
     protected function formatColumnsAsNumbers($view, $columns)
     {
         $numberFormatter = NumberFormatter::getInstance();
-        $view->config->filters[] = function (DataTable $table) use($columns, $numberFormatter) {
+        $view->config->filters[] = function (DataTable $table) use ($columns, $numberFormatter) {
             $firstRow = $table->getFirstRow();
             if (empty($firstRow)) {
                 return;
@@ -187,11 +191,11 @@ abstract class Base extends \Piwik\Plugin\Report
     {
         $settings = new SystemSettings();
         $numberFormatter = NumberFormatter::getInstance();
-        $view->config->filters[] = ['ColumnCallbackReplace', [Metrics::CTR, function ($value) use($numberFormatter) {
+        $view->config->filters[] = ['ColumnCallbackReplace', [Metrics::CTR, function ($value) use ($numberFormatter) {
             return $numberFormatter->formatPercent($value * 100, 0, 0);
         }]];
         $precision = $settings->roundKeywordPosition->getValue() ? 0 : 1;
-        $view->config->filters[] = ['ColumnCallbackReplace', [Metrics::POSITION, function ($value) use($precision, $numberFormatter) {
+        $view->config->filters[] = ['ColumnCallbackReplace', [Metrics::POSITION, function ($value) use ($precision, $numberFormatter) {
             if ($precision) {
                 return $numberFormatter->formatNumber($value, $precision, $precision);
             }

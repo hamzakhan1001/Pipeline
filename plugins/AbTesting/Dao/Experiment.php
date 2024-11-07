@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Dao;
 
 use Piwik\Common;
-
 use Piwik\Db;
 use Piwik\DbHelper;
 use Piwik\Plugins\AbTesting\Model\Experiments;
@@ -361,6 +362,4 @@ class Experiment
 
         return $field;
     }
-
 }
-

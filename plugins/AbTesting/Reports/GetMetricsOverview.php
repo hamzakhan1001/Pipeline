@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,38 +16,29 @@
 
 namespace Piwik\Plugins\AbTesting\Reports;
 
-use Piwik\Access;
 use Piwik\API\Request;
-use Piwik\ArchiveProcessor;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
-use Piwik\DataAccess\ArchiveWriter;
-use Piwik\DataAccess\LogAggregator;
 use Piwik\DataTable;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\AbTesting\AbTesting;
-use Piwik\Plugins\AbTesting\Archiver;
 use Piwik\Plugins\AbTesting\Columns\Variation;
-use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\Metrics;
 use Piwik\Plugins\AbTesting\Model\Experiments;
 use Piwik\Plugins\AbTesting\RecordBuilders\Experiment;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Evolution;
-use Piwik\Segment;
-use Piwik\Site;
 use Piwik\Widget\WidgetsList;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Period;
 
-
 /**
- * Experiment overview report. Shows raw values for each selected success metric for each variation.   
+ * Experiment overview report. Shows raw values for each selected success metric for each variation.
  */
 class GetMetricsOverview extends Base
 {
-    const DEFAULT_WIDGET_METRICS = [Metrics::METRIC_VISITS];
+    public const DEFAULT_WIDGET_METRICS = [Metrics::METRIC_VISITS];
 
     protected function init()
     {
@@ -138,7 +130,7 @@ class GetMetricsOverview extends Base
         if (!empty($showSummary)) {
             $view->config->title = $experiment['name'];
 
-            $view->config->show_footer_message .= '<a href="" piwik-experiment-page-link="' . (int) $idExperiment .'"><span class="icon-show"></span> ' . Piwik::translate('AbTesting_ActionViewReport') .'</a>';
+            $view->config->show_footer_message .= '<a href="" piwik-experiment-page-link="' . (int) $idExperiment . '"><span class="icon-show"></span> ' . Piwik::translate('AbTesting_ActionViewReport') . '</a>';
 
             if ($experiment['status'] == Experiments::STATUS_FINISHED) {
                 $start = $this->getPrettyDate($experiment['start_date_site_timezone']);

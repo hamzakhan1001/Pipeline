@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\LoginSaml;
 
 use OneLogin\Saml2\Constants;
@@ -20,7 +22,6 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 use RobRichards\XMLSecLibs\XMLSecurityDSig;
 use Piwik\Config as PiwikConfig;
 use Piwik\Piwik;
-use Exception;
 
 /**
  * Utility class with methods to manage LoginSaml INI configuration.
@@ -128,8 +129,8 @@ class Config
 
     public static function getModeNormal()
     {
-      $configData = self::getPluginOptionValuesWithDefaults();
-      return $configData['options_normalmode'];
+        $configData = self::getPluginOptionValuesWithDefaults();
+        return $configData['options_normalmode'];
     }
 
     public static function samlUsersIdentifiedBy()
@@ -200,12 +201,14 @@ class Config
             }
         }
 
-        if (!empty($data['advanced_authn_request_signed']) ||
+        if (
+            !empty($data['advanced_authn_request_signed']) ||
             !empty($data['advanced_logout_request_signed']) ||
             !empty($data['advanced_logout_response_signed']) ||
             !empty($data['advanced_metadata_signed']) ||
             !empty($data['advanced_want_nameid_encrypted']) ||
-            !empty($data['advanced_want_assertion_encrypted'])) {
+            !empty($data['advanced_want_assertion_encrypted'])
+        ) {
             if (empty($data['advanced_sp_privatekey'])) {
                 $missing[] = Piwik::translate('LoginSaml_AdvancedSPx509CERT');
             }
@@ -237,8 +240,10 @@ class Config
     {
         $loginSaml = PiwikConfig::getInstance()->LoginSaml;
 
-        if (isset($values['sp']) && isset($values['sp']['NameIDFormat']) &&
-            !empty($values['sp']['NameIDFormat'])) {
+        if (
+            isset($values['sp']) && isset($values['sp']['NameIDFormat']) &&
+            !empty($values['sp']['NameIDFormat'])
+        ) {
             $loginSaml['advanced_nameidformat'] = $values['sp']['NameIDFormat'];
         }
 
@@ -406,7 +411,8 @@ class Config
         );
     }
 
-    private static function formatCerts($loginSaml) {
+    private static function formatCerts($loginSaml)
+    {
         if (!empty($loginSaml['idp_x509cert'])) {
             $loginSaml['idp_x509cert'] = Utils::formatCert($loginSaml['idp_x509cert'], false);
         }

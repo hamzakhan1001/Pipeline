@@ -51,3 +51,14 @@ Go beyond collecting data and unlock the full picture of your users’ lifecycle
 Unlock the whole story behind your users' journeys with Cohorts. Dive into behaviours, retention, and revenue with clarity. Transform data into action, guiding your visitors from fleeting clicks to lasting connections.
 
 Start your 30-day free trial today and discover the key to lasting user engagement.
+
+### Features
+
+* A special cohorts table that allows you to easily compare cohorts, accompanied by a time series.
+* Define cohorts by any period length, including weeks, months and years.
+* A new segment: visitor acquisition date.
+
+### Export and API features
+
+* HTTP API to fetch all Cohorts data.
+* No limit to how many Cohorts you can fetch at a time.

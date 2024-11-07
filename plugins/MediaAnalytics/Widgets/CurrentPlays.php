@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
 use Piwik\API\Request;
@@ -52,5 +54,4 @@ class CurrentPlays extends BaseLiveWidget
 
         return $this->renderLiveMetrics('currentPlays', $last30, $last1440, 'MediaAnalytics_NbPlays');
     }
-
 }

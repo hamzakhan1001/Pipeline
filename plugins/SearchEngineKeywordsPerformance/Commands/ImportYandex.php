@@ -13,23 +13,28 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Commands;
 
 use Piwik\Plugin\ConsoleCommand;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Importer\Yandex;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
+
 /**
  */
 class ImportYandex extends ConsoleCommand
 {
     protected function configure()
     {
-        $this->setName('searchengines:import-yandex')->setDescription('Imports Yandex Keywords')->addNoValueOption('force', 'f', 'Force reimport for data')->addRequiredValueOption('idsite', '', 'Site id')->addOptionalValueOption('date', 'd', 'specific date');
+        $this->setName('searchengines:import-yandex')->setDescription('Imports Yandex Keywords')
+            ->addNoValueOption('force', 'f', 'Force reimport for data')
+            ->addRequiredValueOption('idsite', '', 'Site id')
+            ->addOptionalValueOption('date', 'd', 'specific date');
     }
     /**
      * @return int
      */
-    protected function doExecute() : int
+    protected function doExecute(): int
     {
         $input = $this->getInput();
         $output = $this->getOutput();

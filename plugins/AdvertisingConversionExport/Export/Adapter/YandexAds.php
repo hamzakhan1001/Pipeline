@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -24,7 +25,7 @@ use Piwik\Plugins\AdvertisingConversionExport\ClickIdProvider\Yandex;
  */
 class YandexAds extends AdapterAbstract
 {
-    const ID = 'YandexAds';
+    public const ID = 'YandexAds';
 
     public static function getName(): string
     {
@@ -82,6 +83,5 @@ HEAD;
 {$clickId},{$conversionName},{$conversionTime},{$conversionValue},{$conversionCurrency}
 
 CONVERSION;
-
     }
 }

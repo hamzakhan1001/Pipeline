@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -24,6 +25,7 @@ use Piwik\Log\LoggerInterface;
 use Piwik\Metrics;
 use Piwik\Plugins\Cohorts\Archiver;
 use Piwik\DataAccess\LogAggregator;
+use Piwik\Version;
 
 class SecondsSinceFirst extends Base
 {
@@ -101,7 +103,9 @@ class SecondsSinceFirst extends Base
         ];
 
         /** @var \Zend_Db_Statement $query */
-        $query = $logAggregator->queryConversionsByDimension($dimensions, $where = 'log_visit.visitor_seconds_since_first IS NOT NULL', $additionalSelects = [], $extraFrom);
+        $query = version_compare(Version::VERSION, '5.2.0-b6', '>=')
+            ? $logAggregator->queryConversionsByDimension($dimensions, $where = 'log_visit.visitor_seconds_since_first IS NOT NULL', $additionalSelects = [], $extraFrom, false, false, true)
+            : $logAggregator->queryConversionsByDimension($dimensions, $where = 'log_visit.visitor_seconds_since_first IS NOT NULL', $additionalSelects = [], $extraFrom);
         while ($row = $query->fetch()) {
             $label = $row['label'];
 

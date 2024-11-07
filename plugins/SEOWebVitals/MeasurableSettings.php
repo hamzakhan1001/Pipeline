@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -67,5 +68,4 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
             };
         });
     }
-
 }

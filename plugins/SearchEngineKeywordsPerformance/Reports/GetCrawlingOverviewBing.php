@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Common;
@@ -25,6 +26,7 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Bing as BingRec
 use Piwik\Plugins\SearchEngineKeywordsPerformance\SearchEngineKeywordsPerformance;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
+
 class GetCrawlingOverviewBing extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\Base
 {
     protected function init()
@@ -48,8 +50,38 @@ class GetCrawlingOverviewBing extends \Piwik\Plugins\SearchEngineKeywordsPerform
         $view->config->show_all_views_icons = \false;
         $view->config->show_table_all_columns = \false;
         $view->config->setDefaultColumnsToDisplay([BingRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME], \false, \false);
-        $view->config->addTranslations([BingRecordBuilder::CRAWLSTATS_OTHER_CODES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlStatsOtherCodes'), BingRecordBuilder::CRAWLSTATS_BLOCKED_ROBOTS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlBlockedByRobotsTxt'), BingRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus2xx'), BingRecordBuilder::CRAWLSTATS_CODE_301_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus301'), BingRecordBuilder::CRAWLSTATS_CODE_302_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus302'), BingRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus4xx'), BingRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus5xx'), BingRecordBuilder::CRAWLSTATS_TIMEOUT_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlConnectionTimeout'), BingRecordBuilder::CRAWLSTATS_MALWARE_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlMalwareInfected'), BingRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_CrawlingErrors'), BingRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlCrawledPages'), BingRecordBuilder::CRAWLSTATS_DNS_FAILURE_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlDNSFailures'), BingRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlPagesInIndex'), BingRecordBuilder::CRAWLSTATS_IN_LINKS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlInboundLink')]);
-        $view->config->selectable_columns = [BingRecordBuilder::CRAWLSTATS_OTHER_CODES_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_BLOCKED_ROBOTS_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_301_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_302_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_TIMEOUT_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_MALWARE_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_DNS_FAILURE_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_IN_LINKS_RECORD_NAME];
+        $view->config->addTranslations([
+            BingRecordBuilder::CRAWLSTATS_OTHER_CODES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlStatsOtherCodes'),
+            BingRecordBuilder::CRAWLSTATS_BLOCKED_ROBOTS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlBlockedByRobotsTxt'),
+            BingRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus2xx'),
+            BingRecordBuilder::CRAWLSTATS_CODE_301_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus301'),
+            BingRecordBuilder::CRAWLSTATS_CODE_302_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus302'),
+            BingRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus4xx'),
+            BingRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus5xx'),
+            BingRecordBuilder::CRAWLSTATS_TIMEOUT_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlConnectionTimeout'),
+            BingRecordBuilder::CRAWLSTATS_MALWARE_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlMalwareInfected'),
+            BingRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_CrawlingErrors'),
+            BingRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlCrawledPages'),
+            BingRecordBuilder::CRAWLSTATS_DNS_FAILURE_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlDNSFailures'),
+            BingRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlPagesInIndex'),
+            BingRecordBuilder::CRAWLSTATS_IN_LINKS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlInboundLink')
+        ]);
+        $view->config->selectable_columns = [
+            BingRecordBuilder::CRAWLSTATS_OTHER_CODES_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_BLOCKED_ROBOTS_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_301_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_302_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_TIMEOUT_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_MALWARE_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_DNS_FAILURE_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_IN_LINKS_RECORD_NAME
+        ];
         $this->configureSegmentNotSupported($view);
         $this->formatColumnsAsNumbers($view, $view->config->selectable_columns);
     }

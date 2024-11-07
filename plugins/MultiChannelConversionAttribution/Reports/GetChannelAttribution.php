@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -164,7 +165,6 @@ class GetChannelAttribution extends Base
 
                         $row->setMetadata($prefixName, $value);
                     }
-
                 }
             }
         };

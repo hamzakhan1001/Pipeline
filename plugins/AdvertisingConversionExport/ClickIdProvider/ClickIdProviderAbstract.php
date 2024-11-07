@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -22,12 +23,12 @@ abstract class ClickIdProviderAbstract extends Singleton
     /**
      * internal provider id
      */
-    const ID = '';
+    public const ID = '';
 
     /**
      * Url parameter indicating the providers click id
      */
-    const CLICK_ID_REQUEST_PARAM = '';
+    public const CLICK_ID_REQUEST_PARAM = '';
 
     /**
      * Returns internal provider id

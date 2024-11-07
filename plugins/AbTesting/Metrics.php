@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,13 +13,13 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting;
 
 use Piwik\API\Request;
 use Piwik\Columns\Dimension;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
-use Piwik\Plugin\Metric;
 use Piwik\Plugins\AbTesting\Columns\Metrics\BounceRate;
 use Piwik\Plugins\AbTesting\Columns\Metrics\ConversionRate;
 use Piwik\Plugins\AbTesting\Columns\Metrics\DetectedEffect;
@@ -28,30 +29,30 @@ use Piwik\Site;
 
 class Metrics
 {
-    const METRIC_AVERAGE_PREFIX = 'avg_';
-    const METRIC_VISITS = 'nb_visits';
-    const METRIC_VISITS_ENTERED = 'nb_visits_entered';
-    const METRIC_UNIQUE_VISITORS_ENTERED = 'nb_uniq_visitors_entered';
+    public const METRIC_AVERAGE_PREFIX = 'avg_';
+    public const METRIC_VISITS = 'nb_visits';
+    public const METRIC_VISITS_ENTERED = 'nb_visits_entered';
+    public const METRIC_UNIQUE_VISITORS_ENTERED = 'nb_uniq_visitors_entered';
     /**
      * Unique visitors === Unique visitors entered when viewing the whole range. We still process different values
      * in case someone requests the API eg for a day or not for the full experiment day range
      */
-    const METRIC_UNIQUE_VISITORS = 'nb_uniq_visitors';
-    const METRIC_UNIQUE_VISITORS_ENTERED_AGGREGATED = 'nb_uniq_visitors_entered_aggregated';
-    const METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED = 'nb_est_uniq_visitors_entered_aggregated';
-    const METRIC_UNIQUE_VISITORS_AGGREGATED = 'nb_uniq_visitors_aggregated';
-    const METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED = 'nb_est_uniq_visitors_aggregated';
-    const METRIC_PAGEVIEWS = 'nb_pageviews';
-    const METRIC_BOUNCE_COUNT = 'bounce_count';
-    const METRIC_SUM_VISIT_LENGTH = 'sum_visit_length';
-    const METRIC_TOTAL_REVENUE = 'nb_revenue';
-    const METRIC_TOTAL_CONVERSIONS = 'nb_conversions';
-    const METRIC_TOTAL_ORDERS = 'nb_orders';
-    const METRIC_TOTAL_ORDERS_REVENUE = 'nb_orders_revenue';
+    public const METRIC_UNIQUE_VISITORS = 'nb_uniq_visitors';
+    public const METRIC_UNIQUE_VISITORS_ENTERED_AGGREGATED = 'nb_uniq_visitors_entered_aggregated';
+    public const METRIC_ESTIMATED_UNIQUE_VISITORS_ENTERED_AGGREGATED = 'nb_est_uniq_visitors_entered_aggregated';
+    public const METRIC_UNIQUE_VISITORS_AGGREGATED = 'nb_uniq_visitors_aggregated';
+    public const METRIC_ESTIMATED_UNIQUE_VISITORS_AGGREGATED = 'nb_est_uniq_visitors_aggregated';
+    public const METRIC_PAGEVIEWS = 'nb_pageviews';
+    public const METRIC_BOUNCE_COUNT = 'bounce_count';
+    public const METRIC_SUM_VISIT_LENGTH = 'sum_visit_length';
+    public const METRIC_TOTAL_REVENUE = 'nb_revenue';
+    public const METRIC_TOTAL_CONVERSIONS = 'nb_conversions';
+    public const METRIC_TOTAL_ORDERS = 'nb_orders';
+    public const METRIC_TOTAL_ORDERS_REVENUE = 'nb_orders_revenue';
 
-    const METRIC_GOAL_APPENDIX = '_goal_';
+    public const METRIC_GOAL_APPENDIX = '_goal_';
 
-    const ESTIMATED_UNIQUE_VISITORS_DOCUMENTATION_BASE_VALUE = 500;
+    public const ESTIMATED_UNIQUE_VISITORS_DOCUMENTATION_BASE_VALUE = 500;
 
     public static function getGoalIdFromMetricName($metricName)
     {
@@ -333,10 +334,8 @@ class Metrics
             DetectedEffect::METRIC_NAME => Piwik::translate('AbTesting_ColumnDetectedEffect'),
             RemainingVisitors::METRIC_NAME => Piwik::translate('AbTesting_ColumnRemainingVisitors'),
             SignificanceRate::METRIC_NAME => Piwik::translate('AbTesting_ColumnSignificanceRate'),
-       );
+        );
 
         return array_merge($translations, $detailTranslations);
     }
-
 }
-

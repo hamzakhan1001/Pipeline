@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,18 +20,18 @@ use Piwik\Config;
 
 class Configuration
 {
-    const KEY_MAXIMUM_ROWS_IN_DATATABLE = 'datatable_archiving_maximum_rows';
-    const KEY_MAXIMUM_ROWS_IN_SUBTABLE = 'datatable_archiving_maximum_rows_subtable';
+    public const KEY_MAXIMUM_ROWS_IN_DATATABLE = 'datatable_archiving_maximum_rows';
+    public const KEY_MAXIMUM_ROWS_IN_SUBTABLE = 'datatable_archiving_maximum_rows_subtable';
 
-    const DEFAULT_MAXIMUM_ROWS_IN_DATATABLE = 500;
-    const DEFAULT_MAXIMUM_ROWS_IN_SUBTABLE = 500;
+    public const DEFAULT_MAXIMUM_ROWS_IN_DATATABLE = 500;
+    public const DEFAULT_MAXIMUM_ROWS_IN_SUBTABLE = 500;
 
-    const DEFAULT_AVAILABLE_DAYS_PRIOR_CONVERSION = '7,30,60,90';
-    const DEFAULT_DAY_PRIOR_CONVERSION = 30;
-    const KEY_AVAILABLE_DAYS_PRIOR_CONVERSION = 'available_days_prior_to_conversion';
-    const KEY_DAY_PRIOR_CONVERSION = 'default_day_prior_to_conversion';
+    public const DEFAULT_AVAILABLE_DAYS_PRIOR_CONVERSION = '7,30,60,90';
+    public const DEFAULT_DAY_PRIOR_CONVERSION = 30;
+    public const KEY_AVAILABLE_DAYS_PRIOR_CONVERSION = 'available_days_prior_to_conversion';
+    public const KEY_DAY_PRIOR_CONVERSION = 'default_day_prior_to_conversion';
 
-    const KEY_CAN_INVALIDATE_REPORTS_GENERAL = 'can_invalidate_reports';
+    public const KEY_CAN_INVALIDATE_REPORTS_GENERAL = 'can_invalidate_reports';
 
     public function install()
     {

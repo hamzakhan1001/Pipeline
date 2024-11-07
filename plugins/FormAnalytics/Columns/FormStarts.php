@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Columns;
 
 use Piwik\Columns\DimensionMetricFactory;
@@ -53,7 +55,7 @@ class FormStarts extends BaseDimension
         $metric1->setDocumentation(Piwik::translate('FormAnalytics_ColumnDescriptionNbFormStarts'));
         $metricsList->addMetric($metric1);
 
-        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_STARTERS, Metrics::SUM_FORM_VIEWERS,ComputedMetric::AGGREGATION_RATE);
+        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_STARTERS, Metrics::SUM_FORM_VIEWERS, ComputedMetric::AGGREGATION_RATE);
         $metric->setName(Metrics::RATE_FORM_STARTERS);
         $metric->setTranslatedName(Piwik::translate('FormAnalytics_ColumnRateStarters'));
         $metric->setDocumentation(Piwik::translate('FormAnalytics_ColumnDescriptionFormStartersRate'));

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Tracker;
 
 use Piwik\Common;
@@ -26,15 +28,15 @@ use Piwik\Plugins\HeatmapSessionRecording\tests\Fixtures\MockLocationProvider;
 class HsrMatcher
 {
     // USER IS NOT FORCED TO BE OR NOT TO BE IN GROUP
-    const SAMPLE_GROUP_TO_BE_DETECTED = null;
+    public const SAMPLE_GROUP_TO_BE_DETECTED = null;
 
     // USER IS FORCED TO BE IN SAMPLE GROUP
-    const SAMPLE_GROUP_IS_PART = true;
+    public const SAMPLE_GROUP_IS_PART = true;
 
     // USER IS FORCED TO NOT BE IN SAMPLE GROUP
-    const SAMPLE_GROUP_NOT_PART = false;
+    public const SAMPLE_GROUP_NOT_PART = false;
 
-    const QUERY_NAMESPACE = 'hsr'; // namespace has to match tracker namespace
+    public const QUERY_NAMESPACE = 'hsr'; // namespace has to match tracker namespace
 
     public static function doesScreenshotUrlMatch($screenshotUrl, $url)
     {
@@ -104,7 +106,6 @@ class HsrMatcher
             }
 
             if ($numSamples >= $hsr['sample_limit']) {
-
                 $siteHsr = \Piwik\Container\StaticContainer::get('Piwik\Plugins\HeatmapSessionRecording\Model\SiteHsrModel');
                 $siteHsr->endHeatmap($idSite, $idSiteHsr);
                 // we make sure in the future the completed HSR won't receive any recordings anymore afterwards
@@ -112,7 +113,6 @@ class HsrMatcher
 
                 return false;
             }
-
         } elseif ($hsr['record_type'] == SiteHsrDao::RECORD_TYPE_SESSION) {
             if (empty($numSamples)) {
                 $numSamples = $logHsrSite->getNumSessions($idSiteHsr);
@@ -144,7 +144,7 @@ class HsrMatcher
             $key = self::makeCookieSampleKey($idSiteHsr);
             if (isset($_GET[$key]) && $_GET[$key] == '1') {
                 return self::SAMPLE_GROUP_IS_PART;
-            } else if (isset($_GET[$key]) && $_GET[$key] == '0') {
+            } elseif (isset($_GET[$key]) && $_GET[$key] == '0') {
                 return self::SAMPLE_GROUP_NOT_PART;
             }
         }
@@ -220,7 +220,5 @@ class HsrMatcher
         }
 
         return false;
-
     }
-
 }

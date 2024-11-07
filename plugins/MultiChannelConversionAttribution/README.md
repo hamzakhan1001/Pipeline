@@ -83,3 +83,29 @@ Unlock the power of attribution with the Multi-Channel Conversion Attribution pl
 Empower your analytics journey with Matomo's Multi-Attribution plugin. Dive deeper, uncover hidden channels, and allocate resources confidently. Transform data into decisive action and let every click illuminate your path forward.
 
 Start your 30-day free trial and harness the full potential of every digital touchpoint.
+
+### Features
+
+* Apply any of the following attribution models
+* Last Interaction
+* Last Non-Direct Interaction
+* First Interaction
+* Linear
+* Position Based
+* Time Decay
+* Does not only show the channel category but also individual channel names (such as website URLs, search engines, campaign names, ...)
+* Configure upto 3 campaign dimension combinations to view campaign reports as per your choice (eg Campaign Names for a 90 days period or Campaign Keyword over a 30 days period)
+* Compare the conversions and revenue between attribution models
+
+### Privacy features
+
+* The plugin doesn't track any additional data and therefore no personal or sensitive information is recorded. The reports are based on data that is tracked as part of the standard Matomo tracking.
+
+### Integrates with Matomo Analytics platform
+
+* View the evolution of any metric or row with the [Row Evolution](https://matomo.org/docs/row-evolution/) feature
+* Lets you apply over 100 [Matomo segments](https://matomo.org/docs/segmentation/) to your form reports
+* View the attribution report for an unlimited number of goals. [No data limit](https://matomo.org/docs/data-limits/).
+* [Embed](https://matomo.org/docs/embed-piwik-report/) the form attribution widget directly in your app, dashboard, or even TV screen!
+* HTTP API to fetch and export all [Multi Channel Attribution reports](https://developer.matomo.org/api-reference/reporting-api#MultiChannelConversionAttribution)
+* Get access to all the raw data via MySQL for 100% data ownership

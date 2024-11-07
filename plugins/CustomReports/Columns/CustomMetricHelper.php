@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -49,7 +50,7 @@ class CustomMetricHelper
 
             // This is necessary to make sure that the result set isn't restricted to only rows with a value
             // This also makes sure that the metric name is correct
-            $impressionDimension = new class() extends \Piwik\Plugins\Contents\Columns\ContentInteraction {
+            $impressionDimension = new class () extends \Piwik\Plugins\Contents\Columns\ContentInteraction {
                 protected $nameSingular = 'Contents_ContentImpression';
                 protected $namePlural = 'CustomReports_ContentImpressions';
 

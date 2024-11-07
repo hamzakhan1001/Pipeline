@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\CustomReports\ReportType;
 
 use Exception;
@@ -20,7 +22,7 @@ use Piwik\Piwik;
 
 abstract class ReportType
 {
-    const ID = '';
+    public const ID = '';
 
     abstract public function needsDimensions();
     abstract public function getName();
@@ -57,5 +59,4 @@ abstract class ReportType
         $message = Piwik::translate('CustomReports_ErrorXNotWhitelisted', array($title, implode(', ', $ids)));
         throw new Exception($message);
     }
-
 }

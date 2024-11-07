@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,12 +18,10 @@ namespace Piwik\Plugins\AbTesting;
 
 use Piwik\Common;
 use Piwik\Menu\MenuAdmin;
-use Piwik\Piwik;
 use Piwik\Plugins\AbTesting\Input\AccessValidator;
 
 class Menu extends \Piwik\Plugin\Menu
 {
-
     /**
      * @var AccessValidator
      */
@@ -42,5 +41,4 @@ class Menu extends \Piwik\Plugin\Menu
             $menu->addMeasurableItem('AbTesting_Experiments', $this->urlForAction('manage'), $orderId = 30);
         }
     }
-
 }

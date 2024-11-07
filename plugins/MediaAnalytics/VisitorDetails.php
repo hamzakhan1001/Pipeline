@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics;
 
 use Piwik\API\Request;
@@ -25,9 +27,9 @@ use Piwik\View;
 
 class VisitorDetails extends VisitorDetailsAbstract
 {
-    const ACTION_TYPE_MEDIA = 'media';
-    const EVENT_CATEGORY_VIDEO = 'MediaVideo';
-    const EVENT_CATEGORY_AUDIO = 'MediaAudio';
+    public const ACTION_TYPE_MEDIA = 'media';
+    public const EVENT_CATEGORY_VIDEO = 'MediaVideo';
+    public const EVENT_CATEGORY_AUDIO = 'MediaAudio';
 
     public function extendActionDetails(&$action, $nextAction, $visitorDetails)
     {
@@ -35,10 +37,12 @@ class VisitorDetails extends VisitorDetailsAbstract
             return;
         }
 
-        if (!empty($action['eventValue']) &&
+        if (
+            !empty($action['eventValue']) &&
             !empty($action['eventCategory']) &&
-            in_array($action['eventCategory'], array(self::EVENT_CATEGORY_VIDEO, self::EVENT_CATEGORY_AUDIO), true)
-            && $this->shouldFormatEventValue()) {
+            in_array($action['eventCategory'], array(self::EVENT_CATEGORY_VIDEO, self::EVENT_CATEGORY_AUDIO), true) &&
+            $this->shouldFormatEventValue()
+        ) {
             $formatter = new Formatter();
             $action['eventValue'] = $formatter->getPrettyTimeFromSeconds($action['eventValue'], false, true);
         }
@@ -47,7 +51,6 @@ class VisitorDetails extends VisitorDetailsAbstract
     private function shouldFormatEventValue()
     {
         if (Request::isApiRequest($request = null)) {
-
             if ('1' === Common::getRequestVar('format_metrics', '0', 'string')) {
                 return true;
             }
@@ -91,7 +94,7 @@ class VisitorDetails extends VisitorDetailsAbstract
                 $action['icon'] = 'plugins/MediaAnalytics/images/audio.png';
                 $action['media_type'] = 'audio';
                 $action['title'] = Piwik::translate('MediaAnalytics_ListenedToX', $titleOrUrl);
-            } else if ($action['media_type'] == MediaAnalytics::MEDIA_TYPE_VIDEO) {
+            } elseif ($action['media_type'] == MediaAnalytics::MEDIA_TYPE_VIDEO) {
                 $action['icon'] = 'plugins/MediaAnalytics/images/video.png';
                 $action['media_type'] = 'video';
                 $action['title'] = Piwik::translate('MediaAnalytics_WatchedVideoX', $titleOrUrl);
@@ -134,8 +137,8 @@ class VisitorDetails extends VisitorDetailsAbstract
                         unset($action[LogMediaPlays::makeSegmentGroupColumn($segment)]);
                     }
                 }
-                $action['segments_played'] = implode(',',$action['segments_played']);
-                $action['segments_not_played'] = implode(',',$action['segments_not_played']);
+                $action['segments_played'] = implode(',', $action['segments_played']);
+                $action['segments_not_played'] = implode(',', $action['segments_not_played']);
             }
 
             $actions[$idVisit][] = $action;
@@ -181,9 +184,8 @@ class VisitorDetails extends VisitorDetailsAbstract
 
         if ($action['media_type'] == 'audio') {
             ++$profile['mediaViewAudio'];
-        } else if ($action['media_type'] == 'video') {
+        } elseif ($action['media_type'] == 'video') {
             ++$profile['mediaViewVideo'];
         }
     }
-
 }

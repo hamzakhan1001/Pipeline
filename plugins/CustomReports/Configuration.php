@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,23 +20,23 @@ use Piwik\Config;
 
 class Configuration
 {
-    const DEFAULT_ARCHIVE_MAX_ROWS = 500;
-    const DEFAULT_ARCHIVE_MAX_ROWS_SUBTABLE = 500;
-    const DEFAULT_VALIDATE_REPORT_CONTENT_ALL_WEBSITES = 1;
-    const DEFAULT_ALWAYS_SHOW_UNIQUE_VISITORS = 0;
-    const DEFAULT_MAX_EXECUTION_TIME = 0;
-    const DEFAULT_DISABLED_DIMENSIONS = '';
-    const DEFAULT_EVOLUTION_UNIQUE_FORCE_AGGREGATION = '';
+    public const DEFAULT_ARCHIVE_MAX_ROWS = 500;
+    public const DEFAULT_ARCHIVE_MAX_ROWS_SUBTABLE = 500;
+    public const DEFAULT_VALIDATE_REPORT_CONTENT_ALL_WEBSITES = 1;
+    public const DEFAULT_ALWAYS_SHOW_UNIQUE_VISITORS = 0;
+    public const DEFAULT_MAX_EXECUTION_TIME = 0;
+    public const DEFAULT_DISABLED_DIMENSIONS = '';
+    public const DEFAULT_EVOLUTION_UNIQUE_FORCE_AGGREGATION = '';
 
-    const KEY_ARCHIVE_MAX_ROWS = 'datatable_archiving_maximum_rows_custom_reports';
-    const KEY_ARCHIVE_MAX_ROWS_SUBTABLE = 'datatable_archiving_maximum_rows_subtable_custom_reports';
-    const KEY_VALIDATE_REPORT_CONTENT_ALL_WEBSITES = 'custom_reports_validate_report_content_all_websites';
-    const KEY_ALWAYS_SHOW_UNIQUE_VISITORS = 'custom_reports_always_show_unique_visitors';
-    const KEY_MAX_EXECUTION_TIME = 'custom_reports_max_execution_time';
-    const KEY_DISABLED_DIMENSIONS = 'custom_reports_disabled_dimensions';
-    const KEY_EVOLUTION_UNIQUE_FORCE_AGGREGATION = 'custom_reports_periods_force_aggregate_report_unique_metrics_evolution';
+    public const KEY_ARCHIVE_MAX_ROWS = 'datatable_archiving_maximum_rows_custom_reports';
+    public const KEY_ARCHIVE_MAX_ROWS_SUBTABLE = 'datatable_archiving_maximum_rows_subtable_custom_reports';
+    public const KEY_VALIDATE_REPORT_CONTENT_ALL_WEBSITES = 'custom_reports_validate_report_content_all_websites';
+    public const KEY_ALWAYS_SHOW_UNIQUE_VISITORS = 'custom_reports_always_show_unique_visitors';
+    public const KEY_MAX_EXECUTION_TIME = 'custom_reports_max_execution_time';
+    public const KEY_DISABLED_DIMENSIONS = 'custom_reports_disabled_dimensions';
+    public const KEY_EVOLUTION_UNIQUE_FORCE_AGGREGATION = 'custom_reports_periods_force_aggregate_report_unique_metrics_evolution';
 
-    const KEY_REARCHIVE_REPORTS_IN_PAST_LAST_N_MONTHS = 'custom_reports_rearchive_reports_in_past_last_n_months';
+    public const KEY_REARCHIVE_REPORTS_IN_PAST_LAST_N_MONTHS = 'custom_reports_rearchive_reports_in_past_last_n_months';
 
     public function install()
     {

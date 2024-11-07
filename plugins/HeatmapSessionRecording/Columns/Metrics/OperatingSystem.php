@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Columns\Metrics;
 
 use Piwik\DataTable\Row;
@@ -60,6 +62,6 @@ class OperatingSystem extends BaseMetric
 
         $title = \Piwik\Plugins\DevicesDetection\getOsFullName($value);
 
-        return '<img title="' . $title .'" style="height:16px;" src="' . \Piwik\Plugins\DevicesDetection\getOsLogo($value) .'">';
+        return '<img title="' . $title . '" style="height:16px;" src="' . \Piwik\Plugins\DevicesDetection\getOsLogo($value) . '">';
     }
 }

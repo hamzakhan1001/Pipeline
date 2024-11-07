@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MultiChannelConversionAttribution\Widgets;
 
 use Piwik\Common;
@@ -45,5 +47,4 @@ class GetEcommerceAttribution extends GetMultiAttribution
 
         return array();
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,7 +20,6 @@ use Piwik\Piwik;
 use Piwik\Plugin\ReportsProvider;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\MediaAnalytics\Columns\GroupedResource;
-
 
 class GetGroupedVideoResources extends Base
 {
@@ -54,5 +54,4 @@ class GetGroupedVideoResources extends Base
             ReportsProvider::factory('MediaAnalytics', 'GetVideoTitles'),
         );
     }
-
 }

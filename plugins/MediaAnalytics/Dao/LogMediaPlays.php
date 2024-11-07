@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Dao;
 
 use Piwik\Common;
@@ -24,10 +26,10 @@ class LogMediaPlays
     private $table = 'log_media_plays';
     private $tablePrefixed = '';
 
-    const DEFAULT_SEGMENT_LENGTH = 30;
-    const DEFAULT_SEGMENT_LENGTH_SMALL = 15;
-    const USE_SMALL_SEGMENT_UP_TO_SECONDS = 300;
-    const MAX_SEGMENT_SECTONDS = 7200;
+    public const DEFAULT_SEGMENT_LENGTH = 30;
+    public const DEFAULT_SEGMENT_LENGTH_SMALL = 15;
+    public const USE_SMALL_SEGMENT_UP_TO_SECONDS = 300;
+    public const MAX_SEGMENT_SECTONDS = 7200;
 
     /**
      * @var Db|Db\AdapterInterface|\Piwik\Tracker\Db
@@ -55,7 +57,7 @@ class LogMediaPlays
         $columns = implode(',', $columns);
 
         DbHelper::createTable($this->table, "
-                  `idview` VARCHAR(".LogTable::MAX_LENGTH_IDVIEW.") NOT NULL,
+                  `idview` VARCHAR(" . LogTable::MAX_LENGTH_IDVIEW . ") NOT NULL,
                   `idvisit` BIGINT UNSIGNED NOT NULL,
                   $columns,
                   PRIMARY KEY(`idvisit`,`idview`)");
@@ -105,8 +107,12 @@ class LogMediaPlays
         $columns = implode('`,`', array_keys($values));
         $vals = Common::getSqlStringFieldsArray($values);
 
-        $sql = sprintf('INSERT INTO %s (`%s`) VALUES(%s) ',
-                        $this->tablePrefixed, $columns, $vals);
+        $sql = sprintf(
+            'INSERT INTO %s (`%s`) VALUES(%s) ',
+            $this->tablePrefixed,
+            $columns,
+            $vals
+        );
         $bind = array_values($values);
 
         try {
@@ -130,8 +136,11 @@ class LogMediaPlays
             $update .= self::makeSegmentColumn($segment) . ' = 1,';
         }
 
-        $sql = sprintf('UPDATE %s SET %s WHERE idvisit = ? AND idview = ?',
-                            $this->tablePrefixed, rtrim($update, ','));
+        $sql = sprintf(
+            'UPDATE %s SET %s WHERE idvisit = ? AND idview = ?',
+            $this->tablePrefixed,
+            rtrim($update, ',')
+        );
         $bind = array($idVisit, $idView);
 
         $this->getDb()->query($sql, $bind);
@@ -149,7 +158,7 @@ class LogMediaPlays
     public static function moveMaxLengthIntoSegment($allSegments, $segment)
     {
         foreach ($allSegments as $allSegment) {
-            if ($allSegment >= $segment){
+            if ($allSegment >= $segment) {
                 return $allSegment;
             }
         }
@@ -209,7 +218,7 @@ class LogMediaPlays
 
     public static function isSegmentGroupColumn($segmentColumn)
     {
-        return strpos($segmentColumn, 'segment_') !== false && Common::stringEndsWith($segmentColumn,Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX);
+        return strpos($segmentColumn, 'segment_') !== false && Common::stringEndsWith($segmentColumn, Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX);
     }
 
     public static function makeSegmentPosition($segmentColumn)
@@ -251,6 +260,4 @@ class LogMediaPlays
 
         return $mappedSegments;
     }
-
 }
-

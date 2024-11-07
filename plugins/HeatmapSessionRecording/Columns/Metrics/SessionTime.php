@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Columns\Metrics;
 
 use Piwik\Archive\DataTableFactory;
@@ -22,7 +24,6 @@ use Piwik\DataTable\Row;
 use Piwik\Date;
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
-use Piwik\Plugins\Intl\DateTimeFormatProvider;
 use Piwik\Site;
 
 class SessionTime extends BaseMetric

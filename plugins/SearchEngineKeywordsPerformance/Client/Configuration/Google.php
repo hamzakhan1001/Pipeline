@@ -13,20 +13,22 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client\Configuration;
 
 use Piwik\Option;
 use Piwik\Common;
+
 class Google extends BaseConfiguration
 {
     /**
      * Key used to store client config in options table
      */
-    const CLIENT_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Google_ClientConfig';
+    public const CLIENT_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Google_ClientConfig';
     /**
      * Key used to store accounts in options table
      */
-    const OAUTH_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Google_OAuthConfig';
+    public const OAUTH_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Google_OAuthConfig';
     protected $oauthConfig = null;
     protected $clientConfig = null;
     protected $accounts = [];
@@ -142,7 +144,7 @@ class Google extends BaseConfiguration
      *
      * @return void
      */
-    public function deleteClientConfig() : void
+    public function deleteClientConfig(): void
     {
         Option::delete(self::CLIENT_CONFIG_OPTION_NAME);
     }

@@ -13,10 +13,12 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Activity;
 
 use Piwik\Piwik;
 use Piwik\Plugins\ActivityLog\Activity\Activity;
+
 class YandexClientConfigChanged extends Activity
 {
     protected $eventName = 'SearchEngineKeywordsPerformance.YandexClientConfigChanged';

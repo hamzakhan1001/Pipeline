@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -70,5 +71,4 @@ class Schedule
 
         return true;
     }
-
 }

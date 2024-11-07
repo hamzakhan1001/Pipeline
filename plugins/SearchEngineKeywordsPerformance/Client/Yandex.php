@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client;
 
 use Piwik\Date;
@@ -24,6 +25,7 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\InvalidCredentialsE
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\MissingClientConfigException;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\RateLimitApiException;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\UnknownAPIException;
+
 /**
  * Class Yandex
  *
@@ -146,7 +148,7 @@ class Yandex
             return null;
         }
         $date = strtotime($date);
-        $searchQueries = $this->retryApiMethod(function () use($accessToken, $hostId, $date) {
+        $searchQueries = $this->retryApiMethod(function () use ($accessToken, $hostId, $date) {
             return $this->getPopularQueries($accessToken, $hostId, $date);
         });
         if (empty($searchQueries) || empty($searchQueries->queries)) {
@@ -178,7 +180,7 @@ class Yandex
         }
         $dateTs = strtotime($date);
         $crawlStatsByDate = [];
-        $crawlStats = $this->retryApiMethod(function () use($accessToken, $hostId, $dateTs) {
+        $crawlStats = $this->retryApiMethod(function () use ($accessToken, $hostId, $dateTs) {
             return $this->getIndexingHistory($accessToken, $hostId, $dateTs);
         });
         if (!empty($crawlStats) && !empty($crawlStats->indicators)) {
@@ -191,7 +193,7 @@ class Yandex
                 }
             }
         }
-        $pagesInIndex = $this->retryApiMethod(function () use($accessToken, $hostId, $dateTs) {
+        $pagesInIndex = $this->retryApiMethod(function () use ($accessToken, $hostId, $dateTs) {
             return $this->getPagesInIndex($accessToken, $hostId, $dateTs);
         });
         if (!empty($pagesInIndex) && !empty($pagesInIndex->history)) {
@@ -203,7 +205,7 @@ class Yandex
                 }
             }
         }
-        $pageChanges = $this->retryApiMethod(function () use($accessToken, $hostId, $dateTs) {
+        $pageChanges = $this->retryApiMethod(function () use ($accessToken, $hostId, $dateTs) {
             return $this->getPageChangesInSearch($accessToken, $hostId, $dateTs);
         });
         if (!empty($pageChanges) && !empty($pageChanges->indicators)) {
@@ -284,7 +286,23 @@ class Yandex
     protected function fetchAccessTokenWithAuthCode($authCode)
     {
         $clientConfig = $this->getClientConfig();
-        $response = Http::sendHttpRequestBy(Http::getTransportMethod(), 'https://oauth.yandex.com/token', 2000, null, null, null, 0, \false, \false, \false, \false, 'POST', $clientConfig['id'], $clientConfig['secret'], 'grant_type=authorization_code&code=' . $authCode);
+        $response = Http::sendHttpRequestBy(
+            Http::getTransportMethod(),
+            'https://oauth.yandex.com/token',
+            2000,
+            null,
+            null,
+            null,
+            0,
+            \false,
+            \false,
+            \false,
+            \false,
+            'POST',
+            $clientConfig['id'],
+            $clientConfig['secret'],
+            'grant_type=authorization_code&code=' . $authCode
+        );
         $result = json_decode($response, \true);
         if (isset($result['error'])) {
             throw new \Exception($result['error_description']);
@@ -373,7 +391,11 @@ class Yandex
      */
     protected function getPopularQueries($accessToken, $hostId, $date)
     {
-        return $this->sendApiRequest($accessToken, 'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/search-queries/popular/', ['date_from' => date(\DATE_ATOM, $date), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1), 'order_by' => 'TOTAL_CLICKS', 'query_indicator' => ['TOTAL_CLICKS', 'TOTAL_SHOWS', 'AVG_SHOW_POSITION', 'AVG_CLICK_POSITION'], 'limit' => 500]);
+        return $this->sendApiRequest(
+            $accessToken,
+            'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/search-queries/popular/',
+            ['date_from' => date(\DATE_ATOM, $date), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1), 'order_by' => 'TOTAL_CLICKS', 'query_indicator' => ['TOTAL_CLICKS', 'TOTAL_SHOWS', 'AVG_SHOW_POSITION', 'AVG_CLICK_POSITION'], 'limit' => 500]
+        );
     }
     /**
      * @param string $accessToken
@@ -387,7 +409,11 @@ class Yandex
     protected function getIndexingHistory($accessToken, $hostId, $date)
     {
         // note we query a weeks data as otherwise the results might not contain the date we actually want to look at
-        return $this->sendApiRequest($accessToken, 'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/indexing/history/', array('date_from' => date(\DATE_ATOM, $date - 7 * 24 * 3600), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1)));
+        return $this->sendApiRequest(
+            $accessToken,
+            'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/indexing/history/',
+            array('date_from' => date(\DATE_ATOM, $date - 7 * 24 * 3600), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1))
+        );
     }
     /**
      * @param string $accessToken
@@ -401,7 +427,11 @@ class Yandex
     protected function getPagesInIndex($accessToken, $hostId, $date)
     {
         // note we query a weeks data as otherwise the results might not contain the date we actually want to look at
-        return $this->sendApiRequest($accessToken, 'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/search-urls/in-search/history/', array('date_from' => date(\DATE_ATOM, $date - 7 * 24 * 3600), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1)));
+        return $this->sendApiRequest(
+            $accessToken,
+            'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/search-urls/in-search/history/',
+            array('date_from' => date(\DATE_ATOM, $date - 7 * 24 * 3600), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1))
+        );
     }
     /**
      * @param string $accessToken
@@ -415,7 +445,11 @@ class Yandex
     protected function getPageChangesInSearch($accessToken, $hostId, $date)
     {
         // note we query a weeks data as otherwise the results might not contain the date we actually want to look at
-        return $this->sendApiRequest($accessToken, 'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/search-urls/events/history/', array('date_from' => date(\DATE_ATOM, $date - 7 * 24 * 3600), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1)));
+        return $this->sendApiRequest(
+            $accessToken,
+            'user/' . $this->getYandexUserId($accessToken) . '/hosts/' . $hostId . '/search-urls/events/history/',
+            array('date_from' => date(\DATE_ATOM, $date - 7 * 24 * 3600), 'date_to' => date(\DATE_ATOM, $date + 24 * 3600 - 1))
+        );
     }
     /**
      * Returns the available hosts for the given access token
@@ -473,7 +507,24 @@ class Yandex
         }
         $url = $this->baseAPIUrl . $method . '?' . implode('&', $urlParams);
         $additionalHeaders = ['Authorization: OAuth ' . $accessToken, 'Accept: application/json', 'Content-type: application/json'];
-        $response = Http::sendHttpRequestBy(Http::getTransportMethod(), $url, $timeout = 60, $userAgent = null, $destinationPath = null, $file = null, $followDepth = 0, $acceptLanguage = \false, $acceptInvalidSslCertificate = \false, $byteRange = \false, $getExtendedInfo = \true, $httpMethod = 'GET', $httpUsername = '', $httpPassword = '', $requestBody = null, $additionalHeaders);
+        $response = Http::sendHttpRequestBy(
+            Http::getTransportMethod(),
+            $url,
+            $timeout = 60,
+            $userAgent = null,
+            $destinationPath = null,
+            $file = null,
+            $followDepth = 0,
+            $acceptLanguage = \false,
+            $acceptInvalidSslCertificate = \false,
+            $byteRange = \false,
+            $getExtendedInfo = \true,
+            $httpMethod = 'GET',
+            $httpUsername = '',
+            $httpPassword = '',
+            $requestBody = null,
+            $additionalHeaders
+        );
         if (empty($response['data'])) {
             throw new \Exception('Yandex API returned no data: ' . var_export($response, \true));
         }

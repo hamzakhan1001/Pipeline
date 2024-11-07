@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -13,6 +14,7 @@
  * @license For license details see https://www.innocraft.com/license
  *
  */
+
 namespace Piwik\Plugins\UsersFlow\DataTable\Filter;
 
 use Piwik\DataTable;
@@ -22,7 +24,6 @@ use Piwik\Plugins\UsersFlow\Metrics;
 
 class AddLabelsForMissingSteps extends BaseFilter
 {
-
     /**
      * See {@link Limit}.
      *
@@ -40,14 +41,12 @@ class AddLabelsForMissingSteps extends BaseFilter
 
         for ($i = 1; $i < $numSteps; $i++) {
             if (!$table->getRowFromLabel($i . '')) {
-               $table->addRow(new Row(array(Row::COLUMNS => array(
+                $table->addRow(new Row(array(Row::COLUMNS => array(
                    'label' => $i,
                    Metrics::NB_VISITS => 0,
                    Metrics::NB_EXITS => 0,
-               ))));
+                ))));
             }
         }
-
     }
-
 }

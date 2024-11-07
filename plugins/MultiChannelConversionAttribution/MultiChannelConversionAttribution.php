@@ -5,9 +5,10 @@
  * Description: Get a clear understanding of how much credit each of your marketing channel is actually responsible for to shift your marketing efforts wisely.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.0.5
+ * Version: 5.0.6
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -54,7 +55,7 @@ if (defined( 'ABSPATH')
 
 class MultiChannelConversionAttribution extends \Piwik\Plugin
 {
-    const LAST_PLUGIN_UPDATE_DATE = 'LastPluginUpdate.MultiChannelConversionAttribution';
+    public const LAST_PLUGIN_UPDATE_DATE = 'LastPluginUpdate.MultiChannelConversionAttribution';
 
     /**
      * @see \Piwik\Plugin::registerEvents
@@ -119,7 +120,7 @@ class MultiChannelConversionAttribution extends \Piwik\Plugin
     {
         $configuration = new Configuration();
         $configuration->install();
-        
+
         $attributionDao = new GoalAttributionDao();
         $attributionDao->install();
     }
@@ -137,7 +138,6 @@ class MultiChannelConversionAttribution extends \Piwik\Plugin
                     }
                 }
             } catch (\Exception $e) {
-
             }
         }
 
@@ -323,5 +323,4 @@ class MultiChannelConversionAttribution extends \Piwik\Plugin
             $dao->removeGoalAttribution($idSite, $idGoal);
         }
     }
-
 }

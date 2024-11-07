@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\CustomReports;
 
 use Piwik\API\Request;
@@ -25,7 +27,6 @@ use Piwik\Container\StaticContainer;
 use Piwik\DataAccess\LogQueryBuilder\JoinTables;
 use Piwik\DataTable;
 use Piwik\Date;
-use Piwik\Period\Factory;
 use Piwik\Piwik;
 use Piwik\Plugin\ArchivedMetric;
 use Piwik\Plugin\LogTablesProvider;
@@ -34,8 +35,6 @@ use Piwik\Plugins\CustomReports\Dao\CustomReportsDao;
 use Piwik\Plugins\CustomReports\Input\Validator;
 use Piwik\Plugins\CustomReports\ReportType\ReportType;
 use Piwik\Plugins\CustomReports\Model\CustomReportsModel;
-use Piwik\Plugins\SitesManager\Model;
-use Piwik\Plugins\SitesManager\SitesManager;
 
 /**
  * The <a href='http://plugins.matomo.org/CustomReports' target='_blank'>Custom Reports</a> API lets you 1) create custom
@@ -83,9 +82,14 @@ class API extends \Piwik\Plugin\API
      */
     private $archiveInvalidator;
 
-    public function __construct(CustomReportsModel $model, Validator $validator, DimensionsProvider $columnsProvider,
-                                LogTablesProvider $logTablesProvider, Configuration $configuration, ArchiveInvalidator $archiveInvalidator)
-    {
+    public function __construct(
+        CustomReportsModel $model,
+        Validator $validator,
+        DimensionsProvider $columnsProvider,
+        LogTablesProvider $logTablesProvider,
+        Configuration $configuration,
+        ArchiveInvalidator $archiveInvalidator
+    ) {
         $this->metricsList = MetricsList::get();
         $this->columnsProvider = $columnsProvider;
         $this->model = $model;
@@ -164,19 +168,16 @@ class API extends \Piwik\Plugin\API
         try {
             Cache::getLazyCache()->flushAll();
         } catch (\Exception $e) {
-
         }
         // we need to delete possibly cached values. especially ReportsProvider
         try {
             Cache::getEagerCache()->flushAll();
         } catch (\Exception $e) {
-
         }
         // we need to delete possibly cached values. especially ReportsProvider
         try {
             Cache::getTransientCache()->flushAll();
         } catch (\Exception $e) {
-
         }
     }
 
@@ -596,7 +597,6 @@ class API extends \Piwik\Plugin\API
             $translatedName = $metric->getTranslatedName();
 
             if (($metric instanceof ProcessedMetric || $metric instanceof ArchivedMetric) && $name && $translatedName) {
-
                 if (method_exists($metric, 'getQuery') && !$metric->getQuery()) {
                     // archiving this metric would not work!
                     continue;

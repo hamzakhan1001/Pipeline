@@ -1,5 +1,8 @@
 ## Changelog
 
+5.3.6 - 2024-11-05
+- Updated README.md
+
 5.3.5 - 2024-10-08
 - Added code to use index forcefully to improve performance
 - Improved API access check

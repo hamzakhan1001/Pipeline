@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\Funnels\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class Steps
@@ -59,5 +60,4 @@ class Steps
             $step->check();
         }
     }
-
 }

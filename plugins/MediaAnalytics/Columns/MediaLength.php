@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Columns;
 
 use Piwik\Columns\DimensionMetricFactory;
@@ -43,7 +45,7 @@ class MediaLength extends MediaDimension
         $metric2->setTranslatedName(Piwik::translate('General_ComputedMetricMax', Piwik::translate('MediaAnalytics_SegmentNameMediaLength')));
         $metricsList->addMetric($metric2);
 
-        $metric = $dimensionMetricFactory->createComputedMetric($metric1->getName(), 'nb_media_plays',ComputedMetric::AGGREGATION_AVG);
+        $metric = $dimensionMetricFactory->createComputedMetric($metric1->getName(), 'nb_media_plays', ComputedMetric::AGGREGATION_AVG);
         $metric->setName('avg_media_length');
         $metric->setTranslatedName(Piwik::translate('MediaAnalytics_ColumnAvgMediaLength'));
         $metric->setDocumentation(Piwik::translate('MediaAnalytics_ColumnDescriptionAvgMediaLength'));

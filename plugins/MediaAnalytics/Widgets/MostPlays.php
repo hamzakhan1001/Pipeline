@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
 use Piwik\Common;
@@ -25,7 +27,7 @@ class MostPlays extends BaseLiveWidget
     public static function configure(WidgetConfig $config)
     {
         parent::configure($config);
-        
+
         $idSite = self::getIdSite();
         $config->setName('MediaAnalytics_WidgetTitleMostPlaysLast30');
         $config->setParameters(array('lastMinutes' => '30'));
@@ -82,5 +84,4 @@ class MostPlays extends BaseLiveWidget
 
         return $view->render();
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\CustomReports\ReportType;
 
 use Piwik\Archive;
@@ -24,7 +26,7 @@ use Piwik\Plugins\CustomReports\GetCustomReport;
 
 class Evolution extends ReportType
 {
-    const ID = 'evolution';
+    public const ID = 'evolution';
 
     public function getName()
     {
@@ -95,6 +97,4 @@ class Evolution extends ReportType
 
         return $dataTable;
     }
-
-
 }

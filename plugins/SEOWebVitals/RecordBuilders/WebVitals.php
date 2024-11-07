@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -89,7 +90,6 @@ class WebVitals extends RecordBuilder
             }
 
             foreach ($strategies as $strategy) {
-
                 if (!empty($mapOfReports[$url][$strategy])) {
                     $response = $mapOfReports[$url][$strategy];
                 } else {
@@ -146,9 +146,11 @@ class WebVitals extends RecordBuilder
 
                 if ($response->hasAudits()) {
                     foreach ($response->getAudits() as $key => $audit) {
-                        if (empty($audit['id'])
+                        if (
+                            empty($audit['id'])
                             || $audit['scoreDisplayMode'] === 'informative'
-                            || $audit['scoreDisplayMode'] === 'notApplicable') {
+                            || $audit['scoreDisplayMode'] === 'notApplicable'
+                        ) {
                             continue;
                         }
                         $id = $audit['id'];
@@ -255,10 +257,10 @@ class WebVitals extends RecordBuilder
             Metrics::METRIC_LOAD_EXPERIENCE_INP_CATEGORY => '',
             Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => 0,
 
-            Metrics::METRIC_LOAD_EXPERIENCE_LCP_CATEGORY=> '',
+            Metrics::METRIC_LOAD_EXPERIENCE_LCP_CATEGORY => '',
             Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE => 0,
 
-            Metrics::METRIC_LOAD_EXPERIENCE_FCP_CATEGORY=> '',
+            Metrics::METRIC_LOAD_EXPERIENCE_FCP_CATEGORY => '',
             Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE => 0,
 
             Metrics::METRIC_LOAD_EXPERIENCE_NUM_CHECKS => 0,

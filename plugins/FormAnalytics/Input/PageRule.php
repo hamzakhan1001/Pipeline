@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,7 +20,6 @@ use Piwik\Plugins\FormAnalytics\Tracker\RuleMatcher as RuleForm;
 
 class PageRule extends Rule
 {
-
     public function __construct($titlePlural, $rule, $index)
     {
         parent::__construct($titlePlural, $rule, $index);

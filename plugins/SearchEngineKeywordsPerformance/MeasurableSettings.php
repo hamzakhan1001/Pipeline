@@ -13,9 +13,9 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance;
 
-use Piwik\Access;
 use Piwik\Piwik;
 use Piwik\Plugins\WebsiteMeasurable\Type as WebsiteMeasurableType;
 use Piwik\Settings\Setting;
@@ -23,6 +23,7 @@ use Piwik\Settings\FieldConfig;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Google as ProviderGoogle;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Bing as ProviderBing;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Yandex as ProviderYandex;
+
 class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
 {
     /** @var Setting */
@@ -64,7 +65,7 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
         $this->googleConfigCreatedBy = $this->makeSetting('googleconfigcreatedby', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->uiControl = FieldConfig::UI_CONTROL_HIDDEN;
         });
-        $this->googleSearchConsoleUrl = $this->makeSetting('searchconsoleurl', '0', FieldConfig::TYPE_STRING, function (FieldConfig $field) use($googleClient) {
+        $this->googleSearchConsoleUrl = $this->makeSetting('searchconsoleurl', '0', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($googleClient) {
             $field->title = Piwik::translate('SearchEngineKeywordsPerformance_GoogleSearchConsoleUrl');
             $field->description = Piwik::translate('SearchEngineKeywordsPerformance_GoogleSearchConsoleUrlDescription');
             $field->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
@@ -125,7 +126,7 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
         $this->bingConfigCreatedBy = $this->makeSetting('bingconfigcreatedby', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->uiControl = FieldConfig::UI_CONTROL_HIDDEN;
         });
-        $this->bingSiteUrl = $this->makeSetting('bingsiteurl', '0', FieldConfig::TYPE_STRING, function (FieldConfig $field) use($bingClient) {
+        $this->bingSiteUrl = $this->makeSetting('bingsiteurl', '0', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($bingClient) {
             $field->title = Piwik::translate('SearchEngineKeywordsPerformance_BingWebmasterApiUrl');
             $field->description = Piwik::translate('SearchEngineKeywordsPerformance_BingWebmasterApiUrlDescription');
             $field->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
@@ -158,7 +159,7 @@ class MeasurableSettings extends \Piwik\Settings\Measurable\MeasurableSettings
         $this->yandexConfigCreatedBy = $this->makeSetting('yandexconfigcreatedby', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->uiControl = FieldConfig::UI_CONTROL_HIDDEN;
         });
-        $this->yandexAccountAndHostId = $this->makeSetting('yandexAccountAndHostId', '0', FieldConfig::TYPE_STRING, function (FieldConfig $field) use($yandexClient) {
+        $this->yandexAccountAndHostId = $this->makeSetting('yandexAccountAndHostId', '0', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($yandexClient) {
             $field->title = Piwik::translate('SearchEngineKeywordsPerformance_YandexWebmasterApiUrl');
             $field->description = Piwik::translate('SearchEngineKeywordsPerformance_YandexWebmasterApiUrlDescription');
             $field->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;

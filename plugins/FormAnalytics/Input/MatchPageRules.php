@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\FormAnalytics\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class MatchPageRules
@@ -47,5 +48,4 @@ class MatchPageRules
             $rule->check();
         }
     }
-
 }

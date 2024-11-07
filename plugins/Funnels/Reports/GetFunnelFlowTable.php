@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -27,7 +28,7 @@ use Piwik\Widget\WidgetsList;
 
 class GetFunnelFlowTable extends GetFunnelFlow
 {
-    const ROW_IDENTIFIER = 'customLabel';
+    public const ROW_IDENTIFIER = 'customLabel';
 
     protected function init()
     {

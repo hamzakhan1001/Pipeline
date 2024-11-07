@@ -5,9 +5,10 @@
  * Description: Users Flow is a visual representation of the most popular paths your users take through your website & app which lets you understand your users needs
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/UsersFlow
- * Version: 5.0.4
+ * Version: 5.0.5
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -27,9 +28,6 @@ namespace Piwik\Plugins\UsersFlow;
 use Piwik\Archive\ArchiveInvalidator;
 use Piwik\Columns\Dimension;
 use Piwik\Container\StaticContainer;
-use Piwik\CronArchive;
-use Piwik\Date;
-use Piwik\Option;
 
  
 if (defined( 'ABSPATH')

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,8 +18,8 @@ namespace Piwik\Plugins\AdvertisingConversionExport\ClickIdProvider;
 
 class Facebook extends ClickIdProviderAbstract
 {
-    const ID = 'Facebook';
-    const CLICK_ID_REQUEST_PARAM = 'fbclid';
+    public const ID = 'Facebook';
+    public const CLICK_ID_REQUEST_PARAM = 'fbclid';
 
     public function getName(): string
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -184,8 +185,10 @@ class Controller extends \Piwik\Plugin\Controller
 
     private function renderTableSecondaryDimensionReport($reportAction, $secondarydimension, $isAudioReport)
     {
-        if (Archiver::SECONDARY_DIMENSION_RESOLUTION === $secondarydimension
-            && $isAudioReport) {
+        if (
+            Archiver::SECONDARY_DIMENSION_RESOLUTION === $secondarydimension
+            && $isAudioReport
+        ) {
             // we do not render resolutions table for audio...
             return;
         }
@@ -274,8 +277,13 @@ class Controller extends \Piwik\Plugin\Controller
 
         // $callingAction may be specified to distinguish between
         // "VisitsSummary_WidgetLastVisits" and "VisitsSummary_WidgetOverviewGraph"
-        $view = $this->getLastUnitGraphAcrossPlugins($this->pluginName, __FUNCTION__, $columns,
-            $selectableColumns, $documentation);
+        $view = $this->getLastUnitGraphAcrossPlugins(
+            $this->pluginName,
+            __FUNCTION__,
+            $columns,
+            $selectableColumns,
+            $documentation
+        );
 
         if (empty($view->config->columns_to_display) && !empty($defaultColumns)) {
             $view->config->columns_to_display = $defaultColumns;

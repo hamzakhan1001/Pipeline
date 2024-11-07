@@ -74,3 +74,29 @@ With the Custom Reports plugin, you can tailor your reports to get the right inf
 Create unlimited custom reports without data limits. With the Custom Reports plugin, your data will be ready to analyse anytime you need it, hassle-free.
 
 Start your 30-day free trial today.
+
+### Managing features
+* Create compelling custom reports tailored to your needs without any developer knowledge in just seconds
+* Choose from over 200 dimensions and metrics
+* Supports several visualizations including evolution over time graphs, data tables, bar graph, pie chart, cloud chart, and others
+* Combine up to 3 dimensions and unlimited metrics
+* Define a report filter which is applied on the raw data to show the data only for a subset of your visitors and users
+* Put your custom report on any existing reporting page or on its own reporting page
+* Super Users can make reports available for all websites
+
+### Integrates with Matomo Analytics platform
+* Enjoy features that are not supported by most standard Matomo reports such as pivoting.
+* Drill down deeper and filter custom reports [with Segments](https://matomo.org/docs/segmentation/).
+* View the evolution over time of any dimension value with [Row Evolution](https://matomo.org/docs/row-evolution/).
+* View the segmented [Visitor Log](https://matomo.org/docs/real-time/#visitor-log) with just one click.
+* Supports other typical Matomo features like flatten, search, and more.
+* View your custom reports on the go with the [Matomo Mobile App](https://matomo.org/mobile/).
+* Create unlimited number of reports [No data limit](https://matomo.org/docs/data-limits/).
+* Supports other premium features like [Media Analytics](https://plugins.matomo.org/MediaAnalytics), [Form Analytics](https://plugins.matomo.org/FormAnalytics) and [Activity Log](https://plugins.matomo.org/ActivityLog).
+
+### Export and API features
+* Get automatic [email and sms reports](https://matomo.org/docs/email-reports/) for your custom reports, or send them to your colleagues or customers
+* [Embed](https://matomo.org/docs/embed-piwik-report/) the custom report widgets directly in your app, dashboard, or even TV screen!
+* HTTP API to manage your custom reports
+* HTTP API to fetch and export all [Custom Reports](https://developer.matomo.org/api-reference/reporting-api#CustomReports)
+* Get access to all the raw data via MySQL for 100% data ownership

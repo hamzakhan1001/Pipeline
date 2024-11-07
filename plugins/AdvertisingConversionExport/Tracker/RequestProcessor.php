@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -72,8 +73,10 @@ class RequestProcessor extends Tracker\RequestProcessor
         $visitorClickId = !empty($existingVisit[0]['adclickid']) ? $existingVisit[0]['adclickid'] : '';
         $visitorClickIdProvider = !empty($existingVisit[0]['adprovider']) ? $existingVisit[0]['adprovider'] : '';
 
-        if ((!empty($this->clickIdAndProvider['adclickid']) && $visitorClickId != $this->clickIdAndProvider['adclickid']) ||
-            (!empty($this->clickIdAndProvider['provider']) && $visitorClickIdProvider != $this->clickIdAndProvider['provider'])) {
+        if (
+            (!empty($this->clickIdAndProvider['adclickid']) && $visitorClickId != $this->clickIdAndProvider['adclickid']) ||
+            (!empty($this->clickIdAndProvider['provider']) && $visitorClickIdProvider != $this->clickIdAndProvider['provider'])
+        ) {
             Common::printDebug('[AdvertisingConversionExport] new click id found in request. Forcing a new visit.');
             $request->setMetadata('CoreHome', 'isNewVisit', true);
         }

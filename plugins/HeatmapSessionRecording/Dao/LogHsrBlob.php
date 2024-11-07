@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Dao;
 
 use Piwik\Common;
@@ -121,9 +123,10 @@ class LogHsrBlob
         $indexSql = '';
         foreach ($indexes as $index) {
             if (
-            (!empty($index['Column_name']) && !empty($index['Key_name']) && $index['Column_name'] === 'idhsrblob')
-            || (!empty($index['Key_name']) && $index['Key_name'] === 'idhsrblob')
-            || (!empty($index['Key_name']) && $index['Key_name'] === 'index_idhsrblob')) {
+                (!empty($index['Column_name']) && !empty($index['Key_name']) && $index['Column_name'] === 'idhsrblob')
+                || (!empty($index['Key_name']) && $index['Key_name'] === 'idhsrblob')
+                || (!empty($index['Key_name']) && $index['Key_name'] === 'index_idhsrblob')
+            ) {
                 $indexSql = 'FORCE INDEX FOR JOIN (' . $index['Key_name'] . ')';
                 break;
             }
@@ -175,4 +178,3 @@ class LogHsrBlob
         return $data;
     }
 }
-

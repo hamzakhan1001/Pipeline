@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,7 +20,6 @@ use Piwik\Plugins\FormAnalytics\Metrics;
 
 class FieldDataArray extends SimpleDataArray
 {
-
     /**
      * Returns an empty row containing default metrics
      *

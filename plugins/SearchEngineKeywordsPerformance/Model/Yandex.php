@@ -13,11 +13,13 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Model;
 
 use Piwik\Common;
 use Piwik\Db;
 use Piwik\DbHelper;
+
 class Yandex
 {
     private static $rawTableName = 'yandex_stats';

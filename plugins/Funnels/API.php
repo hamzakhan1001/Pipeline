@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -14,11 +15,11 @@
  */
 
 namespace Piwik\Plugins\Funnels;
+
 use Piwik\Archive;
 use Piwik\Archive\ArchiveInvalidator;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
-use Piwik\DataAccess\ArchiveSelector;
 use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Piwik;
@@ -670,7 +671,7 @@ class API extends PluginApi
 
         if ($expanded) {
             $stepRow = $stepTable->getRowFromLabel($step);
-            $stepTable= $stepRow->getSubtable();
+            $stepTable = $stepRow->getSubtable();
         }
 
 
@@ -680,11 +681,13 @@ class API extends PluginApi
                 'label',
                 'url',
                 function ($label) {
-                    if ($label === Archiver::LABEL_NOT_DEFINED
+                    if (
+                        $label === Archiver::LABEL_NOT_DEFINED
                         || $label === Archiver::LABEL_VISIT_ENTRY
                         || $label === Archiver::LABEL_VISIT_EXIT
                         || $label === DataTable::ID_SUMMARY_ROW
-                        || $label === -2) { // totals row... cannot use constant since the constant was added only in recent versions
+                        || $label === -2
+                    ) { // totals row... cannot use constant since the constant was added only in recent versions
                         return false;
                     }
 

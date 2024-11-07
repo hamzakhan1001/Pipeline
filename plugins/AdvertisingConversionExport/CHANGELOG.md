@@ -1,10 +1,13 @@
 ## Changelog
 
+__5.1.5__ - 2024-11-04
+* Updated README.md
+
 __5.1.4__ - 2024-10-08
 * Fixes GoogleAds returning only 1 row for some on-premise install
 
 __5.1.3__ - 2024-08-26
-- Pricing updated
+* Pricing updated
 
 __5.1.2__
 * Added code to allow setting consent status via SystemSetting for Google export

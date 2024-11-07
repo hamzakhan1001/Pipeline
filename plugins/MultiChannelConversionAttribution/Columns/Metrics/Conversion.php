@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MultiChannelConversionAttribution\Columns\Metrics;
 
 use Piwik\DataTable;
@@ -101,5 +103,4 @@ class Conversion extends ProcessedMetric
     {
         return array($this->metric);
     }
-
 }

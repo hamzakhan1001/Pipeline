@@ -13,11 +13,13 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Commands;
 
 use Piwik\Plugin\ConsoleCommand;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Importer\Bing;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
+
 /**
  */
 class ImportBing extends ConsoleCommand
@@ -29,7 +31,7 @@ class ImportBing extends ConsoleCommand
     /**
      * @return int
      */
-    protected function doExecute() : int
+    protected function doExecute(): int
     {
         $input = $this->getInput();
         $output = $this->getOutput();

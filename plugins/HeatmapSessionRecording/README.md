@@ -63,3 +63,58 @@ Unveil the narrative behind each click with Heatmaps and Session Recordings. Obs
 Shine a light on user behaviours, revealing actionable insights and opportunities for improvement with Matomo's Heatmaps & Session Recordings plugin.
 
 Start your free 30-day trial and elevate your user experience effortlessly.
+
+### Heatmap visualization features
+* View click, mouse move (hover) and scroll heatmaps
+* View the heatmaps for desktop, tablet and mobile devices
+* See how much of the content is visible on average when users open the website (above the fold)
+* See how far down your visitors scroll
+* Delete an already taken heatmap screenshot
+* Choose between different heatmap widths
+* Apply [segments](https://matomo.org/docs/segmentation/) to drill down your visitors and gain insights into specific target groups
+
+### Recording features
+* Visitor summary shows used browser, operating system, location, viewport resolution, spent time on the page, and more.
+* Video controls like play, pause, replay and seek
+* Video timeline shows you when a certain event like a click, mouse move, or scroll will happen
+* Replays all clicks, mouse movements, scrolls, window resizes, form interactions, and page changes (eg when a popup appears)
+* Replay all recorded page views of a visitor within a session one after another
+* Delete individual recordings
+* Enable autoplay to replay all page views within a visit automatically
+* Change the replay speed
+* Optionally skip long pauses in a recording automatically
+* Use shortcuts when replaying a recorded session
+* View the [Visitor Profile](https://matomo.org/docs/user-profile/) to get all information about a visitor
+* Replay a recorded session directly from the [Visitor Log](https://matomo.org/docs/real-time/#visitor-log)
+* Apply [segments](https://matomo.org/docs/segmentation/) to find the recordings you are interested in
+
+### Manage Heatmap
+* Create unlimited heatmaps
+* Select how many page views you want to record
+* Define on which page a heatmap should be recorded by applying patterns like "starts with", "contains", "regular expressions" to URL, URL path and URL parameter
+* Optionally choose a sample rate
+* Optionally hide certain elements in the heatmap (for example a pop-up)
+* Optionally define on which URL a screenshot should be taken
+* Optionally define custom mobile and tablet breakpoints
+
+### Manage Session Recordings
+* Record unlimited sessions
+* Select how many page views you want to record
+* Optionally restrict on which pages a visitor should be recorded by using patterns like "starts with" based on URL, URL path and URL parameter
+* Optionally choose a sample rate
+* Optionally only record activities when a visitor spends at least a specific time on a page
+* Optionally only record activities when a user has clicked and scrolled at least once
+* Optionally define if keystrokes on text form fields should be captured or not
+* It will literally take you only a few seconds to create a new session recording
+
+### Privacy features
+* Anonymizing / Masking of personal or sensitive information that a user enters into a form field (keystrokes) to not record personal data
+* Possibility to record form fields in plain text except for form fields that may contain personal information
+* Lets you optionally mask any content within the website to avoid the recording of personal information.
+* Supports Matomo's [privacy](https://matomo.org/docs/privacy/) and GDPR features like the right to erase data or the right to export data. GDPR stands for General Data Protection Regulation and is for example also known as RGPD in French, DS-GVO in German
+* The session recording feature can be disabled while keeping the heatmap feature enabled and vice versa.
+
+### Export and API features
+* HTTP API to manage your heatmaps and session recordings
+* HTTP API to fetch and export all [Heatmap & Session Recording reports](https://developer.matomo.org/api-reference/reporting-api#HeatmapSessionRecording)
+* Get access to all the raw data via MySQL for 100% data ownership

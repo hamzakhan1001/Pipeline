@@ -212,6 +212,10 @@
         "ColumnTotalEventsDocumentation": "The number of events that were recorded during this session. For example: click, move, scroll, resize, page changes and form interaction events.",
         "CaptureDomTitle": "Capture Heatmap Snapshot Manually",
         "CaptureDomInlineHelp": "By default, heatmap snapshots are automatically taken on page load. If your page dynamically loads elements (such as with lazy loading) your snapshot could be incomplete. You can manually capture a complete snapshot by enabling this option and executing the following Javascript code in your browser: %1$s %2$sNote:%3$s This option resets automatically after capturing the snapshot.",
-        "MatomoJSNotWritableErrorMessage": "HeatmapSessionRecording: %1$s are currently unable to track visits, because the matomo.js file is read-only. Please see the %2$sdocumentation%3$s about how to make the file writable."
+        "MatomoJSNotWritableErrorMessage": "HeatmapSessionRecording: %1$s are currently unable to track visits, because the matomo.js file is read-only. Please see the %2$sdocumentation%3$s about how to make the file writable.",
+        "Clicks": "Clicks:",
+        "ClickRate": "Click rate:",
+        "Moves": "Moves:",
+        "MoveRate": "Move rate:"
     }
 }

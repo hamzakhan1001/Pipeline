@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -13,6 +14,7 @@
  * @license For license details see https://www.innocraft.com/license
  *
  */
+
 namespace Piwik\Plugins\UsersFlow\DataTable\Filter;
 
 use Piwik\DataTable;
@@ -51,5 +53,4 @@ class ReplaceActionLabels extends BaseFilter
             $this->filterSubTable($summaryRow);
         }
     }
-
 }

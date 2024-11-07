@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Tracker;
 
 use Piwik\Common;
@@ -26,14 +28,14 @@ use Piwik\Tracker\Visit\VisitProperties;
 
 class RequestProcessor extends Tracker\RequestProcessor
 {
-    const VARIATION_ORIGINAL_ID = '0';
-    const VARIATION_NAME_ORIGINAL = 'original';
-    const METADATA_EXPERIMENT = 'experiment';
-    const METADATA_VARIATION_ID = 'variationName';
-    const EVENT_CATEGORY_NAME_ABTESTING = 'abtesting';
-    const METADATA_PLUGIN_NAME = 'AbTesting';
-    const METADATA_NEW_VISIT = 'NEW_VISIT';
-    const METADATA_ABORT_REQUEST = 'ABORT_REQUEST';
+    public const VARIATION_ORIGINAL_ID = '0';
+    public const VARIATION_NAME_ORIGINAL = 'original';
+    public const METADATA_EXPERIMENT = 'experiment';
+    public const METADATA_VARIATION_ID = 'variationName';
+    public const EVENT_CATEGORY_NAME_ABTESTING = 'abtesting';
+    public const METADATA_PLUGIN_NAME = 'AbTesting';
+    public const METADATA_NEW_VISIT = 'NEW_VISIT';
+    public const METADATA_ABORT_REQUEST = 'ABORT_REQUEST';
 
     /**
      * @var LogTable
@@ -56,7 +58,6 @@ class RequestProcessor extends Tracker\RequestProcessor
         list($experimentName, $variationName) = $this->utils->getExperimentAndVarationName($request);
 
         if (!empty($experimentName)) {
-
             // TODO if someone does not provide a valid experiment name, we will still log it as event action instead as it
             // was maybe not meant for abtesting. Also this allows to "correct" values if needed if eg experiment name
             // was logged with wrong name as it will be visible in event report. Or should we simply do nothing in such
@@ -65,9 +66,10 @@ class RequestProcessor extends Tracker\RequestProcessor
             $experiment = $this->utils->getExperiment($experimentName, $request->getIdSite());
             $variationId = $this->utils->getMatchingVariationId($experiment, $variationName);
 
-            if (!empty($experiment) && isset($variationId)
-                && $this->utils->isRunningExperiment($request, $experiment)) {
-
+            if (
+                !empty($experiment) && isset($variationId)
+                && $this->utils->isRunningExperiment($request, $experiment)
+            ) {
                 $this->setIsExperimentRequest($request, $experiment, $variationId);
 
                 // the values were sanitized before, if later a value will be accessed via getParams() it would be
@@ -138,16 +140,13 @@ class RequestProcessor extends Tracker\RequestProcessor
         $variationId = $request->getMetadata(static::METADATA_PLUGIN_NAME, static::METADATA_VARIATION_ID);
 
         if (!empty($experiment) && isset($variationId)) {
-            
             $idVisit = $visitProperties->getProperty('idvisit');
             $idVisitor = $visitProperties->getProperty('idvisitor');
             $idSite = $request->getIdSite();
             $idExperiment = $experiment['idexperiment'];
             $serverTime = Date::factory($request->getCurrentTimestamp())->getDatetime();
             $this->logTable->record($idVisitor, $idVisit, $idSite, $idExperiment, $variationId, $entered = 1, $serverTime);
-
         } elseif ($this->isNewVisit($request)) {
-
             // here we credit the current visit to previously seen experiment variations. Later we might want to make
             // this behaviour optional or limit it to the experiments activated in the last 24 hours only
             $idSite = $request->getIdSite();
@@ -187,10 +186,9 @@ class RequestProcessor extends Tracker\RequestProcessor
     {
         $request->setMetadata(static::METADATA_PLUGIN_NAME, static::METADATA_NEW_VISIT, 1);
     }
-    
+
     private function isNewVisit(Request $request)
     {
         return $request->getMetadata(static::METADATA_PLUGIN_NAME, static::METADATA_NEW_VISIT);
     }
-
 }

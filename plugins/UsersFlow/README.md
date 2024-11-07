@@ -65,3 +65,31 @@ Optimise CTAs, address high-exit pages and tackle any navigational surprises wit
 Every twist, turn, and exit from your site tells a story. Take your web analytics beyond numbers and get a visual map of your visitors' journeys. Learn what captivates them and what might deter them from buying or signing up. Craft a user experience that resonates, converts, and keeps your visitors coming back for more.
 
 Start your free 30-day trial and watch your site thrive like never before. 
+
+### Features
+
+* Displays visitor engagement and lets you find out after how many pages your users exited your site
+* Shows navigation paths for up to 10 interaction steps and more steps can be added optionally
+* For each interaction step, get insights into over 100 pages and for each of those pages see where they went to from that page
+* The visualization lets you configure how many details and how many steps you want to see per interaction
+* Explore traffic through a certain page and get details how they got to that page and where they went afterwards
+* Discover the path for page URLs and page titles
+* Apply segments to dice your analytics reports exactly how you need it
+* Adds several new Users Flow widgets that you can add to your dashboards
+* Quickly see the top paths across all interactions with the "Top Paths" widget or get a quick overview with the "Overview" widget
+* View how your visitors navigate through your website on the go with the [Matomo Mobile app](https://matomo.org/mobile) for iOS and Android
+* Get users flow data for your historical data that you already tracked.
+*
+
+### Privacy features
+* The plugin neither tracks nor stores any additional data and therefore no personal or sensitive information is recorded.
+
+### Export & API features
+* Get automatic [email and sms reports](https://matomo.org/docs/email-reports/) for the top paths in your Matomo, or share them with your colleagues or customers.
+* [Embed](https://matomo.org/docs/embed-piwik-report/) the UsersFlow widgets directly in your app, dashboard, or even TV screen!.
+* All reports are available via the [UsersFlow HTTP Reporting API](https://developer.matomo.org/api-reference/reporting-api#UsersFlow).
+
+### Other features
+* Does not slow down tracking time
+* 100% data ownership
+* No data limit

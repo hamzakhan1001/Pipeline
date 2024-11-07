@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -246,7 +247,6 @@ class CustomReport extends RecordBuilder
 
             // for each group of dimensions, we need to resolve all the metrics in several queries
             foreach ($metricsPlan as $metricsToFetch) {
-
                 $queryBuilder = new QueryBuilder($archiveProcessor->getLogAggregator(), $this->configuration, $archiveProcessor->getParams());
 
                 foreach ($dimensionsGroup['left'] as $index => $dimension) {
@@ -353,10 +353,10 @@ class CustomReport extends RecordBuilder
     {
         $manager = Plugin\Manager::getInstance();
 
-        if (strpos($dimensionId, 'CustomDimension.') === 0
+        if (
+            strpos($dimensionId, 'CustomDimension.') === 0
             && $manager->isPluginActivated('CustomDimensions')
         ) {
-
             try {
                 $configuration = StaticContainer::get('Piwik\Plugins\CustomDimensions\Dao\Configuration');
             } catch (\Exception $e) {
@@ -459,7 +459,6 @@ class CustomReport extends RecordBuilder
         $numDimensions = count($dimensionsInThisRun);
 
         while ($row = $cursor->fetch()) {
-
             if ($isDim1Binary) {
                 $row[$dimensionsInThisRun[0]->getId()] = bin2hex($row[$dimensionsInThisRun[0]->getId()]);
             }
@@ -569,7 +568,7 @@ class CustomReport extends RecordBuilder
             if (!empty($thisColumnValue)) {
                 return $thisColumnValue;
             }
-            if (!empty($columnToSumValue)){
+            if (!empty($columnToSumValue)) {
                 return $columnToSumValue;
             }
         };

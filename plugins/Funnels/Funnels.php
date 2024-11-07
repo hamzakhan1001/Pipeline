@@ -5,9 +5,10 @@
  * Description: Identify and understand where your visitors drop off to increase your conversions, sales and revenue with your existing traffic.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/Funnels
- * Version: 5.3.5
+ * Version: 5.3.6
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -62,11 +63,11 @@ if (defined( 'ABSPATH')
 
 class Funnels extends Plugin
 {
-    const MENU_CATEGORY = 'Funnels_Funnels';
+    public const MENU_CATEGORY = 'Funnels_Funnels';
 
     // todo use constant from Common class in Matomo 4+.
     // we do not use it directly to support Pre Matomo 3.6 versions as well as newer ones.
-    const REFERRER_TYPE_SOCIAL_NETWORK = 7;
+    public const REFERRER_TYPE_SOCIAL_NETWORK = 7;
 
     public function install()
     {
@@ -474,7 +475,7 @@ class Funnels extends Plugin
             $out .= '<span title="' . $message . '" class="icon-ok funnelActivated"></span>';
         } elseif (!empty($funnel['steps'])) {
             $message = Piwik::translate('Funnels_FunnelConfiguredButNotActivated');
-            $out .= '<span title="' . $message .'" class="icon-ok funnelExists"></span>';
+            $out .= '<span title="' . $message . '" class="icon-ok funnelExists"></span>';
         } else {
             $out .= '-';
         }
@@ -540,7 +541,7 @@ class Funnels extends Plugin
         $segment->setSqlSegment('log_funnel.step_position');
         $segment->setAcceptedValues(Piwik::translate('Funnels_SegmentNameStepPositionDescription'));
         $segment->setSuggestedValuesCallback(function ($idSite, $maxValuesToReturn) {
-            $steps = range(1,10);
+            $steps = range(1, 10);
 
             return array_slice($steps, 0, $maxValuesToReturn);
         });

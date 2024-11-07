@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Piwik\Plugins\Cohorts\Visualizations;
-
 
 use Piwik\Common;
 use Piwik\DataTable\Row;
@@ -33,9 +33,9 @@ use Piwik\SettingsPiwik;
  */
 class Cohorts extends HtmlTable
 {
-    const ID = 'cohorts';
-    const FOOTER_ICON_TITLE = '';
-    const FOOTER_ICON = '';
+    public const ID = 'cohorts';
+    public const FOOTER_ICON_TITLE = '';
+    public const FOOTER_ICON = '';
 
     public static function getDefaultConfig()
     {
@@ -60,7 +60,8 @@ class Cohorts extends HtmlTable
 
         $period = Common::getRequestVar('period', false);
         $isUniqueVisitorsEnabled = SettingsPiwik::isUniqueVisitorsEnabled($period);
-        if (!$isUniqueVisitorsEnabled
+        if (
+            !$isUniqueVisitorsEnabled
             && ($metric == 'nb_uniq_visitors'
                 || $metric == 'nb_users')
         ) {
@@ -76,7 +77,8 @@ class Cohorts extends HtmlTable
         $period = Common::getRequestVar('period', false);
         $date = Common::getRequestVar('date', false);
         $filter_limit = $this->requestConfig->filter_limit;
-        if (!empty($period)
+        if (
+            !empty($period)
             && !empty($date)
             && !empty(Piwik::$idPeriods[$period])
         ) {
@@ -170,7 +172,7 @@ class Cohorts extends HtmlTable
     {
         if (strlen($color) == 4) {
             $color = '#' . str_repeat(substr($color, 1, 1), 2) . str_repeat(substr($color, 2, 1), 2) . str_repeat(substr($color, 3, 1), 2);
-        } else if (strlen($color) != 7) {
+        } elseif (strlen($color) != 7) {
             throw new \Exception("Unknown HTML color format '$color'.");
         }
 

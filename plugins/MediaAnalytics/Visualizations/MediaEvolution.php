@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -24,10 +25,10 @@ use Piwik\Plugins\MediaAnalytics\Columns\Metrics\SegmentPlayRate;
 
 class MediaEvolution extends JqplotGraph\Evolution
 {
-    const ID = 'mediaEvolution';
-    const SERIES_COLOR_COUNT = 8;
-    const FOOTER_ICON_TITLE = '';
-    const FOOTER_ICON = '';
+    public const ID = 'mediaEvolution';
+    public const SERIES_COLOR_COUNT = 8;
+    public const FOOTER_ICON_TITLE = '';
+    public const FOOTER_ICON = '';
 
     public function beforeLoadDataTable()
     {
@@ -86,5 +87,4 @@ class MediaEvolution extends JqplotGraph\Evolution
             && !empty($view->requestConfig->request_parameters_to_modify['secondaryDimension'])
             && $view->requestConfig->request_parameters_to_modify['secondaryDimension'] == Archiver::SECONDARY_DIMENSION_MEDIA_SEGMENTS;
     }
-
 }

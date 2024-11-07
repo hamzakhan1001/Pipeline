@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -17,10 +18,9 @@ use Piwik\Updates;
  */
 class Updates_4_2_1 extends Updates
 {
-
     public function doUpdate(Updater $updater)
     {
-        Access::doAsSuperUser(function() {
+        Access::doAsSuperUser(function () {
             $configuration = StaticContainer::get('Piwik\Plugins\MultiChannelConversionAttribution\Configuration');
             $systemSettings = new SystemSettings($configuration);
             $systemSettings->campaignDimensionCombinations->setValue([
@@ -31,6 +31,4 @@ class Updates_4_2_1 extends Updates
             $systemSettings->campaignDimensionCombinations->save();
         });
     }
-
-
 }

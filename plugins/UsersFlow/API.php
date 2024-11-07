@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -37,7 +38,7 @@ use Piwik\Period\Factory as PeriodFactory;
  */
 class API extends \Piwik\Plugin\API
 {
-    const DATA_SOURCE_PAGE_URL = 'page_url';
+    public const DATA_SOURCE_PAGE_URL = 'page_url';
 
     /**
      * @var Configuration
@@ -94,9 +95,11 @@ class API extends \Piwik\Plugin\API
 
         if ($flat) {
             $table->filterSubtables('ColumnCallbackDeleteRow', array('label', function ($value) {
-                if ($value === false
+                if (
+                    $value === false
                     || $value == DataTable::LABEL_SUMMARY_ROW
-                    || $value === Piwik::translate('General_Others')) {
+                    || $value === Piwik::translate('General_Others')
+                ) {
                     return true;
                 }
                 return false;
@@ -228,7 +231,7 @@ class API extends \Piwik\Plugin\API
         $stepSubtable->filter('Sort', array(Metrics::NB_VISITS));
         if ($offsetActionsPerStep && !$requestsTargetLinks) {
             // this way we only show the actions within the others group
-           $stepSubtable->filter('Limit', array($offset = $offsetActionsPerStep, $limit = -1, $keepSummaryRow = true));
+            $stepSubtable->filter('Limit', array($offset = $offsetActionsPerStep, $limit = -1, $keepSummaryRow = true));
         }
 
         $stepSubtable->filter('\Piwik\Plugins\UsersFlow\DataTable\Filter\ReplaceActionLabels');
@@ -259,8 +262,15 @@ class API extends \Piwik\Plugin\API
             $recordName = Archiver::USERSFLOW_ARCHIVE_RECORD;
         }
 
-        return Archive::createDataTableFromArchive($recordName,
-            $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
+        return Archive::createDataTableFromArchive(
+            $recordName,
+            $idSite,
+            $period,
+            $date,
+            $segment,
+            $expanded,
+            $flat,
+            $idSubtable
+        );
     }
-
 }

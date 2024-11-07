@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,7 +20,7 @@ use Piwik\Piwik;
 
 class LastClick extends AttributionModelAbstract
 {
-    const ID = 'lastClick';
+    public const ID = 'lastClick';
 
     public function getExportName(): string
     {
@@ -30,5 +31,4 @@ class LastClick extends AttributionModelAbstract
     {
         return Piwik::translate('AdvertisingConversionExport_LastClickAttributionModel');
     }
-
 }

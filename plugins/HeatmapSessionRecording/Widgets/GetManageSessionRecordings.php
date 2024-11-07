@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,7 +20,6 @@ use Piwik\Common;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
 use Piwik\Plugins\HeatmapSessionRecording\HeatmapSessionRecording;
-use Piwik\Plugins\HeatmapSessionRecording\SystemSettings;
 use Piwik\Widget\Widget;
 use Piwik\Widget\WidgetConfig;
 
@@ -52,7 +52,15 @@ class GetManageSessionRecordings extends Widget
         $idSite = Common::getRequestVar('idSite', null, 'int');
         self::getAccessValidator()->checkWritePermission($idSite);
 
-        return sprintf('<div vue-entry="HeatmapSessionRecording.SessionRecordingManage" pause-reason="%s" is-matomo-js-writable="%d"></div>', Piwik::translate(HeatmapSessionRecording::getTranslationKey('pause'), [Piwik::translate('HeatmapSessionRecording_Heatmap')]), HeatmapSessionRecording::isMatomoJsWritable());
+        return sprintf(
+            '<div vue-entry="HeatmapSessionRecording.SessionRecordingManage" pause-reason="%s" is-matomo-js-writable="%d"></div>',
+            Piwik::translate(
+                HeatmapSessionRecording::getTranslationKey('pause'),
+                [
+                    Piwik::translate('HeatmapSessionRecording_Heatmap')
+                ]
+            ),
+            HeatmapSessionRecording::isMatomoJsWritable()
+        );
     }
-
 }

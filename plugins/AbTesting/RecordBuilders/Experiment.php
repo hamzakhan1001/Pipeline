@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -225,7 +226,6 @@ class Experiment extends RecordBuilder
                     $this->addRowsToRecord($record, $cursor);
                 }
             }
-
         }
 
         if (!empty($labels) && $this->configuration->isUniqueVisitorArchivingEnabled()) {
@@ -235,7 +235,7 @@ class Experiment extends RecordBuilder
 
             if (!$today->isEarlier($startDate)) {
                 // when the ab test is already running also calculate the unique visitors metrics for the whole test time
-                $period = Period\Factory::build('range', $startDate->toString().','.$today->toString());
+                $period = Period\Factory::build('range', $startDate->toString() . ',' . $today->toString());
                 $newParams = new ArchiveProcessor\Parameters($params->getSite(), $period, $params->getSegment());
                 $logAggregator = new LogAggregator($newParams);
                 $periodAggregator = new Aggregator($logAggregator);
@@ -293,13 +293,11 @@ class Experiment extends RecordBuilder
         }
         $experimentMetrics = $this->getSuccessMetricsFromExperiment();
         foreach ($experimentMetrics as $metricName) {
-
             foreach ($neededMetric as $m) {
                 if ($metricName === $m) {
                     return true;
                 }
             }
-
         }
 
         return false;

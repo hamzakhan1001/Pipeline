@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -43,7 +44,8 @@ class CohortRecordProcessor
             foreach ($table->getRows() as $key => $row) {
                 $label = $row->getColumn('label');
                 $time = (int) $label;
-                if ($time < $startTime
+                if (
+                    $time < $startTime
                     || $time >= $endTime
                 ) {
                     $table->deleteRow($key);
@@ -81,7 +83,8 @@ class CohortRecordProcessor
         // if unique visitors need to be merged into this report (because it's non-day, but unique visitors are enabled.
         // merge the COHORTS_UNIQUE_VISITORS_ARCHIVE_RECORD record in). for day periods, unique visitors is stored in the
         // same record.
-        if ($isUniqueVisitorsEnabled
+        if (
+            $isUniqueVisitorsEnabled
             && $period !== 'day'
         ) {
             $uniqueVisitorsData = $archive->getDataTable(Archiver::COHORTS_UNIQUE_VISITORS_ARCHIVE_RECORD);
@@ -119,7 +122,8 @@ class CohortRecordProcessor
         $record->queueFilter(function (DataTable $table) {
             foreach ($table->getRows() as $row) {
                 $goalsColumn = $row->getColumn(Metrics::INDEX_GOALS);
-                if (empty($goalsColumn)
+                if (
+                    empty($goalsColumn)
                     || !is_array($goalsColumn)
                 ) {
                     continue;
@@ -129,12 +133,13 @@ class CohortRecordProcessor
                     $idGoal = str_replace('idgoal=', '', $idGoalExpr);
                     if ($idGoal == GoalManager::IDGOAL_ORDER) {
                         $idGoal = Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER;
-                    } else if ($idGoal == GoalManager::IDGOAL_CART) {
+                    } elseif ($idGoal == GoalManager::IDGOAL_CART) {
                         $idGoal = Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_CART;
                     }
 
                     foreach ($metrics as $metric => $value) {
-                        if (is_numeric($metric)
+                        if (
+                            is_numeric($metric)
                             && isset(Metrics::$mappingFromIdToNameGoal[$metric])
                         ) {
                             $metric = Metrics::$mappingFromIdToNameGoal[$metric];

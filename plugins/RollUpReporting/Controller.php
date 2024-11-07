@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Piwik - free/libre analytics platform
  *
@@ -9,14 +10,13 @@
 
 namespace Piwik\Plugins\RollUpReporting;
 
-
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
 
 class Controller extends \Piwik\Plugin\ControllerAdmin
 {
-    function getNoAccessNotification()
+    public function getNoAccessNotification()
     {
         $this->checkTokenInUrl();
         $idSite = Common::getRequestVar('idSite', 0, 'int');

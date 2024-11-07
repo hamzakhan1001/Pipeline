@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -26,7 +27,7 @@ class GetVideoResolutions extends Base
         parent::init();
 
         $this->setDefaultMetrics();
-        
+
         $this->name = Piwik::translate('MediaAnalytics_VideoResolutions');
         $this->documentation = Piwik::translate('MediaAnalytics_ReportDocumentationVideoResolutions');
         $this->dimension = new Resolution();
@@ -50,5 +51,4 @@ class GetVideoResolutions extends Base
     {
         return array(); // eg return array(new XyzReport());
     }
-
 }

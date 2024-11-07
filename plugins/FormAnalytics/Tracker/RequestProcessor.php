@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Tracker;
 
 use Piwik\Common;
@@ -28,44 +30,44 @@ use Piwik\Plugins\FormAnalytics\Actions\ActionForm;
 
 class RequestProcessor extends Tracker\RequestProcessor
 {
-    const MAX_FORM_ID_VIEW_LENGTH = 6;
+    public const MAX_FORM_ID_VIEW_LENGTH = 6;
     /**
      * FORM CONSTANTS
      */
-    const PARAM_FORM_ID_VIEW = 'fa_vid';
-    const PARAM_FORM_ID = 'fa_id';
-    const PARAM_FORM_NAME = 'fa_name';
-    const PARAM_FORM_HESITATION_TIME = 'fa_ht';
-    const PARAM_FORM_TIME_SPENT = 'fa_ts';
-    const PARAM_FORM_TIME_TO_SUBMISSION = 'fa_tts';
-    const PARAM_FORM_ENTRY_FIELD = 'fa_ef';
-    const PARAM_FORM_EXIT_FIELD = 'fa_lf';
-    const PARAM_FORM_IS_SUBMIT = 'fa_su';
-    const PARAM_FORM_IS_CONVERSION = 'fa_co';
-    const PARAM_FORM_IS_CONVERSION_ID = 'fa_cv';
-    const PARAM_FORM_VIEW = 'fa_fv';
-    const PARAM_FORM_START = 'fa_st';
-    const PARAM_FORM_WITH_PAGEVIEW_REQUEST = 'fa_pv';
-    const PARAM_FORMS_WITH_PAGEVIEW = 'fa_fp';
+    public const PARAM_FORM_ID_VIEW = 'fa_vid';
+    public const PARAM_FORM_ID = 'fa_id';
+    public const PARAM_FORM_NAME = 'fa_name';
+    public const PARAM_FORM_HESITATION_TIME = 'fa_ht';
+    public const PARAM_FORM_TIME_SPENT = 'fa_ts';
+    public const PARAM_FORM_TIME_TO_SUBMISSION = 'fa_tts';
+    public const PARAM_FORM_ENTRY_FIELD = 'fa_ef';
+    public const PARAM_FORM_EXIT_FIELD = 'fa_lf';
+    public const PARAM_FORM_IS_SUBMIT = 'fa_su';
+    public const PARAM_FORM_IS_CONVERSION = 'fa_co';
+    public const PARAM_FORM_IS_CONVERSION_ID = 'fa_cv';
+    public const PARAM_FORM_VIEW = 'fa_fv';
+    public const PARAM_FORM_START = 'fa_st';
+    public const PARAM_FORM_WITH_PAGEVIEW_REQUEST = 'fa_pv';
+    public const PARAM_FORMS_WITH_PAGEVIEW = 'fa_fp';
 
-    const PARAM_PAGE_ID_VIEW = 'pv_id';
+    public const PARAM_PAGE_ID_VIEW = 'pv_id';
 
     /**
      * FORM FIELD CONSTANTS
      */
-    const PARAM_FORM_FIELD_NAME = 'fa_fn';
-    const PARAM_FORM_FIELD_HESITATION_TIME = 'fa_fht';
-    const PARAM_FORM_FIELD_TIME_SPENT = 'fa_fts';
-    const PARAM_FORM_FIELD_NUM_FOCUS= 'fa_ff';
-    const PARAM_FORM_FIELD_NUM_CHANGES = 'fa_fch';
-    const PARAM_FORM_FIELD_NUM_DELETES = 'fa_fd';
-    const PARAM_FORM_FIELD_NUM_CURSOR = 'fa_fcu';
-    const PARAM_FORM_FIELD_TYPE = 'fa_ft';
-    const PARAM_FORM_FIELD_SIZE = 'fa_fs';
-    const PARAM_FORM_FIELD_BLANK = 'fa_fb';
-    const PARAM_FORM_FIELDS = 'fa_fields';
+    public const PARAM_FORM_FIELD_NAME = 'fa_fn';
+    public const PARAM_FORM_FIELD_HESITATION_TIME = 'fa_fht';
+    public const PARAM_FORM_FIELD_TIME_SPENT = 'fa_fts';
+    public const PARAM_FORM_FIELD_NUM_FOCUS = 'fa_ff';
+    public const PARAM_FORM_FIELD_NUM_CHANGES = 'fa_fch';
+    public const PARAM_FORM_FIELD_NUM_DELETES = 'fa_fd';
+    public const PARAM_FORM_FIELD_NUM_CURSOR = 'fa_fcu';
+    public const PARAM_FORM_FIELD_TYPE = 'fa_ft';
+    public const PARAM_FORM_FIELD_SIZE = 'fa_fs';
+    public const PARAM_FORM_FIELD_BLANK = 'fa_fb';
+    public const PARAM_FORM_FIELDS = 'fa_fields';
 
-    const MYSQL_MAX_MEDIUM_UINT = 16777215;
+    public const MYSQL_MAX_MEDIUM_UINT = 16777215;
 
     /**
      * @var LogForm
@@ -221,7 +223,7 @@ class RequestProcessor extends Tracker\RequestProcessor
             if ($isFormRequestButSentAlongWithPageview && $idFormView) {
                 // only there for BC for older JS tracker versions.. can be removed eventually.
                 // The logic in JS tracker was changed in September 2017 so could remove this case around January to March 2018
-                $this->processFormParams($idSite, $params,  $pageUrl, $idVisit, $idVisitor, $request, $action);
+                $this->processFormParams($idSite, $params, $pageUrl, $idVisit, $idVisitor, $request, $action);
             } elseif ($isFormRequestButSentAlongWithPageview) {
                 $originalParams = $params;
 
@@ -229,7 +231,7 @@ class RequestProcessor extends Tracker\RequestProcessor
                 if (!empty($formsParams)) {
                     foreach ($formsParams as $formParams) {
                         $formParams = array_merge($originalParams, $formParams);
-                        $this->processFormParams($idSite, $formParams,  $pageUrl, $idVisit, $idVisitor, $request, $action);
+                        $this->processFormParams($idSite, $formParams, $pageUrl, $idVisit, $idVisitor, $request, $action);
                     }
                 }
             }
@@ -237,7 +239,7 @@ class RequestProcessor extends Tracker\RequestProcessor
             return;
         }
 
-        $this->processFormParams($idSite, $params,  $pageUrl, $idVisit, $idVisitor, $request, $action);
+        $this->processFormParams($idSite, $params, $pageUrl, $idVisit, $idVisitor, $request, $action);
     }
 
     private function processFormParams($idSite, $params, $pageUrl, $idVisit, $idVisitor, Request $request, Tracker\Action $action)
@@ -331,7 +333,7 @@ class RequestProcessor extends Tracker\RequestProcessor
         if (!empty($idLogForm) && !empty($idLogFormPage) && !empty($fields) && is_array($fields)) {
             $fieldsAllowedLimit = $this->configuration->getNumberOfFormFieldsAllowed();
             if (count($fields) > $fieldsAllowedLimit) {
-                throw new Exception('Maximum number of form fields allowed is '.$fieldsAllowedLimit);
+                throw new Exception('Maximum number of form fields allowed is ' . $fieldsAllowedLimit);
             }
             $this->manager->completeFormFieldsIfNeeded($form, $fields);
 
@@ -373,7 +375,6 @@ class RequestProcessor extends Tracker\RequestProcessor
                             $field[static::PARAM_FORM_FIELD_NUM_CURSOR]
                         );
                     }
-
                 }
             }
         }
@@ -433,5 +434,4 @@ class RequestProcessor extends Tracker\RequestProcessor
 
         return false;
     }
-
 }

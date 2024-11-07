@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,20 +16,18 @@
 
 namespace Piwik\Plugins\SEOWebVitals\Dao;
 
-use Piwik\Common;
 use Piwik\Piwik;
 
 class PageSpeedReport
 {
+    public const ERROR_SITE_NOT_ACCESSIBLE = 'site_not_accessible';
+    public const ERROR_SSL_REQUIRED = 'ssl_required';
+    public const ERROR_ACCESS_DENIED = 'access_denied';
 
-    const ERROR_SITE_NOT_ACCESSIBLE = 'site_not_accessible';
-    const ERROR_SSL_REQUIRED = 'ssl_required';
-    const ERROR_ACCESS_DENIED = 'access_denied';
-
-    const CATEGORY_FAST = 3;
-    const CATEGORY_AVERAGE = 2;
-    const CATEGORY_SLOW = 1;
-    const CATEGORY_NONE = 0;
+    public const CATEGORY_FAST = 3;
+    public const CATEGORY_AVERAGE = 2;
+    public const CATEGORY_SLOW = 1;
+    public const CATEGORY_NONE = 0;
 
     private $report = [];
 
@@ -206,5 +205,4 @@ class PageSpeedReport
     {
         return !empty($this->report['loadingExperience']['metrics']);
     }
-
 }

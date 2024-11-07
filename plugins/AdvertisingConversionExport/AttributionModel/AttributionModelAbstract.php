@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -22,7 +23,7 @@ abstract class AttributionModelAbstract extends Singleton
     /**
      * internal model id
      */
-    const ID = '';
+    public const ID = '';
 
     /**
      * Returns internal provider id
@@ -47,5 +48,4 @@ abstract class AttributionModelAbstract extends Singleton
      * @return string
      */
     abstract public function getTranslatedName(): string;
-
 }

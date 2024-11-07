@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -126,7 +127,8 @@ class API extends \Piwik\Plugin\API
      *                               For a list of available attribute and type values call {@link getAvailableTargetPageRules()}.
      *                               "inverted" should be "0" or "1".
      * @param int $sampleLimit    The number of page views you want to record. Once the sample limit has been reached, the heatmap will be ended automatically.
-     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%. Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
+     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%.
+     * Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
      * @param string $excludedElements  Optional, a comma separated list of CSS selectors to exclude elements from being shown in the heatmap. For example to disable popups etc.
      * @param string $screenshotUrl    Optional, a URL to define on which page a screenshot should be taken.
      * @param int $breakpointMobile    If the device type cannot be detected, we will put any device having a lower width than this value into the mobile category. Useful if your website is responsive.
@@ -188,7 +190,8 @@ class API extends \Piwik\Plugin\API
      *                               For a list of available attribute and type values call {@link getAvailableTargetPageRules()}.
      *                               "inverted" should be "0" or "1".
      * @param int $sampleLimit    The number of page views you want to record. Once the sample limit has been reached, the heatmap will be ended automatically.
-     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%. Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
+     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%.
+     * Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
      * @param string $excludedElements  Optional, a comma separated list of CSS selectors to exclude elements from being shown in the heatmap. For example to disable popups etc.
      * @param string $screenshotUrl    Optional, a URL to define on which page a screenshot should be taken.
      * @param int $breakpointMobile    If the device type cannot be detected, we will put any device having a lower width than this value into the mobile category. Useful if your website is responsive.
@@ -253,10 +256,12 @@ class API extends \Piwik\Plugin\API
      *                               "inverted" should be "0" or "1". Leave it empty to record any page.
      *                               If page rules are set, a session will be only recorded as soon as a visitor has reached a page that matches these rules.
      * @param int $sampleLimit    The number of sessions you want to record. Once the sample limit has been reached, the session recording will be ended automatically.
-     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%. Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
+     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%.
+     * Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
      * @param int $minSessionTime     If defined, will only record sessions when the visitor has spent more than this many seconds on the current page.
      * @param int $requiresActivity   If enabled (default), the session will be only recorded if the visitor has at least scrolled and clicked once.
-     * @param int $captureKeystrokes  If enabled (default), any text that a user enters into text form elements will be recorded. Password fields will be automatically masked and you can mask other elements with sensitive data using a data-matomo-mask attribute.
+     * @param int $captureKeystrokes  If enabled (default), any text that a user enters into text form elements will be recorded.
+     * Password fields will be automatically masked and you can mask other elements with sensitive data using a data-matomo-mask attribute.
      * @return int
      */
     public function addSessionRecording($idSite, $name, $matchPageRules = array(), $sampleLimit = 1000, $sampleRate = 10, $minSessionTime = 0, $requiresActivity = true, $captureKeystrokes = true)
@@ -285,10 +290,12 @@ class API extends \Piwik\Plugin\API
      *                               "inverted" should be "0" or "1". Leave it empty to record any page.
      *                               If page rules are set, a session will be only recorded as soon as a visitor has reached a page that matches these rules.
      * @param int $sampleLimit    The number of sessions you want to record. Once the sample limit has been reached, the session recording will be ended automatically.
-     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%. Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
+     * @param float $sampleRate     Needs to be between 0 and 100 where 100 means => 100%, 10 => 10%, 0.1 => 0.1%.
+     * Defines how often a visitor will be actually recorded when they match the page rules, also known as "traffic". Currently max one decimal is supported.
      * @param int $minSessionTime     If defined, will only record sessions when the visitor has spent more than this many seconds on the current page.
      * @param int $requiresActivity   If enabled (default), the session will be only recorded if the visitor has at least scrolled and clicked once.
-     * @param int $captureKeystrokes  If enabled (default), any text that a user enters into text form elements will be recorded. Password fields will be automatically masked and you can mask other elements with sensitive data using a data-matomo-mask attribute.
+     * @param int $captureKeystrokes  If enabled (default), any text that a user enters into text form elements will be recorded.
+     * Password fields will be automatically masked and you can mask other elements with sensitive data using a data-matomo-mask attribute.
      */
     public function updateSessionRecording($idSite, $idSiteHsr, $name, $matchPageRules = array(), $sampleLimit = 1000, $sampleRate = 10, $minSessionTime = 0, $requiresActivity = true, $captureKeystrokes = true)
     {
@@ -590,14 +597,14 @@ class API extends \Piwik\Plugin\API
             $table->disableFilter('Sort');
         }
 
-	    if (!method_exists(SettingsServer::class, 'isMatomoForWordPress') || !SettingsServer::isMatomoForWordPress()) {
-	        $table->queueFilter(function (DataTable $table) use ($idSite, $idSiteHsr, $period, $date) {
-	            foreach ($table->getRowsWithoutSummaryRow() as $row) {
-	                $idLogHsr = $row->getColumn('idloghsr');
-	                $row->setMetadata('sessionReplayUrl', SiteHsrModel::completeWidgetUrl('replayRecording', 'idSiteHsr=' . (int) $idSiteHsr . '&idLogHsr=' . (int) $idLogHsr, $idSite, $period, $date));
-	            }
-	        });
-	    }
+        if (!method_exists(SettingsServer::class, 'isMatomoForWordPress') || !SettingsServer::isMatomoForWordPress()) {
+            $table->queueFilter(function (DataTable $table) use ($idSite, $idSiteHsr, $period, $date) {
+                foreach ($table->getRowsWithoutSummaryRow() as $row) {
+                    $idLogHsr = $row->getColumn('idloghsr');
+                    $row->setMetadata('sessionReplayUrl', SiteHsrModel::completeWidgetUrl('replayRecording', 'idSiteHsr=' . (int) $idSiteHsr . '&idLogHsr=' . (int) $idLogHsr, $idSite, $period, $date));
+                }
+            });
+        }
 
         $table->filter('Piwik\Plugins\HeatmapSessionRecording\DataTable\Filter\EnrichRecordedSessions');
 
@@ -989,5 +996,4 @@ class API extends \Piwik\Plugin\API
                 'key' => RequestProcessor::EVENT_TYPE_SCROLL_ELEMENT),
         );
     }
-
 }

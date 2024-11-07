@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Importer;
 
 use Piwik\ArchiveProcessor;
@@ -40,6 +41,7 @@ use Piwik\Segment;
 use Piwik\Site;
 use Piwik\Log\LoggerInterface;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Bing as Provider;
+
 class Bing
 {
     /**
@@ -217,7 +219,15 @@ class Bing
     {
         $dataTable = new DataTable();
         foreach ($keywords as $keywordDataSet) {
-            $rowData = [DataTable\Row::COLUMNS => ['label' => $keywordDataSet['keyword'], Metrics::NB_CLICKS => (int) $keywordDataSet['clicks'], Metrics::NB_IMPRESSIONS => (int) $keywordDataSet['impressions'], Metrics::CTR => (float) round($keywordDataSet['clicks'] / $keywordDataSet['impressions'], 2), Metrics::POSITION => (float) $keywordDataSet['position']]];
+            $rowData = [
+                DataTable\Row::COLUMNS => [
+                    'label' => $keywordDataSet['keyword'],
+                    Metrics::NB_CLICKS => (int) $keywordDataSet['clicks'],
+                    Metrics::NB_IMPRESSIONS => (int) $keywordDataSet['impressions'],
+                    Metrics::CTR => (float) round($keywordDataSet['clicks'] / $keywordDataSet['impressions'], 2),
+                    Metrics::POSITION => (float) $keywordDataSet['position']
+                ]
+            ];
             $row = new DataTable\Row($rowData);
             $dataTable->addRow($row);
         }

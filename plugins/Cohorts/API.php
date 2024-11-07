@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -125,7 +126,8 @@ class API extends \Piwik\Plugin\API
         foreach ($columnsData->getDataTables() as $label => $table) {
             /** @var Period $period */
             $periodObj = $table->getMetadata('period');
-            if ($periodObj->getDateStart()->isEarlier($multiplePeriod->getDateStart())
+            if (
+                $periodObj->getDateStart()->isEarlier($multiplePeriod->getDateStart())
                 || $periodObj->getDateEnd()->isLater($multiplePeriod->getDateEnd())
             ) {
                 $columnsData->deleteRow($label);
@@ -136,7 +138,9 @@ class API extends \Piwik\Plugin\API
         $today = Date::today();
 
         $cohortDates = explode(',', $cohorts);
-        $cohortDates = array_map(function ($d) { return Date::factory($d); }, $cohortDates);
+        $cohortDates = array_map(function ($d) {
+            return Date::factory($d);
+        }, $cohortDates);
         $columnsData->filter(function (DataTable $table) use ($individualPeriodType, $cohortDates, $today) {
             foreach ($cohortDates as $cohortDate) {
                 if ($cohortDate->isLater($today)) { // sanity check
@@ -248,7 +252,8 @@ class API extends \Piwik\Plugin\API
                 $columnPeriodDateObj = $this->getNthPeriodDate($period, $i);
                 $columnPeriodDate = $this->getColumnsTableKeyForPeriod($columnPeriodDateObj);
 
-                if (!$columnsData->hasTable($columnPeriodDate)
+                if (
+                    !$columnsData->hasTable($columnPeriodDate)
                     || $columnPeriodDateObj->getDateEnd()->getEndOfDay()->isLater($today)
                 ) {
                     continue;
@@ -296,7 +301,8 @@ class API extends \Piwik\Plugin\API
                 $columnPeriodDateObj = $this->getNthPeriodDate($period, $i);
                 $columnPeriodDate = $this->getColumnsTableKeyForPeriod($columnPeriodDateObj);
 
-                if (!$columnsData->hasTable($columnPeriodDate)
+                if (
+                    !$columnsData->hasTable($columnPeriodDate)
                     || $columnPeriodDateObj->getDateEnd()->getEndOfDay()->isLater($today)
                 ) {
                     continue;
@@ -400,7 +406,8 @@ class API extends \Piwik\Plugin\API
 
     private function checkMultiplePeriod($period, $date)
     {
-        if (!Period::isMultiplePeriod($date, $period)
+        if (
+            !Period::isMultiplePeriod($date, $period)
             && $period !== 'range'
         ) {
             throw new \Exception("This API method can only be used with multiple periods/ranges.");
@@ -417,12 +424,13 @@ class API extends \Piwik\Plugin\API
 
     private function formatEmptyValue($metric, $currency)
     {
-        if (strpos($metric, 'rate') !== false
+        if (
+            strpos($metric, 'rate') !== false
             || strpos($metric, 'evolution') !== false
             || strpos($metric, 'percent') !== false
         ) {
             return '0.00%';
-        } else if (strpos($metric, 'revenue') !== false) {
+        } elseif (strpos($metric, 'revenue') !== false) {
             return $this->numberFormatter->formatCurrency(0, $currency);
         } else {
             return 0;

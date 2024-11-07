@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,9 +16,9 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
-use \Piwik\Plugins\HeatmapSessionRecording\Tracker;
+use Piwik\Plugins\HeatmapSessionRecording\Tracker;
 
 class PageRule
 {
@@ -76,5 +77,4 @@ class PageRule
             }
         }
     }
-
 }

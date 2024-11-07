@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -83,8 +84,6 @@ class Tasks extends \Piwik\Plugin\Tasks
                     $this->experiments->setStatus($experiment['idexperiment'], $experiment['idsite'], Experiments::STATUS_FINISHED);
                 }
             }
-
         }
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,13 +20,13 @@ use Piwik\Config;
 
 class Configuration
 {
-    const DEFAULT_NUM_ENTRIES_IN_ACTIONS = 100;
-    const DEFAULT_NUM_ENTRIES_IN_REFERRERS = 50;
-    const DEFAULT_NUM_ROWS_POPULATE_AT_ONCE = 60000;
+    public const DEFAULT_NUM_ENTRIES_IN_ACTIONS = 100;
+    public const DEFAULT_NUM_ENTRIES_IN_REFERRERS = 50;
+    public const DEFAULT_NUM_ROWS_POPULATE_AT_ONCE = 60000;
 
-    const KEY_MAX_ACTION_ROWS = 'funnels_num_max_rows_in_actions';
-    const KEY_MAX_REFERRERS_ROWS = 'funnels_num_max_rows_in_referrers';
-    const KEY_MAX_POPULATE_AT_ONCE = 'funnels_num_max_rows_populate_at_once';
+    public const KEY_MAX_ACTION_ROWS = 'funnels_num_max_rows_in_actions';
+    public const KEY_MAX_REFERRERS_ROWS = 'funnels_num_max_rows_in_referrers';
+    public const KEY_MAX_POPULATE_AT_ONCE = 'funnels_num_max_rows_populate_at_once';
 
     public function install()
     {
@@ -55,7 +56,7 @@ class Configuration
 
         $numEntries = null;
 
-        if (!empty($funnels[self::KEY_MAX_REFERRERS_ROWS])){
+        if (!empty($funnels[self::KEY_MAX_REFERRERS_ROWS])) {
             $numEntries = (int) $funnels[self::KEY_MAX_REFERRERS_ROWS];
         }
 
@@ -77,7 +78,7 @@ class Configuration
 
         $numEntries = null;
 
-        if (!empty($funnels[self::KEY_MAX_ACTION_ROWS])){
+        if (!empty($funnels[self::KEY_MAX_ACTION_ROWS])) {
             $numEntries = (int) $funnels[self::KEY_MAX_ACTION_ROWS];
         }
 
@@ -99,7 +100,7 @@ class Configuration
 
         $numEntries = null;
 
-        if (!empty($funnels[self::KEY_MAX_POPULATE_AT_ONCE])){
+        if (!empty($funnels[self::KEY_MAX_POPULATE_AT_ONCE])) {
             $numEntries = (int) $funnels[self::KEY_MAX_POPULATE_AT_ONCE];
         }
 

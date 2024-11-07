@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,11 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Widgets;
 
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
-use Piwik\Piwik;
 use Piwik\Plugins\FormAnalytics\Model\FormsModel;
 use Piwik\Widget\WidgetConfig;
 
@@ -66,5 +67,4 @@ class GettingStarted extends BaseWidget
             'isAdmin' => $isAdmin
         ));
     }
-
 }

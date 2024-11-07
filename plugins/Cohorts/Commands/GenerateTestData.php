@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -28,8 +29,8 @@ use Piwik\Tracker;
 
 class GenerateTestData extends ConsoleCommand
 {
-    const APACHE_LOG_FORMAT = '%s - - [%s] "GET %s HTTP/1.1" 200 %s "%s" "%s"';
-    const STANDARD_VISIT_LENGTH = 1800;
+    public const APACHE_LOG_FORMAT = '%s - - [%s] "GET %s HTTP/1.1" 200 %s "%s" "%s"';
+    public const STANDARD_VISIT_LENGTH = 1800;
 
     /**
      * @var string
@@ -86,17 +87,35 @@ class GenerateTestData extends ConsoleCommand
         $endDate = Date::factory($dateRange[1]);
         for ($date = $startDate; $date->isEarlier($endDate); $date = $date->addDay(1)) {
             [$newVisits, $returningVisits] = $this->generateVisits(
-                $idSite, $date, $visitPool, $visitors, $firstVisitTimes, $minNewVisitsPerDay, $maxNewVisitsPerDay, $minChanceReturningVisit,
-                $maxChanceReturningVisit, $outFile);
+                $idSite,
+                $date,
+                $visitPool,
+                $visitors,
+                $firstVisitTimes,
+                $minNewVisitsPerDay,
+                $maxNewVisitsPerDay,
+                $minChanceReturningVisit,
+                $maxChanceReturningVisit,
+                $outFile
+            );
             $this->getOutput()->writeln("Generated $newVisits new visits and $returningVisits returning visits for $date.");
         }
 
         return self::SUCCESS;
     }
 
-    private function generateVisits($idSite, Date $date, $visitPool, &$visitors, &$firstVisitTimes, $minNewVisitsPerDay,
-                                    $maxNewVisitsPerDay, $minChanceReturningVisit, $maxChanceReturningVisit, $outFile)
-    {
+    private function generateVisits(
+        $idSite,
+        Date $date,
+        $visitPool,
+        &$visitors,
+        &$firstVisitTimes,
+        $minNewVisitsPerDay,
+        $maxNewVisitsPerDay,
+        $minChanceReturningVisit,
+        $maxChanceReturningVisit,
+        $outFile
+    ) {
         $visitsToReplay = [];
 
         $returningVisits = 0;

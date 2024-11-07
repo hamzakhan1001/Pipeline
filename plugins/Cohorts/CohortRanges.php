@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -39,7 +40,7 @@ class CohortRanges
         if ($period == 'range') {
             $periodObj = Factory::build($period, $date);
             $date = $periodObj->getRangeString();
-        } else if (!Period::isMultiplePeriod($date, $period)) {
+        } elseif (!Period::isMultiplePeriod($date, $period)) {
             // Get the first day of the period so that the graph loads correctly
             $periodObj = Factory::build($period, $date);
             $date = $periodObj->getDateStart();

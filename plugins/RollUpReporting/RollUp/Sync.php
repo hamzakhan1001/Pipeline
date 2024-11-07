@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -70,7 +71,7 @@ class Sync
         if (!empty($childIdSites)) {
             // We need to execute this block of code as there are chances that a Measurable will be updated by a Admin and he/she won't have access to all the sites part of a Rollup
             // If not added an Admin will get following error on update of such measurable - You can't access this resource as it requires 'view' access for the website id = {idSite}
-            Access::doAsSuperUser(function () use ($idSiteRollUp,$childIdSites) {
+            Access::doAsSuperUser(function () use ($idSiteRollUp, $childIdSites) {
                 $hasEcommerce = 0;
                 $hasSiteSearch = 0;
                 $creationDateString = Site::getCreationDateFor($idSiteRollUp);
@@ -95,7 +96,12 @@ class Sync
 
                 // we do not use Request::processRequest since this would trigger an API.SitesManager.updateSite.end
                 // event and we might end up in this method again causing an endless loop
-                API::getInstance()->updateSite($idSiteRollUp, $siteName = null, $urls = null, $hasEcommerce, $hasSiteSearch,
+                API::getInstance()->updateSite(
+                    $idSiteRollUp,
+                    $siteName = null,
+                    $urls = null,
+                    $hasEcommerce,
+                    $hasSiteSearch,
                     $searchKeywordParameters = null,
                     $searchCategoryParameters = null,
                     $excludedIps = null,
@@ -103,7 +109,8 @@ class Sync
                     $timezone = null,
                     $currency = null,
                     $group = null,
-                    $creationDateString);
+                    $creationDateString
+                );
             });
         }
     }

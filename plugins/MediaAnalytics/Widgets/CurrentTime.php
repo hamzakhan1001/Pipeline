@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
 use Piwik\API\Request;
@@ -23,7 +25,7 @@ class CurrentTime extends BaseLiveWidget
     public static function configure(WidgetConfig $config)
     {
         parent::configure($config);
-        
+
         $idSite = self::getIdSite();
         $config->setName('MediaAnalytics_WidgetTitleSpentTime');
         $config->setOrder(100);
@@ -53,5 +55,4 @@ class CurrentTime extends BaseLiveWidget
 
         return $this->renderLiveMetrics('currentTime', $last30, $last1440, 'prettyTime');
     }
-
 }

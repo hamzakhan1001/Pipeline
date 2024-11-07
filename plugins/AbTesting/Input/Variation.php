@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,14 +16,14 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 use Piwik\UrlHelper;
 
 class Variation
 {
-    const NAME_MAX_LENGTH = 50;
-    const URL_MAX_LENGTH = 2000;
+    public const NAME_MAX_LENGTH = 50;
+    public const URL_MAX_LENGTH = 2000;
 
     /**
      * @var array
@@ -33,7 +34,7 @@ class Variation
      * @var int
      */
     private $index;
-    
+
     public function __construct($variation, $index)
     {
         $this->variation = $variation;
@@ -141,6 +142,5 @@ class Variation
         if (!UrlHelper::isLookLikeUrl($url)) {
             throw new Exception(Piwik::translate('AbTesting_ErrorNotValidUrl', $title));
         }
-
     }
 }

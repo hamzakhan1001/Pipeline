@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -13,10 +14,10 @@
  * @license For license details see https://www.innocraft.com/license
  *
  */
+
 namespace Piwik\Plugins\UsersFlow\DataTable\Filter;
 
 use Piwik\DataTable;
-use Piwik\DataTable\Row;
 use Piwik\DataTable\BaseFilter;
 use Piwik\Plugins\UsersFlow\Metrics;
 
@@ -67,7 +68,6 @@ class LimitStepActions extends BaseFilter
         }
 
         if ($table->getRowsCount() > $this->limitToXactionsPerStep) {
-
             $rows = $table->getRowsWithoutSummaryRow();
 
             $keepRows = array_splice($rows, $offset = 0, $this->limitToXactionsPerStep);
@@ -95,7 +95,6 @@ class LimitStepActions extends BaseFilter
                 $subtableSummaryRow->filter('Sort', array(Metrics::NB_VISITS));
                 $summaryRow->setSubtable($subtableSummaryRow);
             }
-
         } else {
             $summaryVisits = $summaryRow->getColumn('nb_visits');
 

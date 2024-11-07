@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MultiChannelConversionAttribution\Models;
 
 use Piwik\Piwik;
@@ -33,5 +35,4 @@ class LastNonDirect extends Base
         // does not use regular attribution but has separate query
         return '';
     }
-
 }

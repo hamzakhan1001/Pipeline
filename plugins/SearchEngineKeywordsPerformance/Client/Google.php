@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client;
 
 use Piwik\Common;
@@ -29,6 +30,7 @@ use Piwik\Log;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\UnknownAPIException;
 use Piwik\Url;
 use Piwik\ArchiveProcessor\PluginsArchiver;
+
 class Google
 {
     /**
@@ -126,7 +128,7 @@ class Google
      *
      * @return void
      */
-    public function deleteClientConfig() : void
+    public function deleteClientConfig(): void
     {
         $this->configuration->deleteClientConfig();
         Piwik::postEvent('SearchEngineKeywordsPerformance.GoogleClientConfigChanged');
@@ -453,7 +455,7 @@ class Google
      * @param array $uris
      * @return string
      */
-    private function getValidUri(array $uris) : string
+    private function getValidUri(array $uris): string
     {
         $validUri = Url::getCurrentUrlWithoutQueryString() . '?module=SearchEngineKeywordsPerformance&action=processAuthCode';
         foreach ($uris as $uri) {

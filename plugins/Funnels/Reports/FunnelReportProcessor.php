@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,11 +16,9 @@
 
 namespace Piwik\Plugins\Funnels\Reports;
 
-use Piwik\Common;
 use Piwik\Date;
 use Piwik\NumberFormatter;
 use Piwik\Period;
-use Piwik\Piwik;
 use Piwik\Plugins\Funnels\Metrics;
 
 class FunnelReportProcessor
@@ -40,7 +39,8 @@ class FunnelReportProcessor
      * @param Period $period The period object.
      * @return string The formatted date string.
      */
-    public function getCustomFormattedDate(Period $period): string {
+    public function getCustomFormattedDate(Period $period): string
+    {
 
         if ($period instanceof \Piwik\Period\Day) {
             // getLocalizedLongString would give us "Friday, April 26, 2024" but we'd prefer the shorter "Apr 26, 2024"

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,7 +20,6 @@ use Piwik\Common;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
-use Piwik\Plugins\UsersFlow\API;
 use Piwik\Plugins\UsersFlow\Archiver\DataSources;
 use Piwik\Plugins\UsersFlow\Columns\Interactions;
 use Piwik\Plugins\UsersFlow\Columns\Metrics\Proceeded;

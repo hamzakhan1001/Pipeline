@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\CustomReports\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class ReportType
@@ -41,5 +42,4 @@ class ReportType
 
         \Piwik\Plugins\CustomReports\ReportType\ReportType::factory($this->reportType);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,9 +13,9 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\LoginSaml;
 
-use Piwik\Common;
 use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugins\UsersManager\Model as UserModel;
@@ -222,10 +223,12 @@ class LoginSaml extends Plugin
         if ($referer === false) {
             $referer = Url::getCurrentUrl();
         }
-        if (Url::isLocalUrl($referer) &&
+        if (
+            Url::isLocalUrl($referer) &&
             strpos($referer, 'Login') === false &&
-            strpos($referer, 'Logout') === false) {
-            $samlLoginUrl .= "&target=".urlencode($referer);
+            strpos($referer, 'Logout') === false
+        ) {
+            $samlLoginUrl .= "&target=" . urlencode($referer);
         }
 
         $samlLoginBtn = '<a class="btn pull-right" href="' . $samlLoginUrl . '">' . Piwik::translate('LoginSaml_SamlLogin') . '</a>';
@@ -233,10 +236,10 @@ class LoginSaml extends Plugin
         if (Config::isForceSamlEnabled() && !isset($_GET['normal']) && (!isset($_GET['action']) || $_GET['action'] != 'confirmResetPassword')) {
             if (!empty($_GET['samlErrorMessage'])) {
                 echo '<script>window.addEventListener("DOMContentLoaded", function () {$("#login_form").hide();})</script>';
-                echo '<div vue-entry="CoreHome.Notification" noclear="true" context="error">'.htmlspecialchars($_GET['samlErrorMessage'], ENT_QUOTES, 'UTF-8').'</div>';
+                echo '<div vue-entry="CoreHome.Notification" noclear="true" context="error">' . htmlspecialchars($_GET['samlErrorMessage'], ENT_QUOTES, 'UTF-8') . '</div>';
                 echo $samlLoginBtn . '<br>';
                 exit();
-            } else if (empty($_POST) || empty($_POST["form_login"]) || empty($_POST["form_password"])) {
+            } elseif (empty($_POST) || empty($_POST["form_login"]) || empty($_POST["form_password"])) {
                 Url::redirectToUrl($samlLoginUrl);
             }
         } else {
@@ -253,7 +256,7 @@ class LoginSaml extends Plugin
             switch ($position) {
                 case 'top':
                     if (!empty($_GET['samlErrorMessage'])) {
-                        $content .= '<div vue-entry="CoreHome.Notification" noclear="true" context="error">'.htmlspecialchars($_GET['samlErrorMessage'], ENT_QUOTES, 'UTF-8').'</div>';
+                        $content .= '<div vue-entry="CoreHome.Notification" noclear="true" context="error">' . htmlspecialchars($_GET['samlErrorMessage'], ENT_QUOTES, 'UTF-8') . '</div>';
                     }
                     if (Config::isSamlEnabled()) {
                         // Here is the point where I can force the SAML SSO
@@ -280,7 +283,7 @@ class LoginSaml extends Plugin
     {
         if (Config::isSamlEnabled() && Config::isSamlSLOEnabled()) {
             if (!empty($_SESSION['saml_data']['saml_login'])) {
-                $sloUrlToRedirect = Url::getCurrentUrlWithoutFileName().'index.php?module=LoginSaml&action=singleLogOut';
+                $sloUrlToRedirect = Url::getCurrentUrlWithoutFileName() . 'index.php?module=LoginSaml&action=singleLogOut';
                 Url::redirectToUrl($sloUrlToRedirect);
             }
         }
@@ -308,7 +311,6 @@ class LoginSaml extends Plugin
                 }
             }
         }
-
     }
 
     public function onRequestDispatch($pluginName, $methodName, &$parameters)
@@ -317,7 +319,7 @@ class LoginSaml extends Plugin
         if ($forceSAMLEnabled) {
             if ($pluginName == 'Login') {
                 if (in_array($methodName, array('resetPasswordFirstStep','resetPassword', 'confirmResetPassword'))) {
-                    $login = isset($_POST['form_login'])? $_POST['form_login'] : ($_GET['login'] ?? '');
+                    $login = isset($_POST['form_login']) ? $_POST['form_login'] : ($_GET['login'] ?? '');
                     if (empty($login) || !$this->checkIfLoginIsSuperUser($login)) {
                         throw new Exception("Reset Password is not allowed when Force SAML is enabled. Action only allowed for Super Users");
                     }

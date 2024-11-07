@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -118,7 +119,6 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         $this->addSetting($setting);
 
         return $setting;
-
     }
 
     private function createDisableHeatmapRecordingSetting()
@@ -190,7 +190,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             $newValue = $this->disableTrackingByDefault->getValue();
             if ($oldValue != $newValue) {
                 $plugin = Plugin\Manager::getInstance()->getLoadedPlugin($this->pluginName);
-                if (!empty($plugin) && $plugin instanceof HeatmapSessionRecording){
+                if (!empty($plugin) && $plugin instanceof HeatmapSessionRecording) {
                     $plugin->updatePiwikTracker();
                 }
             }
@@ -215,7 +215,8 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         return $transformedList;
     }
 
-    private function getAvailableCountries($countryCodesToFilter = []) {
+    private function getAvailableCountries($countryCodesToFilter = [])
+    {
         $regionDataProvider = StaticContainer::get(RegionDataProvider::class);
         $countryList = $regionDataProvider->getCountryList();
         array_walk($countryList, function (&$item, $key) {

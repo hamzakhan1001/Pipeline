@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -18,7 +19,7 @@ namespace Piwik\Plugins\AbTesting\Stats;
 // Does not maky any assumptions about the distribution. Good for eg revenue etc.
 class MannWhitneyUTestHistogram
 {
-    const PRECISION = 6;
+    public const PRECISION = 6;
 
     public function getSumOfRanks($samples1, $samples2)
     {
@@ -49,7 +50,7 @@ class MannWhitneyUTestHistogram
     public function rank($list)
     {
         // sort in ascending order
-        usort($list, function($a, $b) {
+        usort($list, function ($a, $b) {
             if ($a['val'] == $b['val']) {
                 return 0;
             }
@@ -66,7 +67,7 @@ class MannWhitneyUTestHistogram
 
         $list = array_map(function ($item) use (&$prevSum, &$totalCount) {
             $totalCount = $item['count'] + $totalCount;
-            $sum = ($totalCount * ($totalCount+1)) / 2;
+            $sum = ($totalCount * ($totalCount + 1)) / 2;
 
             $rank = $sum - $prevSum;
 
@@ -79,7 +80,7 @@ class MannWhitneyUTestHistogram
 
         return $list;
     }
-    
+
     // Compute the rank of a sample, given a ranked
     // list and a list of observations for that sample.
     private function getRankForSample($rankedList, $observations)
@@ -99,7 +100,7 @@ class MannWhitneyUTestHistogram
                 unset($observations[$val]);
             }
         }
-    
+
         return $rank;
     }
 
@@ -111,16 +112,18 @@ class MannWhitneyUTestHistogram
     // Compute the U value of a sample,
     // given the rank and the list of observations
     // for that sample.
-    private function uValue($rank, $observations) {
+    private function uValue($rank, $observations)
+    {
         $k = array_sum($observations);
-        return $rank - (($k * ($k+1)) / 2);
+        return $rank - (($k * ($k + 1)) / 2);
     }
-    
+
     // Check the U values are valid.
     // This utilises a property of the Mann-Whitney U test
     // that ensures the sum of the U values equals the product
     // of the number of observations.
-    public function checkUisValid($u, $samples1, $samples2) {
+    public function checkUisValid($u, $samples1, $samples2)
+    {
         return ($u[0] + $u[1]) == (array_sum($samples1) * array_sum($samples2));
     }
 
@@ -145,16 +148,17 @@ class MannWhitneyUTestHistogram
         // Compute correction
         $correction = 0;
         for ($i = 0; $i < $k; $i++) {
-            $correction += (pow($ties[$i],3) - $ties[$i]) / ($n * ($n - 1));
+            $correction += (pow($ties[$i], 3) - $ties[$i]) / ($n * ($n - 1));
         }
 
         // Compute standard deviation using correction for ties
-        $stddev = sqrt((($n1 * $n2)/12) * (($n + 1) - $correction));
+        $stddev = sqrt((($n1 * $n2) / 12) * (($n + 1) - $correction));
 
         return round($stddev, static::PRECISION);
     }
 
-    public function getZscore($u, $sample1, $sample2) {
+    public function getZscore($u, $sample1, $sample2)
+    {
         $count1 = array_sum($sample1);
         $count2 = array_sum($sample2);
 
@@ -170,8 +174,9 @@ class MannWhitneyUTestHistogram
 
         return round($z, static::PRECISION);
     }
-    
-    private function erf($x) {
+
+    private function erf($x)
+    {
         $cof = array(-1.3026537197817094, 6.4196979235649026e-1, 1.9476473204185836e-2, -9.561514786808631e-3, -9.46595344482036e-4, 3.66839497852761e-4,
             4.2523324806907e-5, -2.0278578112534e-5, -1.624290004647e-6,
             1.303655835580e-6, 1.5626441722e-8, -8.5238095915e-8,
@@ -265,7 +270,7 @@ class MannWhitneyUTestHistogram
             $this->uValue($ranks[0], $samples1),
             $this->uValue($ranks[1], $samples2)
         );
-        
+
         // An optimisation is to use a property of the U test
         // to calculate the U value of sample 1 based on the value
         // of sample 0

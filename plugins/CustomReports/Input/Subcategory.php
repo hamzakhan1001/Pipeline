@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,7 +22,7 @@ use Piwik\Piwik;
 
 class Subcategory
 {
-    const MAX_LENGTH = 150;
+    public const MAX_LENGTH = 150;
 
     /**
      * @var string
@@ -45,5 +46,4 @@ class Subcategory
             throw new Exception(Piwik::translate('CustomReports_ErrorXTooLong', array($title, static::MAX_LENGTH)));
         }
     }
-
 }

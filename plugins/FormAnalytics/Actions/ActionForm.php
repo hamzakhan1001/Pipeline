@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -22,7 +23,7 @@ use Piwik\Tracker\Request;
 
 class ActionForm extends Action
 {
-    const TYPE_FORM = 95;
+    public const TYPE_FORM = 95;
 
     public function __construct(Request $request)
     {

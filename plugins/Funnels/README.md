@@ -74,3 +74,45 @@ With the Funnels plugin, you can spot exactly where your visitors enter and exit
 Create an unlimited number of goal funnels without data limits. Optimise your funnels for each segment to provide a smooth experience that boosts your conversions with Matomo's Funnels plugin.
 
 Start your 30-day free trial today and elevate your funnel marketing game.
+
+### Manage Features
+A funnel is only as good as its configuration and getting the steps right is crucial for any funnel analysis. We focused
+on helping you along the way of defining your funnels and made it easy to configure and validate funnels.
+* Create an unlimited number of goal funnels
+* Define unlimited funnel steps based on URL, URL path, search query, page title, event category, event name, and event action
+* Many different options to match your pages
+* Intuitive funnel configuration with several tools to validate your funnel configuration
+* Integrates nicely into Matomo Goals management
+
+### Reporting features
+* Get an overview and evolution of all of your funnels in just one page
+* View a funnel evolution to see how a funnel performs over time
+* View a funnel step row evolution to see how an individual funnel step performs over time
+* See where your visitors entered the funnel and where they exited your funnel
+* See from which pages your visitors entered the funnel or where they went after leaving the funnel
+* Get referrer details for visitors that have entered a step on their first page view
+* Check how your funnels are doing on the go with the Matomo Mobile app for iOS and Android
+* Add a funnels overview widget to your Matomo Dashboard to always keep an eye on it
+* Get an overview of how your funnel is doing directly in your existing goal reports
+* Get funnels data for your historical goal data that you already tracked
+
+### Segmenting features
+* Apply funnel segments to Matomo reports
+* Apply Matomo segments to funnel reports
+* See a log of each visitor who participated in a funnel or in an individual funnel step
+
+### Privacy features
+* Supports Matomo's [privacy](https://matomo.org/docs/privacy/) and GDPR features like the right to erase data or the right to export data. GDPR stands for General Data Protection Regulation and is for example also known as RGPD in French, DS-GVO in German
+* The plugin does not track any additional data and therefore doesn't record any personal data.
+
+### Export & API features
+* Get automatic Funnel [email and sms reports](https://matomo.org/docs/email-reports/), or send them to your colleagues or customers.
+* All reports are available via the [Funnels HTTP Reporting API](https://developer.matomo.org/api-reference/reporting-api#Funnels).
+* Configure your Funnels via the UI or the [Funnels HTTP Reporting API](https://developer.matomo.org/api-reference/reporting-api#Funnels).
+* [Embed](https://matomo.org/docs/embed-piwik-report/) the funnels overview directly in your app, dashboard, or even TV screen!.
+* Get email and SMS alerts when something significant changes with the [Custom Alerts](https://plugins.matomo.org/CustomAlerts) plugin.
+
+### Other features:
+* Does not slow down tracking time
+* 100% data ownership
+* No data limit

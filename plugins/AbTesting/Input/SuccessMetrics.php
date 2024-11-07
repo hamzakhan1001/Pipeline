@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class SuccessMetrics
@@ -80,5 +81,4 @@ class SuccessMetrics
 
         throw new Exception(Piwik::translate('AbTesting_ErrorInvalidValue', array($titleSingular, $successMetric)));
     }
-
 }

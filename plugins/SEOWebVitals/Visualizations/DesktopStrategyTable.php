@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -14,8 +15,7 @@ namespace Piwik\Plugins\SEOWebVitals\Visualizations;
  */
 class DesktopStrategyTable extends AllStrategiesTable
 {
-    const ID = 'tableWebVitalsDesktopStrategy';
-    const FOOTER_ICON       = 'plugins/Morpheus/icons/dist/devices/desktop.png';
-    const FOOTER_ICON_TITLE = 'SEOWebVitals_DesktopOnly';
-
+    public const ID = 'tableWebVitalsDesktopStrategy';
+    public const FOOTER_ICON       = 'plugins/Morpheus/icons/dist/devices/desktop.png';
+    public const FOOTER_ICON_TITLE = 'SEOWebVitals_DesktopOnly';
 }

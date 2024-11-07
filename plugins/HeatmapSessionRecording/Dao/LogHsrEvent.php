@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Dao;
 
 use Piwik\Common;
-
 use Piwik\Db;
 use Piwik\DbHelper;
 use Piwik\Plugins\HeatmapSessionRecording\Tracker\RequestProcessor;
@@ -26,9 +27,9 @@ class LogHsrEvent
     private $tablePrefixed = '';
 
     // HAS TO MATCH VALUE IN TRACKER!
-    const OFFSET_ACCURACY = 2000;
+    public const OFFSET_ACCURACY = 2000;
 
-    const MAX_SIZE = 32767;
+    public const MAX_SIZE = 32767;
 
     /**
      * @var Db|Db\AdapterInterface|\Piwik\Tracker\Db
@@ -163,4 +164,3 @@ class LogHsrEvent
         return $this->getDb()->fetchAll('SELECT * FROM ' . $this->tablePrefixed);
     }
 }
-

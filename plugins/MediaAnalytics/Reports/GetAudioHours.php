@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\MediaAnalytics\Reports;
 
 use Piwik\Piwik;
 
-
 class GetAudioHours extends GetVideoHours
 {
     protected function init()
@@ -29,5 +29,4 @@ class GetAudioHours extends GetVideoHours
         $this->order = 8;
         $this->subcategoryId  = 'MediaAnalytics_TypeAudio';
     }
-
 }

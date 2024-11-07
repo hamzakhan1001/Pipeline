@@ -30,3 +30,14 @@ The Activity Log plugin keeps a record of all important activities performed by 
 Dive into a world where transparency meets security. With Activity Log, every decision is not only backed by data but empowered by it. Unravel the intricacies of user actions, safeguard your analytics, and navigate with unwavering confidence.
 
 Start your 30-day free trial today and keep your organisation ahead of any problems.
+
+### Features
+
+* Logs all important activities a Matomo user can perform.
+* Includes details such as who performed the action, what the action was, and when it was performed.
+* Super Users can view activities of all users and filter by user.
+* Users with view, write, or admin access can view their own activities.
+* An Activity Log widget can be added to your Matomo dashboard to always have an eye on it.
+* Export the Activity Log UI and embed it via an iframe to share it with others.
+* Simple HTTP API provide all activity log entries as JSON, XML, ...
+* Gravatar support can be enabled to see avatars next to your user's activities.

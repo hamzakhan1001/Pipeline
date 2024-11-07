@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,12 +16,12 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class SampleRate
 {
-    const MAX_RATE = 100;
+    public const MAX_RATE = 100;
 
     private $sampleRate;
 
@@ -58,5 +59,4 @@ class SampleRate
             throw new Exception(Piwik::translate('HeatmapSessionRecording_ErrorXNotANumber', array($title)));
         }
     }
-
 }

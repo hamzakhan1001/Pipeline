@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -49,5 +50,4 @@ class SimpleDataArray extends DataArray
             }
         }
     }
-
 }

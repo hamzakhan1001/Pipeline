@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,21 +13,18 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Columns\Metrics;
 
 use Piwik\API\Request;
-
 use Piwik\Columns\Dimension;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
 use Piwik\DataTable;
 use Piwik\DataTable\Row;
 use Piwik\Date;
-
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
-
-
 use Piwik\Plugins\AbTesting\Configuration;
 use Piwik\Plugins\AbTesting\DataTable\Filter\AddValuesOfOriginalToRows;
 use Piwik\Plugins\AbTesting\Stats\SampleSize;
@@ -38,13 +36,13 @@ use Piwik\Plugins\AbTesting\Stats\Strategy;
 // be processed on archiving
 class RemainingVisitors extends ProcessedMetric
 {
-    const MIN_REQUIRED_VISITORS = 40;
-    const MIN_REQUIRED_VISITS_FOR_CONVERSIONS = 100;
-    const MIN_REQUIRED_CONVERSIONS = 10;
+    public const MIN_REQUIRED_VISITORS = 40;
+    public const MIN_REQUIRED_VISITS_FOR_CONVERSIONS = 100;
+    public const MIN_REQUIRED_CONVERSIONS = 10;
 
-    const ENOUGH_VISITORS = '-';
+    public const ENOUGH_VISITORS = '-';
 
-    const METRIC_NAME = 'remaining_visitors';
+    public const METRIC_NAME = 'remaining_visitors';
 
     /**
      * @var string
@@ -134,11 +132,9 @@ class RemainingVisitors extends ProcessedMetric
             if ($neededVisitors < self::MIN_REQUIRED_VISITORS) {
                 $neededVisitors = self::MIN_REQUIRED_VISITORS;
             }
-
         } else {
-
             $relativeImprovement = SampleSize::DEFAULT_PAGEVIEW_CONVERSIONRATE * ($this->experiment['mde_relative'] / 100);
-            
+
             $neededVisitors = $sampleSize->estimateForPageviews($this->experiment['confidence_threshold'], $relativeImprovement);
         }
 
@@ -198,7 +194,6 @@ class RemainingVisitors extends ProcessedMetric
         $nbVisitsConverted = $row->getColumn($originalPrefix . $this->metricName);
 
         if ($nbVisitsConverted >= self::MIN_REQUIRED_CONVERSIONS && $nbVisits >= self::MIN_REQUIRED_VISITS_FOR_CONVERSIONS) {
-
             $conversionRate = Piwik::getQuotientSafe($nbVisitsConverted, $nbVisits, $precision = 4);
             $conversionRate = abs($conversionRate);
             $conversionRate = $conversionRate * 100;

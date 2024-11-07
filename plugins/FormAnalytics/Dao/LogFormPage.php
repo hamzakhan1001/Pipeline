@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Dao;
 
 use Piwik\Common;
@@ -20,7 +22,7 @@ use Piwik\DbHelper;
 
 class LogFormPage
 {
-    const MAX_FIELD_NAME_LENGTH = 75;
+    public const MAX_FIELD_NAME_LENGTH = 75;
 
     private $table = 'log_form_page';
     private $tablePrefixed = '';
@@ -156,14 +158,14 @@ class LogFormPage
             $bind[] = $exitFieldName;
         }
 
-        $sql = sprintf('UPDATE %s SET %s WHERE idlogformpage = ?',
-            $this->tablePrefixed, $sql);
+        $sql = sprintf(
+            'UPDATE %s SET %s WHERE idlogformpage = ?',
+            $this->tablePrefixed,
+            $sql
+        );
         $bind[] = $idLogFormPage;
 
         $db = $this->getDb();
         $db->query($sql, $bind);
     }
-
-
 }
-

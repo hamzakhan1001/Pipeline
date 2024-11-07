@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -37,16 +38,18 @@ class Aggregator
 
     public function calcDistributionValues($metric, $innerQuery)
     {
-        $query = sprintf('SELECT 
+        $query = sprintf(
+            'SELECT 
                             label,
                             STDDEV_SAMP(totalCountPerVisit) as %1$s%2$s, 
                             SUM(totalCountPerVisit) as %1$s%3$s, 
                             COUNT(totalCountPerVisit) as %1$s%4$s FROM (%5$s) t',
-                            $metric,
-                            Archiver::APPENDIX_TTEST_STDDEV_SAMP,
-                            Archiver::APPENDIX_TTEST_SUM,
-                            Archiver::APPENDIX_TTEST_COUNT,
-                            $innerQuery['sql']);
+            $metric,
+            Archiver::APPENDIX_TTEST_STDDEV_SAMP,
+            Archiver::APPENDIX_TTEST_SUM,
+            Archiver::APPENDIX_TTEST_COUNT,
+            $innerQuery['sql']
+        );
 
         return $this->logAggregator->getDb()->query($query, $innerQuery['bind']);
     }
@@ -66,9 +69,11 @@ class Aggregator
         // Important: We need to make sure to get the zero values as well. Not only the values that had a revenue or conversion
         $baseQuery = $this->getBaseQuery($experiment, 'log_abtesting', 'server_time');
 
-        $select = sprintf('log_abtesting.idvariation as label, 
+        $select = sprintf(
+            'log_abtesting.idvariation as label, 
                            %s as totalCountPerVisit',
-                           $columnToRead);
+            $columnToRead
+        );
 
         $where = ' AND log_abtesting.idvariation = ' . (int) $idVariation;
 
@@ -154,7 +159,7 @@ class Aggregator
     {
         $from = array('log_abtesting');
 
-        $where = $this->logAggregator->getWhereStatement('log_abtesting', 'server_time', "log_abtesting.idexperiment = " .(int) $experiment['idexperiment']);
+        $where = $this->logAggregator->getWhereStatement('log_abtesting', 'server_time', "log_abtesting.idexperiment = " . (int) $experiment['idexperiment']);
 
         if ($onlyEntered) {
             $where .= ' AND log_abtesting.entered = 1';
@@ -241,12 +246,14 @@ class Aggregator
         $baseQuery = $this->getBaseQuery($experiment, 'log_visit', 'visit_last_action_time');
 
         $select = sprintf(
-                      'log_abtesting.idvariation as label, 
+            'log_abtesting.idvariation as label, 
                        count(log_abtesting.idvisit) as %s,
                        count(distinct log_abtesting.idvisitor) as %s,
                        sum(log_visit.visit_total_time) as %s',
-                       Metrics::METRIC_VISITS, Metrics::METRIC_UNIQUE_VISITORS,
-                       Metrics::METRIC_SUM_VISIT_LENGTH);
+            Metrics::METRIC_VISITS,
+            Metrics::METRIC_UNIQUE_VISITORS,
+            Metrics::METRIC_SUM_VISIT_LENGTH
+        );
 
         return $this->queryByVariation($baseQuery, $select);
     }
@@ -256,13 +263,14 @@ class Aggregator
         $baseQuery = $this->getBaseQuery($experiment, 'log_visit', 'visit_last_action_time');
 
         $select = sprintf(
-                      'log_abtesting.idvariation as label, 
+            'log_abtesting.idvariation as label, 
                        count(log_abtesting.idvisit) as %s,
                        count(distinct log_abtesting.idvisitor) as %s,
                        sum(case log_visit.visit_total_actions when 1 then 1 when 0 then 1 else 0 end) as %s',
-                       Metrics::METRIC_VISITS_ENTERED,
-                       Metrics::METRIC_UNIQUE_VISITORS_ENTERED,
-                       Metrics::METRIC_BOUNCE_COUNT);
+            Metrics::METRIC_VISITS_ENTERED,
+            Metrics::METRIC_UNIQUE_VISITORS_ENTERED,
+            Metrics::METRIC_BOUNCE_COUNT
+        );
 
         $where = ' AND log_abtesting.entered = 1';
 
@@ -274,8 +282,10 @@ class Aggregator
         $baseQuery = $this->getBaseQuery($experiment, 'log_link_visit_action', 'server_time');
 
         $select = sprintf(
-                       'log_abtesting.idvariation as label, 
-                        count(log_action.idaction) as %s', Metrics::METRIC_PAGEVIEWS);
+            'log_abtesting.idvariation as label, 
+                        count(log_action.idaction) as %s',
+            Metrics::METRIC_PAGEVIEWS
+        );
 
         $from = array(array(
             'table'  => 'log_action',

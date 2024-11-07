@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -47,7 +48,7 @@ class API extends \Piwik\Plugin\API
      */
     private $systemSettings;
 
-    public function __construct(GoalAttributionModel $model, Validator $validator, Configuration $configuration, SystemSettings  $systemSettings)
+    public function __construct(GoalAttributionModel $model, Validator $validator, Configuration $configuration, SystemSettings $systemSettings)
     {
         $this->model = $model;
         $this->validator = $validator;
@@ -154,5 +155,4 @@ class API extends \Piwik\Plugin\API
 
         return $campaignDimensionCombinationOptions[$campaignDimensionCombinationId];
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics;
 
 use Piwik\Archive;
@@ -512,12 +514,13 @@ class API extends \Piwik\Plugin\API
         $form = $this->formsModel->getForm($idSite, $idForm);
 
         if (!empty($fields) && !empty($form['fields']) && is_array($form['fields'])) {
-
             foreach ($form['fields'] as &$existingField) {
                 foreach ($fields as $updateField) {
-                    if (isset($updateField['name'])
+                    if (
+                        isset($updateField['name'])
                         && isset($existingField['name'])
-                        && $updateField['name'] === $existingField['name']) {
+                        && $updateField['name'] === $existingField['name']
+                    ) {
                         if (isset($updateField['displayName'])) {
                             $existingField['displayName'] = $updateField['displayName'];
                         }
@@ -623,7 +626,6 @@ class API extends \Piwik\Plugin\API
             } else {
                 $message .= Piwik::translate('FormAnalytics_CreateFormsConfiguredLimitedUnreached', $numCreated);
             }
-
         } elseif ($value === SystemSettings::FORM_CREATION_UNLIMITED) {
             $message = Piwik::translate('FormAnalytics_CreateFormsConfiguredUnlimited');
         } elseif ($value === SystemSettings::FORM_CREATION_DISABLED) {
@@ -636,7 +638,7 @@ class API extends \Piwik\Plugin\API
                 $message .= ' ' . Piwik::translate('FormAnalytics_CreateFormsHowToChange');
             }
         }
-        
+
         return array(
             'message' => $message
         );

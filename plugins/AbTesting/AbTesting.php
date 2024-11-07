@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -23,7 +24,6 @@ use Piwik\Exception\DI\DependencyException;
 use Piwik\Exception\DI\NotFoundException;
 use Piwik\Log\LoggerInterface;
 use Piwik\Piwik;
-use Piwik\Config;
 use Piwik\Plugins\AbTesting\Dao\Experiment;
 use Piwik\Plugins\AbTesting\Dao\LogTable;
 use Piwik\Plugins\AbTesting\Dao\Strategy;
@@ -37,8 +37,8 @@ use Piwik\Plugins\CoreHome\SystemSummary;
 
 class AbTesting extends Plugin
 {
-    const TRACKER_READY_HOOK_NAME = '/*!! abTestingTrackerReadyHook */';
-    const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! abTestingTrackerReadyHook */';
+    public const TRACKER_READY_HOOK_NAME = '/*!! abTestingTrackerReadyHook */';
+    public const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! abTestingTrackerReadyHook */';
 
     public function registerEvents()
     {
@@ -72,7 +72,7 @@ class AbTesting extends Plugin
                 $params = MarketingCampaignsReporting::getCampaignParameters();
             } catch (DependencyException | NotFoundException $e) {
                 // Don't do anything, generally when the plugin is activated configs are not loaded, and causes missing DependencyException
-                StaticContainer::get(LoggerInterface::class)->info('There was an issue while trying to get the list of campaign parameters for the MarketingCampaignsReporting plugin. Error: '. $e->getMessage());
+                StaticContainer::get(LoggerInterface::class)->info('There was an issue while trying to get the list of campaign parameters for the MarketingCampaignsReporting plugin. Error: ' . $e->getMessage());
             }
         }
         if (is_array($params) && count($params) > 0) {
@@ -529,7 +529,6 @@ class AbTesting extends Plugin
             $message = Piwik::translate('AbTesting_ErrorXNotWhitelisted', array('abtesting_entered', '1, 0, true, false'));
 
             throw new Exception($message);
-
         });
         $segment->setSuggestedValuesCallback(function ($idSite, $maxValuesToReturn) {
             return array('true', 'false', '1', '0');
@@ -557,5 +556,4 @@ class AbTesting extends Plugin
     {
         return in_array($experiment['status'], [Experiments::STATUS_ARCHIVED, Experiments::STATUS_FINISHED]);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -62,7 +63,15 @@ class GetManageHeatmaps extends Widget
         $idSite = Common::getRequestVar('idSite', null, 'int');
         self::getAccessValidator()->checkWritePermission($idSite);
 
-        return sprintf('<div vue-entry="HeatmapSessionRecording.HeatmapManage" breakpoint-mobile="%d" breakpoint-tablet="%d" pause-reason="%s" is-matomo-js-writable="%d"></div>', (int)$this->settings->breakpointMobile->getValue(), (int)$this->settings->breakpointTablet->getValue(), Piwik::translate(HeatmapSessionRecording::getTranslationKey('pause'), [Piwik::translate('HeatmapSessionRecording_Heatmap')]), HeatmapSessionRecording::isMatomoJsWritable());
+        return sprintf(
+            '<div vue-entry="HeatmapSessionRecording.HeatmapManage" breakpoint-mobile="%d" breakpoint-tablet="%d" pause-reason="%s" is-matomo-js-writable="%d"></div>',
+            (int)$this->settings->breakpointMobile->getValue(),
+            (int)$this->settings->breakpointTablet->getValue(),
+            Piwik::translate(
+                HeatmapSessionRecording::getTranslationKey('pause'),
+                [Piwik::translate('HeatmapSessionRecording_Heatmap')]
+            ),
+            HeatmapSessionRecording::isMatomoJsWritable()
+        );
     }
-
 }

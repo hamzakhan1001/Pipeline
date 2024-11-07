@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -134,5 +135,4 @@ class API extends \Piwik\Plugin\API
 
         return $rollUps;
     }
-
 }

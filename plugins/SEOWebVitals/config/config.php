@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     'SEOWebVitals_PageSpeed_ApiKey' => function (\Piwik\Container\Container $c) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,9 +16,7 @@
 
 namespace Piwik\Plugins\AdvertisingConversionExport;
 
-use Piwik\Container\StaticContainer;
 use Piwik\Date;
-use Piwik\Log;
 use Piwik\Plugins\AdvertisingConversionExport\Export\Adapter\AdapterAbstract;
 use Piwik\Plugins\AdvertisingConversionExport\Export\Cache;
 use Piwik\Plugins\AdvertisingConversionExport\Export\Configuration;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -48,5 +49,4 @@ class Controller extends \Piwik\Plugin\Controller
             'maxLinksPerInteractions' => $this->configuration->getMaxLinksPerInteractions()
         ));
     }
-
 }

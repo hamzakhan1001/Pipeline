@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Dao;
 
 use Piwik\Common;
-
 use Piwik\Db;
 use Piwik\DbHelper;
 
@@ -28,8 +29,8 @@ class LogTable
     {
         $this->tablePrefixed = Common::prefixTable($this->table);
     }
-    
-    private function getDb() 
+
+    private function getDb()
     {
         return Db::get();
     }
@@ -96,8 +97,11 @@ class LogTable
 
         $columns = implode('`,`', array_keys($values));
 
-        $sql = sprintf('INSERT INTO %s (`%s`) VALUES(?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE idvariation = ?, entered = ?',
-                       $this->tablePrefixed, $columns);
+        $sql = sprintf(
+            'INSERT INTO %s (`%s`) VALUES(?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE idvariation = ?, entered = ?',
+            $this->tablePrefixed,
+            $columns
+        );
 
         $bind = array_values($values);
         $bind[] = $variationId;
@@ -131,4 +135,3 @@ class LogTable
         return $this->getDbReader()->fetchAll($query);
     }
 }
-

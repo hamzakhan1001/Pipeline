@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\DataTable\Filter;
 
 use Piwik\DataTable;
@@ -19,13 +21,12 @@ use Piwik\Piwik;
 
 class EnrichRecordedSessions extends DataTable\BaseFilter
 {
-
     public static function shortUrl($label)
     {
         $potentialUrl = $label;
         if (strpos($label, '//') === 0) {
             $potentialUrl = 'http:' . $label;
-        } else if (strpos($label, '://') === false) {
+        } elseif (strpos($label, '://') === false) {
             $potentialUrl = 'http://' . $label;
         }
 
@@ -58,7 +59,6 @@ class EnrichRecordedSessions extends DataTable\BaseFilter
         $isAnonymous = Piwik::isUserIsAnonymous();
 
         foreach ($table->getRowsWithoutSummaryRow() as $row) {
-
             if ($isAnonymous) {
                 foreach (self::getBlockedFields() as $blockedField) {
                     if ($row->getColumn($blockedField) !== false) {

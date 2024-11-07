@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,7 +22,6 @@ use Piwik\Date;
 use Piwik\Log\LoggerInterface;
 use Piwik\Period;
 use Piwik\Plugin\ConsoleCommand;
-use Piwik\Plugins\CustomReports\Archiver;
 use Piwik\Plugins\CustomReports\Model\CustomReportsModel;
 use Piwik\Plugins\CustomReports\RecordBuilders\CustomReport;
 use Piwik\Plugins\SegmentEditor\API;
@@ -31,7 +31,7 @@ use Piwik\ArchiveProcessor\Parameters;
 use Piwik\DataAccess\ArchiveSelector;
 use Piwik\DataAccess\ArchiveWriter;
 use Piwik\DataAccess\LogAggregator;
-use Piwik\DataTable\Manager AS DataTableManager;
+use Piwik\DataTable\Manager as DataTableManager;
 use Piwik\Period\Day;
 use Piwik\Segment;
 use Piwik\Site;
@@ -49,9 +49,13 @@ class ArchiveReports extends ConsoleCommand
         $this->addRequiredValueOption('idreport', null, 'If set, only a specific report will be archived');
         $this->addNoValueOption('disable-segments', null, 'Disables archiving of pre-archived segments');
         $this->addRequiredValueOption('periods', null, 'Specify which periods should be archived. A comma separated list will archive multiple periods', 'all');
-        $this->addRequiredValueOption('segment', null,
+        $this->addRequiredValueOption(
+            'segment',
+            null,
             'List of segments to invalidate report data for. This can be the segment string itself, the segment name from the UI or the ID of the segment.'
-            . ' If specifying the segment definition, make sure it is encoded properly (it should be the same as the segment parameter in the URL.', null);
+            . ' If specifying the segment definition, make sure it is encoded properly (it should be the same as the segment parameter in the URL.',
+            null
+        );
     }
 
     public function isEnabled()
@@ -191,7 +195,7 @@ class ArchiveReports extends ConsoleCommand
             $periods = array('day', 'week', 'month', 'year');
         } else {
             $periods = Common::mb_strtolower($periods);
-            $periods = explode(',' , $periods);
+            $periods = explode(',', $periods);
         }
 
         foreach ($dates as $date) {
@@ -312,7 +316,8 @@ class ArchiveReports extends ConsoleCommand
         $allSegments = $this->getAllSegments($idSites);
 
         foreach ($allSegments as $segment) {
-            if (!empty($segment['enable_only_idsite'])
+            if (
+                !empty($segment['enable_only_idsite'])
                 && !in_array($segment['enable_only_idsite'], $idSites)
             ) {
                 continue;
@@ -328,7 +333,8 @@ class ArchiveReports extends ConsoleCommand
                 return $segment['definition'];
             }
 
-            if ($segment['definition'] == $segmentOptionValue
+            if (
+                $segment['definition'] == $segmentOptionValue
                 || $segment['definition'] == urldecode($segmentOptionValue)
             ) {
                 $logger->debug("Matching '{value}' by definition with segment {segment}.", ['value' => $segmentOptionValue, 'segment' => json_encode($segment)]);

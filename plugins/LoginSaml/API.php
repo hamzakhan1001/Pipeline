@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\LoginSaml;
 
 use OneLogin\Saml2\IdPMetadataParser;
@@ -46,10 +48,10 @@ class API extends \Piwik\Plugin\API
         if (!empty($validation['error']) || !empty($validation['missing'])) {
             $errorMessage = "";
             if (!empty($validation['missing'])) {
-                $errorMessage .= Piwik::translate('LoginSaml_MissingData').': '.implode(", ", $validation['missing']).".  ";
+                $errorMessage .= Piwik::translate('LoginSaml_MissingData') . ': ' . implode(", ", $validation['missing']) . ".  ";
             }
             if (!empty($validation['error'])) {
-                $errorMessage .= Piwik::translate('LoginSaml_InvalidData').': '.implode(", ", $validation['error']);
+                $errorMessage .= Piwik::translate('LoginSaml_InvalidData') . ': ' . implode(", ", $validation['error']);
             }
             throw new Exception($errorMessage);
         }
@@ -74,7 +76,7 @@ class API extends \Piwik\Plugin\API
                     $idp_entity_id,
                     'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
                 );
-            } else if (!empty($data['idp_metadata_url'])) {
+            } elseif (!empty($data['idp_metadata_url'])) {
                 $metadataInfo = IdPMetadataParser::parseRemoteXML(
                     $data['idp_metadata_url'],
                     $idp_entity_id,
@@ -83,7 +85,7 @@ class API extends \Piwik\Plugin\API
             }
         } catch (\Exception $e) {
             $logger = StaticContainer::get('Piwik\Plugins\LoginSaml\Logger');
-            $logger->info('Error importing IdP data. '.$e->getMessage());
+            $logger->info('Error importing IdP data. ' . $e->getMessage());
         }
 
         if (!empty($metadataInfo)) {

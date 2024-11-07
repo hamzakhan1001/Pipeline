@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -49,5 +50,4 @@ class GetPlayers extends Base
 
         $this->setMetricTranslations($view);
     }
-
 }

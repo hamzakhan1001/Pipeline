@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -20,9 +21,9 @@ use Piwik\Site;
 
 class Goal
 {
-    const REVENUE_TYPE_GOAL = 'goal';
-    const REVENUE_TYPE_NONE = 'null';
-    const REVENUE_TYPE_CUSTOM = 'custom';
+    public const REVENUE_TYPE_GOAL = 'goal';
+    public const REVENUE_TYPE_NONE = 'null';
+    public const REVENUE_TYPE_CUSTOM = 'custom';
 
     public $idSite;
     public $idGoal;
@@ -30,7 +31,7 @@ class Goal
     public $revenueType;
     public $revenueValue = null;
 
-    static protected $availableRevenueTypes = [
+    protected static $availableRevenueTypes = [
         self::REVENUE_TYPE_GOAL,
         self::REVENUE_TYPE_CUSTOM,
         self::REVENUE_TYPE_NONE,
@@ -103,6 +104,5 @@ class Goal
             default:
                 return $goalConversionValue;
         }
-
     }
 }

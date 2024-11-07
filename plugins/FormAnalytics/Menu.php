@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,12 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics;
 
-use Piwik\Access;
 use Piwik\Common;
 use Piwik\Menu\MenuAdmin;
-use Piwik\Piwik;
 use Piwik\Plugins\FormAnalytics\Input\Validator;
 
 class Menu extends \Piwik\Plugin\Menu
@@ -41,5 +41,4 @@ class Menu extends \Piwik\Plugin\Menu
             $menu->addMeasurableItem('FormAnalytics_Forms', $this->urlForAction('manage'), $orderId = 30);
         }
     }
-
 }

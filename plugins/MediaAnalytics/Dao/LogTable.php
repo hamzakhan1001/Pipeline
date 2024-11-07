@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Dao;
 
 use Piwik\Common;
@@ -37,7 +39,7 @@ class LogTable
      */
     public $forceSleepInQuery = false;
 
-    const MAX_LENGTH_IDVIEW = 6;
+    public const MAX_LENGTH_IDVIEW = 6;
 
     /**
      * @var Db|Db\AdapterInterface|\Piwik\Tracker\Db
@@ -63,7 +65,7 @@ class LogTable
                   `idvisitor` binary(8) NOT NULL,
                   `idvisit` BIGINT unsigned NOT NULL,
                   `idsite` INT(11) unsigned NOT NULL,
-                  `idview` VARCHAR(".self::MAX_LENGTH_IDVIEW.") NOT NULL,
+                  `idview` VARCHAR(" . self::MAX_LENGTH_IDVIEW . ") NOT NULL,
                   `player_name` VARCHAR(20) NOT NULL,
                   `media_type` TINYINT(1) NOT NULL,
                   `resolution` VARCHAR(20) DEFAULT '',
@@ -135,7 +137,6 @@ class LogTable
 
         try {
             $this->getDb()->query($sql, $bind);
-
         } catch (\Exception $e) {
             if (Db::get()->isErrNo($e, \Piwik\Updater\Migration\Db::ERROR_CODE_DUPLICATE_ENTRY)) {
                 // race condition where two tried to insert at same time... we need to update instead
@@ -143,7 +144,7 @@ class LogTable
                 // incosistencies since we don't know which media title or resolution had most recent information
                 $this->updateRecord($idVisit, $idView, $mediaTitle, $watchedTime, $mediaProgress, $mediaLength, $timeToInitialPlay, $mediaWidth, $mediaHeight, $isFullscreen);
                 return;
-            } else if (stripos($e->getMessage(), 'Deadlock found when trying to get lock') !== false && $retry < $this->noOfRetriesOnDeadlock) {
+            } elseif (stripos($e->getMessage(), 'Deadlock found when trying to get lock') !== false && $retry < $this->noOfRetriesOnDeadlock) {
                 $retry++;
                 $this->record($idVisitor, $idVisit, $idSite, $idView, $mediaType, $playerName, $mediaTitle, $resource, $watchedTime, $mediaProgress, $mediaLength, $timeToInitialPlay, $mediaWidth, $mediaHeight, $isFullscreen, $serverTime, $retry);
                 return;
@@ -176,7 +177,8 @@ class LogTable
         $bind[] = $idVisit;
         $bind[] = $idView;
 
-        $sql = sprintf('UPDATE %s SET 
+        $sql = sprintf(
+            'UPDATE %s SET 
                 watched_time = IF(watched_time < ?, ?, watched_time), 
                 media_progress = IF(media_progress < ?, ?, media_progress), 
                 media_length = IF(media_length < ?, ?, media_length),
@@ -185,7 +187,8 @@ class LogTable
                 resolution = ?,
                 fullscreen = IF(fullscreen >= 1, 1, ' . $fullscreen . ') 
                 WHERE idvisit = ? AND idview = ?',
-            $this->tablePrefixed);
+            $this->tablePrefixed
+        );
 
         try {
             $this->getDb()->query($sql, $bind);
@@ -227,7 +230,7 @@ class LogTable
 
         $visitIds = array_map('intval', $visitIds);
 
-        $query = "SELECT /* MediaAnalytics.getRecordsForVisitIds */ * FROM " . $this->tablePrefixed . " as log_media WHERE $extraWhere idvisit IN ('" . implode("','", $visitIds) ."') AND watched_time != 0";
+        $query = "SELECT /* MediaAnalytics.getRecordsForVisitIds */ * FROM " . $this->tablePrefixed . " as log_media WHERE $extraWhere idvisit IN ('" . implode("','", $visitIds) . "') AND watched_time != 0";
 
         $readerDb = $this->getDbReader();
         $query = DbHelper::addMaxExecutionTimeHintToQuery($query, $this->getLiveQueryMaxExecutionTime());
@@ -258,11 +261,13 @@ class LogTable
 
         $visitIds = array_map('intval', $visitIds);
 
-        $columns = 'log_media.*,'. Archiver::getSecondaryDimensionMediaSegmentSelect('');
+        $columns = 'log_media.*,' . Archiver::getSecondaryDimensionMediaSegmentSelect('');
 
         $prefixedMediaPlays = Common::prefixTable('log_media_plays');
 
-        $query = "SELECT /* MediaAnalytics.getRecordsForVisitIdExtended */ $columns FROM " . $this->tablePrefixed . " as log_media LEFT JOIN $prefixedMediaPlays as log_media_plays ON log_media_plays.idview = log_media.idview and log_media_plays.idvisit = log_media.idvisit WHERE $extraWhere log_media.idvisit IN ('" . implode("','", $visitIds) ."') AND log_media.watched_time != 0";
+        $query = "SELECT /* MediaAnalytics.getRecordsForVisitIdExtended */ $columns FROM " . $this->tablePrefixed
+            . " as log_media LEFT JOIN $prefixedMediaPlays as log_media_plays ON log_media_plays.idview = log_media.idview and log_media_plays.idvisit = log_media.idvisit"
+            . " WHERE $extraWhere log_media.idvisit IN ('" . implode("','", $visitIds) . "') AND log_media.watched_time != 0";
 
         $readerDb = $this->getDbReader();
         $query = DbHelper::addMaxExecutionTimeHintToQuery($query, $this->getLiveQueryMaxExecutionTime());
@@ -327,7 +332,7 @@ class LogTable
             $result = array_merge($result, $this->getDbReader()->fetchAll($query['sql'], $query['bind']));
         }
 
-        usort($result, function($a, $b) {
+        usort($result, function ($a, $b) {
             if ($a['value'] === $b['value']) {
                 return strnatcasecmp($a['label'], $b['label']);
             }
@@ -355,8 +360,16 @@ class LogTable
             }
         }
 
-        $query = sprintf('SELECT %s, count(%s) as value FROM %s WHERE idsite = ? and server_time > ? and %s is not null GROUP BY %s ORDER BY value DESC, %s ASC LIMIT %d',
-            $dimension, $dimension, $this->tablePrefixed, $dimension, $dimension, $dimension, (int) $limit);
+        $query = sprintf(
+            'SELECT %s, count(%s) as value FROM %s WHERE idsite = ? and server_time > ? and %s is not null GROUP BY %s ORDER BY value DESC, %s ASC LIMIT %d',
+            $dimension,
+            $dimension,
+            $this->tablePrefixed,
+            $dimension,
+            $dimension,
+            $dimension,
+            (int) $limit
+        );
         $rows = Db::get()->fetchAll($query, array($idSite, $startDate));
 
         $values = array();
@@ -371,6 +384,4 @@ class LogTable
     {
         return StaticContainer::get(LogTable::class);
     }
-
 }
-

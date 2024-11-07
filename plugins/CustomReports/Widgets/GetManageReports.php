@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,9 +18,7 @@ namespace Piwik\Plugins\CustomReports\Widgets;
 
 use Piwik\ArchiveProcessor\Rules;
 use Piwik\Common;
-use Piwik\Config;
 use Piwik\Container\StaticContainer;
-use Piwik\Piwik;
 use Piwik\Plugins\CustomReports\Configuration;
 use Piwik\Plugins\CustomReports\Dao\CustomReportsDao;
 use Piwik\Widget\Widget;

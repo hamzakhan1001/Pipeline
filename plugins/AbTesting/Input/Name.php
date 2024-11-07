@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,12 +16,12 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class Name
 {
-    const MAX_LENGTH = 50;
+    public const MAX_LENGTH = 50;
     /**
      * @var string
      */
@@ -64,5 +65,4 @@ class Name
             throw new Exception(Piwik::translate('AbTesting_ErrorXOnlyAlNumDash', $title));
         }
     }
-
 }

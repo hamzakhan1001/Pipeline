@@ -73,3 +73,56 @@ Ever feel like using play counts to analyse your media performance isn't enough?
 Why stay in the dark when you can harness the power of detailed, user-centric insights? Discover what works, optimise, and make your content shine with Matomo's Media Analytics plugin.
 
 Are you ready to elevate your content strategy? Start your 30-day free trial no and chart a brighter course forward.
+
+### Reporting features
+
+Adds more than 15 new widgets and reports that all can be added to the dashboard or exported as widget. Some of the reports include:
+* Media usage by media title.
+* Media usage by media resource URL and grouped resource URL.
+* Media usage by hour.
+* Video usage by video resolution.
+* Media usage by media player.
+* Drill down to get usage for any specific video or audio.
+* View a heatmap of which parts of a video or audio have been viewed.
+  Some of the metrics displayed include
+* Number of impressions (how often was a media shown but not played).
+* Number of plays (how often was a media actually played after it was shown).
+* Number of finishes (how often was a media finished).
+* Time spent watching or listening to a media.
+* Media duration / length.
+* Time to play (how long did visitors wait before they start playing a media).
+* Number of views in fullscreen.
+* And many more.
+  Evolution graphs show how the media consumption on your website or app changes over time.
+
+### Real-time features
+
+* View the [audience log](https://matomo.org/docs/media-analytics/#audience-log) to learn how each individual visitor used your website before and after playing a media.
+* View the [audience map](https://matomo.org/docs/media-analytics/#audience-map) to see at a glance where your visitors are from (lets you go down from continent to cities).
+
+### Segmenting features
+
+* Many new segments are provided. Segment your visitors by Media Title, Media URL, time spent playing media, the number of media plays and many more.
+* Combine these Media segments with any other Matomo segments to drill down and get deep insights into your audience.
+
+### Tracking features
+
+* Tracks events when you a user plays, pauses, resumes, seeks, or finishes a video and see at what position within the media they paused or resumed. They can be viewed in the [Visitor Log](https://matomo.org/docs/user-profile/).
+* Currently supports HTML5 Audio & Video, SoundManager 2, JW Player (Flash and HTML5), Flowplayer, Video.js, MediaElement.js, SoundCloud, YouTube and Vimeo out of the box.
+* Possibility to track the usage of any player by defining a [custom player](https://developer.matomo.org/guides/media-analytics/custom-player).
+* Lets you exclude specific videos from being tracked.
+* Lets you optionally [customize the tracked media title and resource URL](https://developer.matomo.org/guides/media-analytics/options).
+* Works with multiple Matomo tracker instances
+* Small footprint. Only adds a very few kilobytes to your Matomo JavaScript tracker (`piwik.js`).
+
+### Privacy features
+
+* Supports Matomo's [privacy](https://matomo.org/docs/privacy/) and GDPR features like the right to erase data or the right to export data. GDPR stands for General Data Protection Regulation and is for example also known as RGPD in French, DS-GVO in German
+* The plugin does not store personal data
+
+### Export & API features
+
+* Get your Video and Audio analytics reports by [email](https://matomo.org/docs/email-reports/) to you, your colleagues or customers.
+* Via the [HTTP Tracking API](https://developer.matomo.org/api-reference/tracking-api), media can be tracked on any platform or application (such as iOS or Android).
+* All reports including real time reports are available via the [Media Analytics HTTP Reporting API](https://developer.matomo.org/api-reference/reporting-api#MediaAnalytics), and support [Matomo segments](https://matomo.org/docs/segmentation/).
+* Export any video and audio analytics report directly in your app, dashboard, or even TV screen! Even your real time reports can be [embedded](https://matomo.org/docs/embed-piwik-report/) anywhere. 

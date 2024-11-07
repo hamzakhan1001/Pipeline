@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Archiver;
 
 use Piwik\Common;
@@ -44,7 +46,8 @@ class Aggregator
             $extraWhere = 'SLEEP(1) AND';
         }
 
-        $query = sprintf('SELECT /* HeatmapSessionRecording.findRecording */ hsrsite.idsitehsr,
+        $query = sprintf(
+            'SELECT /* HeatmapSessionRecording.findRecording */ hsrsite.idsitehsr,
                    min(hsr.idloghsr) as idloghsr
                    FROM %s hsr 
                    LEFT JOIN %s hsrsite ON hsr.idloghsr = hsrsite.idloghsr 
@@ -53,7 +56,13 @@ class Aggregator
                    WHERE %s hsr.idvisit = ? and sitehsr.record_type = ? and hsrevent.idhsrblob is not null and hsrsite.idsitehsr is not null
                    GROUP BY hsrsite.idsitehsr 
                   LIMIT 1',
-            Common::prefixTable('log_hsr'), Common::prefixTable('log_hsr_site'), Common::prefixTable('log_hsr_event'), RequestProcessor::EVENT_TYPE_INITIAL_DOM, Common::prefixTable('site_hsr'), $extraWhere);
+            Common::prefixTable('log_hsr'),
+            Common::prefixTable('log_hsr_site'),
+            Common::prefixTable('log_hsr_event'),
+            RequestProcessor::EVENT_TYPE_INITIAL_DOM,
+            Common::prefixTable('site_hsr'),
+            $extraWhere
+        );
 
         $readerDb = $this->getDbReader();
         $query = DbHelper::addMaxExecutionTimeHintToQuery($query, $this->getLiveQueryMaxExecutionTime());
@@ -88,7 +97,8 @@ class Aggregator
             $extraWhere = 'SLEEP(1) AND';
         }
 
-        $query = sprintf('SELECT /* HeatmapSessionRecording.findRecordings */ hsrsite.idsitehsr,
+        $query = sprintf(
+            'SELECT /* HeatmapSessionRecording.findRecordings */ hsrsite.idsitehsr,
                    min(hsr.idloghsr) as idloghsr,
                    hsr.idvisit
                    FROM %s hsr 
@@ -97,7 +107,14 @@ class Aggregator
                    LEFT JOIN %s sitehsr ON hsrsite.idsitehsr = sitehsr.idsitehsr
                    WHERE %s hsr.idvisit IN ("%s") and sitehsr.record_type = ? and hsrevent.idhsrblob is not null and hsrsite.idsitehsr is not null
                    GROUP BY hsr.idvisit, hsrsite.idsitehsr',
-            Common::prefixTable('log_hsr'), Common::prefixTable('log_hsr_site'), Common::prefixTable('log_hsr_event'), RequestProcessor::EVENT_TYPE_INITIAL_DOM, Common::prefixTable('site_hsr'), $extraWhere, implode('","', $visitIds));
+            Common::prefixTable('log_hsr'),
+            Common::prefixTable('log_hsr_site'),
+            Common::prefixTable('log_hsr_event'),
+            RequestProcessor::EVENT_TYPE_INITIAL_DOM,
+            Common::prefixTable('site_hsr'),
+            $extraWhere,
+            implode('","', $visitIds)
+        );
 
         $readerDb = $this->getDbReader();
         $query = DbHelper::addMaxExecutionTimeHintToQuery($query, $this->getLiveQueryMaxExecutionTime());
@@ -123,7 +140,8 @@ class Aggregator
         $logEvent = Common::prefixTable('log_hsr_event');
         $logBlob = Common::prefixTable('log_hsr_blob');
 
-        $query = sprintf('SELECT laction.name as base_url,
+        $query = sprintf(
+            'SELECT laction.name as base_url,
                                         laction.url_prefix, hsrblob.`value` as initial_mutation, hsrblob.compressed
                           FROM %s hsr 
                           LEFT JOIN %s laction ON laction.idaction = hsr.idaction_url
@@ -133,8 +151,12 @@ class Aggregator
                           WHERE hsr.idloghsr = ? and hsr.idsite = ? and hsr_site.idsitehsr = ? 
                                 and hsrevent.idhsrblob is not null and `hsrblob`.`value` is not null
                           LIMIT 1',
-                          $logHsr, $logAction, $logHsrSite, $logEvent,
-                          RequestProcessor::EVENT_TYPE_INITIAL_DOM, $logBlob
+            $logHsr,
+            $logAction,
+            $logHsrSite,
+            $logEvent,
+            RequestProcessor::EVENT_TYPE_INITIAL_DOM,
+            $logBlob
         );
 
         $row = $this->getDbReader()->fetchRow($query, array($idLogHsr, $idSite, $idSiteHsr));
@@ -267,8 +289,10 @@ class Aggregator
         // it should be a lot faster this way
         if (class_exists('Piwik\DataAccess\LogQueryBuilder') && !$segment->isEmpty()) {
             $logQueryBuilder = StaticContainer::get('Piwik\DataAccess\LogQueryBuilder');
-            if (method_exists($logQueryBuilder, 'getForcedInnerGroupBySubselect') &&
-                method_exists($logQueryBuilder, 'forceInnerGroupBySubselect')) {
+            if (
+                method_exists($logQueryBuilder, 'getForcedInnerGroupBySubselect') &&
+                method_exists($logQueryBuilder, 'forceInnerGroupBySubselect')
+            ) {
                 $forceGroupByBackup = $logQueryBuilder->getForcedInnerGroupBySubselect();
                 $logQueryBuilder->forceInnerGroupBySubselect($subselectForced);
 
@@ -336,7 +360,7 @@ class Aggregator
         if (!empty($revertSubselect) && is_callable($revertSubselect)) {
             call_user_func($revertSubselect);
         }
-        
+
         return $this->getDbReader()->fetchAll($query['sql'], $query['bind']);
     }
 
@@ -450,4 +474,3 @@ class Aggregator
         return $this->getDbReader()->fetchAll($query['sql'], $query['bind']);
     }
 }
-

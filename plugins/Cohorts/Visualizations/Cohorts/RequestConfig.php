@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\Cohorts\Visualizations\Cohorts;
 
 use Piwik\Plugins\Cohorts\Reports\GetCohorts;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable\RequestConfig as VizRequestConfig;
-
 
 class RequestConfig extends VizRequestConfig
 {

@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance;
 
 use Piwik\Archive;
@@ -24,6 +25,7 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Google as Googl
 use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Bing as BingRecordBuilder;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Yandex as YandexRecordBuilders;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Bing;
+
 /**
  * The <a href='https://plugins.matomo.org/SearchEngineKeywordsPerformance'
  * target='_blank'>SearchEngineKeywordsPerformance</a> API lets you download all your SEO search keywords from Google,
@@ -310,7 +312,22 @@ class API extends \Piwik\Plugin\API
     {
         Piwik::checkUserHasViewAccess($idSite);
         $archive = Archive::build($idSite, $period, $date);
-        $dataTable = $archive->getDataTableFromNumeric([BingRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_IN_LINKS_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_MALWARE_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_BLOCKED_ROBOTS_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_DNS_FAILURE_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_TIMEOUT_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_301_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_302_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME, BingRecordBuilder::CRAWLSTATS_OTHER_CODES_RECORD_NAME]);
+        $dataTable = $archive->getDataTableFromNumeric([
+            BingRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_IN_LINKS_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_MALWARE_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_BLOCKED_ROBOTS_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_DNS_FAILURE_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_TIMEOUT_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_301_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_302_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME,
+            BingRecordBuilder::CRAWLSTATS_OTHER_CODES_RECORD_NAME
+        ]);
         return $dataTable;
     }
     /**
@@ -327,7 +344,17 @@ class API extends \Piwik\Plugin\API
     {
         Piwik::checkUserHasViewAccess($idSite);
         $archive = Archive::build($idSite, $period, $date);
-        $dataTable = $archive->getDataTableFromNumeric([YandexRecordBuilders::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_APPEARED_PAGES_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_REMOVED_PAGES_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_IN_INDEX_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_CODE_2XX_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_CODE_3XX_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_CODE_4XX_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_CODE_5XX_RECORD_NAME, YandexRecordBuilders::CRAWLSTATS_ERRORS_RECORD_NAME]);
+        $dataTable = $archive->getDataTableFromNumeric([
+            YandexRecordBuilders::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_APPEARED_PAGES_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_REMOVED_PAGES_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_IN_INDEX_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_CODE_2XX_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_CODE_3XX_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_CODE_4XX_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_CODE_5XX_RECORD_NAME,
+            YandexRecordBuilders::CRAWLSTATS_ERRORS_RECORD_NAME
+        ]);
         return $dataTable;
     }
     /**
@@ -356,7 +383,7 @@ class API extends \Piwik\Plugin\API
         }
         $dataTable->addRowsFromSerializedArray($data);
         $dataTable->filter('ColumnCallbackAddMetadata', array('label', 'url'));
-        $dataTable->filter('ColumnCallbackReplace', array('label', function ($val) use($bingSiteUrl) {
+        $dataTable->filter('ColumnCallbackReplace', array('label', function ($val) use ($bingSiteUrl) {
             return preg_replace('|https?://[^/]*/|i', '', $val);
         }));
         return $dataTable;

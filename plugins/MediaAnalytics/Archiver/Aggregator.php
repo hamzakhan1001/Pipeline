@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -65,8 +66,14 @@ class Aggregator
         $rankingQuery->addColumn(Metrics::METRIC_NB_IMPRESSIONS, 'sum');
         $rankingQuery->addColumn(Metrics::METRIC_NB_IMPRESSIONS_BY_UNIQUE_VISITORS);
 
-        return $this->query($select, '' . $where, 'label', Metrics::METRIC_NB_PLAYS . ' DESC',
-            ['log_media'], $rankingQuery);
+        return $this->query(
+            $select,
+            '' . $where,
+            'label',
+            Metrics::METRIC_NB_PLAYS . ' DESC',
+            ['log_media'],
+            $rankingQuery
+        );
     }
 
     public function queryPlays(string $where, string $groupByColumn)
@@ -110,13 +117,24 @@ class Aggregator
         $rankingQuery->addColumn(Metrics::METRIC_NB_PLAYS_WITH_MEDIA_LENGTH, 'sum');
         $rankingQuery->addColumn(Metrics::METRIC_SUM_FULLSCREEN_PLAYS, 'sum');
 
-        return $this->query($select, $this->getPlaysWhere($where), 'label',
-            Metrics::METRIC_NB_PLAYS . ' DESC', ['log_media'], $rankingQuery);
+        return $this->query(
+            $select,
+            $this->getPlaysWhere($where),
+            'label',
+            Metrics::METRIC_NB_PLAYS . ' DESC',
+            ['log_media'],
+            $rankingQuery
+        );
     }
 
-    public function query(string $select, string $where, string $groupBy, string $orderBy, ?array $from = ['log_media'],
-                          RankingQuery $rankingQuery = null)
-    {
+    public function query(
+        string $select,
+        string $where,
+        string $groupBy,
+        string $orderBy,
+        ?array $from = ['log_media'],
+        RankingQuery $rankingQuery = null
+    ) {
         $condition = $this->logAggregator->getWhereStatement('log_media', 'server_time');
         if (!empty($where)) {
             $condition .= ' ' . $where . ' ';
@@ -126,13 +144,12 @@ class Aggregator
         $shouldForceInnerGroupBy = $this->segment && $this->segment->getString();
 
         if ($shouldForceInnerGroupBy) {
-            $logQueryBuilder->forceInnerGroupBySubselect( 'log_media.idview');
+            $logQueryBuilder->forceInnerGroupBySubselect('log_media.idview');
         }
 
         try {
             // just fyi: we cannot add any bind as any argument as it would otherwise break segmentation
             $query = $this->logAggregator->generateQuery($select, $from, $condition, $groupBy, $orderBy);
-
         } catch (\Exception $e) {
             if ($shouldForceInnerGroupBy) {
                 // important to unset it, otherwise could be applied to other archiver queries of other plugins etc.
@@ -218,7 +235,8 @@ class Aggregator
 
     public function queryResolution(string $groupByColumn, string $where)
     {
-        $select = sprintf('%s as parentLabel, 
+        $select = sprintf(
+            '%s as parentLabel, 
                           log_media.resolution as label, 
                           count(log_media.idvisit) as %s,
                           %s as %s,
@@ -227,7 +245,8 @@ class Aggregator
             Metrics::METRIC_NB_PLAYS,
             $this->getSelectFinishes(),
             Metrics::METRIC_NB_FINISHES,
-            Metrics::METRIC_SUM_TIME_WATCHED);
+            Metrics::METRIC_SUM_TIME_WATCHED
+        );
         $groupBy = $groupByColumn . ', log_media.resolution';
         $rankingQuery = $this->getNewRankingQuery(Configuration::RANKING_QUERY_TYPE_SECONDARY);
         $rankingQuery->addLabelColumn('parentLabel');
@@ -241,7 +260,8 @@ class Aggregator
 
     public function queryHours(string $groupByColumn, string $where)
     {
-        $select = sprintf('%s as parentLabel, 
+        $select = sprintf(
+            '%s as parentLabel, 
                           hour(log_media.server_time) as label, 
                           count(log_media.idvisit) as %s,
                           %s as %s, 
@@ -250,7 +270,8 @@ class Aggregator
             Metrics::METRIC_NB_PLAYS,
             $this->getSelectFinishes(),
             Metrics::METRIC_NB_FINISHES,
-            Metrics::METRIC_SUM_TIME_WATCHED);
+            Metrics::METRIC_SUM_TIME_WATCHED
+        );
         $groupBy = $groupByColumn . ', label';
         $rankingQuery = $this->getNewRankingQuery(Configuration::RANKING_QUERY_TYPE_SECONDARY);
         $rankingQuery->addLabelColumn('parentLabel');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -23,5 +24,4 @@ class Helper extends Controller
     {
         return parent::getUrlSparkline($action, $customParameters);
     }
-
 }

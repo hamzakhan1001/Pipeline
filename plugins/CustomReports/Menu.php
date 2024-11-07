@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -22,7 +23,7 @@ use Piwik\Plugins\CustomReports\Input\Validator;
 class Menu extends \Piwik\Plugin\Menu
 {
     /**
-     * @var Validator 
+     * @var Validator
      */
     private $validator;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,8 +20,8 @@ use Piwik\Plugins\AdvertisingConversionExport\Export\Adapter\GoogleAds;
 
 class Google extends ClickIdProviderAbstract
 {
-    const ID = 'Google';
-    const CLICK_ID_REQUEST_PARAM = 'gclid';
+    public const ID = 'Google';
+    public const CLICK_ID_REQUEST_PARAM = 'gclid';
 
     public function getName(): string
     {

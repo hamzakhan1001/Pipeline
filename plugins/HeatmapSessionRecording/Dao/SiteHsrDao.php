@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Dao;
 
 use Piwik\Common;
@@ -26,15 +28,15 @@ class SiteHsrDao
     private $table = 'site_hsr';
     private $tablePrefixed = '';
 
-    const STATUS_ACTIVE = 'active';
-    const STATUS_DELETED = 'deleted';
-    const STATUS_PAUSED = 'paused';
-    const STATUS_ENDED = 'ended';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_DELETED = 'deleted';
+    public const STATUS_PAUSED = 'paused';
+    public const STATUS_ENDED = 'ended';
 
-    const RECORD_TYPE_HEATMAP = 1;
-    const RECORD_TYPE_SESSION = 2;
+    public const RECORD_TYPE_HEATMAP = 1;
+    public const RECORD_TYPE_SESSION = 2;
 
-    const MAX_SMALLINT = 65535;
+    public const MAX_SMALLINT = 65535;
 
     /**
      * @var Db|Db\AdapterInterface|\Piwik\Tracker\Db
@@ -141,8 +143,12 @@ class SiteHsrDao
         $bind = array_values($columns);
         $placeholder = Common::getSqlStringFieldsArray($columns);
 
-        $sql = sprintf('INSERT INTO %s (`%s`) VALUES(%s)',
-            $this->tablePrefixed, implode('`,`', array_keys($columns)), $placeholder);
+        $sql = sprintf(
+            'INSERT INTO %s (`%s`) VALUES(%s)',
+            $this->tablePrefixed,
+            implode('`,`', array_keys($columns)),
+            $placeholder
+        );
 
         $this->getDb()->query($sql, $bind);
 
@@ -167,7 +173,7 @@ class SiteHsrDao
 
             if (!empty($columns['page_treemirror'])) {
                 $columns['capture_manually'] = 0;
-            } else if (!empty($columns['capture_manually'] )) {
+            } elseif (!empty($columns['capture_manually'])) {
                 $columns['page_treemirror'] = null;
             }
 
@@ -281,7 +287,7 @@ class SiteHsrDao
         $fields .= ', SUBSTRING(page_treemirror, 1, 10) as page_treemirror';
 
         // NOTE: If you adjust this query, you might also
-        $sql = sprintf("SELECT ".$fields." FROM %s WHERE %s and idsite = ? ORDER BY idsitehsr asc", $this->tablePrefixed, $query['where']);
+        $sql = sprintf("SELECT " . $fields . " FROM %s WHERE %s and idsite = ? ORDER BY idsitehsr asc", $this->tablePrefixed, $query['where']);
         $records = $this->getDb()->fetchAll($sql, $bind);
 
         foreach ($records as $index => $record) {
@@ -414,4 +420,3 @@ class SiteHsrDao
         return $field;
     }
 }
-

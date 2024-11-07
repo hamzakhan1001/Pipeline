@@ -13,11 +13,13 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance;
 
 use Piwik\Option;
 use Piwik\Updater;
 use Piwik\Updates as PiwikUpdates;
+
 class Updates_4_1_0 extends PiwikUpdates
 {
     public function doUpdate(Updater $updater)

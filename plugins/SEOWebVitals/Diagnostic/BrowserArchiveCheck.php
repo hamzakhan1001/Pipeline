@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -51,5 +52,4 @@ class BrowserArchiveCheck implements Diagnostic
 
         return $result;
     }
-
 }

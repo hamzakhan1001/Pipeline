@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Model;
 
 use Piwik\Date;
@@ -37,10 +39,10 @@ use Piwik\Plugins\AbTesting\Input\Variations;
 
 class Experiments
 {
-    const STATUS_CREATED = 'created';
-    const STATUS_RUNNING = 'running';
-    const STATUS_FINISHED = 'finished';
-    const STATUS_ARCHIVED = 'archived';
+    public const STATUS_CREATED = 'created';
+    public const STATUS_RUNNING = 'running';
+    public const STATUS_FINISHED = 'finished';
+    public const STATUS_ARCHIVED = 'archived';
 
     /**
      * @var Experiment
@@ -67,7 +69,7 @@ class Experiments
             array('value' => self::STATUS_ARCHIVED, 'name' => Piwik::translate('AbTesting_StatusArchived')),
         );
     }
-    
+
     /**
      * @return array
      */
@@ -163,8 +165,10 @@ class Experiments
     {
         $experiment = $this->dao->getExperiment($idExperiment, $idSite);
 
-        if ($experiment['status'] === static::STATUS_FINISHED
-            || $experiment['status'] === static::STATUS_ARCHIVED) {
+        if (
+            $experiment['status'] === static::STATUS_FINISHED
+            || $experiment['status'] === static::STATUS_ARCHIVED
+        ) {
             throw new Exception(Piwik::translate('AbTesting_ErrorExperimentCannotBeFinished'));
         }
 
@@ -174,7 +178,7 @@ class Experiments
 
         Piwik::postEvent('AbTesting.finishExperiment', array($idExperiment, $idSite));
     }
-    
+
     public function startExperiment($idExperiment, $idSite)
     {
         $experiment = $this->dao->getExperiment($idExperiment, $idSite);
@@ -219,7 +223,7 @@ class Experiments
             // self::startExperiment() would trigger this event but we do not use this method to not overwrite
             // the scheduled start date
             Piwik::postEvent('AbTesting.startExperiment', array($idExperiment, $idSite));
-        } else if ($status === self::STATUS_FINISHED) {
+        } elseif ($status === self::STATUS_FINISHED) {
             // self::finishExperiment() would trigger this event but we do not use this method to not overwrite
             // the scheduled finish date
             Piwik::postEvent('AbTesting.finishExperiment', array($idExperiment, $idSite));
@@ -294,8 +298,10 @@ class Experiments
 
         if (!empty($experiment[$key])) {
             foreach ($experiment[$key] as $target) {
-                if (!empty($target['attribute']) && !empty($target['type']) &&
-                    (!empty($target['value']) || !Target::doesTargetTypeRequireValue($target['type'])) ) {
+                if (
+                    !empty($target['attribute']) && !empty($target['type']) &&
+                    (!empty($target['value']) || !Target::doesTargetTypeRequireValue($target['type']))
+                ) {
                     // type ANY is the only target that may have no value set
                     $targets[] = $target;
                 }
@@ -418,7 +424,7 @@ class Experiments
 
         $idExperiment = $this->dao->createExperiment($columns);
         $this->clearCache($idSite);
-        
+
         return $idExperiment;
     }
 
@@ -456,9 +462,24 @@ class Experiments
         }
         return $entries;
     }
-    
-    public function updateExperiment($idExperiment, $idSite, $name, $description, $hypothesis, $variations, $confidenceThreshold, $mdeRelative, $percentageParticipants, $includedTargets, $excludedTargets, $successMetrics, $startDate, $endDate, $forwardUtmParams)
-    {
+
+    public function updateExperiment(
+        $idExperiment,
+        $idSite,
+        $name,
+        $description,
+        $hypothesis,
+        $variations,
+        $confidenceThreshold,
+        $mdeRelative,
+        $percentageParticipants,
+        $includedTargets,
+        $excludedTargets,
+        $successMetrics,
+        $startDate,
+        $endDate,
+        $forwardUtmParams
+    ) {
         $variations = $this->trimValuesInArray($variations, 'redirect_url');
         $this->checkBase($idSite, $name, $description, $hypothesis, $variations, $includedTargets, $excludedTargets, $successMetrics, $confidenceThreshold);
 
@@ -469,8 +490,10 @@ class Experiments
 
         if (empty($startDate)) {
             $experiment = $this->getExperiment($idExperiment, $idSite);
-            if ($experiment['status'] !== Experiments::STATUS_CREATED &&
-                !empty($experiment['start_date'])) {
+            if (
+                $experiment['status'] !== Experiments::STATUS_CREATED &&
+                !empty($experiment['start_date'])
+            ) {
                 // if we experiment is running, we do not allow to clear the start date. This may happen eg if user
                 // is editing an experiment in the UI, then a tracking request comes in that starts the experiment,
                 // then the user updates the experiment without reloading. It would still have the old empty start date
@@ -524,7 +547,7 @@ class Experiments
             'success_metrics' => $successMetrics,
             'forward_utm_params' => $forwardUtmParams
         );
-        
+
         $this->dao->updateExperimentColumns($idExperiment, $idSite, $columns);
         $this->updateExperimentModifedDate($idExperiment, $idSite);
         $this->clearCache($idSite);
@@ -571,6 +594,4 @@ class Experiments
         $confidenceThreshold = new ConfidenceThreshold($confidenceThreshold);
         $confidenceThreshold->check();
     }
-
 }
-

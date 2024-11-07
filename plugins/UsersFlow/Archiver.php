@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,8 +18,8 @@ namespace Piwik\Plugins\UsersFlow;
 
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const USERSFLOW_ARCHIVE_RECORD = 'UsersFlow_usersFlow';
-    const USERSFLOW_PAGE_TITLE_ARCHIVE_RECORD = 'UsersFlow_usersFlowPageTitle';
+    public const USERSFLOW_ARCHIVE_RECORD = 'UsersFlow_usersFlow';
+    public const USERSFLOW_PAGE_TITLE_ARCHIVE_RECORD = 'UsersFlow_usersFlowPageTitle';
 
-    const LABEL_SEARCH = 'UsersFlow_LabelUsedSearch';
+    public const LABEL_SEARCH = 'UsersFlow_LabelUsedSearch';
 }

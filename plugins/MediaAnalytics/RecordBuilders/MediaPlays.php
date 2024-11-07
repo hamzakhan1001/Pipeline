@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -36,7 +37,8 @@ class MediaPlays extends Base
     {
         $aggregator = new Archiver\Aggregator($archiveProcessor->getLogAggregator(), $archiveProcessor->getParams()->getSegment(), $this->configuration);
 
-        $select = sprintf('count(log_media.idvisit) as %s, 
+        $select = sprintf(
+            'count(log_media.idvisit) as %s, 
                           count(distinct log_media.idvisitor) as %s,
                           sum(log_media.watched_time) as %s,
                           %s as %s',
@@ -44,7 +46,8 @@ class MediaPlays extends Base
             Metrics::METRIC_NB_PLAYS_BY_UNIQUE_VISITORS,
             Metrics::METRIC_TOTAL_TIME_WATCHED,
             $aggregator->getSelectFinishes(),
-            Metrics::METRIC_NB_FINISHES);
+            Metrics::METRIC_NB_FINISHES
+        );
 
         $cursor = $aggregator->query($select, $where = ' AND watched_time > 0', $groupBy = '', $orderBy = '');
         $row = $cursor->fetch();

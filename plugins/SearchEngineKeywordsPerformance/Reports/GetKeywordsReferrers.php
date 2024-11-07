@@ -13,11 +13,13 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Common;
 use Piwik\Piwik;
 use Piwik\Plugin\ReportsProvider;
+
 class GetKeywordsReferrers extends \Piwik\Plugins\Referrers\Reports\GetKeywords
 {
     protected function init()

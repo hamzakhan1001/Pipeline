@@ -120,6 +120,9 @@
         "None": "None",
         "Dimension": "Dimension",
         "Scope": "Scope",
-        "TotalRecordsFound": "Total Records Found"
+        "TotalRecordsFound": "Total Records Found",
+        "PasswordResetCancelled": "cancelled a password reset request",
+        "PasswordResetConfirmed": "confirmed a password reset request",
+        "PasswordResetInitiated": "requested a password reset"
     }
 }

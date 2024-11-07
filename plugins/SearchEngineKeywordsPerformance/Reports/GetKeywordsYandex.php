@@ -13,21 +13,19 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Common;
 use Piwik\Date;
-use Piwik\Period\Range;
 use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Columns\Keyword;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
-use Piwik\Plugins\SearchEngineKeywordsPerformance\Metrics;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Model\Yandex as ModelYandex;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\SearchEngineKeywordsPerformance;
-use Piwik\Site;
-use Piwik\Version;
+
 class GetKeywordsYandex extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\Base
 {
     protected function init()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Tracker;
 
 use Piwik\Common;
@@ -30,33 +32,33 @@ use Piwik\Tracker\Visit\VisitProperties;
 
 class RequestProcessor extends Tracker\RequestProcessor
 {
-    const ACTION_TYPE_HSR_SELECTOR = 96;
+    public const ACTION_TYPE_HSR_SELECTOR = 96;
 
-    const TRACKING_PARAM_HSR_ID_VIEW = 'hsr_vid';
-    const TRACKING_PARAM_HSR_IDS = 'hsr_ids';
-    const TRACKING_PARAM_VIEWPORT_WIDTH = 'hsr_vw';
-    const TRACKING_PARAM_VIEWPORT_HEIGHT = 'hsr_vh';
-    const TRACKING_PARAM_SCROLL_MAX_PERCENTAGE = 'hsr_smp';
-    const TRACKING_PARAM_FOLD_Y_PERCENT = 'hsr_fyp';
-    const TRACKING_PARAM_TOTAL_TIME = 'hsr_ti';
-    const TRACKING_PARAM_INITIAL_DOM = 'hsr_dom';
-    const TRACKING_PARAM_EVENTS = 'hsr_ev';
+    public const TRACKING_PARAM_HSR_ID_VIEW = 'hsr_vid';
+    public const TRACKING_PARAM_HSR_IDS = 'hsr_ids';
+    public const TRACKING_PARAM_VIEWPORT_WIDTH = 'hsr_vw';
+    public const TRACKING_PARAM_VIEWPORT_HEIGHT = 'hsr_vh';
+    public const TRACKING_PARAM_SCROLL_MAX_PERCENTAGE = 'hsr_smp';
+    public const TRACKING_PARAM_FOLD_Y_PERCENT = 'hsr_fyp';
+    public const TRACKING_PARAM_TOTAL_TIME = 'hsr_ti';
+    public const TRACKING_PARAM_INITIAL_DOM = 'hsr_dom';
+    public const TRACKING_PARAM_EVENTS = 'hsr_ev';
 
-    const EVENT_TYPE_MOVEMENT = 1;
-    const EVENT_TYPE_CLICK = 2;
-    const EVENT_TYPE_SCROLL = 3;
-    const EVENT_TYPE_RESIZE = 4;
-    const EVENT_TYPE_INITIAL_DOM = 5;
-    const EVENT_TYPE_MUTATION = 6;
-    const EVENT_TYPE_LINK_HSR = 7;
-    const EVENT_TYPE_PAGE_TREEMIRROR = 8;
-    const EVENT_TYPE_FORM_TEXT = 9;
-    const EVENT_TYPE_FORM_VALUE = 10;
-    const EVENT_TYPE_STOP_RECORDING = 11;
-    const EVENT_TYPE_SCROLL_ELEMENT = 12;
-    const EVENT_TYPE_CSS = 13;
+    public const EVENT_TYPE_MOVEMENT = 1;
+    public const EVENT_TYPE_CLICK = 2;
+    public const EVENT_TYPE_SCROLL = 3;
+    public const EVENT_TYPE_RESIZE = 4;
+    public const EVENT_TYPE_INITIAL_DOM = 5;
+    public const EVENT_TYPE_MUTATION = 6;
+    public const EVENT_TYPE_LINK_HSR = 7;
+    public const EVENT_TYPE_PAGE_TREEMIRROR = 8;
+    public const EVENT_TYPE_FORM_TEXT = 9;
+    public const EVENT_TYPE_FORM_VALUE = 10;
+    public const EVENT_TYPE_STOP_RECORDING = 11;
+    public const EVENT_TYPE_SCROLL_ELEMENT = 12;
+    public const EVENT_TYPE_CSS = 13;
 
-    const MYSQL_MAX_MEDIUM_UINT = 16777215;
+    public const MYSQL_MAX_MEDIUM_UINT = 16777215;
 
     /**
      * @var LogHsr
@@ -208,7 +210,6 @@ class RequestProcessor extends Tracker\RequestProcessor
                 break;
             case self::EVENT_TYPE_PAGE_TREEMIRROR:
                 if (!empty($event['dom'])) {
-
                     // we need to save the initial DOM for heatmap
                     $clearCache = false;
                     $cachedHsrs = $this->getCachedHsrs($idSite);
@@ -216,7 +217,6 @@ class RequestProcessor extends Tracker\RequestProcessor
                     // url might be different per hsr.
                     foreach ($cachedHsrs as $hsr) {
                         if (empty($hsr['page_treemirror']) && $hsr['idsitehsr'] == $event['id'] && $hsr['record_type'] == SiteHsrDao::RECORD_TYPE_HEATMAP) {
-
                             $screenshotUrl = $hsr['screenshot_url'];
                             if (empty($hsr['screenshot_url'])) {
                                 $screenshotUrl = $url;
@@ -238,7 +238,6 @@ class RequestProcessor extends Tracker\RequestProcessor
                 break;
 
             case self::EVENT_TYPE_LINK_HSR:
-
                 if (isset($event['id'])) {
                     // we need to link a new idsitehsr to an existing recording
                     $idSiteHsr = (int) $event['id'];
@@ -310,5 +309,4 @@ class RequestProcessor extends Tracker\RequestProcessor
         }
         return array();
     }
-
 }

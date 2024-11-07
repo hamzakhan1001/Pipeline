@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Columns;
 
 use Piwik\Columns\DimensionMetricFactory;
@@ -59,7 +61,7 @@ class FormSubmissions extends BaseDimension
         $metric3->setDocumentation(Piwik::translate('FormAnalytics_ColumnDescriptionNbFormResubmitters'));
         $metricsList->addMetric($metric3);
 
-        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_RESUBMITTERS, Metrics::SUM_FORM_SUBMITTERS,ComputedMetric::AGGREGATION_RATE);
+        $metric = $dimensionMetricFactory->createComputedMetric(Metrics::SUM_FORM_RESUBMITTERS, Metrics::SUM_FORM_SUBMITTERS, ComputedMetric::AGGREGATION_RATE);
         $metric->setName(Metrics::RATE_FORM_RESUBMITTERS);
         $metric->setTranslatedName(Piwik::translate('FormAnalytics_ColumnRateResubmitter'));
         $metric->setDocumentation(Piwik::translate('FormAnalytics_ColumnDescriptionNbFormResubmitters'));

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
 use Piwik\Common;
@@ -68,5 +70,4 @@ abstract class BaseLiveWidget extends BaseWidget
     {
         return (int) Config::getInstance()->General['live_widget_refresh_after_seconds'] * 1000;
     }
-
 }

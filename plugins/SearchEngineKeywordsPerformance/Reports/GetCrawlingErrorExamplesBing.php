@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Common;
@@ -24,6 +25,7 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\SearchEngineKeywordsPerformance;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
+
 class GetCrawlingErrorExamplesBing extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\Base
 {
     protected function init()
@@ -45,9 +47,22 @@ class GetCrawlingErrorExamplesBing extends \Piwik\Plugins\SearchEngineKeywordsPe
         $view->config->show_all_views_icons = \false;
         $view->config->show_table_all_columns = \false;
         $view->config->disable_row_evolution = \true;
-        $view->config->addTranslations(['label' => Piwik::translate('Actions_ColumnPageURL'), 'category' => Piwik::translate('SearchEngineKeywordsPerformance_Category'), 'inLinks' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlInboundLink'), 'responseCode' => Piwik::translate('SearchEngineKeywordsPerformance_ResponseCode')]);
-        $translations = ['Code301' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus301'), 'Code302' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus302'), 'Code4xx' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus4xx'), 'Code5xx' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus5xx'), 'BlockedByRobotsTxt' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlBlockedByRobotsTxt'), 'ContainsMalware' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlMalwareInfected'), 'ImportantUrlBlockedByRobotsTxt' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlImportantBlockedByRobotsTxt')];
-        $view->config->filters[] = ['ColumnCallbackReplace', ['category', function ($val) use($translations) {
+        $view->config->addTranslations([
+            'label' => Piwik::translate('Actions_ColumnPageURL'),
+            'category' => Piwik::translate('SearchEngineKeywordsPerformance_Category'),
+            'inLinks' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlInboundLink'),
+            'responseCode' => Piwik::translate('SearchEngineKeywordsPerformance_ResponseCode')
+        ]);
+        $translations = [
+            'Code301' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus301'),
+            'Code302' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus302'),
+            'Code4xx' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus4xx'),
+            'Code5xx' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlHttpStatus5xx'),
+            'BlockedByRobotsTxt' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlBlockedByRobotsTxt'),
+            'ContainsMalware' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlMalwareInfected'),
+            'ImportantUrlBlockedByRobotsTxt' => Piwik::translate('SearchEngineKeywordsPerformance_BingCrawlImportantBlockedByRobotsTxt')
+        ];
+        $view->config->filters[] = ['ColumnCallbackReplace', ['category', function ($val) use ($translations) {
             $codes = explode(',', $val);
             $result = [];
             foreach ($codes as $code) {

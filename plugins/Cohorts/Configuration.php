@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,16 +16,15 @@
 
 namespace Piwik\Plugins\Cohorts;
 
-
 use Piwik\Config;
 
 // TODO: UI Tests
 class Configuration
 {
-    const DEFAULT_PERIODS_FROM_START_TO_SHOW = 10;
-    const KEY_PERIODS_FROM_START_TO_SHOW = 'periods_from_start_to_show';
-    const KEY_NUM_COHORTS_TO_SHOW = 'num_cohorts_to_show';
-    const DEFAULT_NUM_COHORTS_TO_SHOW = 10;
+    public const DEFAULT_PERIODS_FROM_START_TO_SHOW = 10;
+    public const KEY_PERIODS_FROM_START_TO_SHOW = 'periods_from_start_to_show';
+    public const KEY_NUM_COHORTS_TO_SHOW = 'num_cohorts_to_show';
+    public const DEFAULT_NUM_COHORTS_TO_SHOW = 10;
 
     public function install()
     {

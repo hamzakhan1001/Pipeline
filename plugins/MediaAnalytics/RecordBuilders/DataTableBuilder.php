@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -50,7 +51,7 @@ class DataTableBuilder
             ['url' => function ($thisColumnValue, $columnToSumValue) {
                 // NOTE: the order of these conditions is swapped compared to Archiver::getColumnAggregationOpteration().
                 // this was done to keep the behavior the same as before after removing the use of DataArrays.
-                if (!empty($columnToSumValue)){
+                if (!empty($columnToSumValue)) {
                     return $columnToSumValue;
                 }
                 if (!empty($thisColumnValue)) {

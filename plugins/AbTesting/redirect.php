@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -20,8 +21,10 @@
  * It the experiment exists, and if any redirect URL is defined, it will redirect to one of the configured
  * redirect URLs. A cookie will be set to make sure the user will be always redirected to the same URL.
  */
-if (empty($_GET['id']) ||
-    !preg_match('/^\d+$/', (string) $_GET['id'])) {
+if (
+    empty($_GET['id']) ||
+    !preg_match('/^\d+$/', (string) $_GET['id'])
+) {
     http_response_code(400);
     exit;
 }
@@ -39,9 +42,12 @@ define('PIWIK_DISPLAY_ERRORS', 0);
 // we do not load index.php as it would register safeMode!
 require_once PIWIK_INCLUDE_PATH . '/core/bootstrap.php';
 
-// we do not want it to be validate, saves 25-50ms or up to 50% of whole request
-class Validator {
-    public function validate() {}
+// we do not want it to validate, saves 25-50ms or up to 50% of whole request
+class Validator
+{
+    public function validate()
+    {
+    }
 }
 $validator = new Validator();
 $environment = new \Piwik\Application\Environment(null, array(
@@ -49,7 +55,7 @@ $environment = new \Piwik\Application\Environment(null, array(
 ));
 try {
     $environment->init();
-} catch(\Piwik\Exception\NotYetInstalledException $e) {
+} catch (\Piwik\Exception\NotYetInstalledException $e) {
     http_response_code(403);
     exit;
 }

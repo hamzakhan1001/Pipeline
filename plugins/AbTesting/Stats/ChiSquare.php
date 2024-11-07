@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,7 +22,7 @@ namespace Piwik\Plugins\AbTesting\Stats;
  */
 class ChiSquare
 {
-    const PRECISION = 6;
+    public const PRECISION = 6;
 
     public function getZscore($controlVisits, $controlConversions, $experimentVisits, $experimentConversions)
     {
@@ -98,5 +99,4 @@ class ChiSquare
                 ( $t * ( $t * ( $t * ( $t * $b5 + $b4 ) + $b3 ) + $b2 ) + $b1 ));
         }
     }
-
 }

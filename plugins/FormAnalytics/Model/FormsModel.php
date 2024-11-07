@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Model;
 
 use Piwik\Date;
@@ -29,9 +31,9 @@ use Piwik\Plugins\FormAnalytics\Input\Description;
 
 class FormsModel
 {
-    const STATUS_RUNNING = 'running';
-    const STATUS_ARCHIVED = 'archived';
-    const STATUS_DELETED = 'deleted';
+    public const STATUS_RUNNING = 'running';
+    public const STATUS_ARCHIVED = 'archived';
+    public const STATUS_DELETED = 'deleted';
 
     /**
      * @var SiteForm
@@ -49,7 +51,7 @@ class FormsModel
         $this->settings = $settings;
     }
 
-    public function createForm($idSite, $name, $description, $matchFormRules, $matchPageRules, $conversionRuleOption,  $conversionRules, $createdDate, $autoCreated)
+    public function createForm($idSite, $name, $description, $matchFormRules, $matchPageRules, $conversionRuleOption, $conversionRules, $createdDate, $autoCreated)
     {
         $this->validateFormValues($name, $description, $matchFormRules, $matchPageRules, $conversionRuleOption, $conversionRules);
 
@@ -170,7 +172,7 @@ class FormsModel
         $form = $this->getForm($idSite, $idForm);
         $columns = array('status' => self::STATUS_DELETED);
         if (isset($form['name'])) {
-	    //Since the unique index is created using combination of idsite+name, just soft deleting will not allow to create new form with deleted form name, so we just update the name too when marking the status as deleted
+        //Since the unique index is created using combination of idsite+name, just soft deleting will not allow to create new form with deleted form name, so we just update the name too when marking the status as deleted
             $columns['name'] = 'deleted-' . $idForm . '-' . $form['name'];
         }
         $this->updateFormColumns($idSite, $idForm, $columns);
@@ -237,6 +239,4 @@ class FormsModel
         $this->siteFormDao->updateFormColumns($idSite, $idForm, $columns);
         $this->clearTrackerCache($idSite);
     }
-
 }
-

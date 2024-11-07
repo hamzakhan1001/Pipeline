@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\LoginSaml\Saml;
 
 use Piwik\Log\Logger;
@@ -20,7 +22,6 @@ use OneLogin\Saml2\Settings;
 use OneLogin\Saml2\Utils;
 use OneLogin\Saml2\Error;
 use Piwik\Access;
-use Piwik\Container\StaticContainer;
 use Piwik\Common;
 use Piwik\Date;
 use Piwik\Piwik;
@@ -99,9 +100,9 @@ class SamlFactory
                 $settingsInfo = $this->getSamlSettings();
                 $this->samlAuth = new Auth($settingsInfo);
             } catch (Error $e) {
-                $errorMsg = "Error initializing SAML. ".$e->getMessage();
+                $errorMsg = "Error initializing SAML. " . $e->getMessage();
             } catch (\Exception $e) {
-                $errorMsg = "Error initializing SAML. ".$e->getMessage();
+                $errorMsg = "Error initializing SAML. " . $e->getMessage();
             }
             if (isset($errorMsg)) {
                 $this->logger->error($errorMsg);
@@ -121,7 +122,7 @@ class SamlFactory
     public function getDirectSamlMetadataUrl()
     {
         $baseUrl = Url::getCurrentUrlWithoutFileName();
-        return $this->getSamlUrl('metadata').'&format=text/xml';
+        return $this->getSamlUrl('metadata') . '&format=text/xml';
     }
 
     public function getSamlUrl($action)
@@ -196,15 +197,15 @@ class SamlFactory
                 )
             ),
             'security' => array(
-                'nameIdEncrypted' => isset($configData['advanced_nameid_encrypted'])? (bool)$configData['advanced_nameid_encrypted'] : false,
-                'authnRequestsSigned' => isset($configData['advanced_authn_request_signed'])? (bool)$configData['advanced_authn_request_signed'] : false,
-                'logoutRequestSigned' => isset($configData['advanced_logout_request_signed'])? (bool)$configData['advanced_logout_request_signed'] : false,
-                'logoutResponseSigned' => isset($configData['advanced_logout_response_signed'])? (bool)$configData['advanced_logout_response_signed'] : false,
-                'signMetadata' => isset($configData['advanced_metadata_signed'])? (bool)$configData['advanced_metadata_signed'] : false,
-                'wantMessagesSigned' => isset($configData['advanced_want_message_signed'])? (bool)$configData['advanced_want_message_signed'] : false,
-                'wantAssertionsSigned' => isset($configData['advanced_want_assertion_signed'])? (bool)$configData['advanced_want_assertion_signed'] : false,
-                'wantAssertionsEncrypted' => isset($configData['advanced_want_assertion_encrypted'])? (bool)$configData['advanced_want_assertion_encrypted'] : false,
-                'wantNameIdEncrypted' => isset($configData['advanced_want_nameid_encrypted'])? (bool) $configData['advanced_want_nameid_encrypted'] : false,
+                'nameIdEncrypted' => isset($configData['advanced_nameid_encrypted']) ? (bool)$configData['advanced_nameid_encrypted'] : false,
+                'authnRequestsSigned' => isset($configData['advanced_authn_request_signed']) ? (bool)$configData['advanced_authn_request_signed'] : false,
+                'logoutRequestSigned' => isset($configData['advanced_logout_request_signed']) ? (bool)$configData['advanced_logout_request_signed'] : false,
+                'logoutResponseSigned' => isset($configData['advanced_logout_response_signed']) ? (bool)$configData['advanced_logout_response_signed'] : false,
+                'signMetadata' => isset($configData['advanced_metadata_signed']) ? (bool)$configData['advanced_metadata_signed'] : false,
+                'wantMessagesSigned' => isset($configData['advanced_want_message_signed']) ? (bool)$configData['advanced_want_message_signed'] : false,
+                'wantAssertionsSigned' => isset($configData['advanced_want_assertion_signed']) ? (bool)$configData['advanced_want_assertion_signed'] : false,
+                'wantAssertionsEncrypted' => isset($configData['advanced_want_assertion_encrypted']) ? (bool)$configData['advanced_want_assertion_encrypted'] : false,
+                'wantNameIdEncrypted' => isset($configData['advanced_want_nameid_encrypted']) ? (bool) $configData['advanced_want_nameid_encrypted'] : false,
                 'requestedAuthnContext' => isset($configData['advanced_requestedauthncontext']) && $configData['advanced_requestedauthncontext'] !== 0 ? $configData['advanced_requestedauthncontext'] : false,
                 'requestedAuthnContextComparison' => 'exact',
                 'signatureAlgorithm' => $configData['advanced_signaturealgorithm'],
@@ -297,8 +298,9 @@ class SamlFactory
                     ]
                 );
             }
-        } else {if (!$configData['options_autocreate']) {
-                throw new \Exception("User with ".$configData['options_identify_field']." ".$userIdentifyValue." does not exists and just-in-time provisioning is disabled");
+        } else {
+            if (!$configData['options_autocreate']) {
+                throw new \Exception("User with " . $configData['options_identify_field'] . " " . $userIdentifyValue . " does not exists and just-in-time provisioning is disabled");
             }
 
             if (empty($username)) {
@@ -313,11 +315,11 @@ class SamlFactory
             }
 
             if ($this->userModel->userExists($username)) {
-                throw new \Exception("Just-in-time provisioning error. Username ".$username." already exists, can't create an account for ".$email);
+                throw new \Exception("Just-in-time provisioning error. Username " . $username . " already exists, can't create an account for " . $email);
             }
 
             if ($this->userModel->userEmailExists($email)) {
-                throw new \Exception("Just-in-time provisioning error. Email ".$email." already exists, can't create an account for ".$username);
+                throw new \Exception("Just-in-time provisioning error. Email " . $email . " already exists, can't create an account for " . $username);
             }
 
             $randomHashedPassword = $this->generateRandomHashedPassword();
@@ -325,7 +327,7 @@ class SamlFactory
 
             $this->userModel->addUser($username, $randomHashedPassword, $email, $dateRegistered);
             $user = $this->userModel->getUser($username);
-            $this->logger->info("Added user ".$user['login']);
+            $this->logger->info("Added user " . $user['login']);
         }
         return $user;
     }
@@ -341,7 +343,7 @@ class SamlFactory
 
         if (empty($userAccess)) {
             $this->logger->warning(
-                "SamlFactory::".__FUNCTION__.": User '".$piwikLogin."' has no access in SAML, but access synchronization is enabled."
+                "SamlFactory::" . __FUNCTION__ . ": User '" . $piwikLogin . "' has no access in SAML, but access synchronization is enabled."
             );
 
             return false;
@@ -361,12 +363,12 @@ class SamlFactory
                         $usersManagerApi->setSuperUserAccess($piwikLogin, true);
                     }
                     $this->logger->info(
-                        "PiwikAccess synched. User '".$piwikLogin."' is now supersuer"
+                        "PiwikAccess synched. User '" . $piwikLogin . "' is now supersuer"
                     );
                 } else {
                     $usersManagerApi->setUserAccess($piwikLogin, $userAccessLevel, $sites);
                     $this->logger->info(
-                        "PiwikAccess synched. Access of user '".$piwikLogin."' updated"
+                        "PiwikAccess synched. Access of user '" . $piwikLogin . "' updated"
                     );
                 }
             });
@@ -391,16 +393,16 @@ class SamlFactory
             });
             $siteIds = array_intersect($siteIds, $allIds);
             if (empty($siteIds)) {
-                $this->logger->warning("SAML settings defines invalid default sites ids '".$defaultSitesWithViewAccess."' at 'Options' section. New user ".$user['login']." will not have any access.");
+                $this->logger->warning("SAML settings defines invalid default sites ids '" . $defaultSitesWithViewAccess . "' at 'Options' section. New user " . $user['login'] . " will not have any access.");
             } else {
-                $this->logger->info("Adding to user ".$user['login']. " view access to sites: ".join(',', $siteIds));
+                $this->logger->info("Adding to user " . $user['login'] . " view access to sites: " . join(',', $siteIds));
                 Access::doAsSuperUser(function () use ($user, $usersManagerApi, $siteIds) {
                     $usersManagerApi->setUserAccess($user['login'], 'view', $siteIds);
                 });
                 $user = $this->userModel->getUser($user['login']);
             }
         } else {
-            $this->logger->warning("SAML settings does not define default sites to provide access to new users on its 'Options' section. New user ".$user['login']." will not have any access.");
+            $this->logger->warning("SAML settings does not define default sites to provide access to new users on its 'Options' section. New user " . $user['login'] . " will not have any access.");
         }
     }
 
@@ -421,7 +423,7 @@ class SamlFactory
         if ($access->reloadAccess($passthroughAuth)) {
             Cache::deleteTrackerCache();
             $samlSessionInitializer->initSession($passthroughAuth, $samlData);
-            $this->logger->info('User with login '.$user['login'].' authenticated in Matomo');
+            $this->logger->info('User with login ' . $user['login'] . ' authenticated in Matomo');
             return true;
         }
 
@@ -431,11 +433,11 @@ class SamlFactory
     private function retrieveUsername($attributes, $action)
     {
         if (empty($this->configData['attributemapping_username'])) {
-            throw new \Exception("Username mapping is required in order to execute the SAML ".$action);
+            throw new \Exception("Username mapping is required in order to execute the SAML " . $action);
         }
         $usernameMapping = $this->configData['attributemapping_username'];
         if (empty($attributes[$usernameMapping])) {
-            throw new \Exception("Username was not provided by the IdP and is required in order to execute the SAML ".$action);
+            throw new \Exception("Username was not provided by the IdP and is required in order to execute the SAML " . $action);
         }
         return $attributes[$usernameMapping][0];
     }
@@ -449,7 +451,7 @@ class SamlFactory
 
         if (empty($this->configData['attributemapping_email'])) {
             if (empty($possible_mail)) {
-                throw new \Exception("Email mapping is required in order to execute the SAML ".$action);
+                throw new \Exception("Email mapping is required in order to execute the SAML " . $action);
             } else {
                 return $possible_mail;
             }
@@ -457,7 +459,7 @@ class SamlFactory
             $emailMapping = $this->configData['attributemapping_email'];
             if (empty($attributes[$emailMapping])) {
                 if (empty($possible_mail)) {
-                    throw new \Exception("Email was not provided by the IdP and is required in order to execute the SAML ".$action);
+                    throw new \Exception("Email was not provided by the IdP and is required in order to execute the SAML " . $action);
                 } else {
                     return $possible_mail;
                 }

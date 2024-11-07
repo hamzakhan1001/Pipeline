@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Model;
 
 use Piwik\Access;
@@ -30,7 +32,6 @@ use Piwik\Plugins\HeatmapSessionRecording\Input\SampleRate;
 use Piwik\Plugins\HeatmapSessionRecording\Input\ScreenshotUrl;
 use Piwik\Plugins\Intl\DateTimeFormatProvider;
 use Piwik\Plugins\UsersManager\UserPreferences;
-use Piwik\SettingsPiwik;
 use Piwik\SettingsServer;
 use Piwik\Tracker;
 use Piwik\Plugins\HeatmapSessionRecording\Dao\SiteHsrDao;
@@ -48,8 +49,8 @@ class SiteHsrModel
      */
     private $logHsrSite;
 
-    static $defaultDate;
-    static $defaultPeriod;
+    public static $defaultDate;
+    public static $defaultPeriod;
 
     public function __construct(SiteHsrDao $dao, LogHsrSite $logHsrSite)
     {
@@ -397,7 +398,7 @@ class SiteHsrModel
         $heatmap['created_date_pretty'] = Date::factory($heatmap['created_date'])->getLocalized(DateTimeFormatProvider::DATE_FORMAT_SHORT);
 
         if (!method_exists(SettingsServer::class, 'isMatomoForWordPress') || !SettingsServer::isMatomoForWordPress()) {
-	        $heatmap['heatmapViewUrl'] = self::completeWidgetUrl('showHeatmap', 'idSiteHsr=' . (int) $heatmap['idsitehsr'] . '&useDateUrl=0',  (int) $heatmap['idsite']);
+            $heatmap['heatmapViewUrl'] = self::completeWidgetUrl('showHeatmap', 'idSiteHsr=' . (int) $heatmap['idsitehsr'] . '&useDateUrl=0', (int) $heatmap['idsite']);
         }
 
         return $heatmap;
@@ -429,7 +430,7 @@ class SiteHsrModel
 
         $token = Access::getInstance()->getTokenAuth();
 
-        $url = 'index.php?module=Widgetize&action=iframe&moduleToWidgetize=HeatmapSessionRecording&actionToWidgetize=' . urlencode($action) . '&' . $params . '&idSite=' . (int) $idSite . '&period=' . urlencode($period) .'&date=' . urlencode($date);
+        $url = 'index.php?module=Widgetize&action=iframe&moduleToWidgetize=HeatmapSessionRecording&actionToWidgetize=' . urlencode($action) . '&' . $params . '&idSite=' . (int) $idSite . '&period=' . urlencode($period) . '&date=' . urlencode($date);
         if (!empty($token)) {
             $url .= '&token_auth=' . urlencode($token);
         }
@@ -485,6 +486,4 @@ class SiteHsrModel
     {
         Tracker\Cache::deleteCacheWebsiteAttributes($idSite);
     }
-
 }
-

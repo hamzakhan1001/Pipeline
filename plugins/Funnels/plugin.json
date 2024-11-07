@@ -1,7 +1,7 @@
 {
     "name": "Funnels",
     "description": "Identify and understand where your visitors drop off to increase your conversions, sales and revenue with your existing traffic.",
-    "version": "5.3.5",
+    "version": "5.3.6",
     "theme": false,
     "require": {
        "matomo": ">=5.0.0-rc1,<6.0.0-b1"

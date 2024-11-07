@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -23,22 +24,22 @@ use Piwik\Config;
  */
 class Configuration
 {
-    const MAXIMUM_ROWS_IN_DATATABLE = 'datatable_archiving_maximum_rows_media';
-    const MAXIMUM_ROWS_IN_SUBTABLE = 'datatable_archiving_maximum_rows_subtable_media';
-    const ENABLE_EVENT_TRACKING = 'enable_event_tracking_by_default';
+    public const MAXIMUM_ROWS_IN_DATATABLE = 'datatable_archiving_maximum_rows_media';
+    public const MAXIMUM_ROWS_IN_SUBTABLE = 'datatable_archiving_maximum_rows_subtable_media';
+    public const ENABLE_EVENT_TRACKING = 'enable_event_tracking_by_default';
 
-    const DEFAULT_MAXIMUM_ROWS_IN_DATATABLE = 1000;
-    const DEFAULT_MAXIMUM_ROWS_IN_SUBTABLE = 1000;
-    const DEFAULT_ENABLE_EVENT_TRACKING = 1;
+    public const DEFAULT_MAXIMUM_ROWS_IN_DATATABLE = 1000;
+    public const DEFAULT_MAXIMUM_ROWS_IN_SUBTABLE = 1000;
+    public const DEFAULT_ENABLE_EVENT_TRACKING = 1;
 
-    const ARCHIVING_RANKING_QUERY_ROW_LIMIT_PRIMARY = 'archiving_ranking_query_row_limit_primary';
-    const ARCHIVING_RANKING_QUERY_ROW_LIMIT_SECONDARY = 'archiving_ranking_query_row_limit_secondary';
+    public const ARCHIVING_RANKING_QUERY_ROW_LIMIT_PRIMARY = 'archiving_ranking_query_row_limit_primary';
+    public const ARCHIVING_RANKING_QUERY_ROW_LIMIT_SECONDARY = 'archiving_ranking_query_row_limit_secondary';
 
-    const DEFAULT_RANKING_QUERY_LIMIT_PRIMARY = 10000;
-    const DEFAULT_RANKING_QUERY_LIMIT_SECONDARY = 75000;
+    public const DEFAULT_RANKING_QUERY_LIMIT_PRIMARY = 10000;
+    public const DEFAULT_RANKING_QUERY_LIMIT_SECONDARY = 75000;
 
-    const RANKING_QUERY_TYPE_PRIMARY = 'primary';
-    const RANKING_QUERY_TYPE_SECONDARY = 'secondary';
+    public const RANKING_QUERY_TYPE_PRIMARY = 'primary';
+    public const RANKING_QUERY_TYPE_SECONDARY = 'secondary';
 
     private $parametersExcludeDefault = array('enablejsapi', 'player_id');
 

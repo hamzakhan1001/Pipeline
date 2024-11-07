@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,18 +13,18 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Columns\Metrics;
 
 use Piwik\Columns\Dimension;
 use Piwik\DataTable\Row;
-
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 use Piwik\Plugins\AbTesting\Metrics as PluginMetrics;
 
 class BounceRate extends ProcessedMetric
 {
-    const METRIC_NAME = 'bounce_rate';
+    public const METRIC_NAME = 'bounce_rate';
 
     public function getName()
     {

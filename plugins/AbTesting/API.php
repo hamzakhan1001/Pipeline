@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting;
 
 use Exception;
@@ -67,7 +69,7 @@ class API extends \Piwik\Plugin\API
     private $stats;
 
     /**
-     * @var AccessValidator 
+     * @var AccessValidator
      */
     private $access;
 
@@ -83,9 +85,14 @@ class API extends \Piwik\Plugin\API
      */
     private $configuration;
 
-    public function __construct(Experiments $experiments, Metrics $metrics, Strategy $strategy, AccessValidator $accessValidator,
-                                Archive\ArchiveInvalidator $archiveInvalidator, Configuration $configuration)
-    {
+    public function __construct(
+        Experiments $experiments,
+        Metrics $metrics,
+        Strategy $strategy,
+        AccessValidator $accessValidator,
+        Archive\ArchiveInvalidator $archiveInvalidator,
+        Configuration $configuration
+    ) {
         $this->experimentsModel = $experiments;
         $this->metrics = $metrics;
         $this->stats = $strategy;
@@ -191,7 +198,7 @@ class API extends \Piwik\Plugin\API
             if (strpos($metric, Metrics::METRIC_AVERAGE_PREFIX) === 0) {
                 if (Metrics::isRevenueMetric($metric)) {
                     $title = $metric;
-                    if (isset($translations[$metric])){
+                    if (isset($translations[$metric])) {
                         $title = $translations[$metric];
                     }
                     $this->addProcessedMetric($table, new AverageMoney($metric, $title));
@@ -199,7 +206,7 @@ class API extends \Piwik\Plugin\API
                     $this->addProcessedMetric($table, new AverageVisitLength());
                 } else {
                     $title = $metric;
-                    if (isset($translations[$metric])){
+                    if (isset($translations[$metric])) {
                         $title = $translations[$metric];
                     }
                     $this->addProcessedMetric($table, new AverageValue($metric, $title));
@@ -250,7 +257,7 @@ class API extends \Piwik\Plugin\API
 
     /**
      * Get details, such as remaining visitors, statistical significance, etc for a specific success metric.
-     * 
+     *
      * @param int    $idSite
      * @param string $period
      * @param string $date
@@ -459,8 +466,23 @@ class API extends \Piwik\Plugin\API
      * @param bool $forwardUtmParams Indicates whether redirects should forward any utm* parameters
      * @throws Exception
      */
-    public function updateExperiment($idExperiment, $idSite, $name, $description, $hypothesis, $variations, $confidenceThreshold, $mdeRelative, $percentageParticipants, $successMetrics, $includedTargets, $excludedTargets = array(), $startDate = false, $endDate = false, $forwardUtmParams = false)
-    {
+    public function updateExperiment(
+        $idExperiment,
+        $idSite,
+        $name,
+        $description,
+        $hypothesis,
+        $variations,
+        $confidenceThreshold,
+        $mdeRelative,
+        $percentageParticipants,
+        $successMetrics,
+        $includedTargets,
+        $excludedTargets = array(),
+        $startDate = false,
+        $endDate = false,
+        $forwardUtmParams = false
+    ) {
         $this->access->checkWritePermission($idSite);
 
         $this->checkSiteExists($idSite); // lets not a super user update experiments for site that does not exist anymore
@@ -470,7 +492,23 @@ class API extends \Piwik\Plugin\API
         $excludedTargets = $this->unsanitizeTargets($excludedTargets);
 
         $experiment = $this->experimentsModel->checkExperimentCanBeUpdated($idExperiment, $idSite);
-        $this->experimentsModel->updateExperiment($idExperiment, $idSite, $name, $description, $hypothesis, $variations, $confidenceThreshold, $mdeRelative, $percentageParticipants, $includedTargets, $excludedTargets, $successMetrics, $startDate, $endDate, $forwardUtmParams);
+        $this->experimentsModel->updateExperiment(
+            $idExperiment,
+            $idSite,
+            $name,
+            $description,
+            $hypothesis,
+            $variations,
+            $confidenceThreshold,
+            $mdeRelative,
+            $percentageParticipants,
+            $includedTargets,
+            $excludedTargets,
+            $successMetrics,
+            $startDate,
+            $endDate,
+            $forwardUtmParams
+        );
 
         // invalidate cache used in redirect.php
         $tmp = StaticContainer::get('path.cache');
@@ -604,8 +642,10 @@ class API extends \Piwik\Plugin\API
         $this->experimentsModel->checkExperimentExists($idExperiment, $idSite);
         $experiment = $this->experimentsModel->getExperiment($idExperiment, $idSite);
 
-        if ($experiment['status'] === Experiments::STATUS_FINISHED
-            || $experiment['status'] === Experiments::STATUS_ARCHIVED) {
+        if (
+            $experiment['status'] === Experiments::STATUS_FINISHED
+            || $experiment['status'] === Experiments::STATUS_ARCHIVED
+        ) {
             // the experiment is finished or archived, we should no longer execute it
             return '';
         }
@@ -822,4 +862,3 @@ class API extends \Piwik\Plugin\API
         }
     }
 }
-

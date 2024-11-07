@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Columns\Metrics;
 
 use Piwik\DataTable\Filter\SafeDecodeLabel;
@@ -71,6 +73,6 @@ class Device extends BaseMetric
             $title .= ', ' . SafeDecodeLabel::decodeLabelSafe($value['model']);
         }
 
-        return '<img title="' . $title . '" style="height:16px;" src="' . \Piwik\Plugins\DevicesDetection\getDeviceTypeLogo($value['type']) .'">';
+        return '<img title="' . $title . '" style="height:16px;" src="' . \Piwik\Plugins\DevicesDetection\getDeviceTypeLogo($value['type']) . '">';
     }
 }

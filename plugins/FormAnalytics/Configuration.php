@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,12 +20,12 @@ use Piwik\Config;
 
 class Configuration
 {
-    const KEY_MAX_NO_OF_FORM_REQUEST_ALLOWED = 'max_no_of_form_requests_allowed';
-    const DEFAULT_MAX_NO_OF_FORM_REQUEST_ALLOWED = 500;
-    const KEY_MAX_NO_OF_FORM_SUBMISSION_REQUEST_ALLOWED = 'max_no_of_form_submission_requests_allowed';
-    const DEFAULT_MAX_NO_OF_FORM_SUBMISSION_REQUEST_ALLOWED = 500;
-    const KEY_MAX_NO_OF_FORM_FIELDS_ALLOWED = 'max_no_of_form_fields_allowed';
-    const DEFAULT_MAX_NO_OF_FORM_FIELDS_ALLOWED = 2000;
+    public const KEY_MAX_NO_OF_FORM_REQUEST_ALLOWED = 'max_no_of_form_requests_allowed';
+    public const DEFAULT_MAX_NO_OF_FORM_REQUEST_ALLOWED = 500;
+    public const KEY_MAX_NO_OF_FORM_SUBMISSION_REQUEST_ALLOWED = 'max_no_of_form_submission_requests_allowed';
+    public const DEFAULT_MAX_NO_OF_FORM_SUBMISSION_REQUEST_ALLOWED = 500;
+    public const KEY_MAX_NO_OF_FORM_FIELDS_ALLOWED = 'max_no_of_form_fields_allowed';
+    public const DEFAULT_MAX_NO_OF_FORM_FIELDS_ALLOWED = 2000;
 
     public function install()
     {
@@ -89,5 +90,4 @@ class Configuration
 
         return $value;
     }
-
 }

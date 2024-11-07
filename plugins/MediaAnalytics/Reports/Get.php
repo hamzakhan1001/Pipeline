@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -166,5 +167,4 @@ class Get extends Base
     {
         return array();
     }
-
 }

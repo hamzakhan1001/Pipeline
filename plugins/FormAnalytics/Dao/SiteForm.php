@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics\Dao;
 
 use Piwik\Common;
@@ -181,18 +183,23 @@ class SiteForm
         $bind = array_values($columns);
         $placeholder = Common::getSqlStringFieldsArray($columns);
 
-        $sql = sprintf('INSERT INTO %s (`%s`) VALUES(%s)',
-            $this->tablePrefixed, implode('`,`', array_keys($columns)), $placeholder);
+        $sql = sprintf(
+            'INSERT INTO %s (`%s`) VALUES(%s)',
+            $this->tablePrefixed,
+            implode('`,`', array_keys($columns)),
+            $placeholder
+        );
 
         $db = $this->getDb();
 
         try {
             $db->query($sql, $bind);
-
         } catch (Exception $e) {
-            if ($e->getCode() == 23000
+            if (
+                $e->getCode() == 23000
                 || strpos($e->getMessage(), 'Duplicate entry') !== false
-                || strpos($e->getMessage(), ' 1062 ') !== false) {
+                || strpos($e->getMessage(), ' 1062 ') !== false
+            ) {
                 throw new Exception(Piwik::translate('FormAnalytics_ErrorFormNameDuplicate'));
             }
             throw $e;
@@ -227,11 +234,12 @@ class SiteForm
 
             try {
                 $db->query($query, $bind);
-
             } catch (Exception $e) {
-                if ($e->getCode() == 23000
+                if (
+                    $e->getCode() == 23000
                     || strpos($e->getMessage(), 'Duplicate entry') !== false
-                    || strpos($e->getMessage(), ' 1062 ') !== false) {
+                    || strpos($e->getMessage(), ' 1062 ') !== false
+                ) {
                     throw new Exception(Piwik::translate('FormAnalytics_ErrorFormNameDuplicate'));
                 }
                 throw $e;
@@ -340,4 +348,3 @@ class SiteForm
         return $field;
     }
 }
-

@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Common;
@@ -23,11 +24,10 @@ use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Columns\Keyword;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
-use Piwik\Plugins\SearchEngineKeywordsPerformance\Metrics;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Model\Bing as ModelBing;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\SearchEngineKeywordsPerformance;
 use Piwik\Site;
-use Piwik\Version;
+
 class GetKeywordsBing extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\Base
 {
     protected function init()
@@ -54,10 +54,16 @@ class GetKeywordsBing extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Rep
         if ($dateLastData && $period != 'range') {
             $reportPeriod = $period != 'day' ? $period : 'week';
             $periodObj = Period\Factory::build($reportPeriod, Date::factory($dateLastData));
-            $lastDateMessage = Piwik::translate('SearchEngineKeywordsPerformance_LatestAvailableDate', '<a href="javascript:broadcast.propagateNewPage(\'date=' . $dateLastData . '&period=' . $reportPeriod . '\')">' . $periodObj->getLocalizedShortString() . '</a>');
+            $lastDateMessage = Piwik::translate(
+                'SearchEngineKeywordsPerformance_LatestAvailableDate',
+                '<a href="javascript:broadcast.propagateNewPage(\'date=' . $dateLastData . '&period=' . $reportPeriod . '\')">' . $periodObj->getLocalizedShortString() . '</a>'
+            );
         }
         if ($period == 'day') {
-            $message = '<p style="margin-bottom:2em" class=" alert-info alert">' . Piwik::translate('CoreHome_ThereIsNoDataForThisReport') . '<br />' . Piwik::translate('SearchEngineKeywordsPerformance_BingKeywordsNotDaily') . '<br />' . $lastDateMessage . '</p>';
+            $message = '<p style="margin-bottom:2em" class=" alert-info alert">'
+                . Piwik::translate('CoreHome_ThereIsNoDataForThisReport') . '<br />'
+                . Piwik::translate('SearchEngineKeywordsPerformance_BingKeywordsNotDaily')
+                . '<br />' . $lastDateMessage . '</p>';
         } else {
             $message = '<p style="margin-bottom:2em" class=" alert-info alert">' . Piwik::translate('CoreHome_ThereIsNoDataForThisReport') . '<br />' . $lastDateMessage . '</p>';
         }

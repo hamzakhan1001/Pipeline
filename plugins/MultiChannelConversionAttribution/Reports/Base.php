@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,5 +20,4 @@ use Piwik\Plugin\Report;
 
 abstract class Base extends Report
 {
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,11 +18,11 @@ namespace Piwik\Plugins\MultiChannelConversionAttribution;
 
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const RECORD_CHANNEL_TYPES = "MultiChannelConversionAttribution_channelTypes";
-    const LABEL_NOT_DEFINED = 'MultiChannelConversionAttribution_LabelNotDefined';
+    public const RECORD_CHANNEL_TYPES = "MultiChannelConversionAttribution_channelTypes";
+    public const LABEL_NOT_DEFINED = 'MultiChannelConversionAttribution_LabelNotDefined';
 
     public static function completeChannelAttributionRecordName(int $idGoal, array $rowOption): string
     {
-        return self::RECORD_CHANNEL_TYPES . '_' . $idGoal . '_prior' . (int) $rowOption['period'].'_'.$rowOption['topLevel']. (!empty($rowOption['subLevel']) ? '_'.$rowOption['subLevel']:'');
+        return self::RECORD_CHANNEL_TYPES . '_' . $idGoal . '_prior' . (int) $rowOption['period'] . '_' . $rowOption['topLevel'] . (!empty($rowOption['subLevel']) ? '_' . $rowOption['subLevel'] : '');
     }
 }

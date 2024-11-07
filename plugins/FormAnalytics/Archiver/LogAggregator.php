@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,9 +16,7 @@
 
 namespace Piwik\Plugins\FormAnalytics\Archiver;
 
-use Piwik\Common;
 use Piwik\DataAccess\LogAggregator as PiwikLogAggregator;
-use Piwik\Db;
 use Piwik\Plugins\FormAnalytics\Metrics;
 
 class LogAggregator
@@ -34,7 +33,8 @@ class LogAggregator
 
     public function aggregateFormMetrics()
     {
-        $select = sprintf('log_form.idsiteform as label, 
+        $select = sprintf(
+            'log_form.idsiteform as label, 
                            sum(log_form.num_views) as %s,
                            count(log_form.idsiteform) as %s,
                            sum(log_form.num_starts) as %s,
@@ -47,18 +47,19 @@ class LogAggregator
                            sum(if(log_form.converted = 1, log_form.time_spent, 0)) as %s,
                            sum(log_form.time_spent) as %s,
                            sum(log_form.converted) as %s',
-                        Metrics::SUM_FORM_VIEWS,
-                        Metrics::SUM_FORM_VIEWERS,
-                        Metrics::SUM_FORM_STARTS,
-                        Metrics::SUM_FORM_STARTERS,
-                        Metrics::SUM_FORM_HESITATION_TIME,
-                        Metrics::SUM_FORM_TIME_TO_FIRST_SUBMISSION,
-                        Metrics::SUM_FORM_SUBMISSIONS,
-                        Metrics::SUM_FORM_SUBMITTERS,
-                        Metrics::SUM_FORM_RESUBMITTERS,
-                        Metrics::SUM_FORM_TIME_TO_CONVERSION,
-                        Metrics::SUM_FORM_TIME_SPENT,
-                        Metrics::SUM_FORM_CONVERSIONS);
+            Metrics::SUM_FORM_VIEWS,
+            Metrics::SUM_FORM_VIEWERS,
+            Metrics::SUM_FORM_STARTS,
+            Metrics::SUM_FORM_STARTERS,
+            Metrics::SUM_FORM_HESITATION_TIME,
+            Metrics::SUM_FORM_TIME_TO_FIRST_SUBMISSION,
+            Metrics::SUM_FORM_SUBMISSIONS,
+            Metrics::SUM_FORM_SUBMITTERS,
+            Metrics::SUM_FORM_RESUBMITTERS,
+            Metrics::SUM_FORM_TIME_TO_CONVERSION,
+            Metrics::SUM_FORM_TIME_SPENT,
+            Metrics::SUM_FORM_CONVERSIONS
+        );
         $where = '';
         $groupBy = 'log_form.idsiteform';
 
@@ -75,7 +76,8 @@ class LogAggregator
             'joinOn' => 'log_form_page.idaction_url = log_action.idaction'
         ));
 
-        $select = sprintf('log_action.name as label, 
+        $select = sprintf(
+            'log_action.name as label, 
                            log_form.idsiteform,
                            sum(log_form_page.num_views) as %s,
                            count(log_form_page.idlogform) as %s,
@@ -88,17 +90,18 @@ class LogAggregator
                            sum(if(log_form_page.num_submissions > 0, 1, 0)) as %s,
                            sum(if(log_form_page.num_submissions > 1, 1, 0)) as %s,
                            sum(log_form.converted) as %s',
-                           Metrics::SUM_FORM_VIEWS,
-                           Metrics::SUM_FORM_VIEWERS,
-                           Metrics::SUM_FORM_STARTS,
-                           Metrics::SUM_FORM_STARTERS,
-                           Metrics::SUM_FORM_HESITATION_TIME,
-                           Metrics::SUM_FORM_TIME_TO_FIRST_SUBMISSION,
-                           Metrics::SUM_FORM_TIME_SPENT,
-                           Metrics::SUM_FORM_SUBMISSIONS,
-                           Metrics::SUM_FORM_SUBMITTERS,
-                           Metrics::SUM_FORM_RESUBMITTERS,
-                           Metrics::SUM_FORM_CONVERSIONS);
+            Metrics::SUM_FORM_VIEWS,
+            Metrics::SUM_FORM_VIEWERS,
+            Metrics::SUM_FORM_STARTS,
+            Metrics::SUM_FORM_STARTERS,
+            Metrics::SUM_FORM_HESITATION_TIME,
+            Metrics::SUM_FORM_TIME_TO_FIRST_SUBMISSION,
+            Metrics::SUM_FORM_TIME_SPENT,
+            Metrics::SUM_FORM_SUBMISSIONS,
+            Metrics::SUM_FORM_SUBMITTERS,
+            Metrics::SUM_FORM_RESUBMITTERS,
+            Metrics::SUM_FORM_CONVERSIONS
+        );
 
         $where = '';
         $groupBy = 'log_form.idsiteform, log_action.name';
@@ -114,12 +117,14 @@ class LogAggregator
         );
 
         // the distinct might be slow and we may have to remove it
-        $select = sprintf('log_form_page.entry_field_name as label, 
+        $select = sprintf(
+            'log_form_page.entry_field_name as label, 
                            log_form.idsiteform,
                            count(log_form.idvisitor) as %s,
                            count(DISTINCT log_form.idvisitor) as %s',
-                           Metrics::SUM_FIELD_ENTRIES,
-                           Metrics::SUM_FIELD_UNIQUE_ENTRIES);
+            Metrics::SUM_FIELD_ENTRIES,
+            Metrics::SUM_FIELD_UNIQUE_ENTRIES
+        );
         $where = 'log_form_page.entry_field_name is not null';
         $groupBy = 'log_form.idsiteform, log_form_page.entry_field_name';
 
@@ -134,12 +139,14 @@ class LogAggregator
         );
 
         // the distinct might be slow and we may have to remove it
-        $select = sprintf('log_form_page.exit_field_name as label, 
+        $select = sprintf(
+            'log_form_page.exit_field_name as label, 
                            log_form.idsiteform,
                            count(log_form.idvisitor) as %s,
                            count(DISTINCT log_form.idvisitor) as %s',
-                           Metrics::SUM_FIELD_DROPOFFS,
-                           Metrics::SUM_FIELD_UNIQUE_DROPOFFS);
+            Metrics::SUM_FIELD_DROPOFFS,
+            Metrics::SUM_FIELD_UNIQUE_DROPOFFS
+        );
 
         $where = 'log_form_page.num_submissions = 0 and log_form.converted = 0 and log_form_page.exit_field_name is not null';
         $groupBy = 'log_form.idsiteform, log_form_page.exit_field_name';
@@ -149,7 +156,8 @@ class LogAggregator
 
     public function aggregateFields()
     {
-        $select = sprintf('outerform.field_name as label, 
+        $select = sprintf(
+            'outerform.field_name as label, 
                            outerform.idsiteform,
                            sum(if(num_interactions > 0, 1, 0)) as %s,
                            sum(num_interactions) as %s,
@@ -158,16 +166,20 @@ class LogAggregator
             Metrics::SUM_FIELD_UNIQUE_INTERACTIONS,
             Metrics::SUM_FIELD_INTERACTIONS,
             Metrics::SUM_FIELD_TIME_SPENT,
-            Metrics::SUM_FIELD_HESITATION_TIME);
+            Metrics::SUM_FIELD_HESITATION_TIME
+        );
 
         $select .= ',';
-        $select .= sprintf('sum(with_field_size) as %s,
+        $select .= sprintf(
+            'sum(with_field_size) as %s,
                            sum(field_size) as %s',
             Metrics::SUM_FIELD_WITH_FIELDSIZE,
-            Metrics::SUM_FIELD_FIELDSIZE);
+            Metrics::SUM_FIELD_FIELDSIZE
+        );
 
         $select .= ',';
-        $select .= sprintf('sum(if(outerform.num_changes > 1, 1, 0)) as %s,
+        $select .= sprintf(
+            'sum(if(outerform.num_changes > 1, 1, 0)) as %s,
                            sum(if(outerform.num_changes > 1, outerform.num_changes - 1, 0)) as %s,
                            sum(if(outerform.num_focus > 1, 1, 0)) as %s,
                            sum(if(outerform.num_focus > 1, outerform.num_focus - 1, 0)) as %s,
@@ -186,7 +198,8 @@ class LogAggregator
             Metrics::SUM_FIELD_UNIQUE_DELETES,
             Metrics::SUM_FIELD_DELETES,
             Metrics::SUM_FIELD_UNIQUE_CURSOR,
-            Metrics::SUM_FIELD_CURSOR);
+            Metrics::SUM_FIELD_CURSOR
+        );
 
         // we do not calculate the number of corrections 100% correctly since there might be eg following behaviour:
         // user submits form, page reloads, user submits form again. We would have two different outerform entries
@@ -208,18 +221,20 @@ class LogAggregator
             'joinOn' => 'log_form_field.idlogform = log_form.idlogform'
         ));
 
-        $select = sprintf('log_form_field.field_name as label, 
+        $select = sprintf(
+            'log_form_field.field_name as label, 
                            log_form.idsiteform,
                            count(log_form_field.idlogform) as %s,
                            sum(log_form_field.left_blank) as %s,
                            sum(if(log_form_field.field_size > 0, 1, 0)) as %s,
                            sum(if(log_form_field.field_size > 0, log_form_field.field_size, 0)) as %s,
                            sum(if(log_form_field.time_spent > 0, 1, 0)) as %s',
-                           Metrics::SUM_FIELD_SUBMITTED,
-                           Metrics::SUM_FIELD_LEFTBLANK_SUBMITTED,
-                           Metrics::SUM_FIELD_SUBMITTED_WITH_FIELDSIZE,
-                           Metrics::SUM_FIELD_FIELDSIZE_SUBMITTED,
-                           Metrics::SUM_FIELD_INTERACTIONS_SUBMIT);
+            Metrics::SUM_FIELD_SUBMITTED,
+            Metrics::SUM_FIELD_LEFTBLANK_SUBMITTED,
+            Metrics::SUM_FIELD_SUBMITTED_WITH_FIELDSIZE,
+            Metrics::SUM_FIELD_FIELDSIZE_SUBMITTED,
+            Metrics::SUM_FIELD_INTERACTIONS_SUBMIT
+        );
 
         $where = 'log_form_field.submitted = 1';
         $groupBy = 'log_form.idsiteform, log_form_field.field_name';
@@ -234,16 +249,18 @@ class LogAggregator
             'joinOn' => 'log_form_field.idlogform = log_form.idlogform'
         ));
 
-        $select = sprintf('log_form_field.field_name as label, 
+        $select = sprintf(
+            'log_form_field.field_name as label, 
                            log_form.idsiteform,
                            count(log_form_field.idlogform) as %s,
                            sum(log_form_field.left_blank) as %s,
                            sum(if(log_form_field.field_size > 0, 1, 0)) as %s,
                            sum(log_form_field.field_size) as %s',
-                           Metrics::SUM_FIELD_CONVERTED,
-                           Metrics::SUM_FIELD_LEFTBLANK_CONVERTED,
-                           Metrics::SUM_FIELD_CONVERTED_WITH_FIELDSIZE,
-                           Metrics::SUM_FIELD_FIELDSIZE_CONVERTED);
+            Metrics::SUM_FIELD_CONVERTED,
+            Metrics::SUM_FIELD_LEFTBLANK_CONVERTED,
+            Metrics::SUM_FIELD_CONVERTED_WITH_FIELDSIZE,
+            Metrics::SUM_FIELD_FIELDSIZE_CONVERTED
+        );
 
         $where = 'log_form.converted = 1 and log_form_field.idformview = log_form.last_idformview';
         $groupBy = 'log_form.idsiteform, log_form_field.field_name';
@@ -311,5 +328,4 @@ class LogAggregator
 
         return $this->logAggregator->getDb()->query($query['sql'], $query['bind']);
     }
-
 }

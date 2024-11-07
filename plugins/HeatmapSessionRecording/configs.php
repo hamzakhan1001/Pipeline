@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -14,18 +15,20 @@
  */
 
 use Piwik\Container\StaticContainer;
-use \Piwik\Plugins\HeatmapSessionRecording\Tracker\HsrMatcher;
-use \Piwik\Plugins\HeatmapSessionRecording\SystemSettings;
+use Piwik\Plugins\HeatmapSessionRecording\Tracker\HsrMatcher;
+use Piwik\Plugins\HeatmapSessionRecording\SystemSettings;
 
 /**
  * USAGE: Append a query string ?idsite=$idSite&trackerid=$id eg
  * http://demo.matomo.org/plugins/HeatmapSessionRecording/configs.php?idsite=35&trackerid=123456
  */
-if (empty($_GET['idsite'])
+if (
+    empty($_GET['idsite'])
     || empty($_GET['trackerid'])
     || empty($_GET['url'])
     || !preg_match('/^[a-z0-9A-Z]{6}$/', (string) $_GET['trackerid'])
-    || !ctype_alnum((string) $_GET['trackerid'])) {
+    || !ctype_alnum((string) $_GET['trackerid'])
+) {
     http_response_code(400);
     exit;
 }
@@ -38,7 +41,7 @@ if (!defined('PIWIK_INCLUDE_PATH')) {
         // wordpress ... note: this might not work if eg matomo is network activated in mu-plugins
         // and the other one isn't or the other way around
         $path = realpath('../matomo/app');
-    } else if (!$coreBootstrapExists && isset($_SERVER['SCRIPT_FILENAME'])) {
+    } elseif (!$coreBootstrapExists && isset($_SERVER['SCRIPT_FILENAME'])) {
         // eg when plugins is a symlink
         $scriptPath = dirname(dirname(dirname($_SERVER['SCRIPT_FILENAME'])));
         if (file_exists($scriptPath . '/core/bootstrap.php')) {
@@ -61,7 +64,7 @@ if (file_exists(PIWIK_DOCUMENT_ROOT . '/bootstrap.php')) {
 }
 
 if (!defined('PIWIK_USER_PATH')) {
-	define('PIWIK_USER_PATH', PIWIK_INCLUDE_PATH);
+    define('PIWIK_USER_PATH', PIWIK_INCLUDE_PATH);
 }
 
 // we do not load index.php as it would register safeMode!
@@ -120,10 +123,9 @@ foreach ($cache['hsr'] as $hsr) {
                 HsrMatcher::matchesAllPageRules($hsr['match_page_rules'], $url) &&
                 HsrMatcher::checkIsNotEnded($hsr)
             )
-        )
-        && $isIncludedCountry
+        ) &&
+        $isIncludedCountry
     ) {
-
         // by returning the hsrid IDs here we can make sure to record all updates for this user
         // also it makes request processor faster since we won't have to match the records there again
         // it also prevents starting to track only partial data after a heatmap or session was created while a different
@@ -132,7 +134,7 @@ foreach ($cache['hsr'] as $hsr) {
         // also because the sample rate is based on random number generation we cannot check sample rate and whether a user
         // is in the group or not on each tracking request. We would need to send a cookie
 
-        if($hsr['record_type'] == \Piwik\Plugins\HeatmapSessionRecording\Dao\SiteHsrDao::RECORD_TYPE_SESSION) {
+        if ($hsr['record_type'] == \Piwik\Plugins\HeatmapSessionRecording\Dao\SiteHsrDao::RECORD_TYPE_SESSION) {
             $trackerConfig['sessions'][] = array(
                 'id' => $hsr['idsitehsr'],
                 'sample_rate' => $hsr['sample_rate'],
@@ -143,9 +145,11 @@ foreach ($cache['hsr'] as $hsr) {
         } elseif ($hsr['record_type'] == \Piwik\Plugins\HeatmapSessionRecording\Dao\SiteHsrDao::RECORD_TYPE_HEATMAP) {
                 $heatmap = array('id' => $hsr['idsitehsr'], 'getdom' => false, 'sample_rate' => $hsr['sample_rate'], 'capture_manually' => $hsr['capture_manually']);
 
-            if (empty($hsr['page_treemirror']) &&
+            if (
+                empty($hsr['page_treemirror']) &&
                 empty($hsr['capture_manually']) &&
-                \Piwik\Plugins\HeatmapSessionRecording\Tracker\HsrMatcher::doesScreenshotUrlMatch($hsr['screenshot_url'], $url)) {
+                \Piwik\Plugins\HeatmapSessionRecording\Tracker\HsrMatcher::doesScreenshotUrlMatch($hsr['screenshot_url'], $url)
+            ) {
                 $heatmap['getdom'] = true;
             }
 

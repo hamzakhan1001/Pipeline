@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Dao;
 
 use Piwik\Common;
@@ -73,7 +75,6 @@ class LogHsrSite
             }
             throw $e;
         }
-
     }
 
     // should be fast as covered index
@@ -87,13 +88,17 @@ class LogHsrSite
     // should be fast as covered index
     public function getNumSessions($idSiteHsr)
     {
-        $sql = sprintf('SELECT count(distinct idvisit) 
+        $sql = sprintf(
+            'SELECT count(distinct idvisit) 
                 FROM %s loghsrsite 
                 left join %s loghsr on loghsr.idloghsr = loghsrsite.idloghsr 
                 left join %s loghsrevent on loghsr.idloghsr = loghsrevent.idloghsr and loghsrevent.event_type = %s 
                 WHERE loghsrsite.idsitehsr = ? and loghsrevent.idhsrblob is not null',
-            $this->tablePrefixed, Common::prefixTable('log_hsr'), Common::prefixTable('log_hsr_event'),
-            RequestProcessor::EVENT_TYPE_INITIAL_DOM);
+            $this->tablePrefixed,
+            Common::prefixTable('log_hsr'),
+            Common::prefixTable('log_hsr_event'),
+            RequestProcessor::EVENT_TYPE_INITIAL_DOM
+        );
 
         return (int) $this->getDb()->fetchOne($sql, array($idSiteHsr));
     }
@@ -123,14 +128,14 @@ class LogHsrSite
         // we delete links for removed site_hsr entries, and for site_hsr entries with status deleted
         // this query should only delete entries when they were deleted manually in the database basically.
         // otherwise the application takes already care of removing the needed links
-        $sql = sprintf('DELETE FROM %1$s WHERE %1$s.idsitehsr NOT IN (select site_hsr.idsitehsr from %2$s site_hsr where site_hsr.status = "%3$s" or site_hsr.status = "%4$s")',
-                        Common::prefixTable('log_hsr_site'),
-                        Common::prefixTable('site_hsr'),
-                        SiteHsrDao::STATUS_ACTIVE,
-                        SiteHsrDao::STATUS_ENDED);
+        $sql = sprintf(
+            'DELETE FROM %1$s WHERE %1$s.idsitehsr NOT IN (select site_hsr.idsitehsr from %2$s site_hsr where site_hsr.status = "%3$s" or site_hsr.status = "%4$s")',
+            Common::prefixTable('log_hsr_site'),
+            Common::prefixTable('site_hsr'),
+            SiteHsrDao::STATUS_ACTIVE,
+            SiteHsrDao::STATUS_ENDED
+        );
 
         Db::query($sql);
     }
-
 }
-

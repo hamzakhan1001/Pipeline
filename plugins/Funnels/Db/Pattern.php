@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -25,45 +26,45 @@ use Piwik\Tracker\PageUrl;
 
 class Pattern
 {
-    const TYPE_URL_CONTAINS = 'url_contains';
-    const TYPE_URL_EQUALS = 'url_equals';
-    const TYPE_URL_REGEXP = 'url_regexp';
-    const TYPE_URL_STARTS_WITH = 'url_startswith';
-    const TYPE_URL_ENDS_WITH = 'url_endswith';
+    public const TYPE_URL_CONTAINS = 'url_contains';
+    public const TYPE_URL_EQUALS = 'url_equals';
+    public const TYPE_URL_REGEXP = 'url_regexp';
+    public const TYPE_URL_STARTS_WITH = 'url_startswith';
+    public const TYPE_URL_ENDS_WITH = 'url_endswith';
 
-    const TYPE_PATH_CONTAINS = 'path_contains';
-    const TYPE_PATH_STARTS_WITH = 'path_startswith';
-    const TYPE_PATH_ENDS_WITH = 'path_endswith';
-    const TYPE_PATH_EQUALS = 'path_equals';
-    const TYPE_PATH_REGEXP = 'path_regexp';
+    public const TYPE_PATH_CONTAINS = 'path_contains';
+    public const TYPE_PATH_STARTS_WITH = 'path_startswith';
+    public const TYPE_PATH_ENDS_WITH = 'path_endswith';
+    public const TYPE_PATH_EQUALS = 'path_equals';
+    public const TYPE_PATH_REGEXP = 'path_regexp';
 
-    const TYPE_PAGE_TITLE_CONTAINS = 'pagetitle_contains';
-    const TYPE_PAGE_TITLE_STARTS_WITH = 'pagetitle_startswith';
-    const TYPE_PAGE_TITLE_ENDS_WITH = 'pagetitle_endswith';
-    const TYPE_PAGE_TITLE_EQUALS = 'pagetitle_equals';
-    const TYPE_PAGE_TITLE_REGEXP = 'pagetitle_regexp';
+    public const TYPE_PAGE_TITLE_CONTAINS = 'pagetitle_contains';
+    public const TYPE_PAGE_TITLE_STARTS_WITH = 'pagetitle_startswith';
+    public const TYPE_PAGE_TITLE_ENDS_WITH = 'pagetitle_endswith';
+    public const TYPE_PAGE_TITLE_EQUALS = 'pagetitle_equals';
+    public const TYPE_PAGE_TITLE_REGEXP = 'pagetitle_regexp';
 
-    const TYPE_EVENT_CATEGORY_CONTAINS = 'eventcategory_contains';
-    const TYPE_EVENT_CATEGORY_STARTS_WITH = 'eventcategory_startswith';
-    const TYPE_EVENT_CATEGORY_ENDS_WITH = 'eventcategory_endswith';
-    const TYPE_EVENT_CATEGORY_EQUALS = 'eventcategory_equals';
-    const TYPE_EVENT_CATEGORY_REGEXP = 'eventcategory_regexp';
+    public const TYPE_EVENT_CATEGORY_CONTAINS = 'eventcategory_contains';
+    public const TYPE_EVENT_CATEGORY_STARTS_WITH = 'eventcategory_startswith';
+    public const TYPE_EVENT_CATEGORY_ENDS_WITH = 'eventcategory_endswith';
+    public const TYPE_EVENT_CATEGORY_EQUALS = 'eventcategory_equals';
+    public const TYPE_EVENT_CATEGORY_REGEXP = 'eventcategory_regexp';
 
-    const TYPE_EVENT_NAME_CONTAINS = 'eventname_contains';
-    const TYPE_EVENT_NAME_STARTS_WITH = 'eventname_startswith';
-    const TYPE_EVENT_NAME_ENDS_WITH = 'eventname_endswith';
-    const TYPE_EVENT_NAME_EQUALS = 'eventname_equals';
-    const TYPE_EVENT_NAME_REGEXP = 'eventname_regexp';
+    public const TYPE_EVENT_NAME_CONTAINS = 'eventname_contains';
+    public const TYPE_EVENT_NAME_STARTS_WITH = 'eventname_startswith';
+    public const TYPE_EVENT_NAME_ENDS_WITH = 'eventname_endswith';
+    public const TYPE_EVENT_NAME_EQUALS = 'eventname_equals';
+    public const TYPE_EVENT_NAME_REGEXP = 'eventname_regexp';
 
-    const TYPE_EVENT_ACTION_CONTAINS = 'eventaction_contains';
-    const TYPE_EVENT_ACTION_STARTS_WITH = 'eventaction_startswith';
-    const TYPE_EVENT_ACTION_ENDS_WITH = 'eventaction_endswith';
-    const TYPE_EVENT_ACTION_EQUALS = 'eventaction_equals';
-    const TYPE_EVENT_ACTION_REGEXP = 'eventaction_regexp';
+    public const TYPE_EVENT_ACTION_CONTAINS = 'eventaction_contains';
+    public const TYPE_EVENT_ACTION_STARTS_WITH = 'eventaction_startswith';
+    public const TYPE_EVENT_ACTION_ENDS_WITH = 'eventaction_endswith';
+    public const TYPE_EVENT_ACTION_EQUALS = 'eventaction_equals';
+    public const TYPE_EVENT_ACTION_REGEXP = 'eventaction_regexp';
 
-    const TYPE_QUERY_CONTAINS = 'query_contains';
+    public const TYPE_QUERY_CONTAINS = 'query_contains';
 
-    const TYPE_GOAL_EQUALS = 'goal_equals';
+    public const TYPE_GOAL_EQUALS = 'goal_equals';
 
     public static function getSupportedPatterns()
     {
@@ -345,14 +346,15 @@ class Pattern
 
     public function isValidPattern($patternType, $pattern)
     {
-        if ($patternType === self::TYPE_URL_REGEXP
+        if (
+            $patternType === self::TYPE_URL_REGEXP
             || $patternType === self::TYPE_PATH_REGEXP
             || $patternType === self::TYPE_EVENT_ACTION_REGEXP
             || $patternType === self::TYPE_EVENT_CATEGORY_REGEXP
             || $patternType === self::TYPE_EVENT_NAME_REGEXP
             || $patternType === self::TYPE_PAGE_TITLE_REGEXP
-            || strpos($patternType, 'regexp') !== false) {
-
+            || strpos($patternType, 'regexp') !== false
+        ) {
             try {
                 $this->matchesUrl('https://www.example.com', $patternType, $pattern);
                 return true;
@@ -397,7 +399,7 @@ class Pattern
     {
         foreach (PageUrl::$urlPrefixMap as $prefix => $v) {
             $pos = strpos($url, $prefix);
-            if ($pos === 0){
+            if ($pos === 0) {
                 return substr($url, strlen($prefix));
             }
         }
@@ -439,34 +441,34 @@ class Pattern
             case self::TYPE_EVENT_CATEGORY_CONTAINS:
             case self::TYPE_EVENT_NAME_CONTAINS:
             case self::TYPE_EVENT_ACTION_CONTAINS:
-            $operator = $column . ' LIKE ?';
-            $pattern = '%' . $this->esacpePatternForLike($pattern) . '%';
+                $operator = $column . ' LIKE ?';
+                $pattern = '%' . $this->esacpePatternForLike($pattern) . '%';
                 break;
             case self::TYPE_PAGE_TITLE_STARTS_WITH:
             case self::TYPE_EVENT_CATEGORY_STARTS_WITH:
             case self::TYPE_EVENT_NAME_STARTS_WITH:
             case self::TYPE_EVENT_ACTION_STARTS_WITH:
-            $operator = $column . ' LIKE ?';
-            $pattern = $this->esacpePatternForLike($pattern) . '%';
+                $operator = $column . ' LIKE ?';
+                $pattern = $this->esacpePatternForLike($pattern) . '%';
                 break;
             case self::TYPE_PAGE_TITLE_ENDS_WITH:
             case self::TYPE_EVENT_CATEGORY_ENDS_WITH:
             case self::TYPE_EVENT_NAME_ENDS_WITH:
             case self::TYPE_EVENT_ACTION_ENDS_WITH:
-            $operator = $column . ' LIKE ?';
-            $pattern = '%' . $this->esacpePatternForLike($pattern);
+                $operator = $column . ' LIKE ?';
+                $pattern = '%' . $this->esacpePatternForLike($pattern);
                 break;
             case self::TYPE_PAGE_TITLE_EQUALS:
             case self::TYPE_EVENT_CATEGORY_EQUALS:
             case self::TYPE_EVENT_NAME_EQUALS:
             case self::TYPE_EVENT_ACTION_EQUALS:
-            $operator = $column . ' = ?';
+                $operator = $column . ' = ?';
                 break;
             case self::TYPE_PAGE_TITLE_REGEXP:
             case self::TYPE_EVENT_CATEGORY_REGEXP:
             case self::TYPE_EVENT_NAME_REGEXP:
             case self::TYPE_EVENT_ACTION_REGEXP:
-            $operator = $column . ' REGEXP ?';
+                $operator = $column . ' REGEXP ?';
                 break;
         }
 
@@ -520,5 +522,4 @@ class Pattern
             'bind' => $pattern
         );
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -20,7 +21,7 @@ use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedReport;
 
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const RECORD_NAME_WEB_VITALS = 'SEOWebVitals_webvitals';
+    public const RECORD_NAME_WEB_VITALS = 'SEOWebVitals_webvitals';
 
     public static function shouldRunEvenWhenNoVisits(): bool
     {
@@ -62,8 +63,10 @@ class Archiver extends \Piwik\Plugin\Archiver
         $operations[PageSpeedReport::ERROR_SITE_NOT_ACCESSIBLE] = function ($thisValue, $otherValue, $thisRow, $otherRow) {
             /** @var DataTable\Row $thisRow */
             /** @var DataTable\Row $otherRow */
-            if ($thisRow->getColumn(PageSpeedReport::ERROR_SITE_NOT_ACCESSIBLE)
-                && $otherRow->getColumn(PageSpeedReport::ERROR_SITE_NOT_ACCESSIBLE)) {
+            if (
+                $thisRow->getColumn(PageSpeedReport::ERROR_SITE_NOT_ACCESSIBLE)
+                && $otherRow->getColumn(PageSpeedReport::ERROR_SITE_NOT_ACCESSIBLE)
+            ) {
                 return 1;
             }
             return 0;
@@ -72,8 +75,10 @@ class Archiver extends \Piwik\Plugin\Archiver
         $operations[PageSpeedReport::ERROR_SSL_REQUIRED] = function ($thisValue, $otherValue, $thisRow, $otherRow) {
             /** @var DataTable\Row $thisRow */
             /** @var DataTable\Row $otherRow */
-            if ($thisRow->getColumn(PageSpeedReport::ERROR_SSL_REQUIRED)
-                && $otherRow->getColumn(PageSpeedReport::ERROR_SSL_REQUIRED)) {
+            if (
+                $thisRow->getColumn(PageSpeedReport::ERROR_SSL_REQUIRED)
+                && $otherRow->getColumn(PageSpeedReport::ERROR_SSL_REQUIRED)
+            ) {
                 return 1;
             }
             return 0;
@@ -82,8 +87,10 @@ class Archiver extends \Piwik\Plugin\Archiver
         $operations[PageSpeedReport::ERROR_ACCESS_DENIED] = function ($thisValue, $otherValue, $thisRow, $otherRow) {
             /** @var DataTable\Row $thisRow */
             /** @var DataTable\Row $otherRow */
-            if ($thisRow->getColumn(PageSpeedReport::ERROR_ACCESS_DENIED)
-                && $otherRow->getColumn(PageSpeedReport::ERROR_ACCESS_DENIED)) {
+            if (
+                $thisRow->getColumn(PageSpeedReport::ERROR_ACCESS_DENIED)
+                && $otherRow->getColumn(PageSpeedReport::ERROR_ACCESS_DENIED)
+            ) {
                 return 1;
             }
             return 0;

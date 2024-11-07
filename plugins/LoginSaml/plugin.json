@@ -1,6 +1,6 @@
 {
   "name": "LoginSaml",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "Provides SAML support for Matomo. Compatible with any Identity Provider such as OneLogin, Okta, Ping Identity, ADFS, Google, Salesforce, SharePoint.",
   "theme": false,
   "require": {

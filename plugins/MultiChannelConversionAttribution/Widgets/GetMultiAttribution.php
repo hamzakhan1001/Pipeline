@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MultiChannelConversionAttribution\Widgets;
 
 use Piwik\API\Request;
@@ -120,7 +122,7 @@ class GetMultiAttribution extends Widget
         foreach (BaseAttribution::getAll() as $attribution) {
             $attributionModels[] = array('key' => (string) $attribution->getId(), 'value' => $attribution->getName());
             $attributionModelsCancelable[] = array('key' => (string) $attribution->getId(), 'value' => $attribution->getName());
-            $reportHelp .= '<br /><strong>'. $attribution->getName() . '</strong>: ' . $attribution->getDocumentation() . "\n";
+            $reportHelp .= '<br /><strong>' . $attribution->getName() . '</strong>: ' . $attribution->getDocumentation() . "\n";
         }
 
 
@@ -205,10 +207,12 @@ class GetMultiAttribution extends Widget
             return false;
         }
 
-        $startDateTimeStamp = Date::factory(Period\Factory::makePeriodFromQueryParams('',
-            $period, $date)->getDateStart())->getTimestamp();
+        $startDateTimeStamp = Date::factory(Period\Factory::makePeriodFromQueryParams(
+            '',
+            $period,
+            $date
+        )->getDateStart())->getTimestamp();
 
         return $updateTimeStamp > $startDateTimeStamp;
     }
-
 }

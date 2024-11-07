@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Dao;
 
 use Piwik\Common;
-
 use Piwik\Db;
 use Piwik\DbHelper;
 
@@ -105,7 +106,6 @@ class Variations
         $activeVariations = $this->getAllVariationsForExperiment($idExperiment);
 
         foreach ($activeVariations as $activeVariation) {
-
             $found = false;
 
             foreach ($variations as $index => $variation) {
@@ -195,6 +195,4 @@ class Variations
         $db->insert($this->tablePrefixed, $values);
         return $db->lastInsertId();
     }
-
 }
-

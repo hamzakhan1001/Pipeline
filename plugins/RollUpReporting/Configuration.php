@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -23,13 +24,13 @@ use Piwik\Config;
  */
 class Configuration
 {
-    const FORCE_AGGREGATE_RAW_DATA_FOR_DAY_SEGMENT = 'force_aggregate_raw_data_for_day_segment';
-    const FORCE_AGGREGATE_RAW_DATA_FOR_DAY = 'force_aggregate_raw_data_for_day';
-    const DISABLE_PROCESSING_UNIQUE_VISITORS_FOR_SEGMENT = 'disable_processing_unique_visitors_for_segment';
+    public const FORCE_AGGREGATE_RAW_DATA_FOR_DAY_SEGMENT = 'force_aggregate_raw_data_for_day_segment';
+    public const FORCE_AGGREGATE_RAW_DATA_FOR_DAY = 'force_aggregate_raw_data_for_day';
+    public const DISABLE_PROCESSING_UNIQUE_VISITORS_FOR_SEGMENT = 'disable_processing_unique_visitors_for_segment';
 
-    const DEFAULT_FORCE_AGGREGATE_RAW_DATA_FOR_DAY_SEGMENT = 1;
-    const DEFAULT_FORCE_AGGREGATE_RAW_DATA_FOR_DAY = 1;
-    const DEFAULT_DISABLE_PROCESSING_UNIQUE_VISITORS_FOR_SEGMENT = 0;
+    public const DEFAULT_FORCE_AGGREGATE_RAW_DATA_FOR_DAY_SEGMENT = 1;
+    public const DEFAULT_FORCE_AGGREGATE_RAW_DATA_FOR_DAY = 1;
+    public const DEFAULT_DISABLE_PROCESSING_UNIQUE_VISITORS_FOR_SEGMENT = 0;
 
     public function install()
     {

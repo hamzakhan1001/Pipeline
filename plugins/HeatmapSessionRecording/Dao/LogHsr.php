@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Dao;
 
 use DeviceDetector\Parser\Device\AbstractDeviceParser;
@@ -31,11 +33,11 @@ class LogHsr
     private $tablePrefixed = '';
 
     // HAS TO MATCH VALUE IN TRACKER!
-    const SCROLL_ACCURACY = 1000;
+    public const SCROLL_ACCURACY = 1000;
 
-    const DEVICE_TYPE_DESKTOP = 1;
-    const DEVICE_TYPE_TABLET = 2;
-    const DEVICE_TYPE_MOBILE = 3;
+    public const DEVICE_TYPE_DESKTOP = 1;
+    public const DEVICE_TYPE_TABLET = 2;
+    public const DEVICE_TYPE_MOBILE = 3;
 
     /**
      * @var Db|Db\AdapterInterface|\Piwik\Tracker\Db
@@ -117,7 +119,19 @@ class LogHsr
         $device = $deviceDetector->getDevice();
 
         $checkWidth = false;
-        if (in_array($device, array(AbstractDeviceParser::DEVICE_TYPE_FEATURE_PHONE, AbstractDeviceParser::DEVICE_TYPE_PHABLET, AbstractDeviceParser::DEVICE_TYPE_SMARTPHONE, AbstractDeviceParser::DEVICE_TYPE_CAMERA, AbstractDeviceParser::DEVICE_TYPE_CAR_BROWSER), $strict = true)) {
+        if (
+            in_array(
+                $device,
+                array(
+                    AbstractDeviceParser::DEVICE_TYPE_FEATURE_PHONE,
+                    AbstractDeviceParser::DEVICE_TYPE_PHABLET,
+                    AbstractDeviceParser::DEVICE_TYPE_SMARTPHONE,
+                    AbstractDeviceParser::DEVICE_TYPE_CAMERA,
+                    AbstractDeviceParser::DEVICE_TYPE_CAR_BROWSER
+                ),
+                $strict = true
+            )
+        ) {
             $deviceType = self::DEVICE_TYPE_MOBILE;
         } elseif (in_array($device, array(AbstractDeviceParser::DEVICE_TYPE_TABLET), $strict = true)) {
             $deviceType = self::DEVICE_TYPE_TABLET;
@@ -133,9 +147,10 @@ class LogHsr
 
             foreach ($hsrs as $hsr) {
                 // the device type is only relevant for heatmaps so we only look for breakpoints in heatmaps
-                if ($hsr['record_type'] == SiteHsrDao::RECORD_TYPE_HEATMAP
-                    && in_array($hsr['idsitehsr'], $hsrSiteIds)) {
-
+                if (
+                    $hsr['record_type'] == SiteHsrDao::RECORD_TYPE_HEATMAP
+                    && in_array($hsr['idsitehsr'], $hsrSiteIds)
+                ) {
                     if ($deviceWidth < $hsr['breakpoint_mobile']) {
                         // resolution has to be lower than this
                         $deviceType = self::DEVICE_TYPE_MOBILE;
@@ -201,7 +216,6 @@ class LogHsr
         $idLogHsr = $this->findIdLogHsr($idVisit, $idHsrView);
 
         if (empty($idLogHsr)) {
-
             // to prevent race conditions we use atomic insert. It may lead to more gaps in auto increment but there is
             // no way around it
 
@@ -259,8 +273,10 @@ class LogHsr
                 $deviceType = $this->getDeviceType($hsrSiteIds, $idSite, $userAgent, $deviceWidth);
 
                 $idaction = $ids['idaction_url'];
-                $this->getDb()->query(sprintf('UPDATE %s set idaction_url = ?, device_type = ? where idloghsr = ?', $this->tablePrefixed),
-                    array($idaction, $deviceType, $idLogHsr));
+                $this->getDb()->query(
+                    sprintf('UPDATE %s set idaction_url = ?, device_type = ? where idloghsr = ?', $this->tablePrefixed),
+                    array($idaction, $deviceType, $idLogHsr)
+                );
 
                 foreach ($hsrSiteIds as $hsrId) {
                     // for performance reasons we check the limit only on hsr start and we make this way sure to still
@@ -268,7 +284,6 @@ class LogHsr
                     $this->logHsrSite->linkRecord($idLogHsr, $hsrId);
                 }
             }
-
         } else {
             $this->updateRecord($idLogHsr, $timeOnPage, $scrollYMaxRelative);
         }
@@ -278,11 +293,13 @@ class LogHsr
 
     public function updateRecord($idLogHsr, $timeOnPage, $scrollYMaxRelative)
     {
-        $sql = sprintf('UPDATE %s SET
+        $sql = sprintf(
+            'UPDATE %s SET
                               time_on_page = if(? > time_on_page, ?, time_on_page), 
                               scroll_y_max_relative = if(? > scroll_y_max_relative, ?, scroll_y_max_relative) 
                               WHERE idloghsr = ?',
-            $this->tablePrefixed);
+            $this->tablePrefixed
+        );
 
         $bind = array();
         $bind[] = $timeOnPage;
@@ -314,8 +331,11 @@ class LogHsr
     public function findDeletedLogHsrIds()
     {
         // DELETE ALL LOG ENTRIES WHOSE IDSITEHSR DOES NO LONGER EXIST
-        $rows = Db::fetchAll(sprintf('SELECT DISTINCT log_hsr.idloghsr FROM %s log_hsr LEFT OUTER JOIN %s log_hsr_site ON log_hsr.idloghsr = log_hsr_site.idloghsr WHERE log_hsr_site.idsitehsr IS NULL',
-            $this->tablePrefixed, Common::prefixTable('log_hsr_site')));
+        $rows = Db::fetchAll(sprintf(
+            'SELECT DISTINCT log_hsr.idloghsr FROM %s log_hsr LEFT OUTER JOIN %s log_hsr_site ON log_hsr.idloghsr = log_hsr_site.idloghsr WHERE log_hsr_site.idsitehsr IS NULL',
+            $this->tablePrefixed,
+            Common::prefixTable('log_hsr_site')
+        ));
 
         $idLogHsrsToDelete = array();
         foreach ($rows as $row) {
@@ -353,4 +373,3 @@ class LogHsr
         }
     }
 }
-

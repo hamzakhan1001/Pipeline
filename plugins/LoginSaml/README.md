@@ -72,3 +72,13 @@ Seamlessly integrate SAML support into Matomo, unifying your access controls and
 Harness the power of Matomo's advanced SAML configurations, tailored just for you. Elevate your security, refine user access, and navigate challenges with clarity.
 
 Start your 30-day free trial today and unlock a new standard of digital security.
+
+### Features
+
+* SP-initiaited and IdP initiaited Single Sign On
+* SP-initiaited and IdP initiaited Single Log Out
+* Just-in-time provisioning
+* Support attribute mapping
+* Access synchronization based on data provided by Identity Provider
+* Interoperate with any SAML Identity Provider
+* Support SAML signature and encryption

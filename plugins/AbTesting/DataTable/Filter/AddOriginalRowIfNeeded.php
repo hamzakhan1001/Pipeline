@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,16 +13,15 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\DataTable\Filter;
 
 use Piwik\DataTable\Row;
 use Piwik\DataTable;
 use Piwik\Plugins\AbTesting\Archiver;
 
-
 class AddOriginalRowIfNeeded extends BaseFilter
 {
-
     /**
      * @param DataTable $table
      */

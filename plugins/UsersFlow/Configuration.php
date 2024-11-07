@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,15 +22,15 @@ use Piwik\ViewDataTable\Manager;
 
 class Configuration
 {
-    const DEFAULT_MAX_STEPS = 10;
-    const DEFAULT_MAX_ACTIONS_PER_TABLE = 100;
-    const DEFAULT_MAX_LINKS_PER_INTERACTION = 5000;
-    const DEFAULT_LEVEL_OF_DETAIL = 5;
-    const DEFAULT_NUM_ACTIONS_PER_STEP = 5;
+    public const DEFAULT_MAX_STEPS = 10;
+    public const DEFAULT_MAX_ACTIONS_PER_TABLE = 100;
+    public const DEFAULT_MAX_LINKS_PER_INTERACTION = 5000;
+    public const DEFAULT_LEVEL_OF_DETAIL = 5;
+    public const DEFAULT_NUM_ACTIONS_PER_STEP = 5;
 
-    const KEY_MAX_STEPS = 'UsersFlow_num_max_steps';
-    const KEY_MAX_ACTIONS_PER_TABLE = 'UsersFlow_num_max_rows_in_actions';
-    const KEY_MAX_LINKS_PER_INTERACTION = 'UsersFlow_num_max_links_per_interaction';
+    public const KEY_MAX_STEPS = 'UsersFlow_num_max_steps';
+    public const KEY_MAX_ACTIONS_PER_TABLE = 'UsersFlow_num_max_rows_in_actions';
+    public const KEY_MAX_LINKS_PER_INTERACTION = 'UsersFlow_num_max_links_per_interaction';
 
     public function install()
     {
@@ -123,7 +124,7 @@ class Configuration
 
         $value = null;
 
-        if (!empty($usersFlow[$key])){
+        if (!empty($usersFlow[$key])) {
             $value = (int) $usersFlow[$key];
         }
 

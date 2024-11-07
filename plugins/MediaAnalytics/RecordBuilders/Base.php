@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -52,11 +53,18 @@ abstract class Base extends RecordBuilder
      * @param bool $withSubtableReport
      * @internal param $select
      */
-    protected function makeRegularReport(ArchiveProcessor $archiveProcessor, $dataTableBuilders, $where, $groupByColumn,
-                                         $withSubtableReport = false)
-    {
-        $aggregator = new Aggregator($archiveProcessor->getLogAggregator(), $archiveProcessor->getParams()->getSegment(),
-            $this->configuration);
+    protected function makeRegularReport(
+        ArchiveProcessor $archiveProcessor,
+        $dataTableBuilders,
+        $where,
+        $groupByColumn,
+        $withSubtableReport = false
+    ) {
+        $aggregator = new Aggregator(
+            $archiveProcessor->getLogAggregator(),
+            $archiveProcessor->getParams()->getSegment(),
+            $this->configuration
+        );
 
         $aggregationMethods = ['queryImpressions', 'queryPlays'];
         foreach ($aggregationMethods as $method) {
@@ -89,7 +97,6 @@ abstract class Base extends RecordBuilder
         $cursor = $aggregator->querySpentTime($groupByColumn, $where);
 
         while ($row = $cursor->fetch()) {
-
             $parentLabel = $row['parentLabel'];
             unset($row['parentLabel']);
 
@@ -174,7 +181,6 @@ abstract class Base extends RecordBuilder
                     $builder->addRowToSubtable(Archiver::SECONDARY_DIMENSION_MEDIA_SEGMENTS, $parentLabel, $row['label'], $row);
                 }
             }
-
         }
         $cursor->closeCursor();
     }

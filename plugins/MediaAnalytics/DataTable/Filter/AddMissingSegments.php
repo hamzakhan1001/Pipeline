@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\DataTable\Filter;
 
 use Piwik\Common;
@@ -56,11 +58,11 @@ class AddMissingSegments extends DataTable\BaseFilter
 
             $table->filter('ColumnCallbackDeleteRow', array('label', function ($segmentLabel) use ($maxSmallSegment) {
                 // remove all rows that are "small gap", eg 5,15,20, ... they won't be displayed
-                return $maxSmallSegment >= $segmentLabel && !Common::stringEndsWith($segmentLabel,Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX);
+                return $maxSmallSegment >= $segmentLabel && !Common::stringEndsWith($segmentLabel, Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX);
             }));
             $table->filter('ColumnCallbackReplace', array('label', function ($segmentLabel) use ($maxSmallSegment) {
                 // rename grouped segments to the regular segment name, eg "30_grouped" => 30
-                if (Common::stringEndsWith($segmentLabel,Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX)) {
+                if (Common::stringEndsWith($segmentLabel, Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX)) {
                     $segmentLabel = (int) str_replace(Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX, '', $segmentLabel);
                 }
                 return $segmentLabel;
@@ -76,7 +78,7 @@ class AddMissingSegments extends DataTable\BaseFilter
         } else {
             $table->filter('ColumnCallbackDeleteRow', array('label', function ($segmentLabel) use ($maxSmallSegment) {
                 // delete all grouped segments as we show the regular columns with the small gaps
-                return Common::stringEndsWith($segmentLabel,Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX);
+                return Common::stringEndsWith($segmentLabel, Archiver::GROUPED_MEDIA_SEGMENT_APPENDIX);
             }));
         }
 

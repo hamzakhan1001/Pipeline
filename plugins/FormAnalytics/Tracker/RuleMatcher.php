@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -20,27 +21,27 @@ use Piwik\Piwik;
 
 class RuleMatcher
 {
-    const ATTRIBUTE_FORM_NAME = 'form_name';
-    const ATTRIBUTE_FORM_ID = 'form_id';
-    const ATTRIBUTE_URL = 'page_url';
-    const ATTRIBUTE_PATH = 'page_path';
-    const ATTRIBUTE_QUERY = 'page_query';
+    public const ATTRIBUTE_FORM_NAME = 'form_name';
+    public const ATTRIBUTE_FORM_ID = 'form_id';
+    public const ATTRIBUTE_URL = 'page_url';
+    public const ATTRIBUTE_PATH = 'page_path';
+    public const ATTRIBUTE_QUERY = 'page_query';
 
-    const PATTERN_PREFIX_NOT = 'not_';
+    public const PATTERN_PREFIX_NOT = 'not_';
 
-    const PATTERN_EQUALS = 'equals';
-    const PATTERN_NOT_EQUALS = 'not_equals';
-    const PATTERN_EQUALS_EXACTLY = 'equals_exactly';
-    const PATTERN_NOT_EQUALS_EXACTLY = 'not_equals_exactly';
-    const PATTERN_CONTAINS = 'contains';
-    const PATTERN_NOT_CONTAINS = 'not_contains';
-    const PATTERN_STARTS_WITH = 'starts_with';
-    const PATTERN_ENDS_WITH = 'ends_with';
-    const PATTERN_REGEXP = 'regexp';
+    public const PATTERN_EQUALS = 'equals';
+    public const PATTERN_NOT_EQUALS = 'not_equals';
+    public const PATTERN_EQUALS_EXACTLY = 'equals_exactly';
+    public const PATTERN_NOT_EQUALS_EXACTLY = 'not_equals_exactly';
+    public const PATTERN_CONTAINS = 'contains';
+    public const PATTERN_NOT_CONTAINS = 'not_contains';
+    public const PATTERN_STARTS_WITH = 'starts_with';
+    public const PATTERN_ENDS_WITH = 'ends_with';
+    public const PATTERN_REGEXP = 'regexp';
 
-    const KEY_CONVERSION_RULE_PAGE_VISIT = 'page_visit';
-    const KEY_CONVERSION_RULE_FORM_SUBMIT = 'form_submit';
-    const KEY_CONVERSION_RULE_MANUALLY = 'manually';
+    public const KEY_CONVERSION_RULE_PAGE_VISIT = 'page_visit';
+    public const KEY_CONVERSION_RULE_FORM_SUBMIT = 'form_submit';
+    public const KEY_CONVERSION_RULE_MANUALLY = 'manually';
 
     /**
      * @var array
@@ -322,7 +323,6 @@ class RuleMatcher
         $patterns = self::getPatternTranslations();
 
         foreach ($attributes as $attribute) {
-
             $urlAttribute = array(
                 'key' => $attribute,
                 'name' => $allAttributes[$attribute]['name'],
@@ -331,7 +331,6 @@ class RuleMatcher
             );
 
             foreach ($patterns as $pattern => $patternLabel) {
-
                 if ($attribute !== self::ATTRIBUTE_URL && in_array($pattern, array(self::PATTERN_EQUALS_EXACTLY, self::PATTERN_NOT_EQUALS_EXACTLY), $strict = true)) {
                     // equals exactly is only supported for url attribute
                     continue;

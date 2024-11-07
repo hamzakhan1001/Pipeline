@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.13 - 2024-11-05
+- Updated README.md
+
 5.0.12 - 2024-10-21
 - Added limit to lastMinutes query to prevent DDOS
 

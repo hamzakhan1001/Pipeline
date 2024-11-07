@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,18 +18,18 @@ namespace Piwik\Plugins\Funnels;
 
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const FUNNELS_ENTRIES_RECORD = 'Funnels_entries_';
-    const FUNNELS_EXITS_RECORD = 'Funnels_exits_';
-    const FUNNELS_FLOW_RECORD = 'Funnels_flow_';
+    public const FUNNELS_ENTRIES_RECORD = 'Funnels_entries_';
+    public const FUNNELS_EXITS_RECORD = 'Funnels_exits_';
+    public const FUNNELS_FLOW_RECORD = 'Funnels_flow_';
 
-    const FUNNELS_NUM_ENTRIES_RECORD = 'Funnels_funnel_sum_entries_';
-    const FUNNELS_NUM_EXITS_RECORD = 'Funnels_funnel_sum_exits_';
-    const FUNNELS_NUM_CONVERSIONS_RECORD = 'Funnels_funnel_nb_conversions_';
+    public const FUNNELS_NUM_ENTRIES_RECORD = 'Funnels_funnel_sum_entries_';
+    public const FUNNELS_NUM_EXITS_RECORD = 'Funnels_funnel_sum_exits_';
+    public const FUNNELS_NUM_CONVERSIONS_RECORD = 'Funnels_funnel_nb_conversions_';
 
-    const LABEL_NOT_DEFINED = 'Funnels_ValueNotSet';
-    const LABEL_VISIT_ENTRY = 'Funnels_VisitEntry';
-    const LABEL_VISIT_EXIT = 'Funnels_VisitExit';
-    const LABEL_DIRECT_ENTRY = 'Funnels_DirectEntry';
+    public const LABEL_NOT_DEFINED = 'Funnels_ValueNotSet';
+    public const LABEL_VISIT_ENTRY = 'Funnels_VisitEntry';
+    public const LABEL_VISIT_EXIT = 'Funnels_VisitExit';
+    public const LABEL_DIRECT_ENTRY = 'Funnels_DirectEntry';
 
     public static function completeRecordName($recordName, $idFunnel, $revision = null)
     {

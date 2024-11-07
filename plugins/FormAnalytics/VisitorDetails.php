@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\FormAnalytics;
 
 use Piwik\Common;
@@ -26,7 +28,7 @@ use Piwik\View;
 
 class VisitorDetails extends VisitorDetailsAbstract
 {
-    const FORM_TYPE      = 'form';
+    public const FORM_TYPE      = 'form';
 
     protected $formConversions = [];
 
@@ -174,7 +176,7 @@ class VisitorDetails extends VisitorDetailsAbstract
 						ON log_form.idsiteform = site_form.idsiteform
 					LEFT JOIN " . Common::prefixTable('log_form_field') . " AS log_form_field
 						ON log_form.idlogform = log_form_field.idlogform
-					WHERE $extraWhere log_form.idvisit IN (%s) AND log_form.time_spent > 0 AND site_form.status != '". FormsModel::STATUS_DELETED ."'
+					WHERE $extraWhere log_form.idvisit IN (%s) AND log_form.time_spent > 0 AND site_form.status != '" . FormsModel::STATUS_DELETED . "'
 					LIMIT 0, $limit", implode(",", $visitIds));
 
         $sql = DbHelper::addMaxExecutionTimeHintToQuery($sql, $this->getLiveQueryMaxExecutionTime());
@@ -194,7 +196,6 @@ class VisitorDetails extends VisitorDetailsAbstract
         $idVisitsWithMultipleFormSubmissionsOnSameForm = [];
 
         foreach ($fieldInteractions as $fieldInteraction) {
-
             if (empty($fieldInteraction['idpageview'])) {
                 // form view only (no field interactions)
                 continue;
@@ -202,9 +203,11 @@ class VisitorDetails extends VisitorDetailsAbstract
 
             $idVisit = $fieldInteraction['idvisit'];
 
-            if ($fieldInteraction['num_starts'] > 1
+            if (
+                $fieldInteraction['num_starts'] > 1
                 && $fieldInteraction['num_submissions'] > 1
-                && !isset($idVisitsWithMultipleFormSubmissionsOnSameForm[$idVisit])) {
+                && !isset($idVisitsWithMultipleFormSubmissionsOnSameForm[$idVisit])
+            ) {
                 $idVisitsWithMultipleFormSubmissionsOnSameForm[$idVisit] = $idVisit;
             }
 

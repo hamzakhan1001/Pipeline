@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,10 +13,10 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Dao;
 
 use Piwik\Common;
-
 use Piwik\Db;
 use Piwik\DbHelper;
 
@@ -85,13 +86,13 @@ class Strategy
      */
     public function setStrategy($idExperiment, $metricName, $strategy)
     {
-        $sql = sprintf('INSERT INTO %s (`idexperiment`, `metric`, `strategy`) VALUES(?,?,?) ON DUPLICATE KEY UPDATE strategy = ?',
-            $this->tablePrefixed);
+        $sql = sprintf(
+            'INSERT INTO %s (`idexperiment`, `metric`, `strategy`) VALUES(?,?,?) ON DUPLICATE KEY UPDATE strategy = ?',
+            $this->tablePrefixed
+        );
 
         $bind = array($idExperiment, $metricName, $strategy, $strategy);
 
         $this->getDb()->query($sql, $bind);
     }
-
 }
-

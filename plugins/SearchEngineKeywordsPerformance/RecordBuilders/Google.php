@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders;
 
 use Piwik\ArchiveProcessor;
@@ -24,24 +25,25 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\MeasurableSettings;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Model\Google as GoogleModel;
 use Piwik\Site;
 use Piwik\Log\LoggerInterface;
+
 class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Base
 {
     /**
      * Key used to archive web keywords
      */
-    const KEYWORDS_GOOGLE_WEB_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_web';
+    public const KEYWORDS_GOOGLE_WEB_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_web';
     /**
      * Key used to archive image keywords
      */
-    const KEYWORDS_GOOGLE_IMAGE_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_image';
+    public const KEYWORDS_GOOGLE_IMAGE_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_image';
     /**
      * Key used to archive video keywords
      */
-    const KEYWORDS_GOOGLE_VIDEO_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_video';
+    public const KEYWORDS_GOOGLE_VIDEO_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_video';
     /**
      * Key used to archive news keywords
      */
-    const KEYWORDS_GOOGLE_NEWS_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_news';
+    public const KEYWORDS_GOOGLE_NEWS_RECORD_NAME = 'SearchEngineKeywordsPerformance_google_keywords_news';
     /**
      * @var string
      */
@@ -66,11 +68,11 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilde
         $this->recordName = $recordName;
         $this->logger = $logger;
     }
-    public function getRecordMetadata(ArchiveProcessor $archiveProcessor) : array
+    public function getRecordMetadata(ArchiveProcessor $archiveProcessor): array
     {
         return [ArchiveProcessor\Record::make(Record::TYPE_BLOB, $this->recordName)];
     }
-    protected function aggregate(ArchiveProcessor $archiveProcessor) : array
+    protected function aggregate(ArchiveProcessor $archiveProcessor): array
     {
         $parameters = $archiveProcessor->getParams();
         $date = $parameters->getDateStart()->setTimezone('UTC')->toString('Y-m-d');
@@ -80,7 +82,7 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilde
         }
         return [$this->recordName => $record];
     }
-    public function isEnabled(ArchiveProcessor $archiveProcessor) : bool
+    public function isEnabled(ArchiveProcessor $archiveProcessor): bool
     {
         $segment = $archiveProcessor->getParams()->getSegment();
         if (!$segment->isEmpty()) {
@@ -93,7 +95,7 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilde
     /**
      * Aggregates data for a given day by type of search
      */
-    protected function aggregateDayBySearchType(ArchiveProcessor $archiveProcessor, string $recordName, string $date) : ?DataTable
+    protected function aggregateDayBySearchType(ArchiveProcessor $archiveProcessor, string $recordName, string $date): ?DataTable
     {
         $types = [self::KEYWORDS_GOOGLE_WEB_RECORD_NAME => 'web', self::KEYWORDS_GOOGLE_IMAGE_RECORD_NAME => 'image', self::KEYWORDS_GOOGLE_VIDEO_RECORD_NAME => 'video', self::KEYWORDS_GOOGLE_NEWS_RECORD_NAME => 'news'];
         $this->logger->debug("[SearchEngineKeywordsPerformance] Archiving {$types[$recordName]} keywords for {$date} and {$this->searchConsoleUrl}");
@@ -106,7 +108,7 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilde
     /**
      * Returns keyword data for given parameters as DataTable
      */
-    protected function getKeywordsAsDataTable(ArchiveProcessor $archiveProcessor, string $date, string $type) : ?DataTable
+    protected function getKeywordsAsDataTable(ArchiveProcessor $archiveProcessor, string $date, string $type): ?DataTable
     {
         // ensure keywords are present (if available)
         $googleImporter = new GoogleImporter($archiveProcessor->getParams()->getSite()->getId());
@@ -120,7 +122,7 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilde
         }
         return null;
     }
-    public static function makeAll(int $idSite) : array
+    public static function makeAll(int $idSite): array
     {
         $site = new Site($idSite);
         $settings = new MeasurableSettings($site->getId(), $site->getType());
@@ -145,7 +147,7 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilde
             $archives[] = self::KEYWORDS_GOOGLE_NEWS_RECORD_NAME;
         }
         $logger = StaticContainer::get(LoggerInterface::class);
-        $builders = array_map(function ($recordName) use($accountId, $searchConsoleUrl, $logger) {
+        $builders = array_map(function ($recordName) use ($accountId, $searchConsoleUrl, $logger) {
             return new self($accountId, $searchConsoleUrl, $recordName, $logger);
         }, $archives);
         return $builders;

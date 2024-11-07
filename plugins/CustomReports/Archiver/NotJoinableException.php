@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,5 +18,4 @@ namespace Piwik\Plugins\CustomReports\Archiver;
 
 class NotJoinableException extends \Exception
 {
-
 }

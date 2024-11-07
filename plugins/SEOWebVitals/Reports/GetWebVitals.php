@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -105,7 +106,7 @@ class GetWebVitals extends Report
     {
         parent::configureWidgets($widgetsList, $factory);
 
-        $idSite = Common::getRequestVar('idSite', 0,'int');
+        $idSite = Common::getRequestVar('idSite', 0, 'int');
         if (empty($idSite)) {
             return;
         }
@@ -113,7 +114,6 @@ class GetWebVitals extends Report
         $order = 500;
         $pageUrls = new Pages();
         foreach ($pageUrls->getPageUrlsToMonitor($idSite) as $url) {
-
             $urlToUse = str_replace(array_keys(TrackerPageUrl::$urlPrefixMap), '', $url);
             $config = $factory->createWidget();
             $config->forceViewDataTable(Sparklines::ID);
@@ -124,7 +124,6 @@ class GetWebVitals extends Report
             $config->setIsNotWidgetizable();
             $widgetsList->addWidgetConfig($config);
         }
-
     }
 
     /**
@@ -151,7 +150,14 @@ class GetWebVitals extends Report
         $view->config->show_exclude_low_population = false;
         $view->config->show_table = false;
 
-        $youCanConfigureMessage = Piwik::translate('SEOWebVitals_YouCanConfigure', ['<a class="editwebsitesettings" href="index.php' . Url::getCurrentQueryStringWithParametersModified(['module' => 'SitesManager', 'action' => 'index']) . '#/editsiteid='.(int)$idSite.'">', '</a>', '"' . Piwik::translate('SEOWebVitals_UrlsMonitorFieldTitle') . '"']);
+        $youCanConfigureMessage = Piwik::translate(
+            'SEOWebVitals_YouCanConfigure',
+            [
+                '<a class="editwebsitesettings" href="index.php'
+                . Url::getCurrentQueryStringWithParametersModified(['module' => 'SitesManager', 'action' => 'index'])
+                . '#/editsiteid=' . (int)$idSite . '">', '</a>', '"' . Piwik::translate('SEOWebVitals_UrlsMonitorFieldTitle') . '"'
+            ]
+        );
 
         $isDesktopView = $view->isViewDataTableId(DesktopStrategyTable::ID);
         $isMobileView = $view->isViewDataTableId(MobileStrategyTable::ID);
@@ -165,11 +171,11 @@ class GetWebVitals extends Report
         $metricsToKeep = [];
         foreach ($this->metrics as $metric) {
             if ($isDesktopView) {
-                if (Metrics::isStrategyMetric($metric,  PageSpeedApi::STRATEGY_DESKTOP)) {
+                if (Metrics::isStrategyMetric($metric, PageSpeedApi::STRATEGY_DESKTOP)) {
                     $metricsToKeep[] = $metric;
                 }
             } elseif ($isMobileView) {
-                if (Metrics::isStrategyMetric($metric,  PageSpeedApi::STRATEGY_MOBILE)) {
+                if (Metrics::isStrategyMetric($metric, PageSpeedApi::STRATEGY_MOBILE)) {
                     $metricsToKeep[] = $metric;
                 }
             } else {
@@ -219,7 +225,13 @@ class GetWebVitals extends Report
 
                     if (!$pageSpeedApi->hasApiKeyConfigured()) {
                         if (Piwik::hasUserSuperUserAccess()) {
-                            $view->config->no_data_message .= Piwik::translate('SEOWebVitals_RequiredAPIkeySuperUser', ['<strong>', '<a class="configureApiKeyWebVitals" href="index.php' . Url::getCurrentQueryStringWithParametersModified(['module' => 'CoreAdminHome', 'action' => 'generalSettings']) . '#/SEOWebVitals">', '</a>', '</strong>']);
+                            $view->config->no_data_message .= Piwik::translate(
+                                'SEOWebVitals_RequiredAPIkeySuperUser',
+                                [
+                                    '<strong>', '<a class="configureApiKeyWebVitals" href="index.php' . Url::getCurrentQueryStringWithParametersModified(['module' => 'CoreAdminHome', 'action' => 'generalSettings']) . '#/SEOWebVitals">',
+                                    '</a>', '</strong>'
+                                ]
+                            );
                         } else {
                             $view->config->no_data_message .= Piwik::translate('SEOWebVitals_RequiredAPIkey', ['<strong>', '</strong>']);
                         }
@@ -251,28 +263,33 @@ class GetWebVitals extends Report
                             if ($includesToday) {
                                 $view->config->no_data_message .= ' ' . Piwik::translate('SEOWebVitals_DateTodayConfigured');
                             }
-
                         }
-
                     }
 
                     if (!SettingsPiwik::isInternetEnabled()) {
                         $view->config->no_data_message .= '<br><br><strong>' . Piwik::translate('SEOWebVitals_DiagnosticInternetDisabledComment');
                         $view->config->no_data_message .= ' ' . Piwik::translate('SEOWebVitals_DiagnosticInternetDisabledComment2') . '</strong>';
                     }
-
                 } else {
-
                     if ($view->isViewDataTableId(HtmlTable::ID)) {
-                        $view->config->show_header_message = '<div class="alert alert-info inp-banner-alert">' . Piwik::translate('SEOWebVitals_INPBannerDescriptionPastDeadline', ['<b>', '</b>', '<a href="https://web.dev/blog/inp-cwv" target="_blank" rel="noreferrer nopener">', '</a>']) . '</div>';
+                        $view->config->show_header_message = '<div class="alert alert-info inp-banner-alert">'
+                            . Piwik::translate(
+                                'SEOWebVitals_INPBannerDescriptionPastDeadline',
+                                ['<b>', '</b>', '<a href="https://web.dev/blog/inp-cwv" target="_blank" rel="noreferrer nopener">', '</a>']
+                            ) . '</div>';
                         $view->config->show_footer_message .= '<br><br>';
                         $view->config->show_footer_message .= Piwik::translate('SEOWebVitals_AllScoresAreCalculated', ['', '']);
 
-                        if (!Common::getRequestVar('segment', '', 'string')
+                        if (
+                            !Common::getRequestVar('segment', '', 'string')
                             && Rules::isBrowserTriggerEnabled()
-                            && Piwik::hasUserSuperUserAccess()) {
+                            && Piwik::hasUserSuperUserAccess()
+                        ) {
                             $view->config->show_footer_message .= '<br><br>';
-                            $view->config->show_footer_message .= Piwik::translate('SEOWebVitals_DiagnosticReportPerformanceComment', ['<a href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/on-premise/how-to-set-up-auto-archiving-of-your-reports/') . '" rel="noreferrer noopener" target="_blank">', '</a>']);
+                            $view->config->show_footer_message .= Piwik::translate(
+                                'SEOWebVitals_DiagnosticReportPerformanceComment',
+                                ['<a href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/on-premise/how-to-set-up-auto-archiving-of-your-reports/') . '" rel="noreferrer noopener" target="_blank">', '</a>']
+                            );
                         }
                     }
 
@@ -287,7 +304,7 @@ class GetWebVitals extends Report
                                 if ($metric !== Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE) {
                                     if ($metric === Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE) {
                                         $displayValue = empty($displayValue) ? "-" : Piwik::translate('SEOWebVitals_NbMilliseconds', $displayValue);
-                                    } else if ($metric === Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE) {
+                                    } elseif ($metric === Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE) {
                                         $displayValue = Piwik::translate('SEOWebVitals_NbMilliseconds', $displayValue);
                                     } else {
                                         $displayValue = $displayValue / 1000;
@@ -300,7 +317,6 @@ class GetWebVitals extends Report
                             }
                         }
                     }
-
                 }
             };
         }
@@ -319,7 +335,6 @@ class GetWebVitals extends Report
         } else {
             if (Piwik::isUserHasAdminAccess($idSite)) {
                 $view->config->show_footer_message .= $youCanConfigureMessage;
-
             } else {
                 $view->config->show_footer_message .= Piwik::translate('SEOWebVitals_ToMonitoreMoreAskAdmin');
             }
@@ -329,6 +344,5 @@ class GetWebVitals extends Report
                 $view->config->show_footer_message .= Piwik::translate('SEOWebVitals_ReportNotSupportSegmentation', ['<strong>', '</strong>']);
             }
         }
-
     }
 }

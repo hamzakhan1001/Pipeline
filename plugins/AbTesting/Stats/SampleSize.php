@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,16 +18,16 @@ namespace Piwik\Plugins\AbTesting\Stats;
 
 class SampleSize
 {
-    const PRECISION = 6;
+    public const PRECISION = 6;
 
     /**
      * should be typically 0.8 or hgiher
      * the higher the more "accurate" and the more samples will be needed
      * @var float
      */
-    const POWER_LEVEL = 0.8;
+    public const POWER_LEVEL = 0.8;
 
-    const DEFAULT_PAGEVIEW_CONVERSIONRATE = 25;
+    public const DEFAULT_PAGEVIEW_CONVERSIONRATE = 25;
 
     public function estimateForPageviews($desiredSignificanceRate, $minimumDetectableEffectAbsolute)
     {
@@ -136,7 +137,6 @@ class SampleSize
             $r = ($p - 0.5) * ($p - 0.5);
             $value = ($p - 0.5) * ((($a3 * $r + $a2) * $r + $a1) * $r + $a0) /
                         (((($b4   * $r + $b3) * $r + $b2) * $r + $b1) * $r + 1.0);
-
         } elseif (0.0 < $p && $p < 1.0) {
 
             /**
@@ -145,9 +145,9 @@ class SampleSize
              **/
 
             if (0.5 < $p) {
-                $r = sqrt (- log (1.0 - $p));
+                $r = sqrt(- log(1.0 - $p));
             } else {
-                $r = sqrt (- log ($p));
+                $r = sqrt(- log($p));
             }
 
             $value = ((($c3 * $r + $c2) * $r + $c1) * $r + $c0) / (($d2 * $r + $d1) * $r + 1.0);
@@ -155,7 +155,6 @@ class SampleSize
             if ($p < 0.5) {
                 $value = - $value;
             }
-
         } else {
             /*+
              *  P <= 0.0 || 1.0 <= P
@@ -165,5 +164,4 @@ class SampleSize
 
         return $value;
     }
-
 }

@@ -13,13 +13,14 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Piwik;
 use Piwik\Plugin\ReportsProvider;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Columns\Keyword;
-use Piwik\Plugins\SearchEngineKeywordsPerformance\Metrics;
+
 class GetKeywords extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\Base
 {
     protected function init()

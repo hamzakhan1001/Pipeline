@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -6,6 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\SEOWebVitals\DataTable\Filter;
 
 use Piwik\DataTable\BaseFilter;
@@ -16,7 +18,6 @@ use Piwik\Plugins\SEOWebVitals\Metrics;
 
 class CalculateAverages extends BaseFilter
 {
-
     public function __construct($table)
     {
         parent::__construct($table);
@@ -30,12 +31,15 @@ class CalculateAverages extends BaseFilter
         // would be usually done in a processed metric I suppose...
         foreach (PageSpeedApi::getAllStrategies() as $strategy) {
             $metricsToSum = Metrics::appendStrategy(
-                array_merge(Metrics::TOP_LEVEL_NUMERIC_CATEGORY_MAPPING,
+                array_merge(
+                    Metrics::TOP_LEVEL_NUMERIC_CATEGORY_MAPPING,
                     [Metrics::METRIC_PERFORMANCE_SCORE => true,
                         Metrics::METRIC_AUDIT_SCORE => true,
                         Metrics::METRIC_AUDIT_NUMERIC_VALUE => true,
-                    ])
-            , $strategy);
+                    ]
+                ),
+                $strategy
+            );
             $categoryMetrics = Metrics::appendStrategy(array_flip(Metrics::TOP_LEVEL_NUMERIC_CATEGORY_MAPPING), $strategy);
 
             $metricNumLoadExperienceChecks = Metrics::appendStrategy(Metrics::METRIC_LOAD_EXPERIENCE_NUM_CHECKS, $strategy);
@@ -74,5 +78,4 @@ class CalculateAverages extends BaseFilter
             }
         }
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\AdvertisingConversionExport\Export\Adapter;
 
 use Exception;
 use Piwik\Common;
-use Piwik\Config;
 use Piwik\Date;
 use Piwik\Db;
 use Piwik\Piwik;
@@ -30,7 +30,7 @@ use Piwik\Updater\Migration\Db as DbMigration;
 
 abstract class AdapterAbstract
 {
-    const ID = '';
+    public const ID = '';
 
     /** @var Configuration */
     protected $configuration;
@@ -148,7 +148,8 @@ abstract class AdapterAbstract
 
         $from        = ['log_conversion', $clickIdTable];
         $select      = ' /*+ EXPORT_ID(' . $this->configuration->exportID . ') */ DISTINCT ' . implode(', ', $this->getRequiredDimensions());
-        $where       = 'log_conversion.idsite = ? AND log_clickid.adclickid != ? AND log_conversion.server_time > ? AND log_conversion.server_time < ? AND log_conversion.idgoal IN (' . Common::getSqlStringFieldsArray($goalIds) . ') AND log_clickid.adclickid IS NOT NULL AND log_clickid.adprovider = ?';
+        $where       = 'log_conversion.idsite = ? AND log_clickid.adclickid != ? AND log_conversion.server_time > ? AND log_conversion.server_time < ? AND log_conversion.idgoal IN (' . Common::getSqlStringFieldsArray($goalIds)
+            . ') AND log_clickid.adclickid IS NOT NULL AND log_clickid.adprovider = ?';
         $whereBind   = [
             $idSite,
             'anonymized',
