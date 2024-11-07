@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,7 @@ namespace Piwik\Plugins\Cohorts;
 
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const COHORTS_ARCHIVE_RECORD = "Cohorts_archive_record";
-    const COHORTS_UNIQUE_VISITORS_ARCHIVE_RECORD = "Cohorts_uniq_visitors_archive_record";
-    const DEFAULT_ARCHIVING_MAX_ROWS = 1000;
+    public const COHORTS_ARCHIVE_RECORD = "Cohorts_archive_record";
+    public const COHORTS_UNIQUE_VISITORS_ARCHIVE_RECORD = "Cohorts_uniq_visitors_archive_record";
+    public const DEFAULT_ARCHIVING_MAX_ROWS = 1000;
 }

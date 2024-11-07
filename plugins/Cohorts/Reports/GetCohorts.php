@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\Cohorts\Reports;
 
 use Piwik\API\Request;
 use Piwik\Cache;
-use Piwik\Cache\Transient;
 use Piwik\CacheId;
 use Piwik\Common;
 use Piwik\DataTable;
@@ -26,12 +26,10 @@ use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin\Report;
 use Piwik\Plugin\ViewDataTable;
-use Piwik\Plugins\Cohorts\CohortRanges;
 use Piwik\Plugins\Cohorts\Columns\Metrics\CohortTableColumn;
 use Piwik\Plugins\Cohorts\Columns\Metrics\VisitorRetentionPercent;
 use Piwik\Plugins\Cohorts\Configuration;
 use Piwik\Plugins\Cohorts\Visualizations\Cohorts;
-use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Evolution;
 use Piwik\Plugins\Goals;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\SettingsPiwik;
@@ -40,7 +38,7 @@ use Piwik\Widget\WidgetsList;
 
 class GetCohorts extends Report
 {
-    const DEFAULT_METRIC = VisitorRetentionPercent::NAME;
+    public const DEFAULT_METRIC = VisitorRetentionPercent::NAME;
 
     protected function init()
     {
@@ -57,7 +55,8 @@ class GetCohorts extends Report
         $period = Common::getRequestVar('period', false);
         $date = Common::getRequestVar('date', false);
         $filter_limit = Common::getRequestVar('filter_limit', 0, 'int');
-        if (!empty($period)
+        if (
+            !empty($period)
             && !empty($date)
             && !empty(Piwik::$idPeriods[$period])
         ) {
@@ -214,7 +213,7 @@ class GetCohorts extends Report
 
                 if ($idGoal == Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_CART) {
                     $goalName = Piwik::translate('Goals_AbandonedCart');
-                } else if ($idGoal == Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER) {
+                } elseif ($idGoal == Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER) {
                     $goalName = Piwik::translate('Goals_EcommerceOrder');
                 } else {
                     $goalName = Piwik::translate('Goals_GoalX', $goals[$idGoal]['name']);

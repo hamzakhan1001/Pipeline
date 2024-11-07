@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -25,11 +26,11 @@ use Piwik\SettingsPiwik;
 
 class UniqueVisitorsBySecondsSinceFirst extends SecondsSinceFirst
 {
-
     public function getRecordMetadata(ArchiveProcessor $archiveProcessor): array
     {
         $periodLabel = $archiveProcessor->getParams()->getPeriod()->getLabel();
-        if (SettingsPiwik::isUniqueVisitorsEnabled($periodLabel)
+        if (
+            SettingsPiwik::isUniqueVisitorsEnabled($periodLabel)
             && $periodLabel != 'range'
             && $periodLabel != 'day'
         ) {
@@ -53,7 +54,8 @@ class UniqueVisitorsBySecondsSinceFirst extends SecondsSinceFirst
 
         // NOTE: on cloud this is not a performance killer
         $periodLabel = $archiveProcessor->getParams()->getPeriod()->getLabel();
-        if (SettingsPiwik::isUniqueVisitorsEnabled($periodLabel)
+        if (
+            SettingsPiwik::isUniqueVisitorsEnabled($periodLabel)
             // it doesn't make sense to aggregate this record for range periods, since ranges are arbitrary. so we can't know which arbitrary range a first visit is on.
             // we still trigger the above archiving, since it will pre-archive days if they have not been already.
             && $periodLabel != 'range'
@@ -76,8 +78,14 @@ class UniqueVisitorsBySecondsSinceFirst extends SecondsSinceFirst
 
         $result = new DataTable();
         $this->aggregateVisitLogs($archiveProcessor->getLogAggregator(), $result, $dimensions, [Metrics::INDEX_NB_UNIQ_VISITORS, Metrics::INDEX_NB_USERS]);
-        $this->insertBlobRecord($archiveProcessor, Archiver::COHORTS_UNIQUE_VISITORS_ARCHIVE_RECORD, $result,
-            $this->maxRowsInTable, $this->maxRowsInSubtable, Metrics::INDEX_NB_UNIQ_VISITORS);
+        $this->insertBlobRecord(
+            $archiveProcessor,
+            Archiver::COHORTS_UNIQUE_VISITORS_ARCHIVE_RECORD,
+            $result,
+            $this->maxRowsInTable,
+            $this->maxRowsInSubtable,
+            Metrics::INDEX_NB_UNIQ_VISITORS
+        );
 
         unset($result);
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,11 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\Cohorts\Columns;
 
 use Piwik\Columns\DimensionSegmentFactory;
 use Piwik\Common;
-use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Plugin\Dimension\VisitDimension;
 use Piwik\Plugin\Segment;
@@ -39,7 +40,8 @@ class VisitorFirstVisitTime extends VisitDimension
         $idSites = Common::getRequestVar('idSites', false);
 
         $idSite = Common::getRequestVar('idSite', false, 'int');
-        if (empty($idSite)
+        if (
+            empty($idSite)
             && empty($idSites)
         ) {
             return;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -146,7 +147,8 @@ class Controller extends \Piwik\Plugin\Controller
         return $evolutionPeriodDateStr;
     }
 
-    private function getTheLastNValueBasedOnPeriods(string $period, string $cohortDates): int{
+    private function getTheLastNValueBasedOnPeriods(string $period, string $cohortDates): int
+    {
         $cohortPeriodRange = Period\Factory::build($period, $cohortDates);
         $cohortPeriods = $cohortPeriodRange->getSubperiods();
 

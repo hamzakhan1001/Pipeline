@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,29 +16,19 @@
 
 namespace Piwik\Plugins\Cohorts\Reports;
 
-use Piwik\API\Request;
-use Piwik\Common;
-use Piwik\DataTable;
-use Piwik\Metrics;
-use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin\Report;
-use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\Cohorts\Columns\Metrics\VisitorRetentionPercent;
-use Piwik\Plugins\Cohorts\Visualizations\Cohorts;
 use Piwik\Plugins\CoreHome\Columns\Metrics\ActionsPerVisit;
 use Piwik\Plugins\CoreHome\Columns\Metrics\AverageTimeOnSite;
 use Piwik\Plugins\CoreHome\Columns\Metrics\BounceRate;
 use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Evolution;
-use Piwik\Plugins\Goals;
 use Piwik\Report\ReportWidgetFactory;
-use Piwik\SettingsPiwik;
-use Piwik\Site;
 use Piwik\Widget\WidgetsList;
 
 class GetCohortsOverTime extends Report
 {
-    const DEFAULT_METRIC = VisitorRetentionPercent::NAME;
+    public const DEFAULT_METRIC = VisitorRetentionPercent::NAME;
 
     protected function init()
     {

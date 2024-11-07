@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -45,11 +46,11 @@ abstract class Base extends RecordBuilder
         $firstVisitTimeStartDay = "DATE_FORMAT(FROM_UNIXTIME($adjustedFirstVisitTime), '%Y-%m-%d')";
         if ($period == 'day') {
             $roundToPeriodStart = $firstVisitTimeStartDay;
-        } else if ($period == 'week') {
+        } elseif ($period == 'week') {
             $roundToPeriodStart = "DATE_ADD($firstVisitTimeStartDay, INTERVAL - WEEKDAY($firstVisitTimeStartDay) DAY)";
-        } else if ($period == 'month') {
+        } elseif ($period == 'month') {
             $roundToPeriodStart = "DATE_FORMAT(FROM_UNIXTIME($adjustedFirstVisitTime), '%Y-%m-01')";
-        } else if ($period == 'year') {
+        } elseif ($period == 'year') {
             $roundToPeriodStart = "DATE_FORMAT(FROM_UNIXTIME($adjustedFirstVisitTime), '%Y-01-01')";
         } else {
             return null;

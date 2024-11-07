@@ -4,7 +4,6 @@ namespace Piwik\Plugins\Cohorts;
 
 use Piwik\Archive\ArchiveInvalidator;
 use Piwik\Date;
-use Piwik\Piwik;
 use Piwik\Db;
 use Piwik\Common;
 use Piwik\Updater;
@@ -36,7 +35,7 @@ class Updates_4_0_4 extends PiwikUpdates
     {
         if (\Piwik\Plugin\Manager::getInstance()->isPluginActivated('UserId')) {
             $dateTime = Date::now()->subYear(1);
-            $dateString = date('Y-m',strtotime('-1 month'));
+            $dateString = date('Y-m', strtotime('-1 month'));
             list($year,$month) = explode('-', $dateString);
             $tableName = Common::prefixTable("archive_numeric_{$year}_{$month}");
             try {

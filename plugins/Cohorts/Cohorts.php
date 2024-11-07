@@ -5,9 +5,10 @@
  * Description: Track your retention efforts over time and keep your visitors engaged and coming back for more.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/Cohorts
- * Version: 5.0.10
+ * Version: 5.0.11
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -26,11 +27,7 @@ namespace Piwik\Plugins\Cohorts;
 
 use Piwik\Archive\ArchiveInvalidator;
 use Piwik\Container\StaticContainer;
-use Piwik\CronArchive;
-use Piwik\Date;
-use Piwik\Option;
 use Piwik\Piwik;
-use Piwik\Plugin\Manager;
 use Piwik\Plugins\Cohorts\Columns\Metrics\VisitorRetentionPercent;
 
  
@@ -152,7 +149,8 @@ class Cohorts extends \Piwik\Plugin
         return floatval($columnValue) + $hundredth;
     }
 
-    private static function preFormatTimeString(string $timeString): string{
+    private static function preFormatTimeString(string $timeString): string
+    {
         $parts = explode(' ', $timeString);
         $newString = '';
 

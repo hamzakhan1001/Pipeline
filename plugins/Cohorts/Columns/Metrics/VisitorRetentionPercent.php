@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -26,7 +27,7 @@ use Piwik\Plugin\ProcessedMetric;
 
 class VisitorRetentionPercent extends ProcessedMetric
 {
-    const NAME = 'Cohorts_returning_visitors_percent';
+    public const NAME = 'Cohorts_returning_visitors_percent';
 
     /**
      * @var DataTable\Map
@@ -94,7 +95,8 @@ class VisitorRetentionPercent extends ProcessedMetric
     public function getDependentMetrics()
     {
         $period = Common::getRequestVar('period', false);
-        if (empty($period)
+        if (
+            empty($period)
             || !in_array('period', ['day', 'week', 'month', 'year'])
         ) {
             return [];
