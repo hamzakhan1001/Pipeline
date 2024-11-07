@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
 use Piwik\FrontController;
@@ -23,7 +25,7 @@ class AudienceMap extends BaseWidget
     public static function configure(WidgetConfig $config)
     {
         parent::configure($config);
-        
+
         $idSite = self::getIdSite();
         $config->setName('MediaAnalytics_WidgetTitleAudienceMap');
         $config->setSubcategoryId('MediaAnalytics_TypeAudienceMap');
@@ -47,5 +49,4 @@ class AudienceMap extends BaseWidget
 
         return $content;
     }
-
 }

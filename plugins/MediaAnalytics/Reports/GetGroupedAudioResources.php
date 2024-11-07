@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\MediaAnalytics\Reports;
 
 use Piwik\Piwik;
 use Piwik\Plugin\ReportsProvider;
-
 
 class GetGroupedAudioResources extends GetGroupedVideoResources
 {
@@ -38,5 +38,4 @@ class GetGroupedAudioResources extends GetGroupedVideoResources
             ReportsProvider::factory('MediaAnalytics', 'GetAudioTitles'),
         );
     }
-
 }

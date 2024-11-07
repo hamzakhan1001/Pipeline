@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Tracker;
 
 use Piwik\Common;
@@ -110,8 +112,10 @@ class RequestProcessor extends Tracker\RequestProcessor
             if (!$this->shouldUpdateLastVisit($visitProperties, $request, 300)) {
                 $request->setMetadata('MediaAnalytics', 'ignoreUpdateVisit', true);
             }
-        } elseif (($request->getParam('e_c') === 'MediaVideo' || $request->getParam('e_c') === 'MediaAudio')
-            && !$this->shouldUpdateLastVisit($visitProperties, $request, 3)) {
+        } elseif (
+            ($request->getParam('e_c') === 'MediaVideo' || $request->getParam('e_c') === 'MediaAudio')
+            && !$this->shouldUpdateLastVisit($visitProperties, $request, 3)
+        ) {
             // if it is a media event triggered by us, we extend the visit only every 2 or 3 seconds.
             $request->setMetadata('MediaAnalytics', 'ignoreVisitActionTime', true);
         }
@@ -238,6 +242,4 @@ class RequestProcessor extends Tracker\RequestProcessor
     {
         return $request->getMetadata('MediaAnalytics', 'media');
     }
-
-
 }

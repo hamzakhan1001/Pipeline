@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -6,14 +7,13 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
-use Piwik\Config;
 use Piwik\Piwik;
 use Piwik\Plugins\MediaAnalytics\Configuration;
 use Piwik\Widget\Widget;
 use Piwik\Widget\WidgetConfig;
-use Piwik\View;
 
 class GetInfoTrackEvents extends Widget
 {
@@ -44,7 +44,6 @@ class GetInfoTrackEvents extends Widget
     public function render()
     {
         return '<div vue-entry="CoreHome.Alert" severity="&quot;info&quot;">'
-            . Piwik::translate('MediaAnalytics_DisableEventTrackingInfoMessage', array('<a href="https://matomo.org/faq/media-analytics/how-do-i-enable-tracking-of-all-media-events-by-default/" target="_blank">','</a>')).'</div>';
+            . Piwik::translate('MediaAnalytics_DisableEventTrackingInfoMessage', array('<a href="https://matomo.org/faq/media-analytics/how-do-i-enable-tracking-of-all-media-events-by-default/" target="_blank">','</a>')) . '</div>';
     }
-
 }

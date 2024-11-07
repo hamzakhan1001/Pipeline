@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -14,6 +15,7 @@
  */
 
 namespace Piwik\Plugins\MediaAnalytics\Reports;
+
 use Piwik\Piwik;
 
 class GetAudioTitles extends GetVideoTitles
@@ -27,6 +29,4 @@ class GetAudioTitles extends GetVideoTitles
         $this->subcategoryId  = 'MediaAnalytics_TypeAudio';
         $this->order = 2;
     }
-
-
 }

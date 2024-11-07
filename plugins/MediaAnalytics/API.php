@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics;
 
 use Piwik\Archive;
@@ -37,9 +39,13 @@ use Piwik\Site;
  * <br/>
  * The other methods return the aggregated analytics reports for Video and Audio:
  * <ul>
- * <li>`MediaAnalytics.get` returns the overall metrics for your videos and audios: `nb_plays, nb_unique_visitors_plays, nb_impressions, nb_unique_visitors_impressions, nb_finishes, sum_total_time_watched, sum_total_audio_plays, sum_total_audio_impressions, sum_total_video_plays, sum_total_video_impressions, play_rate, finish_rate, impression_rate`.</li>
+ * <li>`MediaAnalytics.get` returns the overall metrics for your videos and audios: `nb_plays, nb_unique_visitors_plays,
+ *  nb_impressions, nb_unique_visitors_impressions, nb_finishes, sum_total_time_watched, sum_total_audio_plays,
+ *  sum_total_audio_impressions, sum_total_video_plays, sum_total_video_impressions, play_rate, finish_rate, impression_rate`.</li>
  * <li>`getVideoTitles` and `getAudioTitles` return the list of videos / audio by video title and audio title. </li>
- * <li>`getGroupedVideoResources` and `getGroupedAudioResources` return the list of watched videos / audio grouped by resource URL. The "grouped media resource" report displays a flat report which includes both the domain and the path to the media resource, whereas the regular "media resource" report displays a hierarchical view of your media resources by domain.</li>
+ * <li>`getGroupedVideoResources` and `getGroupedAudioResources` return the list of watched videos / audio grouped by
+ *  resource URL. The "grouped media resource" report displays a flat report which includes both the domain and the path
+ *  to the media resource, whereas the regular "media resource" report displays a hierarchical view of your media resources by domain.</li>
  * <li>`getVideoHours` and `getAudioHours` return the list of videos / audio by by hour (to see how your media is consumed at a different time of the day). </li>
  * <li>`getVideoTitles` and `getAudioTitles` return the list of videos / audio by video title and audio title. </li>
  * <li>`getVideoResolutions` return the list of videos by player resolution (see how your videos are consumed when the video resolution varies). </li>
@@ -167,7 +173,7 @@ class API extends \Piwik\Plugin\API
         $serverTime = $this->getServerTimeForXMinutesAgo($lastMinutes);
 
         $rows = $this->logTable->getMostPlays($idSite, $serverTime, $filter_limit, $segment);
-      
+
         if (empty($rows)) {
             return new DataTable();
         }
@@ -225,7 +231,9 @@ class API extends \Piwik\Plugin\API
         $dataTable = $this->getDataTable(Archiver::RECORD_VIDEO_RESOURCES, $idSite, $period, $date, $segment, $idSubtable, $secondaryDimension, $expandedDepth, $flat);
 
         if (empty($idSubtable)) {
-            $dataTable->queueFilter('MetadataCallbackAddMetadata', array(array(), 'openable', function () { return 1; }));
+            $dataTable->queueFilter('MetadataCallbackAddMetadata', array(array(), 'openable', function () {
+                return 1;
+            }));
         } elseif (!empty($idSubtable) && empty($secondaryDimension)) {
             $dataTable->filter('Piwik\Plugins\MediaAnalytics\DataTable\Filter\AddResourceSegment');
         }
@@ -261,7 +269,9 @@ class API extends \Piwik\Plugin\API
         $dataTable = $this->getDataTable(Archiver::RECORD_AUDIO_RESOURCES, $idSite, $period, $date, $segment, $idSubtable, $secondaryDimension, $expandedDepth, $flat);
 
         if (empty($idSubtable)) {
-            $dataTable->queueFilter('MetadataCallbackAddMetadata', array(array(), 'openable', function () { return 1; }));
+            $dataTable->queueFilter('MetadataCallbackAddMetadata', array(array(), 'openable', function () {
+                return 1;
+            }));
         } elseif (!empty($idSubtable) && empty($secondaryDimension)) {
             $dataTable->filter('Piwik\Plugins\MediaAnalytics\DataTable\Filter\AddResourceSegment');
         }
@@ -480,7 +490,6 @@ class API extends \Piwik\Plugin\API
             if ($subTable instanceof DataTable) {
                 $table = $subTable;
             } else {
-
                 $actualIdSubtable = $row->getIdSubDataTable();
 
                 $table->setRows(array());
@@ -511,7 +520,6 @@ class API extends \Piwik\Plugin\API
                     break;
 
                 case Archiver::SECONDARY_DIMENSION_MEDIA_SEGMENTS:
-
                     $table->filter(function (DataTable $table) {
                         $tableSummary = $table->getRowFromLabel(Archiver::METADATA_ROW);
                         $tableSummaryId = $table->getRowIdFromLabel(Archiver::METADATA_ROW);

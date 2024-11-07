@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,13 +13,13 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Columns;
 
 use Piwik\Piwik;
 
 class Resolution extends MediaDimension
 {
-
     protected $nameSingular = 'MediaAnalytics_Resolution';
     protected $namePlural = 'MediaAnalytics_Resolutions';
     protected $columnName = 'resolution';

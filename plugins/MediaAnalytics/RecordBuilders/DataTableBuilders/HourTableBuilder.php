@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -62,7 +63,7 @@ class HourTableBuilder extends DataTableBuilder
         $label = $labelInDb;
         if ($this->isEmptyLabel($label)) {
             $label = Archiver::LABEL_NOT_DEFINED;
-        } else if ($label !== RankingQuery::LABEL_SUMMARY_ROW) {
+        } elseif ($label !== RankingQuery::LABEL_SUMMARY_ROW) {
             $label = $this->convertTimeToLocalTimezone($labelInDb);
         }
         return $label;

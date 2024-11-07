@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
 use Piwik\API\Request;
@@ -26,7 +28,7 @@ class GettingStarted extends BaseWidget
     public static function configure(WidgetConfig $config)
     {
         parent::configure($config);
-        
+
         $idSite = self::getIdSite();
         $config->setIsNotWidgetizable();
         $config->setName('MediaAnalytics_GettingStarted');
@@ -40,7 +42,6 @@ class GettingStarted extends BaseWidget
         } else {
             $config->setIsEnabled(Piwik::isUserHasViewAccess($idSite));
         }
-
     }
 
     public function render()
@@ -63,5 +64,4 @@ class GettingStarted extends BaseWidget
             'piwikJsWritable' => $includeAutomatically
         ));
     }
-
 }

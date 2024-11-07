@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -27,7 +28,7 @@ class GetVideoHours extends Base
         parent::init();
 
         $this->setDefaultMetrics();
-        
+
         $this->name = Piwik::translate('MediaAnalytics_VideoHours');
         $this->documentation = Piwik::translate('MediaAnalytics_ReportDocumentationVideoHours');
         $this->dimension = new Hour();
@@ -60,5 +61,4 @@ class GetVideoHours extends Base
     {
         return array(); // eg return array(new XyzReport());
     }
-
 }

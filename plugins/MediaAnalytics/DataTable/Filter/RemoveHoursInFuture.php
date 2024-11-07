@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\DataTable\Filter;
 
 use Piwik\Container\StaticContainer;
@@ -60,7 +62,8 @@ class RemoveHoursInFuture extends DataTable\BaseFilter
             if (StaticContainer::get('test.vars.doNotRemoveHoursInFuture')) {
                 return;
             }
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         if ($this->period !== 'day') {
             return;

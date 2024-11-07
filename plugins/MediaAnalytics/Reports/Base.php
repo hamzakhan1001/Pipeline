@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Reports;
 
 use Piwik\Common;
@@ -181,7 +183,6 @@ abstract class Base extends Report
                     if ($self->isVideoReport()) {
                         $view->config->columns_to_display[] = Metrics::METRIC_FULLSCREEN_RATE;
                     }
-
                 }, $params = array(), $priority = false);
             }
         } elseif ($isDetailPage && $isHtmlTable) {

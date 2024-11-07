@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Categories;
 
 use Piwik\Category\Subcategory;
@@ -27,5 +29,4 @@ class MediaVideoSubcategory extends Subcategory
     {
         return '<p>' . Piwik::translate('MediaAnalytics_MediaVideoSubcategoryHelp') . '</p>';
     }
-
 }

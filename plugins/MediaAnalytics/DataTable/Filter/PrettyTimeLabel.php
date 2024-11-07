@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\DataTable\Filter;
 
 use Piwik\DataTable;
@@ -28,7 +30,7 @@ class PrettyTimeLabel extends DataTable\BaseFilter
     public function filter($table)
     {
         $formatter = new Formatter();
-        $table->filter('ColumnCallbackReplace', array('label', function ($value) use($formatter) {
+        $table->filter('ColumnCallbackReplace', array('label', function ($value) use ($formatter) {
             if ($value === Archiver::LABEL_NOT_DEFINED) {
                 return $value;
             }

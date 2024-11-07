@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.11 - 2024-11-05
+- Updated README.md
+
 5.0.10 - 2024-10-08
 - Added check to handle invalid filter_limit for getCurrentMostPlays
 - Added code to enforce max last minutes

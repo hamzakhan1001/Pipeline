@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,7 +13,9 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics;
+
 use Piwik\Common;
 use Piwik\Segment\SegmentExpression;
 
@@ -21,14 +24,14 @@ use Piwik\Segment\SegmentExpression;
  */
 class Segment extends \Piwik\Plugin\Segment
 {
-    const NAME_MEDIA_TITLE = 'media_title';
-    const NAME_RESOURCE = 'media_resource';
-    const NAME_MEDIA_IMPRESSION_TYPE = 'media_impression_type';
-    const NAME_MEDIA_PLAYS_TYPE = 'media_plays_type';
-    const NAME_SPENT_TIME = 'media_spent_time';
-    const NAME_TIME_TO_PLAY = 'media_time_initial_play';
-    const NAME_MEDIA_LENGTH = 'media_length';
-    const NAME_MEDIA_PLAYER = 'media_player';
+    public const NAME_MEDIA_TITLE = 'media_title';
+    public const NAME_RESOURCE = 'media_resource';
+    public const NAME_MEDIA_IMPRESSION_TYPE = 'media_impression_type';
+    public const NAME_MEDIA_PLAYS_TYPE = 'media_plays_type';
+    public const NAME_SPENT_TIME = 'media_spent_time';
+    public const NAME_TIME_TO_PLAY = 'media_time_initial_play';
+    public const NAME_MEDIA_LENGTH = 'media_length';
+    public const NAME_MEDIA_PLAYER = 'media_player';
 
     public static function getAllSegmentNames()
     {
@@ -85,4 +88,3 @@ class Segment extends \Piwik\Plugin\Segment
         return array('SQL' => $sql, 'bind' => $valueToMatch);
     }
 }
-

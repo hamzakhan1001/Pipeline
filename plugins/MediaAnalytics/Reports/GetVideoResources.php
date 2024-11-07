@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -28,7 +29,7 @@ class GetVideoResources extends Base
         parent::init();
 
         $this->setDefaultMetrics();
-        
+
         $this->name          = Piwik::translate('MediaAnalytics_VideoResources');
         $this->dimension     = new MediaResource();
         $this->documentation = Piwik::translate('MediaAnalytics_ReportDocumentationVideoResources');

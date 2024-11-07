@@ -5,9 +5,10 @@
  * Description: Grow your business with advanced video & audio analytics. Get powerful insights into how your audience watches your videos and listens to your audio.
  * Author: InnoCraft
  * Author URI: https://www.media-analytics.net
- * Version: 5.0.10
+ * Version: 5.0.11
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -36,7 +37,6 @@ use Piwik\Plugins\MediaAnalytics\Dao\LogMediaPlays;
 use Piwik\Plugins\MediaAnalytics\Dao\LogTable;
 use Piwik\Segment\SegmentsList;
 use Piwik\Widget\WidgetConfig;
-use Piwik\Config;
 
  
 if (defined( 'ABSPATH')
@@ -58,11 +58,11 @@ if (defined( 'ABSPATH')
 
 class MediaAnalytics extends Plugin
 {
-    const MEDIA_TYPE_VIDEO = 1;
-    const MEDIA_TYPE_AUDIO = 2;
-    const TRACKER_READY_HOOK_NAME = '/*!! mediaTrackerReadyHook */';
-    const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! mediaTrackerReadyHook */';
-    
+    public const MEDIA_TYPE_VIDEO = 1;
+    public const MEDIA_TYPE_AUDIO = 2;
+    public const TRACKER_READY_HOOK_NAME = '/*!! mediaTrackerReadyHook */';
+    public const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! mediaTrackerReadyHook */';
+
     public function registerEvents()
     {
         return array(
@@ -97,7 +97,7 @@ class MediaAnalytics extends Plugin
     public function disableMediaAnalyticsDefaultIfNeeded(&$content)
     {
         $configuration = new Configuration();
-        if (!$configuration->shouldEnableEventTrackingByDefault()){
+        if (!$configuration->shouldEnableEventTrackingByDefault()) {
             $replace = 'arguments[0].MediaAnalytics.enableEvents = false;';
         } else {
             $replace = '';
@@ -116,7 +116,7 @@ class MediaAnalytics extends Plugin
         $allTablesInstalled[] = Common::prefixTable('log_media_plays');
         $allTablesInstalled[] = Common::prefixTable('log_media');
     }
-    
+
     public function isTrackerPlugin()
     {
         return true;
@@ -198,7 +198,7 @@ class MediaAnalytics extends Plugin
         $jsFiles[] = 'plugins/MediaAnalytics/javascripts/mediaBarGraph.js';
         $jsFiles[] = 'plugins/MediaAnalytics/javascripts/rowaction.js';
     }
-    
+
     public function getDefaultMetricTranslations(&$translations)
     {
         $translations[Metrics::METRIC_NB_PLAYS] = Piwik::translate('MediaAnalytics_ColumnPlays');
@@ -245,7 +245,7 @@ class MediaAnalytics extends Plugin
     public function addSegmentDimensionMetadata(SegmentsList $list)
     {
         $mediaTypeValues = array(self::MEDIA_TYPE_AUDIO => 'audio', self::MEDIA_TYPE_VIDEO => 'video');
-        
+
         $segment = new Segment();
         $segment->setSegment(Segment::NAME_MEDIA_IMPRESSION_TYPE);
         $segment->setType(Segment::TYPE_DIMENSION);
@@ -256,7 +256,7 @@ class MediaAnalytics extends Plugin
             if (isset($mediaTypeValues[$mediaType])) {
                 return (int) $mediaType;
             }
-            
+
             if ($key = array_search($mediaType, $mediaTypeValues)) {
                 return (int) $key;
             }

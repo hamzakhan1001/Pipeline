@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,8 +13,8 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
-namespace Piwik\Plugins\MediaAnalytics\Columns\Metrics;
 
+namespace Piwik\Plugins\MediaAnalytics\Columns\Metrics;
 
 use Piwik\Columns\Dimension;
 use Piwik\DataTable\Row;
@@ -25,7 +26,7 @@ abstract class AvgSecondsMetric extends ProcessedMetric
 {
     abstract protected function getTotalMetricName();
     abstract protected function getMetricName();
-    
+
     public function compute(Row $row)
     {
         $revenue = $this->getMetric($row, $this->getMetricName());

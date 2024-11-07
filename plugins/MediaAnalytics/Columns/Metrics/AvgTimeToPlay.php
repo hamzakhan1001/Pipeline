@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Columns\Metrics;
 
 use Piwik\Piwik;
@@ -28,7 +30,7 @@ class AvgTimeToPlay extends AvgSecondsMetric
     {
         return PluginMetrics::METRIC_NB_PLAYS_WITH_TIME_TO_INITIAL_PLAY;
     }
-    
+
     public function getTranslatedName()
     {
         return Piwik::translate('MediaAnalytics_ColumnAvgTimeToPlay');
@@ -43,5 +45,4 @@ class AvgTimeToPlay extends AvgSecondsMetric
     {
         return PluginMetrics::METRIC_AVG_TIME_TO_PLAY;
     }
-
 }

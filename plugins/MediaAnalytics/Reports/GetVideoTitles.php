@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -28,7 +29,7 @@ class GetVideoTitles extends Base
         parent::init();
 
         $this->setDefaultMetrics();
-        
+
         $this->name = Piwik::translate('MediaAnalytics_VideoTitles');
         $this->documentation = Piwik::translate('MediaAnalytics_ReportDocumentationVideoTitles');
         $this->dimension = new MediaTitle();
@@ -55,5 +56,4 @@ class GetVideoTitles extends Base
             }
         };
     }
-
 }

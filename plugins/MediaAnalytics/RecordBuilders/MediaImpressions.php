@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -34,8 +35,11 @@ class MediaImpressions extends Base
     {
         $aggregator = new Archiver\Aggregator($archiveProcessor->getLogAggregator(), $archiveProcessor->getParams()->getSegment(), $this->configuration);
 
-        $select = sprintf('count(log_media.idvisit) as %s, count(distinct log_media.idvisitor) as %s',
-            Metrics::METRIC_NB_IMPRESSIONS, Metrics::METRIC_NB_IMPRESSIONS_BY_UNIQUE_VISITORS);
+        $select = sprintf(
+            'count(log_media.idvisit) as %s, count(distinct log_media.idvisitor) as %s',
+            Metrics::METRIC_NB_IMPRESSIONS,
+            Metrics::METRIC_NB_IMPRESSIONS_BY_UNIQUE_VISITORS
+        );
         $cursor = $aggregator->query($select, $where = '', $groupBy = '', $orderBy = '');
         $row = $cursor->fetch();
 

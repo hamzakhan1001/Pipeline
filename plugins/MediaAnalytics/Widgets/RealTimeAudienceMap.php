@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\MediaAnalytics\Widgets;
 
 use Piwik\FrontController;
@@ -25,7 +27,7 @@ class RealTimeAudienceMap extends BaseLiveWidget
     public static function configure(WidgetConfig $config)
     {
         parent::configure($config);
-        
+
         $idSite = self::getIdSite();
         $config->setName('MediaAnalytics_WidgetTitleRealTimeAudienceMap');
         $config->setOrder(103);
@@ -55,5 +57,4 @@ class RealTimeAudienceMap extends BaseLiveWidget
 
         return FrontController::getInstance()->dispatch('UserCountryMap', 'realtimeMap', $params);
     }
-
 }
