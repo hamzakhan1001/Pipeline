@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,9 +22,9 @@ use Piwik\Tracker\Request;
 
 class ActionAbTesting extends Action
 {
-    const TYPE_ABTESTING = 93;
-    const PARAM_ABTESTING_EXPERIMENT_NAME = 'ab_e';
-    const PARAM_ABTESTING_VARIATION_NAME = 'ab_n';
+    public const TYPE_ABTESTING = 93;
+    public const PARAM_ABTESTING_EXPERIMENT_NAME = 'ab_e';
+    public const PARAM_ABTESTING_VARIATION_NAME = 'ab_n';
 
     public function __construct(Request $request)
     {

@@ -49,9 +49,13 @@ class ArchiveEstimatedUniqueVisitors extends ConsoleCommand
         $this->addRequiredValueOption('idexperiment', null, 'If set, only a specific report will be archived');
         $this->addNoValueOption('disable-segments', null, 'Disables archiving of pre-archived segments');
         $this->addRequiredValueOption('periods', null, 'Specify which periods should be archived. A comma separated list will archive multiple periods', 'all');
-        $this->addRequiredValueOption('segment', null,
+        $this->addRequiredValueOption(
+            'segment',
+            null,
             'List of segments to invalidate report data for. This can be the segment string itself, the segment name from the UI or the ID of the segment.'
-            . ' If specifying the segment definition, make sure it is encoded properly (it should be the same as the segment parameter in the URL.', null);
+            . ' If specifying the segment definition, make sure it is encoded properly (it should be the same as the segment parameter in the URL.',
+            null
+        );
     }
 
     public function isEnabled()
@@ -344,7 +348,8 @@ class ArchiveEstimatedUniqueVisitors extends ConsoleCommand
         $allSegments = $this->getAllSegments($idSites);
 
         foreach ($allSegments as $segment) {
-            if (!empty($segment['enable_only_idsite'])
+            if (
+                !empty($segment['enable_only_idsite'])
                 && !in_array($segment['enable_only_idsite'], $idSites)
             ) {
                 continue;
@@ -360,7 +365,8 @@ class ArchiveEstimatedUniqueVisitors extends ConsoleCommand
                 return $segment['definition'];
             }
 
-            if ($segment['definition'] == $segmentOptionValue
+            if (
+                $segment['definition'] == $segmentOptionValue
                 || $segment['definition'] == urldecode($segmentOptionValue)
             ) {
                 $logger->debug("Matching '{value}' by definition with segment {segment}.", ['value' => $segmentOptionValue, 'segment' => json_encode($segment)]);

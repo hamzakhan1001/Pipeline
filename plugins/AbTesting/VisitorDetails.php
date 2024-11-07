@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting;
 
 use Piwik\Piwik;
@@ -87,7 +89,7 @@ class VisitorDetails extends VisitorDetailsAbstract
 
     protected function getExperiment($id, $idSite)
     {
-        $key = $id.'-'.$idSite;
+        $key = $id . '-' . $idSite;
         if (!array_key_exists($key, self::$experimentsCache)) {
             $experimentDao = new Experiment();
             self::$experimentsCache[$key] = $experimentDao->getExperiment($id, $idSite);

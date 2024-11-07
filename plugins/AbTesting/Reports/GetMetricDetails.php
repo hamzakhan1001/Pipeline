@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,6 @@
 
 namespace Piwik\Plugins\AbTesting\Reports;
 
-use Piwik\Access;
 use Piwik\API\Request;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
@@ -24,11 +24,9 @@ use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\AbTesting\AbTesting;
 use Piwik\Plugins\AbTesting\Columns\Variation;
 use Piwik\Plugins\AbTesting\Dao\Experiment;
-use Piwik\Plugins\AbTesting\Model\Experiments;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
-
 
 /**
  * Shows details for a specific success metric such as the number of remaining needed visitors,
@@ -172,5 +170,4 @@ class GetMetricDetails extends Base
     {
         return Request::processRequest('AbTesting.getExperimentsWithReports', ['idSite' => $idSite, 'filter_limit' => -1], $default = []);
     }
-
 }

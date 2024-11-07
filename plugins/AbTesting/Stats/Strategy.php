@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,16 +22,15 @@ use Piwik\DataTable\Row;
 use Piwik\Plugins\AbTesting\Archiver;
 use Piwik\Plugins\AbTesting\Dao;
 use Piwik\Plugins\AbTesting\Metrics;
-
 use Piwik\Site;
 use Piwik\Plugins\AbTesting\DataTable\Filter\AddValuesOfOriginalToRows;
 use Piwik\Plugins\AbTesting\Metrics as PluginMetrics;
 
 class Strategy
 {
-    const MANN_WHITNEY = 'MW';
-    const TTEST = 'TT';
-    const CHI_SQUARE = 'CS';
+    public const MANN_WHITNEY = 'MW';
+    public const TTEST = 'TT';
+    public const CHI_SQUARE = 'CS';
 
     /**
      * @var Dao\Strategy
@@ -77,7 +77,7 @@ class Strategy
             PluginMetrics::METRIC_SUM_VISIT_LENGTH,
             PluginMetrics::METRIC_TOTAL_ORDERS // total orders because there can be more than one orders per visit
         );
-        
+
         if (in_array($metric, $tTestMetrics)) {
             return static::TTEST;
         }
@@ -90,7 +90,7 @@ class Strategy
 
         if (PluginMetrics::isConversionMetric($metric)) {
             $strategy = $this->dao->getStrategy($idExperiment, $metric);
-            
+
             if (!$this->isValidStrategy($strategy)) {
                 $strategy = $this->getBestStrategyForConversion($metric, $idSite);
                 $this->dao->setStrategy($idExperiment, $metric, $strategy);
@@ -214,7 +214,6 @@ class Strategy
         if ($metric === Metrics::METRIC_TOTAL_ORDERS_REVENUE) {
             // likely unknown distribution
             return static::MANN_WHITNEY;
-
         } elseif ($metric === Metrics::METRIC_TOTAL_REVENUE && !Site::isEcommerceEnabledFor($idSite)) {
             // likely rather similar values as only revenue from goals
             return static::TTEST;
@@ -234,5 +233,4 @@ class Strategy
         // likely unknown distribution
         return static::MANN_WHITNEY;
     }
-
 }

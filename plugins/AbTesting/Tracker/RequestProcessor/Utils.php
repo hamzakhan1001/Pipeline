@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Tracker\RequestProcessor;
 
 use Piwik\Common;
@@ -20,7 +22,6 @@ use Piwik\Plugins\AbTesting\Actions\ActionAbTesting;
 use Piwik\Plugins\AbTesting\Model\Experiments;
 use Piwik\Plugins\AbTesting\Tracker\RequestProcessor;
 use Piwik\Plugins\AbTesting\Tracker\Schedule;
-use Piwik\Plugins\AbTesting\Tracker\Target;
 use Piwik\Tracker\Request;
 use Piwik\Tracker;
 
@@ -56,7 +57,6 @@ class Utils extends Tracker\RequestProcessor
 
         foreach ($experiments as $experiment) {
             if (strtolower($experiment['name']) === $experimentName) {
-
                 return $experiment;
             }
         }
@@ -72,11 +72,9 @@ class Utils extends Tracker\RequestProcessor
 
             foreach ($experiments as $experiment) {
                 if ((int)$experiment['idexperiment'] === $experimentName) {
-
                     return $experiment;
                 }
             }
-
         }
     }
 
@@ -94,7 +92,6 @@ class Utils extends Tracker\RequestProcessor
 
         foreach ($experiment['variations'] as $variation) {
             if (strtolower($variation['name']) === $variationName) {
-
                 return $variation['idvariation'];
             }
         }
@@ -106,7 +103,6 @@ class Utils extends Tracker\RequestProcessor
 
             foreach ($experiment['variations'] as $variation) {
                 if ($variationName === (int) $variation['idvariation']) {
-
                     return $variation['idvariation'];
                 }
             }

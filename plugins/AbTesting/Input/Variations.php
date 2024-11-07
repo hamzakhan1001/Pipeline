@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class Variations
@@ -49,5 +50,4 @@ class Variations
             $variation->check();
         }
     }
-
 }

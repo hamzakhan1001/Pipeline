@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -16,22 +17,20 @@
 namespace Piwik\Plugins\AbTesting\Tracker;
 
 use Piwik\Piwik;
-use Piwik\Tracker\Request;
-use Piwik\UrlHelper;
 
 class Target
 {
-    const ATTRIBUTE_URL = 'url';
-    const ATTRIBUTE_PATH = 'path';
-    const ATTRIBUTE_URLPARAM = 'urlparam';
+    public const ATTRIBUTE_URL = 'url';
+    public const ATTRIBUTE_PATH = 'path';
+    public const ATTRIBUTE_URLPARAM = 'urlparam';
 
-    const TYPE_ANY = 'any';
-    const TYPE_EXISTS = 'exists';
-    const TYPE_EQUALS_SIMPLE = 'equals_simple';
-    const TYPE_EQUALS_EXACTLY = 'equals_exactly';
-    const TYPE_CONTAINS = 'contains';
-    const TYPE_STARTS_WITH = 'starts_with';
-    const TYPE_REGEXP = 'regexp';
+    public const TYPE_ANY = 'any';
+    public const TYPE_EXISTS = 'exists';
+    public const TYPE_EQUALS_SIMPLE = 'equals_simple';
+    public const TYPE_EQUALS_EXACTLY = 'equals_exactly';
+    public const TYPE_CONTAINS = 'contains';
+    public const TYPE_STARTS_WITH = 'starts_with';
+    public const TYPE_REGEXP = 'regexp';
 
     /**
      * @var array
@@ -47,7 +46,7 @@ class Target
     {
         return $type !== self::TYPE_ANY;
     }
-    
+
     public static function getAvailableTargetTypes()
     {
         $targetTypes = array();
@@ -90,7 +89,7 @@ class Target
             'types' => array(),
             'example' => Piwik::translate('AbTesting_TargetAttributeUrlParameterExample')
         );
-        
+
         $parameterOptions = array(
             Target::TYPE_EXISTS => Piwik::translate('AbTesting_TargetTypeExists'),
             Target::TYPE_EQUALS_EXACTLY => Piwik::translate('AbTesting_TargetTypeEqualsExactly'),
@@ -106,5 +105,4 @@ class Target
 
         return $targetTypes;
     }
-
 }

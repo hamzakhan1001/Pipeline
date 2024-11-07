@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\DataTable\Filter;
 
 use Piwik\Container\StaticContainer;
@@ -23,7 +25,7 @@ use Piwik\Plugins\AbTesting\Metrics;
 
 class AddValuesOfOriginalToRows extends BaseFilter
 {
-    const COLUMN_NAME_PREFIX = 'original_';
+    public const COLUMN_NAME_PREFIX = 'original_';
 
     /**
      * @var string
@@ -53,7 +55,7 @@ class AddValuesOfOriginalToRows extends BaseFilter
                 $originalVariationRow = $row;
             }
         }
-        
+
         foreach ($table->getRowsWithoutSummaryRow() as $row) {
             if ($originalVariationRow && $row !== $originalVariationRow) {
                 $this->copyMetric($row, $originalVariationRow, $this->metricName);

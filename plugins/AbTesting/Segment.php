@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,7 +13,9 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting;
+
 use Piwik\Common;
 use Piwik\Plugins\AbTesting\Tracker\RequestProcessor;
 use Piwik\Segment\SegmentExpression;
@@ -22,9 +25,9 @@ use Piwik\Segment\SegmentExpression;
  */
 class Segment extends \Piwik\Plugin\Segment
 {
-    const NAME_EXPERIMENT_SEGMENT = 'abtesting_experiment';
-    const NAME_VARIATION_SEGMENT = 'abtesting_variation';
-    const NAME_ENTERED_SEGMENT = 'abtesting_entered';
+    public const NAME_EXPERIMENT_SEGMENT = 'abtesting_experiment';
+    public const NAME_VARIATION_SEGMENT = 'abtesting_variation';
+    public const NAME_ENTERED_SEGMENT = 'abtesting_entered';
 
     protected function init()
     {
@@ -35,7 +38,6 @@ class Segment extends \Piwik\Plugin\Segment
     {
         if ($segmentName === self::NAME_EXPERIMENT_SEGMENT) {
             $sql = 'SELECT idexperiment FROM ' . Common::prefixTable('experiments') . ' WHERE ';
-
         } elseif ($segmentName === self::NAME_VARIATION_SEGMENT) {
             if ($valueToMatch === RequestProcessor::VARIATION_NAME_ORIGINAL || empty($valueToMatch)) {
                 return RequestProcessor::VARIATION_ORIGINAL_ID;
@@ -78,4 +80,3 @@ class Segment extends \Piwik\Plugin\Segment
         return array('SQL' => $sql, 'bind' => $valueToMatch);
     }
 }
-

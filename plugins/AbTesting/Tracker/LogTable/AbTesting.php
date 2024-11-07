@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -38,5 +39,4 @@ class AbTesting extends LogTable
     {
         return 'server_time';
     }
-
 }

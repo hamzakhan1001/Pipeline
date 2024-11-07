@@ -72,3 +72,55 @@ Start running A/B tests without complex or expensive tools. Create experiments, 
 Create unlimited A/B tests with unlimited variations and tailored goals, and unlock the power of data-driven growth. Tailor every aspect of your site based on what resonates with your audience with Matomo's A/B Testing plugin.
 
 Start your 30-day free trial and see your business growth compound.
+
+### Features
+
+* The user interface guides you through all stages from creating an experiment to interpreting the results.
+* Run an experiment in the browser or on a server using the JavaScript A/B testing framework.
+    * All you need to do is to implement a method that defines what happens when a variation gets activated.
+    * Possibility to test entirely different versions of your website by using redirects.
+* Run an experiment on a server (PHP, C#, Python, Ruby, ...).
+* Run an experiment in applications, games and on mobile devices like Android or iOS in combination with pretty much any A/B testing framework.
+* Run an experiment to see how different search marketing campaigns, ad campaigns or email marketing campaigns influence the browsing behaviour on your website.
+* Force the activation of a specific variation via a URL parameter so you can test it easily and share the URL with colleagues when you need to get each variation approved before running a test.
+
+### Reporting features
+
+* Get an overview over all experiments in just one page.
+* Once an experiment is running:
+    * Shows the description, hypothesis and goal of the experiment in the report of the experiment.
+    * Shows an evolution of your success metrics for each variation.
+    * Shows how the different variations compared between each other, for each of your success metrics.
+    * Shows notifications for each success metric once a potential winner or loser is detected.
+    * Makes sure the results are statistically significant and enough visitors or users have entered the experiment.
+* Segment A/B testing reports by any existing Matomo segments.
+* Segment Matomo reports by experiments and variations.
+* Access raw data for advanced custom analysis
+
+### Manage A/B tests
+
+* Users with admin access can create unlimited A/B tests (experiments).
+* Assign as many variations to your experiment as you like.
+* Define success metrics like:
+    * Goal conversions,
+    * Goal revenue,
+    * Ecommerce orders,
+    * Ecommerce order revenue,
+    * Total conversions,
+    * Total revenue,
+    * Page views,
+    * Bounces,
+    * Visit length (time).
+* Define which improvement rate you expect from an experiment.
+* Define the Confidence Threshold you need to be statistically sure the change is not due to randomness.
+* Define on which pages an experiment should (or should not) be activated.
+* Define how much traffic the experiment should get in total.
+* Allocate a different amount of traffic to your variations.
+* Schedule your experiments to run from a start date and/or to finish on a given date.
+* Integrates with the [Activity log plugin](https://plugins.matomo.org/ActivityLog) to let you monitor and audit changes to your A/B tests.
+
+### Export and API features
+
+* HTTP API to create, update, start and finish experiments.
+* HTTP API to fetch all A/B testing reports and metrics overall and for each variation.
+* Get access to all the raw data via MySQL for 100% data ownership.

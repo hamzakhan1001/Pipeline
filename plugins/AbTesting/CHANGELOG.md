@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.3 - 2024-11-04
+- Updated README.md
+
 5.2.2 - 2024-10-08
 - Updated configuration install to use isset instead of empty to set default values
 

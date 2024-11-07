@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\DataTable\Filter;
 
 use Piwik\Container\StaticContainer;
@@ -19,7 +21,6 @@ use Piwik\DataTable\Row;
 use Piwik\DataTable;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
-
 use Piwik\Plugins\AbTesting\Columns\Metrics\DetectedEffect;
 use Piwik\Plugins\AbTesting\Columns\Metrics\RemainingVisitors;
 use Piwik\Plugins\AbTesting\Columns\Metrics\SignificanceRate;

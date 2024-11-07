@@ -20,26 +20,26 @@ use Piwik\Config;
 
 class Configuration
 {
-    const KEY_ESTIMATED_UNIQUE_VISITOR_ENABLED = 'enableEstimatedUniqueVisitors';
-    const DEFAULT_ESTIMATED_UNIQUE_VISITOR_ENABLED = 0;
+    public const KEY_ESTIMATED_UNIQUE_VISITOR_ENABLED = 'enableEstimatedUniqueVisitors';
+    public const DEFAULT_ESTIMATED_UNIQUE_VISITOR_ENABLED = 0;
 
-    const KEY_HYPERLOGLOG_ERROR_RATE = 'hyperLogErrorRate';
-    const DEFAULT_HYPERLOGLOG_ERROR_RATE = 0.01;
+    public const KEY_HYPERLOGLOG_ERROR_RATE = 'hyperLogErrorRate';
+    public const DEFAULT_HYPERLOGLOG_ERROR_RATE = 0.01;
 
-    const KEY_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS = 'datatable_archiving_maximum_hyperloglog_rows';
-    const DEFAULT_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS = 64000;
+    public const KEY_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS = 'datatable_archiving_maximum_hyperloglog_rows';
+    public const DEFAULT_MAXIMUM_HYPERLOLOG_BUCKET_ARCHIVING_ROWS = 64000;
 
-    const KEY_ARCHIVE_UNIQUE_VISITOR_ENABLED = 'archive_unique_visitors_enabled';
+    public const KEY_ARCHIVE_UNIQUE_VISITOR_ENABLED = 'archive_unique_visitors_enabled';
 
-    const DEFAULT_ARCHIVE_UNIQUE_VISITOR_ENABLED = 1;
+    public const DEFAULT_ARCHIVE_UNIQUE_VISITOR_ENABLED = 1;
 
-    const KEY_SHOW_UNIQUE_VISITOR = 'show_unique_visitors';
+    public const KEY_SHOW_UNIQUE_VISITOR = 'show_unique_visitors';
 
-    const DEFAULT_SHOW_UNIQUE_VISITOR = 1;
+    public const DEFAULT_SHOW_UNIQUE_VISITOR = 1;
 
-    const KEY_SHOW_ESTIMATED_UNIQUE_VISITOR = 'show_estimated_unique_visitors';
+    public const KEY_SHOW_ESTIMATED_UNIQUE_VISITOR = 'show_estimated_unique_visitors';
 
-    const DEFAULT_SHOW_ESTIMATED_UNIQUE_VISITOR = 0;
+    public const DEFAULT_SHOW_ESTIMATED_UNIQUE_VISITOR = 0;
 
     public function install()
     {

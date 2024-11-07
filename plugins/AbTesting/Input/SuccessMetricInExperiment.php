@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class SuccessMetricInExperiment
@@ -47,6 +48,4 @@ class SuccessMetricInExperiment
         $title = Piwik::translate('AbTesting_SuccessMetric');
         throw new Exception(Piwik::translate('AbTesting_ErrorNotEnabledForExperiment', $title));
     }
-
-
 }

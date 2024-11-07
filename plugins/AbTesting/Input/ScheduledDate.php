@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Date;
 use Piwik\Piwik;
 
@@ -73,7 +74,5 @@ class ScheduledDate
         if ($end->isEarlier($start)) {
             throw new Exception(Piwik::translate('AbTesting_ErrorXLaterThanY', array($startDateTitle, $endDateTitle)));
         }
-
     }
-
 }

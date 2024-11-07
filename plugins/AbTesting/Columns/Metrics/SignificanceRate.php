@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,14 +13,13 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
-namespace Piwik\Plugins\AbTesting\Columns\Metrics;
 
+namespace Piwik\Plugins\AbTesting\Columns\Metrics;
 
 use Piwik\Columns\Dimension;
 use Piwik\Container\StaticContainer;
 use Piwik\DataTable;
 use Piwik\DataTable\Row;
-
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 use Piwik\Plugins\AbTesting\Archiver;
@@ -33,9 +33,9 @@ use Piwik\Plugins\AbTesting\Metrics as PluginMetrics;
 // be processed on archiving
 class SignificanceRate extends ProcessedMetric
 {
-    const NUM_REQUIRED_VISITS_FOR_SIGNIFICANCE = 15;
-    const NOT_ENOUGH_VISITORS = 'NOT_ENOUGH_VISITS';
-    const METRIC_NAME = 'significance_rate';
+    public const NUM_REQUIRED_VISITS_FOR_SIGNIFICANCE = 15;
+    public const NOT_ENOUGH_VISITORS = 'NOT_ENOUGH_VISITS';
+    public const METRIC_NAME = 'significance_rate';
 
     /**
      * @var string
@@ -119,11 +119,12 @@ class SignificanceRate extends ProcessedMetric
         }
 
         $controlVisits = (int) $row->getColumn(AddValuesOfOriginalToRows::COLUMN_NAME_PREFIX . $visitMetric);
-        $experimentVisits = (int) ($row->getColumn($visitMetric.'_aggregated') ?: $row->getColumn($visitMetric));
+        $experimentVisits = (int) ($row->getColumn($visitMetric . '_aggregated') ?: $row->getColumn($visitMetric));
 
-        if ($controlVisits < static::NUM_REQUIRED_VISITS_FOR_SIGNIFICANCE
-            || $experimentVisits < static::NUM_REQUIRED_VISITS_FOR_SIGNIFICANCE) {
-
+        if (
+            $controlVisits < static::NUM_REQUIRED_VISITS_FOR_SIGNIFICANCE
+            || $experimentVisits < static::NUM_REQUIRED_VISITS_FOR_SIGNIFICANCE
+        ) {
             return static::NOT_ENOUGH_VISITORS;
         }
 

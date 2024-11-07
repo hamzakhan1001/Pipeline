@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,11 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\Columns\Metrics;
 
 use Piwik\Columns\Dimension;
 use Piwik\DataTable\Row;
-
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 use Piwik\Plugins\AbTesting\DataTable\Filter\AddValuesOfOriginalToRows;
@@ -24,8 +25,8 @@ use Piwik\Plugins\AbTesting\Metrics as PluginMetrics;
 
 class DetectedEffect extends ProcessedMetric
 {
-    const METRIC_NAME = 'detected_effect';
-    
+    public const METRIC_NAME = 'detected_effect';
+
     /**
      * @var string
      */
@@ -82,7 +83,7 @@ class DetectedEffect extends ProcessedMetric
 
         if ($dividend == 0) {
             $rate = 0;
-        } else if ($divisor == 0) {
+        } elseif ($divisor == 0) {
             $rate = $factor * 1;
         } else {
             $rate = $factor * Piwik::getQuotientSafe($dividend, $divisor, 4);

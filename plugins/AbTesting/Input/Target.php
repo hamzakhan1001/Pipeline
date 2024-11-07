@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,9 +16,9 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
-use \Piwik\Plugins\AbTesting\Tracker;
+use Piwik\Plugins\AbTesting\Tracker;
 
 class Target
 {
@@ -69,14 +70,15 @@ class Target
             throw new Exception(Piwik::translate('AbTesting_ErrorArrayMissingValue', array('value', $this->parameterName, $this->index)));
         }
 
-        if (isset($this->target['type'])
+        if (
+            isset($this->target['type'])
             && isset($this->target['value'])
-            && $this->target['type'] === Tracker\Target::TYPE_REGEXP) {
+            && $this->target['type'] === Tracker\Target::TYPE_REGEXP
+        ) {
             $pattern = '~' . str_replace('~', '\~', $this->target['value']) . '~';
             if (@preg_match($pattern, '') === false) {
                 throw new Exception(Piwik::translate('AbTesting_ErrorInvalidRegExp', $this->target['value']));
             }
         }
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,15 +13,14 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\AbTesting\DataTable\Filter;
 
 use Piwik\DataTable\Row;
 use Piwik\DataTable;
 
-
 class Sort extends BaseFilter
 {
-
     /**
      * @param DataTable $table
      */
@@ -39,9 +39,8 @@ class Sort extends BaseFilter
 
             $labelA = $rowA->getColumn('label');
             $labelB = $rowB->getColumn('label');
-            
-            return strcmp($labelA, $labelB);
 
+            return strcmp($labelA, $labelB);
         }, $columnSortedBy = 'label');
 
         $table->disableFilter('Sort');

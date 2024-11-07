@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,9 +16,6 @@
 
 namespace Piwik\Plugins\AbTesting\Stats;
 
-
-
-
 use Exception;
 
 /**
@@ -25,7 +23,7 @@ use Exception;
  */
 class TTest
 {
-    const PRECISION = 6;
+    public const PRECISION = 6;
 
     public function getVariance($stdDev)
     {
@@ -297,11 +295,11 @@ class TTest
 
         $totalGroupSumOfSquares = 0.0;
         for ($i = 0; $i < $numEntries; $i++) {
-            $totalGroupSumOfSquares += (pow($means[$i]-$grandMean, 2)) * $numCounts[$i];
+            $totalGroupSumOfSquares += (pow($means[$i] - $grandMean, 2)) * $numCounts[$i];
         }
 
         // calculate standard deviation as square root of grand variance
-        $result = sqrt(($errorSumOfSquares+$totalGroupSumOfSquares)/($totalNumberOfSamples-1));
+        $result = sqrt(($errorSumOfSquares + $totalGroupSumOfSquares) / ($totalNumberOfSamples - 1));
 
         return $result;
     }

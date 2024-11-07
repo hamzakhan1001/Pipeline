@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\AbTesting\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class MinimumDetectableEffect
@@ -51,5 +52,4 @@ class MinimumDetectableEffect
             throw new Exception(Piwik::translate('AbTesting_ErrorXTooHigh', array($title, 1000)));
         }
     }
-
 }
