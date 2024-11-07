@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.7 - 2024-11-04
+- Updated README.md
+
 5.0.6 - 2024-10-21
 - Updated FAQ document to include a link of knowledge base instead of text
 
