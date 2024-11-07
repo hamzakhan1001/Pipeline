@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,14 +16,14 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class SampleLimit
 {
     private $sampleLimit;
 
-    const MAX_LIMIT = 8000000;
+    public const MAX_LIMIT = 8000000;
 
     public function __construct($sampleLimit)
     {
@@ -53,5 +54,4 @@ class SampleLimit
             throw new Exception(Piwik::translate('HeatmapSessionRecording_ErrorXTooHigh', array($title, self::MAX_LIMIT)));
         }
     }
-
 }

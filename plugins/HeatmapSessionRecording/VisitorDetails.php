@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -36,7 +37,7 @@ class VisitorDetails extends VisitorDetailsAbstract
         $aggregator = new Aggregator();
         $recordings = $aggregator->findRecordings($visitIds);
 
-        foreach ($recordings AS $recording) {
+        foreach ($recordings as $recording) {
             $this->recordings[$recording['idvisit']] = $recording;
         }
     }
@@ -59,7 +60,8 @@ class VisitorDetails extends VisitorDetailsAbstract
 
             $token_auth = Common::getRequestVar('token_auth', '', 'string');
             $force_api_session = Common::getRequestVar('force_api_session', 0, 'int');
-            if (!empty($token_auth)
+            if (
+                !empty($token_auth)
                 && ctype_xdigit($token_auth) && strlen($token_auth) > 30 && strlen($token_auth) < 81
                 && !HeatmapSessionRecording::isMatomoForWordPress()
                 && !$force_api_session
@@ -91,8 +93,11 @@ class VisitorDetails extends VisitorDetailsAbstract
     public function renderIcons($visitorDetails)
     {
         if (!empty($visitorDetails['sessionReplayUrl'])) {
-            $title = htmlentities(Piwik::translate('HeatmapSessionRecording_ReplayRecordedSession'),
-                ENT_COMPAT | ENT_HTML401, 'UTF-8');
+            $title = htmlentities(
+                Piwik::translate('HeatmapSessionRecording_ReplayRecordedSession'),
+                ENT_COMPAT | ENT_HTML401,
+                'UTF-8'
+            );
             return '<a class="visitorLogIconReplaySession" href="' . $visitorDetails['sessionReplayUrl'] . '" target="_blank" rel="noreferrer noopener" title="' . $title . '"><span class="icon-play"></a>';
         }
 
@@ -102,8 +107,11 @@ class VisitorDetails extends VisitorDetailsAbstract
     public function renderVisitorDetails($visitorDetails)
     {
         if (!empty($visitorDetails['sessionReplayUrl'])) {
-            $title = htmlentities(Piwik::translate('HeatmapSessionRecording_ReplayRecordedSession'),
-                ENT_COMPAT | ENT_HTML401, 'UTF-8');
+            $title = htmlentities(
+                Piwik::translate('HeatmapSessionRecording_ReplayRecordedSession'),
+                ENT_COMPAT | ENT_HTML401,
+                'UTF-8'
+            );
             return [
                 [
                     100,

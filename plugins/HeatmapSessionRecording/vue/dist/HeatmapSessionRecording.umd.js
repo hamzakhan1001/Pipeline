@@ -870,6 +870,7 @@ __webpack_require__.d(__webpack_exports__, "SessionRecordingManage", function() 
 __webpack_require__.d(__webpack_exports__, "ListOfPageviews", function() { return /* reexport */ ListOfPageviews; });
 __webpack_require__.d(__webpack_exports__, "HeatmapVisPage", function() { return /* reexport */ HeatmapVisPage; });
 __webpack_require__.d(__webpack_exports__, "MatomoJsNotWritableAlert", function() { return /* reexport */ MatomoJsNotWritableAlert; });
+__webpack_require__.d(__webpack_exports__, "Tooltip", function() { return /* reexport */ Tooltip; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -890,7 +891,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=7fee7a85
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=1266e3b0
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -957,33 +958,39 @@ var _hoisted_20 = {
 };
 
 var _hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  id: "highlightDiv"
+}, null, -1);
+
+var _hoisted_22 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
   class: "loadingUnderlay"
 }, null, -1);
 
-var _hoisted_22 = {
+var _hoisted_23 = {
   class: "valign-wrapper loadingInner"
 };
-var _hoisted_23 = {
+var _hoisted_24 = {
   class: "loadingContent"
 };
-var _hoisted_24 = ["title"];
-var _hoisted_25 = ["src", "width"];
-var _hoisted_26 = {
+var _hoisted_25 = ["title"];
+var _hoisted_26 = ["src", "width"];
+var _hoisted_27 = {
   style: {
     "margin-top": "2rem"
   }
 };
-var _hoisted_27 = {
+var _hoisted_28 = {
   class: "ui-confirm",
   id: "confirmDeleteHeatmapScreenshot",
   ref: "confirmDeleteHeatmapScreenshot"
 };
-var _hoisted_28 = ["value"];
 var _hoisted_29 = ["value"];
+var _hoisted_30 = ["value"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Field = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Field");
 
   var _component_SaveButton = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SaveButton");
+
+  var _component_Tooltip = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Tooltip");
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", _hoisted_1, [!!_ctx.actualNumSamples.nb_samples_device_all ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("p", {
     key: 0,
@@ -1033,21 +1040,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       _ctx.changeIframeWidth(_ctx.customIframeWidth, true);
     }),
     options: _ctx.iframeWidthOptions
-  }, null, 8, ["model-value", "options"])])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_18, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_19, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_20, null, 512)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  }, null, 8, ["model-value", "options"])])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_18, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_19, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_20, null, 512), _hoisted_21]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: "hsrLoadingOuter",
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])([{
       "height": "400px"
     }, {
       width: _ctx.iframeWidth + 'px'
     }])
-  }, [_hoisted_21, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_22, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_23, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('General_Loading')), 1)])], 4), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.isLoading]]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  }, [_hoisted_22, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_23, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_24, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('General_Loading')), 1)])], 4), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.isLoading]]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: "aboveFoldLine",
     title: _ctx.translate('HeatmapSessionRecording_AvgAboveFoldDescription'),
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])({
       width: _ctx.iframeWidth + 'px',
       top: _ctx.avgFold + 'px'
     })
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_AvgAboveFoldTitle', _ctx.avgFold)), 1)], 12, _hoisted_24), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.avgFold]]), _ctx.embedUrl ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("iframe", {
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_AvgAboveFoldTitle', _ctx.avgFold)), 1)], 12, _hoisted_25), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.avgFold]]), _ctx.embedUrl ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("iframe", {
     key: 0,
     id: "recordingPlayer",
     ref: "recordingPlayer",
@@ -1059,7 +1066,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     height: "400",
     src: _ctx.embedUrl,
     width: _ctx.iframeWidth
-  }, null, 40, _hoisted_25)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)], 512), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_26, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
+  }, null, 40, _hoisted_26)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)], 512), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
     style: {
       "display": "block !important"
     },
@@ -1068,17 +1075,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.deleteScreenshot();
     }),
     value: _ctx.translate('HeatmapSessionRecording_DeleteScreenshot')
-  }, null, 8, ["loading", "value"])], 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.showDeleteScreenshot]]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("h2", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_DeleteHeatmapScreenshotConfirm')), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
+  }, null, 8, ["loading", "value"])], 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.showDeleteScreenshot]]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_28, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("h2", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_DeleteHeatmapScreenshotConfirm')), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
     role: "yes",
     type: "button",
     value: _ctx.translate('General_Yes')
-  }, null, 8, _hoisted_28), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
+  }, null, 8, _hoisted_29), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("input", {
     role: "no",
     type: "button",
     value: _ctx.translate('General_No')
-  }, null, 8, _hoisted_29)], 512)]);
+  }, null, 8, _hoisted_30)], 512), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Tooltip, {
+    ref: "tooltip",
+    "click-count": _ctx.clickCount,
+    "click-rate": _ctx.clickRate,
+    "is-moves": _ctx.heatmapType === 1
+  }, null, 8, ["click-count", "click-rate", "is-moves"])]);
 }
-// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=7fee7a85
+// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=1266e3b0
 
 // EXTERNAL MODULE: ./plugins/HeatmapSessionRecording/node_modules/heatmap.js/build/heatmap.js
 var heatmap = __webpack_require__("246e");
@@ -1152,6 +1164,148 @@ function oneAtATime(method, options) {
     });
   };
 }
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=template&id=52fa2645
+
+var Tooltipvue_type_template_id_52fa2645_hoisted_1 = {
+  class: "tooltip-item"
+};
+var Tooltipvue_type_template_id_52fa2645_hoisted_2 = {
+  class: "tooltip-label"
+};
+var Tooltipvue_type_template_id_52fa2645_hoisted_3 = {
+  class: "tooltip-value"
+};
+var Tooltipvue_type_template_id_52fa2645_hoisted_4 = {
+  class: "tooltip-item"
+};
+var Tooltipvue_type_template_id_52fa2645_hoisted_5 = {
+  class: "tooltip-label"
+};
+var Tooltipvue_type_template_id_52fa2645_hoisted_6 = {
+  class: "tooltip-value"
+};
+function Tooltipvue_type_template_id_52fa2645_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
+    ref: "tooltipRef",
+    class: "tooltip",
+    style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.tooltipStyle)
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", Tooltipvue_type_template_id_52fa2645_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickCountTranslation), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickCount), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", Tooltipvue_type_template_id_52fa2645_hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_5, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickRateTranslation), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_6, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickRate), 1)])], 4)), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.visible]]);
+}
+// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=template&id=52fa2645
+
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-typescript/node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=script&lang=ts
+
+
+var _window = window,
+    NumberFormatter = _window.NumberFormatter;
+/* harmony default export */ var Tooltipvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+  props: {
+    clickCount: {
+      type: Number,
+      required: true
+    },
+    clickRate: {
+      type: Number,
+      required: true
+    },
+    isMoves: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  setup: function setup() {
+    var state = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["reactive"])({
+      visible: false,
+      position: {
+        top: 0,
+        left: 0
+      }
+    });
+    var tooltipRef = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(null);
+    var tooltipStyle = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+      return {
+        top: "".concat(state.position.top, "px"),
+        left: "".concat(state.position.left, "px"),
+        position: 'absolute',
+        zIndex: 1000
+      };
+    });
+
+    function show(event) {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+      state.position.top = event.clientY + scrollTop + 10;
+      state.position.left = event.clientX + scrollLeft + 10;
+      state.visible = true;
+      Object(external_commonjs_vue_commonjs2_vue_root_Vue_["nextTick"])(function () {
+        var tooltipElement = tooltipRef.value;
+
+        if (tooltipElement) {
+          var _window2 = window,
+              innerWidth = _window2.innerWidth,
+              innerHeight = _window2.innerHeight;
+          var tooltipRect = tooltipElement.getBoundingClientRect();
+
+          if (tooltipRect.right > innerWidth) {
+            state.position.left = event.clientX + scrollLeft - tooltipRect.width - 10;
+          }
+
+          if (tooltipRect.bottom > innerHeight) {
+            state.position.top = event.clientY + scrollTop - tooltipRect.height - 10;
+          }
+
+          var adjustedTooltipRect = tooltipElement.getBoundingClientRect();
+
+          if (adjustedTooltipRect.left < 0) {
+            state.position.left = scrollLeft + 10;
+          }
+
+          if (adjustedTooltipRect.top < 0) {
+            state.position.top = scrollTop + 10;
+          }
+        }
+      });
+    }
+
+    function hide() {
+      state.visible = false;
+    }
+
+    return Object.assign(Object.assign({}, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRefs"])(state)), {}, {
+      tooltipRef: tooltipRef,
+      show: show,
+      hide: hide,
+      tooltipStyle: tooltipStyle,
+      translate: external_CoreHome_["translate"]
+    });
+  },
+  computed: {
+    getClickCount: function getClickCount() {
+      return NumberFormatter.formatNumber(this.clickCount);
+    },
+    getClickRate: function getClickRate() {
+      return NumberFormatter.formatPercent(this.clickRate);
+    },
+    getClickCountTranslation: function getClickCountTranslation() {
+      var translation = this.isMoves ? 'HeatmapSessionRecording_Moves' : 'HeatmapSessionRecording_Clicks';
+      return Object(external_CoreHome_["translate"])(translation);
+    },
+    getClickRateTranslation: function getClickRateTranslation() {
+      var translation = this.isMoves ? 'HeatmapSessionRecording_MoveRate' : 'HeatmapSessionRecording_ClickRate';
+      return Object(external_CoreHome_["translate"])(translation);
+    }
+  }
+}));
+// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=script&lang=ts
+ 
+// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue
+
+
+
+Tooltipvue_type_script_lang_ts.render = Tooltipvue_type_template_id_52fa2645_render
+
+/* harmony default export */ var Tooltip = (Tooltipvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-typescript/node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=script&lang=ts
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -1171,8 +1325,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var _window = window,
-    $ = _window.$;
+
+var HeatmapVisvue_type_script_lang_ts_window = window,
+    $ = HeatmapVisvue_type_script_lang_ts_window.$;
 var deviceDesktop = 1;
 var deviceTablet = 2;
 var deviceMobile = 3;
@@ -1505,7 +1660,8 @@ recordingIframe, dataPoints) {
   },
   components: {
     Field: external_CorePluginsAdmin_["Field"],
-    SaveButton: external_CorePluginsAdmin_["SaveButton"]
+    SaveButton: external_CorePluginsAdmin_["SaveButton"],
+    Tooltip: Tooltip
   },
   data: function data() {
     return {
@@ -1516,10 +1672,17 @@ recordingIframe, dataPoints) {
       heatmapType: this.heatmapTypes[0].key,
       deviceType: this.deviceTypes[0].key,
       iframeResolutions: this.iframeResolutionsValues,
-      actualNumSamples: this.numSamples
+      actualNumSamples: this.numSamples,
+      dataCoordinates: [],
+      currentElement: null,
+      totalClicks: 0,
+      tooltipShowTimeoutId: null,
+      clickCount: 0,
+      clickRate: 0
     };
   },
   setup: function setup(props) {
+    var tooltip = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(null);
     var iframeLoadedResolve = null;
     var iframeLoadedPromise = new Promise(function (resolve) {
       iframeLoadedResolve = resolve;
@@ -1553,7 +1716,8 @@ recordingIframe, dataPoints) {
       getRecordedHeatmapMetadata: oneAtATime('HeatmapSessionRecording.getRecordedHeatmapMetadata'),
       getRecordingIframe: getRecordingIframe,
       heatmapInstances: heatmapInstances,
-      renderHeatmap: renderHeatmap
+      renderHeatmap: renderHeatmap,
+      tooltip: tooltip
     };
   },
   created: function created() {
@@ -1572,6 +1736,45 @@ recordingIframe, dataPoints) {
 
     external_CoreHome_["Matomo"].postEvent('hidePeriodSelector');
   },
+  watch: {
+    isLoading: function isLoading() {
+      var _this = this;
+
+      if (this.isLoading === true) {
+        return;
+      }
+
+      var heatmapContainer = window.document.getElementById('heatmapContainer');
+
+      if (!heatmapContainer) {
+        return;
+      }
+
+      heatmapContainer.addEventListener('mouseleave', function (event) {
+        // Stop processing tooltip when moving mouse out of parent element
+        if (_this.tooltipShowTimeoutId) {
+          clearTimeout(_this.tooltipShowTimeoutId);
+          _this.tooltipShowTimeoutId = null;
+        } // Reset the highlight and tooltip when leaving the container
+
+
+        _this.currentElement = null;
+
+        _this.handleTooltip(event, 0, 0, 'hide');
+
+        var highlightDiv = window.document.getElementById('highlightDiv');
+
+        if (!highlightDiv) {
+          return;
+        }
+
+        highlightDiv.hidden = true;
+      });
+      heatmapContainer.addEventListener('mousemove', function (e) {
+        _this.handleMouseMove(e);
+      });
+    }
+  },
   beforeUnmount: function beforeUnmount() {
     this.removeScrollHeatmap();
   },
@@ -1581,23 +1784,23 @@ recordingIframe, dataPoints) {
       $(element).find('.scrollHeatmapLeaf').remove();
     },
     deleteScreenshot: function deleteScreenshot() {
-      var _this = this;
+      var _this2 = this;
 
       external_CoreHome_["Matomo"].helper.modalConfirm(this.$refs.confirmDeleteHeatmapScreenshot, {
         yes: function yes() {
-          _this.isLoading = true;
+          _this2.isLoading = true;
           external_CoreHome_["AjaxHelper"].fetch({
             method: 'HeatmapSessionRecording.deleteHeatmapScreenshot',
-            idSiteHsr: _this.idSiteHsr
+            idSiteHsr: _this2.idSiteHsr
           }).then(function () {
-            _this.isLoading = false;
+            _this2.isLoading = false;
             window.location.reload();
           });
         }
       });
     },
     fetchHeatmap: function fetchHeatmap() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.removeScrollHeatmap();
 
@@ -1627,13 +1830,13 @@ recordingIframe, dataPoints) {
       var heatmapDataPromise = this.getRecordedHeatmap(requestParams);
       var heatmapMetaDataPromise = this.getRecordedHeatmapMetadata(requestParams);
       Promise.all([heatmapDataPromise, heatmapMetaDataPromise, this.iframeLoadedPromise]).then(function (response) {
-        var iframeElement = _this2.$refs.recordingPlayer;
+        var iframeElement = _this3.$refs.recordingPlayer;
 
-        var recordingIframe = _this2.getRecordingIframe(iframeElement);
+        var recordingIframe = _this3.getRecordingIframe(iframeElement);
 
-        initHeatmap(_this2.$refs.recordingPlayer, _this2.$refs.heatmapContainer, recordingIframe);
+        initHeatmap(_this3.$refs.recordingPlayer, _this3.$refs.heatmapContainer, recordingIframe);
 
-        _this2.removeScrollHeatmap();
+        _this3.removeScrollHeatmap();
 
         var rows = response[0];
         var numSamples = response[1];
@@ -1641,17 +1844,17 @@ recordingIframe, dataPoints) {
         if (Array.isArray(numSamples) && numSamples[0]) {
           var _numSamples = _slicedToArray(numSamples, 1);
 
-          _this2.actualNumSamples = _numSamples[0];
+          _this3.actualNumSamples = _numSamples[0];
         } else {
-          _this2.actualNumSamples = numSamples;
+          _this3.actualNumSamples = numSamples;
         }
 
-        _this2.isLoading = false;
+        _this3.isLoading = false;
 
-        if (_this2.isScrollHeatmapType) {
-          scrollHeatmap(_this2.$refs.iframeRecordingContainer, iframeElement, recordingIframe, rows);
+        if (_this3.isScrollHeatmapType) {
+          scrollHeatmap(_this3.$refs.iframeRecordingContainer, iframeElement, recordingIframe, rows);
         } else {
-          var _this2$actualNumSampl;
+          var _this3$actualNumSampl;
 
           var dataPoints = {
             min: 0,
@@ -1663,16 +1866,20 @@ recordingIframe, dataPoints) {
             var row = rows[i];
 
             if (row.selector) {
-              var dataPoint = recordingIframe.getCoordinatesInFrame(row.selector, row.offset_x, row.offset_y, _this2.offsetAccuracy, true);
+              var dataPoint = recordingIframe.getCoordinatesInFrame(row.selector, row.offset_x, row.offset_y, _this3.offsetAccuracy, true);
 
               if (dataPoint) {
                 dataPoint.value = row.value;
                 dataPoints.data.push(dataPoint);
+
+                _this3.dataCoordinates.push(dataPoint);
+
+                _this3.totalClicks += parseInt(row.value, 10);
               }
             }
           }
 
-          if (_this2.heatmapType === 2) {
+          if (_this3.heatmapType === 2) {
             // click
             var numEntriesHigherThan1 = 0;
             dataPoints.data.forEach(function (dp) {
@@ -1760,20 +1967,20 @@ recordingIframe, dataPoints) {
             }
           }
 
-          _this2.renderHeatmap(_this2.$refs.recordingPlayer, _this2.$refs.heatmapContainer, recordingIframe, dataPoints);
+          _this3.renderHeatmap(_this3.$refs.recordingPlayer, _this3.$refs.heatmapContainer, recordingIframe, dataPoints);
 
-          if ((_this2$actualNumSampl = _this2.actualNumSamples) !== null && _this2$actualNumSampl !== void 0 && _this2$actualNumSampl["avg_fold_device_".concat(_this2.deviceType)]) {
-            var avgFoldPercent = _this2.actualNumSamples["avg_fold_device_".concat(_this2.deviceType)];
+          if ((_this3$actualNumSampl = _this3.actualNumSamples) !== null && _this3$actualNumSampl !== void 0 && _this3$actualNumSampl["avg_fold_device_".concat(_this3.deviceType)]) {
+            var avgFoldPercent = _this3.actualNumSamples["avg_fold_device_".concat(_this3.deviceType)];
 
             var height = recordingIframe.getIframeHeight();
 
             if (height) {
-              _this2.avgFold = parseInt("".concat(avgFoldPercent / 100 * height), 10);
+              _this3.avgFold = parseInt("".concat(avgFoldPercent / 100 * height), 10);
             }
           }
         }
       }).finally(function () {
-        _this2.isLoading = false;
+        _this3.isLoading = false;
       });
     },
     changeDeviceType: function changeDeviceType(deviceType) {
@@ -1790,6 +1997,8 @@ recordingIframe, dataPoints) {
     changeIframeWidth: function changeIframeWidth(iframeWidth, scrollToTop) {
       this.iframeWidth = iframeWidth;
       this.customIframeWidth = this.iframeWidth;
+      this.totalClicks = 0;
+      this.dataCoordinates = [];
       this.fetchHeatmap();
 
       if (scrollToTop) {
@@ -1799,6 +2008,98 @@ recordingIframe, dataPoints) {
     changeHeatmapType: function changeHeatmapType(heatmapType) {
       this.heatmapType = heatmapType;
       this.fetchHeatmap();
+    },
+    handleMouseMove: function handleMouseMove(event) {
+      var _this4 = this;
+
+      var highlightDiv = window.document.getElementById('highlightDiv');
+
+      if (!highlightDiv) {
+        return;
+      } // Keep the tooltip from showing until the cursor has stopped moving
+
+
+      if (this.tooltipShowTimeoutId) {
+        clearTimeout(this.tooltipShowTimeoutId);
+        this.tooltipShowTimeoutId = null;
+        this.currentElement = null;
+      } // If the highlight is visible, move the tooltip around with the cursor
+
+
+      if (!highlightDiv.hidden) {
+        this.handleTooltip(event, 0, 0, 'move');
+      }
+
+      var element = this.lookUpRecordedElementAtEventLocation(event); // If there's no element, don't do anything else
+      // If the element hasn't changed, there's no need to do anything else
+
+      if (!element || element === this.currentElement) {
+        return;
+      }
+
+      this.handleTooltip(event, 0, 0, 'hide');
+      highlightDiv.hidden = true;
+      var elementRect = element.getBoundingClientRect();
+      var elementClicks = 0;
+      this.dataCoordinates.forEach(function (dataPoint) {
+        // Return if the dataPoint isn't within the element
+        if (dataPoint.y < elementRect.top || dataPoint.y > elementRect.bottom || dataPoint.x < elementRect.left || dataPoint.x > elementRect.right) {
+          return;
+        }
+
+        elementClicks += parseInt(dataPoint.value, 10);
+      }); // Have a slight delay so that it's not jarring when it displays
+
+      this.tooltipShowTimeoutId = setTimeout(function () {
+        _this4.currentElement = element;
+        highlightDiv.hidden = false; // Multiplying by 10000 and then dividing by 100 to get 2 decimal points of precision
+
+        var clickRate = _this4.totalClicks ? Math.round(elementClicks / _this4.totalClicks * 10000) / 100 : 0;
+        var rect = element.getBoundingClientRect();
+        highlightDiv.style.top = "".concat(rect.top, "px");
+        highlightDiv.style.left = "".concat(rect.left, "px");
+        highlightDiv.style.width = "".concat(rect.width, "px");
+        highlightDiv.style.height = "".concat(rect.height, "px");
+
+        _this4.handleTooltip(event, elementClicks, clickRate, 'show');
+
+        _this4.tooltipShowTimeoutId = null;
+      }, 100);
+    },
+    lookUpRecordedElementAtEventLocation: function lookUpRecordedElementAtEventLocation(event) {
+      var targetElement = event.target;
+
+      if (!targetElement) {
+        return null;
+      }
+
+      var frameElement = window.document.getElementById('recordingPlayer');
+
+      if (!frameElement) {
+        return null;
+      }
+
+      var frameRef = frameElement.contentWindow ? frameElement.contentWindow.document : frameElement.contentDocument;
+
+      if (!frameRef) {
+        return null;
+      }
+
+      var rect = targetElement.getBoundingClientRect();
+      return frameRef.elementFromPoint(event.clientX - rect.left, event.clientY - rect.top);
+    },
+    handleTooltip: function handleTooltip(event, clickCount, clickRate, action) {
+      if (this.tooltip) {
+        if (action === 'show') {
+          this.clickCount = clickCount;
+          this.clickRate = clickRate;
+          this.tooltip.show(event);
+        } else if (action === 'move') {
+          this.tooltip.show(event);
+        } else {
+          this.tooltip.hide();
+        }
+      }
     }
   },
   computed: {
@@ -1829,13 +2130,13 @@ recordingIframe, dataPoints) {
       return Object(external_CoreHome_["translate"])('HeatmapSessionRecording_HeatmapXRecordedSamplesSince', "<span class=\"deviceAllCountSamples\">".concat(this.actualNumSamples.nb_samples_device_all, "</span>"), this.createdDate);
     },
     deviceTypesWithSamples: function deviceTypesWithSamples() {
-      var _this3 = this;
+      var _this5 = this;
 
       return this.deviceTypes.map(function (deviceType) {
         var numSamples;
 
-        if (_this3.actualNumSamples["nb_samples_device_".concat(deviceType.key)]) {
-          numSamples = _this3.actualNumSamples["nb_samples_device_".concat(deviceType.key)];
+        if (_this5.actualNumSamples["nb_samples_device_".concat(deviceType.key)]) {
+          numSamples = _this5.actualNumSamples["nb_samples_device_".concat(deviceType.key)];
         } else {
           numSamples = 0;
         }
@@ -1964,7 +2265,7 @@ var SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_28 = /*#__PURE__*/O
 })], -1);
 
 var SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_29 = [SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_28];
-var _hoisted_30 = {
+var SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_30 = {
   class: "duration"
 };
 var _hoisted_31 = {
@@ -2081,7 +2382,7 @@ function SessionRecordingVisvue_type_template_id_6f77b61e_render(_ctx, _cache, $
     onClick: _cache[9] || (_cache[9] = function ($event) {
       return _ctx.toggleAutoPlay();
     })
-  }, SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_29, 10, SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_27), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", _hoisted_30, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_PlayerDurationXofY', _ctx.positionPretty, _ctx.durationPretty)), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_31, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("ul", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_32, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityClick')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_33, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityMove')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_34, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityScroll')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_35, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityResize')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_36, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityFormChange')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_37, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityPageChange')), 1)])])]), _hoisted_38]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
+  }, SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_29, 10, SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_27), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", SessionRecordingVisvue_type_template_id_6f77b61e_hoisted_30, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_PlayerDurationXofY', _ctx.positionPretty, _ctx.durationPretty)), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_31, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("ul", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_32, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityClick')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_33, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityMove')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_34, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityScroll')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_35, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityResize')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_36, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityFormChange')), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, [_hoisted_37, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('HeatmapSessionRecording_ActivityPageChange')), 1)])])]), _hoisted_38]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", {
     class: "timelineOuter",
     onClick: _cache[10] || (_cache[10] = function ($event) {
       return _ctx.seekEvent($event);
@@ -5894,6 +6195,7 @@ HeatmapVisPagevue_type_script_lang_ts.render = HeatmapVisPagevue_type_template_i
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 
 
 

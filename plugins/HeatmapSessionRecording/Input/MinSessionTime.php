@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,14 +16,14 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class MinSessionTime
 {
     private $minSessionTime;
 
-    const MAX_LIMIT = 65000;
+    public const MAX_LIMIT = 65000;
 
     public function __construct($minSessionTime)
     {
@@ -53,5 +54,4 @@ class MinSessionTime
             throw new Exception(Piwik::translate('HeatmapSessionRecording_ErrorXTooHigh', array($title, self::MAX_LIMIT)));
         }
     }
-
 }

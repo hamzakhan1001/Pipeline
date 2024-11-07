@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,17 +22,17 @@ use Piwik\UrlHelper;
 
 class PageRuleMatcher
 {
-    const ATTRIBUTE_URL = 'url';
-    const ATTRIBUTE_PATH = 'path';
-    const ATTRIBUTE_URLPARAM = 'urlparam';
+    public const ATTRIBUTE_URL = 'url';
+    public const ATTRIBUTE_PATH = 'path';
+    public const ATTRIBUTE_URLPARAM = 'urlparam';
 
-    const TYPE_ANY = 'any';
-    const TYPE_EXISTS = 'exists';
-    const TYPE_EQUALS_SIMPLE = 'equals_simple';
-    const TYPE_EQUALS_EXACTLY = 'equals_exactly';
-    const TYPE_CONTAINS = 'contains';
-    const TYPE_STARTS_WITH = 'starts_with';
-    const TYPE_REGEXP = 'regexp';
+    public const TYPE_ANY = 'any';
+    public const TYPE_EXISTS = 'exists';
+    public const TYPE_EQUALS_SIMPLE = 'equals_simple';
+    public const TYPE_EQUALS_EXACTLY = 'equals_exactly';
+    public const TYPE_CONTAINS = 'contains';
+    public const TYPE_STARTS_WITH = 'starts_with';
+    public const TYPE_REGEXP = 'regexp';
 
     /**
      * @var array
@@ -83,7 +84,6 @@ class PageRuleMatcher
                         }
                         return $matchesOne;
                     }
-
                 }
                 return $this->matchesTargetValue($attributeValue, $this->pageRule['type'], $this->pageRule['inverted'], $value2);
         }
@@ -178,11 +178,13 @@ class PageRuleMatcher
                     if (!isset($parsedActual['path']) && !isset($parsedMatch['path'])) {
                         $matches = true;
                     } elseif (isset($parsedActual['path']) && isset($parsedMatch['path'])) {
-                        if ($parsedActual['path'] == $parsedMatch['path'] ||
+                        if (
+                            $parsedActual['path'] == $parsedMatch['path'] ||
                             $parsedActual['path'] == $parsedMatch['path'] . '/' ||
                             $parsedActual['path'] == '/' . $parsedMatch['path'] ||
                             $parsedActual['path'] == '/' . $parsedMatch['path'] . '/' ||
-                            $parsedActual['path'] . '/' == $parsedMatch['path']) {
+                            $parsedActual['path'] . '/' == $parsedMatch['path']
+                        ) {
                             $matches = true;
                         }
                     } elseif (isset($parsedActual['path']) && $parsedActual['path'] === '/' && !isset($parsedMatch['path'])) {
@@ -300,5 +302,4 @@ class PageRuleMatcher
 
         return $targetTypes;
     }
-
 }

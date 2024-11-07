@@ -85,6 +85,7 @@
     <div class="iframeRecordingContainer" ref="iframeRecordingContainer">
       <div class="heatmapWrapper">
         <div id="heatmapContainer" ref="heatmapContainer" />
+        <div id="highlightDiv"></div>
       </div>
       <div
         class="hsrLoadingOuter"
@@ -142,6 +143,12 @@
         :value="translate('General_No')"
       />
     </div>
+    <Tooltip
+      ref="tooltip"
+      :click-count="clickCount"
+      :click-rate="clickRate"
+      :is-moves="heatmapType === 1"
+    />
   </div>
 </template>
 
@@ -158,6 +165,7 @@ import { Field, SaveButton } from 'CorePluginsAdmin';
 import { DeviceType, HeatmapMetadata, HeatmapType } from '../types';
 import getIframeWindow from '../getIframeWindow';
 import oneAtATime from '../oneAtATime';
+import Tooltip from '../Tooltip/Tooltip.vue';
 
 const { $ } = window;
 
@@ -207,6 +215,12 @@ interface HeatmapVisState {
   deviceType: number;
   iframeResolutions: number[];
   actualNumSamples: HeatmapMetadata;
+  dataCoordinates: DataPoint[];
+  currentElement: HTMLElement|null;
+  totalClicks: number;
+  tooltipShowTimeoutId: number|null;
+  clickCount: number;
+  clickRate: number;
 }
 
 function initHeatmap(
@@ -549,6 +563,7 @@ export default defineComponent({
   components: {
     Field,
     SaveButton,
+    Tooltip,
   },
   data(): HeatmapVisState {
     return {
@@ -560,9 +575,16 @@ export default defineComponent({
       deviceType: (this.deviceTypes as DeviceType[])[0].key,
       iframeResolutions: (this.iframeResolutionsValues as number[]),
       actualNumSamples: this.numSamples,
+      dataCoordinates: [],
+      currentElement: null,
+      totalClicks: 0,
+      tooltipShowTimeoutId: null,
+      clickCount: 0,
+      clickRate: 0,
     };
   },
   setup(props) {
+    const tooltip = ref<InstanceType<typeof Tooltip> | null>(null);
     let iframeLoadedResolve: ((arg: unknown) => void)|null = null;
     const iframeLoadedPromise = new Promise((resolve) => {
       iframeLoadedResolve = resolve;
@@ -609,6 +631,7 @@ export default defineComponent({
       getRecordingIframe,
       heatmapInstances,
       renderHeatmap,
+      tooltip,
     };
   },
   created() {
@@ -626,6 +649,36 @@ export default defineComponent({
 
     // Hide the period selector since we don't filter the heatmap by period
     Matomo.postEvent('hidePeriodSelector');
+  },
+  watch: {
+    isLoading() {
+      if (this.isLoading === true) {
+        return;
+      }
+
+      const heatmapContainer = window.document.getElementById('heatmapContainer');
+      if (!heatmapContainer) {
+        return;
+      }
+      heatmapContainer.addEventListener('mouseleave', (event) => {
+        // Stop processing tooltip when moving mouse out of parent element
+        if (this.tooltipShowTimeoutId) {
+          clearTimeout(this.tooltipShowTimeoutId);
+          this.tooltipShowTimeoutId = null;
+        }
+        // Reset the highlight and tooltip when leaving the container
+        this.currentElement = null;
+        this.handleTooltip(event, 0, 0, 'hide');
+        const highlightDiv = window.document.getElementById('highlightDiv');
+        if (!highlightDiv) {
+          return;
+        }
+        highlightDiv.hidden = true;
+      });
+      heatmapContainer.addEventListener('mousemove', (e) => {
+        this.handleMouseMove(e);
+      });
+    },
   },
   beforeUnmount() {
     this.removeScrollHeatmap();
@@ -739,6 +792,8 @@ export default defineComponent({
               if (dataPoint) {
                 dataPoint.value = row.value;
                 dataPoints.data.push(dataPoint);
+                this.dataCoordinates.push(dataPoint);
+                this.totalClicks += parseInt(row.value, 10);
               }
             }
           }
@@ -867,6 +922,8 @@ export default defineComponent({
     changeIframeWidth(iframeWidth: number, scrollToTop?: boolean) {
       this.iframeWidth = iframeWidth;
       this.customIframeWidth = this.iframeWidth;
+      this.totalClicks = 0;
+      this.dataCoordinates = [];
       this.fetchHeatmap();
 
       if (scrollToTop) {
@@ -876,6 +933,96 @@ export default defineComponent({
     changeHeatmapType(heatmapType: number) {
       this.heatmapType = heatmapType;
       this.fetchHeatmap();
+    },
+    handleMouseMove(event: MouseEvent) {
+      const highlightDiv = window.document.getElementById('highlightDiv');
+      if (!highlightDiv) {
+        return;
+      }
+
+      // Keep the tooltip from showing until the cursor has stopped moving
+      if (this.tooltipShowTimeoutId) {
+        clearTimeout(this.tooltipShowTimeoutId);
+        this.tooltipShowTimeoutId = null;
+        this.currentElement = null;
+      }
+
+      // If the highlight is visible, move the tooltip around with the cursor
+      if (!highlightDiv.hidden) {
+        this.handleTooltip(event, 0, 0, 'move');
+      }
+
+      const element = this.lookUpRecordedElementAtEventLocation(event);
+      // If there's no element, don't do anything else
+      // If the element hasn't changed, there's no need to do anything else
+      if (!element || element === this.currentElement) {
+        return;
+      }
+      this.handleTooltip(event, 0, 0, 'hide');
+      highlightDiv.hidden = true;
+      const elementRect = element.getBoundingClientRect();
+      let elementClicks = 0;
+      this.dataCoordinates.forEach((dataPoint) => {
+        // Return if the dataPoint isn't within the element
+        if (dataPoint.y < elementRect.top || dataPoint.y > elementRect.bottom
+          || dataPoint.x < elementRect.left || dataPoint.x > elementRect.right) {
+          return;
+        }
+        elementClicks += parseInt(dataPoint.value, 10);
+      });
+
+      // Have a slight delay so that it's not jarring when it displays
+      this.tooltipShowTimeoutId = setTimeout(
+        () => {
+          this.currentElement = element;
+          highlightDiv.hidden = false;
+          // Multiplying by 10000 and then dividing by 100 to get 2 decimal points of precision
+          const clickRate = this.totalClicks
+            ? Math.round((elementClicks / this.totalClicks) * 10000) / 100 : 0;
+          const rect = element.getBoundingClientRect();
+          highlightDiv.style.top = `${rect.top}px`;
+          highlightDiv.style.left = `${rect.left}px`;
+          highlightDiv.style.width = `${rect.width}px`;
+          highlightDiv.style.height = `${rect.height}px`;
+          this.handleTooltip(event, elementClicks, clickRate, 'show');
+          this.tooltipShowTimeoutId = null;
+        },
+        100,
+      );
+    },
+    lookUpRecordedElementAtEventLocation(event: MouseEvent): HTMLElement|null {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement) {
+        return null;
+      }
+      const frameElement = window.document.getElementById('recordingPlayer') as HTMLObjectElement;
+      if (!frameElement) {
+        return null;
+      }
+      const frameRef = frameElement.contentWindow
+        ? frameElement.contentWindow.document
+        : frameElement.contentDocument;
+      if (!frameRef) {
+        return null;
+      }
+      const rect = targetElement.getBoundingClientRect();
+      return frameRef.elementFromPoint(
+        event.clientX - rect.left,
+        event.clientY - rect.top,
+      ) as HTMLElement|null;
+    },
+    handleTooltip(event: MouseEvent, clickCount: number, clickRate: number, action: 'show' | 'move' | 'hide') {
+      if (this.tooltip) {
+        if (action === 'show') {
+          this.clickCount = clickCount;
+          this.clickRate = clickRate;
+          this.tooltip.show(event);
+        } else if (action === 'move') {
+          this.tooltip.show(event);
+        } else {
+          this.tooltip.hide();
+        }
+      }
     },
   },
   computed: {

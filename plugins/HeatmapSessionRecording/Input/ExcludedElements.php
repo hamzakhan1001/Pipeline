@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,13 +16,13 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Common;
 use Piwik\Piwik;
 
 class ExcludedElements
 {
-    const MAX_LENGTH = 1000;
+    public const MAX_LENGTH = 1000;
 
     /**
      * @var string
@@ -46,5 +47,4 @@ class ExcludedElements
             throw new Exception(Piwik::translate('HeatmapSessionRecording_ErrorXTooLong', array($title, static::MAX_LENGTH)));
         }
     }
-
 }

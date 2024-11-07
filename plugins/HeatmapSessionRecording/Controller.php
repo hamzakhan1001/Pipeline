@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -116,12 +117,14 @@ class Controller extends \Piwik\Plugin\Controller
             $deviceDetector = $ddFactory->makeInstance($_SERVER['HTTP_USER_AGENT']);
             $client = $deviceDetector->getClient();
 
-            if ((!empty($client['short_name']) && $client['short_name'] === 'IE')
-             || (!empty($client['name']) && $client['name'] === 'Internet Explorer')
-             || (!empty($client['name']) && $client['name'] === 'Opera Mini')) {
+            if (
+                (!empty($client['short_name']) && $client['short_name'] === 'IE')
+                || (!empty($client['name']) && $client['name'] === 'Internet Explorer')
+                || (!empty($client['name']) && $client['name'] === 'Opera Mini')
+            ) {
                // see https://caniuse.com/?search=noreferrer
                 // and https://caniuse.com/?search=referrerpolicy
-               throw new \Exception('For security reasons this feature doesn\'t work in this browser when using authentication using token_auth. Please try a different browser or log in to view this.');
+                throw new \Exception('For security reasons this feature doesn\'t work in this browser when using authentication using token_auth. Please try a different browser or log in to view this.');
             }
         }
     }
@@ -164,7 +167,16 @@ class Controller extends \Piwik\Plugin\Controller
 
         if (!empty($recording['events'])) {
             foreach ($recording['events'] as $recordingEventIndex => $recordingEventValue) {
-                if (!empty($recordingEventValue['event_type']) && ($recordingEventValue['event_type'] == RequestProcessor::EVENT_TYPE_INITIAL_DOM || $recordingEventValue['event_type'] == RequestProcessor::EVENT_TYPE_MUTATION) && !empty($recordingEventValue['text'])) {
+                if (
+                    !empty($recordingEventValue['event_type']) &&
+                    (
+                        $recordingEventValue['event_type'] == RequestProcessor::EVENT_TYPE_INITIAL_DOM ||
+                        $recordingEventValue['event_type'] == RequestProcessor::EVENT_TYPE_MUTATION
+                    ) &&
+                    !empty(
+                        $recordingEventValue['text']
+                    )
+                ) {
                     $recording['events'][$recordingEventIndex]['text'] = $this->mutationManipulator->manipulate($recordingEventValue['text'], $idSiteHsr, $idLogHsr);
                     break;
                 }
@@ -189,9 +201,11 @@ class Controller extends \Piwik\Plugin\Controller
     {
         parent::setBasicVariablesView($view);
 
-        if (Common::getRequestVar('module', '', 'string') === 'Widgetize'
-          && Common::getRequestVar('action', '', 'string') === 'iframe'
-          && Common::getRequestVar('moduleToWidgetize', '', 'string') === 'HeatmapSessionRecording') {
+        if (
+            Common::getRequestVar('module', '', 'string') === 'Widgetize'
+            && Common::getRequestVar('action', '', 'string') === 'iframe'
+            && Common::getRequestVar('moduleToWidgetize', '', 'string') === 'HeatmapSessionRecording'
+        ) {
             $action = Common::getRequestVar('actionToWidgetize', '', 'string');
             if (in_array($action, array('replayRecording', 'showHeatmap'), true)) {
                 $view->enableFrames = true;
@@ -264,8 +278,10 @@ class Controller extends \Piwik\Plugin\Controller
         $this->initHeatmapAuth();
         $nonceRandom = '';
 
-        if (property_exists($this, 'securityPolicy') &&
-            method_exists($this->securityPolicy, 'allowEmbedPage')) {
+        if (
+            property_exists($this, 'securityPolicy') &&
+            method_exists($this->securityPolicy, 'allowEmbedPage')
+        ) {
             $toSearch = array("'unsafe-inline' ", "'unsafe-eval' ", "'unsafe-inline'", "'unsafe-eval'");
             $nonceRandom = $this->mutationManipulator->getNonce();
             $this->securityPolicy->overridePolicy('default-src', $this->securityPolicy::RULE_EMBEDDED_FRAME);
@@ -359,7 +375,8 @@ class Controller extends \Piwik\Plugin\Controller
         $period = $requestDate['period'];
         $dateRange = $requestDate['date'];
 
-        if (!PeriodFactory::isPeriodEnabledForAPI($period) ||
+        if (
+            !PeriodFactory::isPeriodEnabledForAPI($period) ||
             Common::getRequestVar('useDateUrl', 0, 'int')
         ) {
             $period = Common::getRequestVar('period', null, 'string');

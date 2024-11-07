@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -37,7 +38,6 @@ use Piwik\Plugins\HeatmapSessionRecording\Columns\Metrics\TotalEvents;
 use Piwik\Plugins\HeatmapSessionRecording\Dao\SiteHsrDao;
 use Piwik\Plugins\HeatmapSessionRecording\DataTable\Filter\EnrichRecordedSessions;
 use Piwik\Plugins\HeatmapSessionRecording\HeatmapSessionRecording;
-use Piwik\Plugins\HeatmapSessionRecording\Input\SampleRate;
 use Piwik\Plugins\HeatmapSessionRecording\SystemSettings;
 use Piwik\Plugins\Intl\DateTimeFormatProvider;
 use Piwik\Report\ReportWidgetFactory;
@@ -114,7 +114,6 @@ class GetRecordedSessions extends Report
                     $_GET['filter_sort_column'] = $key;
                 }
             };
-
         }
 
         if (property_exists($view->config, 'show_totals_row')) {
@@ -282,13 +281,18 @@ class GetRecordedSessions extends Report
             $includedCountries = $systemSettings->getIncludedCountries();
             $headerMessage = '';
             if (!HeatmapSessionRecording::isMatomoJsWritable()) {
-                $headerMessage .= '<div class="alert alert-warning">' . Piwik::translate('HeatmapSessionRecording_MatomoJSNotWritableErrorMessage', [Piwik::translate('HeatmapSessionRecording_SessionRecordings'), '<a href="https://developer.matomo.org/guides/heatmap-session-recording/setup#when-the-matomojs-in-your-piwik-directory-file-is-not-writable" target="_blank" rel="noreferrer noopener">', '</a>']) . '</div>';
+                $headerMessage .= '<div class="alert alert-warning">' .
+                    Piwik::translate('HeatmapSessionRecording_MatomoJSNotWritableErrorMessage', [
+                        Piwik::translate('HeatmapSessionRecording_SessionRecordings'),
+                        '<a href="https://developer.matomo.org/guides/heatmap-session-recording/setup#when-the-matomojs-in-your-piwik-directory-file-is-not-writable" target="_blank" rel="noreferrer noopener">',
+                        '</a>'
+                    ]) . '</div>';
             }
             if (!empty($includedCountries)) {
                 $headerMessage .= '<div class="alert alert-info heatmap-country-alert">' . Piwik::translate('HeatmapSessionRecording_SessionRecordingInfoTrackVisitsFromCountries', [implode(', ', $includedCountries)]) . '</div>';
             }
             $detectAdBlockerView = new View('@HeatmapSessionRecording/_detectAdBlocker');
-            $detectAdBlockerView->type='Session recordings';
+            $detectAdBlockerView->type = 'Session recordings';
             $headerMessage .= $detectAdBlockerView->render();
             if ($headerMessage) {
                 $view->config->show_header_message = $headerMessage;
@@ -337,5 +341,4 @@ class GetRecordedSessions extends Report
     {
         // disabled for now
     }
-
 }

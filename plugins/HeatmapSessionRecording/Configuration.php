@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,19 +22,19 @@ use Piwik\Container\StaticContainer;
 
 class Configuration
 {
-    const DEFAULT_OPTIMIZE_TRACKING_CODE = 1;
-    const DEFAULT_SESSION_RECORDING_SAMPLE_LIMITS = '50,100,250,500,1000,2000,5000';
-    const DEFAULT_ENABLE_LOAD_CSS_FROM_DB = 1;
-    const DEFAULT_ENABLE_ANONYMOUS_SESSION_RECORDING_ACCESS = '';
-    const KEY_OPTIMIZE_TRACKING_CODE = 'add_tracking_code_only_when_needed';
-    const KEY_SESSION_RECORDING_SAMPLE_LIMITS = 'session_recording_sample_limits';
-    const KEY_ENABLE_ANONYMOUS_SESSION_RECORDING_ACCESS = 'session_recording_enable_anonymous_access';
-    const KEY_ENABLE_LOAD_CSS_FROM_DB = 'load_css_from_db';
-    const MAX_ALLOWED_TIME_ON_PAGE_COLUMN_LIMIT = 'max_time_allowed_on_page_column_limit';
-    const KEY_DEFAULT_HEATMAP_WIDTH = 'default_heatmap_width';
-    const DEFAULT_HEATMAP_WIDTH = 1920;
-    const HEATMAP_ALLOWED_WIDTHS = [320, 360, 480, 600, 640, 900, 960, 1024, 1200, 1280, 1366, 1440, 1600, 1680, 1920, 2560];
-    const KEY_CAN_VIEW_SYSTEM_REPORT_GENERAL = 'can_view_system_report';
+    public const DEFAULT_OPTIMIZE_TRACKING_CODE = 1;
+    public const DEFAULT_SESSION_RECORDING_SAMPLE_LIMITS = '50,100,250,500,1000,2000,5000';
+    public const DEFAULT_ENABLE_LOAD_CSS_FROM_DB = 1;
+    public const DEFAULT_ENABLE_ANONYMOUS_SESSION_RECORDING_ACCESS = '';
+    public const KEY_OPTIMIZE_TRACKING_CODE = 'add_tracking_code_only_when_needed';
+    public const KEY_SESSION_RECORDING_SAMPLE_LIMITS = 'session_recording_sample_limits';
+    public const KEY_ENABLE_ANONYMOUS_SESSION_RECORDING_ACCESS = 'session_recording_enable_anonymous_access';
+    public const KEY_ENABLE_LOAD_CSS_FROM_DB = 'load_css_from_db';
+    public const MAX_ALLOWED_TIME_ON_PAGE_COLUMN_LIMIT = 'max_time_allowed_on_page_column_limit';
+    public const KEY_DEFAULT_HEATMAP_WIDTH = 'default_heatmap_width';
+    public const DEFAULT_HEATMAP_WIDTH = 1920;
+    public const HEATMAP_ALLOWED_WIDTHS = [320, 360, 480, 600, 640, 900, 960, 1024, 1200, 1280, 1366, 1440, 1600, 1680, 1920, 2560];
+    public const KEY_CAN_VIEW_SYSTEM_REPORT_GENERAL = 'can_view_system_report';
 
     public function install()
     {
@@ -81,8 +82,12 @@ class Configuration
         }
 
         $value = explode(',', $value);
-        $value = array_filter($value, function ($val) { return !empty($val); });
-        $value = array_map(function ($val) { return intval(trim($val)); }, $value);
+        $value = array_filter($value, function ($val) {
+            return !empty($val);
+        });
+        $value = array_map(function ($val) {
+            return intval(trim($val));
+        }, $value);
         natsort($value);
 
         if (empty($value)) {

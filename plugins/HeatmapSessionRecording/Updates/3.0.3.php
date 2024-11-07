@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,7 +22,6 @@ use Piwik\Updates as PiwikUpdates;
 
 class Updates_3_0_3 extends PiwikUpdates
 {
-
     public function doUpdate(Updater $updater)
     {
         $htaccess = new HtAccess();

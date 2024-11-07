@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Columns\Metrics;
 
 use Piwik\Piwik;
@@ -32,5 +34,4 @@ class TimeOnSite extends TimeOnPage
     {
         return Piwik::translate('HeatmapSessionRecording_ColumnTimeOnSiteDocumentation');
     }
-
 }

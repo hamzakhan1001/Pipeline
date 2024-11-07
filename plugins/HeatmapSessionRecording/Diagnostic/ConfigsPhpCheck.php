@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\HeatmapSessionRecording\Diagnostic;
 
 use Piwik\Common;
 use Piwik\Http;
-use Piwik\Plugin\Manager;
 use Piwik\Plugins\Diagnostics\Diagnostic\Diagnostic;
 use Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult;
 use Piwik\Plugins\HeatmapSessionRecording\HeatmapSessionRecording;
@@ -109,5 +109,4 @@ class ConfigsPhpCheck implements Diagnostic
         $unknown = $this->translator->translate('HeatmapSessionRecording_ConfigsPhpUnknown', $testUrl) . $manualCheck;
         return array(DiagnosticResult::singleResult($label, DiagnosticResult::STATUS_WARNING, $unknown));
     }
-
 }

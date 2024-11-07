@@ -26,3 +26,4 @@ export { default as SessionRecordingManage } from './ManageSessionRecording/Mana
 export { default as ListOfPageviews } from './ListOfPageviews/ListOfPageviews.vue';
 export { default as HeatmapVisPage } from './HeatmapVis/HeatmapVisPage.vue';
 export { default as MatomoJsNotWritableAlert } from './MatomoJsNotWritable/MatomoJsNotWritableAlert.vue';
+export { default as Tooltip } from './Tooltip/Tooltip.vue';

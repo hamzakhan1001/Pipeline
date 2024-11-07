@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Input;
 
 use Piwik\Piwik;
@@ -94,13 +96,15 @@ class Validator
         $this->checkHeatmapRecordingEnabled();
     }
 
-    public function checkSessionRecordingEnabled() {
+    public function checkSessionRecordingEnabled()
+    {
         if ($this->isSessionRecordingDisabled()) {
             throw new \Exception(Piwik::translate('HeatmapSessionRecording_ErrorSessionRecordingDisabled'));
         }
     }
 
-    public function checkHeatmapRecordingEnabled() {
+    public function checkHeatmapRecordingEnabled()
+    {
         if ($this->isHeatmapRecordingDisabled()) {
             throw new \Exception(Piwik::translate('HeatmapSessionRecording_ErrorHeatmapRecordingDisabled'));
         }
@@ -127,7 +131,8 @@ class Validator
             return false;
         }
 
-        if (!$this->configuration->isAnonymousSessionRecordingAccessEnabled($idSite)
+        if (
+            !$this->configuration->isAnonymousSessionRecordingAccessEnabled($idSite)
             && Piwik::isUserIsAnonymous()
         ) {
             return false;
@@ -168,5 +173,4 @@ class Validator
     {
         return $this->systemSettings->disableHeatmapRecording->getValue();
     }
-
 }

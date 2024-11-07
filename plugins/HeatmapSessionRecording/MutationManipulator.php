@@ -153,15 +153,15 @@ class MutationManipulator
                     if (
                         $htmlDecodedAttributeValue &&
                         (
-                            stripos($htmlDecodedAttributeValue, 'ecmascript') !== False ||
-                            stripos($htmlDecodedAttributeValue, 'javascript') !== False ||
-                            stripos($htmlDecodedAttributeValue, 'script:') !== False ||
-                            stripos($htmlDecodedAttributeValue, 'jscript') !== False ||
-                            stripos($htmlDecodedAttributeValue, 'vbscript') !== False
+                            stripos($htmlDecodedAttributeValue, 'ecmascript') !== false ||
+                            stripos($htmlDecodedAttributeValue, 'javascript') !== false ||
+                            stripos($htmlDecodedAttributeValue, 'script:') !== false ||
+                            stripos($htmlDecodedAttributeValue, 'jscript') !== false ||
+                            stripos($htmlDecodedAttributeValue, 'vbscript') !== false
                         )
                     ) {
                         $nodeAttributeValue = '';
-                    } else if (stripos($nodeAttributeValue, 'base64') !== FALSE) {
+                    } elseif (stripos($nodeAttributeValue, 'base64') !== false) {
                         $base64KeywordMadeLowerCase = str_ireplace('base64', 'base64', $nodeAttributeValue);
                         //For values like data:text/javascript;base64,YWxlcnQoMSk= we split the value into 2 parts
                         // part1: data:text/javascript;base64
@@ -186,7 +186,7 @@ class MutationManipulator
                                 }
                             }
                         }
-                    } else if ($nodeAttributeValue) {
+                    } elseif ($nodeAttributeValue) {
                         $htmlDecodedString = html_entity_decode($nodeAttributeValue, ENT_COMPAT, 'UTF-8');
                         if (
                             $this->isXssString($htmlDecodedString) ||
@@ -196,7 +196,6 @@ class MutationManipulator
                         }
                     }
                 }
-
             }
 
             if (!empty($node['childNodes'])) {
@@ -215,7 +214,8 @@ class MutationManipulator
                 stripos($value, 'ecmascript') !== false ||
                 stripos($value, '<script') !== false ||
                 stripos($value, 'script>') !== false ||
-                strpos($value, '&#') !== false // Wll handle decimal cases without trailing semicolon eg: <IMG SRC=&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041>
+                strpos($value, '&#') !== false // Wll handle decimal cases without trailing semicolon
+                // eg: <IMG SRC=&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041>
             )
         ) {
             return true;

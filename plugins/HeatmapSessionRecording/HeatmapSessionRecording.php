@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Plugin Name: Heatmap & Session Recording for Matomo
  * Description: Truly understand your visitors by seeing where they click, hover, type and scroll. Replay their actions in a video and ultimately increase conversions
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.1.8
+ * Version: 5.2.0
  * License: InnoCraft EULA
  * License URI: https://www.innocraft.com/license
  * Plugin URI: https://plugins.matomo.org/HeatmapSessionRecording
@@ -42,7 +43,6 @@ use Piwik\Plugins\HeatmapSessionRecording\Dao\LogHsrBlob;
 use Piwik\Plugins\HeatmapSessionRecording\Dao\SiteHsrDao;
 use Piwik\Plugins\HeatmapSessionRecording\Install\HtAccess;
 use Piwik\Plugins\HeatmapSessionRecording\Tracker\HsrMatcher;
-use Piwik\Plugins\HeatmapSessionRecording\Tracker\PageRuleMatcher;
 use Piwik\Session;
 use Piwik\SettingsPiwik;
 use Piwik\SettingsServer;
@@ -53,22 +53,24 @@ use WpMatomo\Admin\Menu;
 use WpMatomo\Bootstrap;
 use WpMatomo\Site;
 
-if (defined( 'ABSPATH')
-    && function_exists('add_action')) {
+if (
+    defined('ABSPATH')
+    && function_exists('add_action')
+) {
     $path = '/matomo/app/core/Plugin.php';
     if (defined('WP_PLUGIN_DIR') && WP_PLUGIN_DIR && file_exists(WP_PLUGIN_DIR . $path)) {
         require_once WP_PLUGIN_DIR . $path;
     } elseif (defined('WPMU_PLUGIN_DIR') && WPMU_PLUGIN_DIR && file_exists(WPMU_PLUGIN_DIR . $path)) {
         require_once WPMU_PLUGIN_DIR . $path;
     } else {
-    	return;
+        return;
     }
     add_action('plugins_loaded', function () {
-    	if (function_exists('matomo_add_plugin')) {
-		    matomo_add_plugin(__DIR__, __FILE__);
-	    }
+        if (function_exists('matomo_add_plugin')) {
+            matomo_add_plugin(__DIR__, __FILE__);
+        }
     });
-    
+
     add_filter('matomo_install_tables', function ($tables) {
         $tables[] = 'site_hsr';
         $tables[] = 'log_hsr';
@@ -79,46 +81,50 @@ if (defined( 'ABSPATH')
     }, 10, 1);
 
     add_filter('post_row_actions', __NAMESPACE__ . '\add_new_heat_map_link', 10, 2);
-	add_filter('post_row_actions', __NAMESPACE__ . '\add_view_heat_map_link', 10, 2);
+    add_filter('post_row_actions', __NAMESPACE__ . '\add_view_heat_map_link', 10, 2);
 
-	add_filter('page_row_actions', __NAMESPACE__ . '\add_new_heat_map_link', 10, 2);
-	add_filter('page_row_actions', __NAMESPACE__ . '\add_view_heat_map_link', 10, 2);
+    add_filter('page_row_actions', __NAMESPACE__ . '\add_new_heat_map_link', 10, 2);
+    add_filter('page_row_actions', __NAMESPACE__ . '\add_view_heat_map_link', 10, 2);
 
-	add_action( 'rest_api_init', function () {
-		if (!is_plugin_active('matomo/matomo.php')
-		    || !class_exists('\WpMatomo\API')) {
-			return;
-		}
+    add_action('rest_api_init', function () {
+        if (
+            !is_plugin_active('matomo/matomo.php')
+            || !class_exists('\WpMatomo\API')
+        ) {
+            return;
+        }
 
-		$api = new \WpMatomo\API();
-		$api->register_route( 'HeatmapSessionRecording', 'getHeatmap' );
-		$api->register_route( 'HeatmapSessionRecording', 'getHeatmaps' );
-		$api->register_route( 'HeatmapSessionRecording', 'getRecordedHeatmapMetadata' );
-		$api->register_route( 'HeatmapSessionRecording', 'getRecordedHeatmap' );
+        $api = new \WpMatomo\API();
+        $api->register_route('HeatmapSessionRecording', 'getHeatmap');
+        $api->register_route('HeatmapSessionRecording', 'getHeatmaps');
+        $api->register_route('HeatmapSessionRecording', 'getRecordedHeatmapMetadata');
+        $api->register_route('HeatmapSessionRecording', 'getRecordedHeatmap');
 
-		$api->register_route( 'HeatmapSessionRecording', 'getSessionRecording' );
-		$api->register_route( 'HeatmapSessionRecording', 'getSessionRecordings' );
-		$api->register_route( 'HeatmapSessionRecording', 'getRecordedSessions' );
-		$api->register_route( 'HeatmapSessionRecording', 'getRecordedSession' );
-	} );
+        $api->register_route('HeatmapSessionRecording', 'getSessionRecording');
+        $api->register_route('HeatmapSessionRecording', 'getSessionRecordings');
+        $api->register_route('HeatmapSessionRecording', 'getRecordedSessions');
+        $api->register_route('HeatmapSessionRecording', 'getRecordedSession');
+    });
 
-	/**
-	 * @param array $actions
-	 * @param \WP_Post $post
-	 *
-	 * @return mixed
-	 */
+    /**
+     * @param array $actions
+     * @param \WP_Post $post
+     *
+     * @return mixed
+     */
     function add_new_heat_map_link($actions, $post)
     {
-        if (!$post
+        if (
+            !$post
             || !is_plugin_active('matomo/matomo.php')
-            || !current_user_can('write_matomo')) {
+            || !current_user_can('write_matomo')
+        ) {
             return $actions;
         }
 
         if ($post->post_status !== 'publish') {
-        	// the permalink url wouldn't be correct yet for unpublished post
-			return $actions;
+            // the permalink url wouldn't be correct yet for unpublished post
+            return $actions;
         }
 
         $postUrl = get_permalink($post);
@@ -147,44 +153,45 @@ if (defined( 'ABSPATH')
         return $actions;
     }
 
-    function get_matomo_heatmaps() {
-    	static $heatmaps_cached;
+    function get_matomo_heatmaps()
+    {
+        static $heatmaps_cached;
 
-	    global $wpdb;
+        global $wpdb;
 
-	    if (!isset($heatmaps_cached)) {
+        if (!isset($heatmaps_cached)) {
+            $site = new Site();
+            $idsite = $site->get_current_matomo_site_id();
 
-		    $site = new Site();
-		    $idsite = $site->get_current_matomo_site_id();
+            if (!$idsite) {
+                $heatmaps_cached = array(); // prevent it not being executed again
+            } else {
+                $wpDbSettings = new \WpMatomo\Db\Settings();
+                $tableName = $wpDbSettings->prefix_table_name('site_hsr');
+                $idsite = (int) $idsite;// needed cause we don't bind parameters below
 
-		    if (!$idsite) {
-			    $heatmaps_cached = array(); // prevent it not being executed again
-		    } else {
-			    $wpDbSettings = new \WpMatomo\Db\Settings();
-			    $tableName = $wpDbSettings->prefix_table_name('site_hsr');
-			    $idsite = (int) $idsite;// needed cause we don't bind parameters below
-
-			    $heatmaps_cached = $wpdb->get_results(
-				    "select * from $tableName WHERE record_type = 1 AND idsite = $idsite AND status != 'deleted'",
-				    ARRAY_A
-			    );
-		    }
-
-	    }
-    	return $heatmaps_cached;
+                $heatmaps_cached = $wpdb->get_results(
+                    "select * from $tableName WHERE record_type = 1 AND idsite = $idsite AND status != 'deleted'",
+                    ARRAY_A
+                );
+            }
+        }
+        return $heatmaps_cached;
     }
 
-	/**
-	 * @param array $actions
-	 * @param \WP_Post $post
-	 *
-	 * @return mixed
-	 */
+    /**
+     * @param array $actions
+     * @param \WP_Post $post
+     *
+     * @return mixed
+     */
     function add_view_heat_map_link($actions, $post)
     {
-        if (!$post
+        if (
+            !$post
             || !is_plugin_active('matomo/matomo.php')
-            || !current_user_can('write_matomo')) {
+            || !current_user_can('write_matomo')
+        ) {
             return $actions;
         }
 
@@ -207,7 +214,7 @@ if (defined( 'ABSPATH')
         require_once('Tracker/PageRuleMatcher.php');
         require_once('Tracker/HsrMatcher.php');
 
-        $heatmaps = array_values(array_filter($heatmaps, function($heatmap) use ($postUrl) {
+        $heatmaps = array_values(array_filter($heatmaps, function ($heatmap) use ($postUrl) {
             $systemSettings = StaticContainer::get(SystemSettings::class);
             $includedCountries = $systemSettings->getIncludedCountries();
             return HsrMatcher::matchesAllPageRules(json_decode($heatmap['match_page_rules'], true), $postUrl) && HsrMatcher::isIncludedCountry($includedCountries);
@@ -224,7 +231,7 @@ if (defined( 'ABSPATH')
             if ($numMatches > 1) {
                 $linkText .= ' #' . ($i + 1);
             }
-            $actions['view_heatmap_' . $i] = 
+            $actions['view_heatmap_' . $i] =
                 '<a target="_blank" title="' . esc_attr($heatmap['name']) . '" href="' . esc_url($url) . '">' . esc_html($linkText) . '</a>';
         }
 
@@ -234,13 +241,13 @@ if (defined( 'ABSPATH')
 
 class HeatmapSessionRecording extends \Piwik\Plugin
 {
-    const EMBED_SESSION_TIME = 43200; // half day in seconds
-    CONST ULR_PARAM_FORCE_SAMPLE = 'pk_hsr_forcesample';
-    CONST ULR_PARAM_FORCE_CAPTURE_SCREEN = 'pk_hsr_capturescreen';
-    const EMBED_SESSION_NAME = 'HSR_EMBED_SESSID';
+    public const EMBED_SESSION_TIME = 43200; // half day in seconds
+    public const ULR_PARAM_FORCE_SAMPLE = 'pk_hsr_forcesample';
+    public const ULR_PARAM_FORCE_CAPTURE_SCREEN = 'pk_hsr_capturescreen';
+    public const EMBED_SESSION_NAME = 'HSR_EMBED_SESSID';
 
-    const TRACKER_READY_HOOK_NAME = '/*!! hsrTrackerReadyHook */';
-    const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! hsrTrackerReadyHook */';
+    public const TRACKER_READY_HOOK_NAME = '/*!! hsrTrackerReadyHook */';
+    public const TRACKER_READY_HOOK_NAME_WHEN_MINIFIED = '/*!!! hsrTrackerReadyHook */';
 
     public function registerEvents()
     {
@@ -313,7 +320,7 @@ class HeatmapSessionRecording extends \Piwik\Plugin
 
     public static function isMatomoForWordPress()
     {
-        return defined( 'ABSPATH') && function_exists('add_action');
+        return defined('ABSPATH') && function_exists('add_action');
     }
 
     public function addStylesheets(&$mergedContent)
@@ -379,14 +386,14 @@ class HeatmapSessionRecording extends \Piwik\Plugin
         $recording = $aggregator->findRecording($idVisit);
         if (!empty($recording['idsitehsr'])) {
             $title = Piwik::translate('HeatmapSessionRecording_ReplayRecordedSession');
-            $out .= '<a class="visitorLogReplaySession" href="?module=HeatmapSessionRecording&action=replayRecording&idSite=' . $idSite . '&idLogHsr=' . (int)$recording['idloghsr']. '&idSiteHsr=' . (int) $recording['idsitehsr'] . '" target="_blank" rel="noreferrer noopener"><span class="icon-play"></span> ' . $title . '</a><br />';
+            $out .= '<a class="visitorLogReplaySession" href="?module=HeatmapSessionRecording&action=replayRecording&idSite=' . $idSite . '&idLogHsr=' . (int)$recording['idloghsr'] . '&idSiteHsr=' . (int) $recording['idsitehsr'] . '"
+target="_blank" rel="noreferrer noopener"><span class="icon-play"></span> ' . $title . '</a><br />';
         }
     }
 
     public function shouldAddTrackerFile(&$shouldAdd, $pluginName)
     {
         if ($pluginName === 'HeatmapSessionRecording') {
-
             $config = new Configuration();
 
             $siteHsrDao = $this->getSiteHsrDao();
@@ -413,8 +420,22 @@ class HeatmapSessionRecording extends \Piwik\Plugin
         $numHeatmaps = $dao->getNumRecordsTotal(SiteHsrDao::RECORD_TYPE_HEATMAP);
         $numSessions = $dao->getNumRecordsTotal(SiteHsrDao::RECORD_TYPE_SESSION);
 
-        $systemSummary[] = new SystemSummary\Item($key = 'heatmaps', Piwik::translate('HeatmapSessionRecording_NHeatmaps', $numHeatmaps), $value = null, array('module' => 'HeatmapSessionRecording', 'action' => 'manageHeatmap'), $icon = 'icon-drop', $order = 6);
-        $systemSummary[] = new SystemSummary\Item($key = 'sessionrecordings', Piwik::translate('HeatmapSessionRecording_NSessionRecordings', $numSessions), $value = null, array('module' => 'HeatmapSessionRecording', 'action' => 'manageSessions'), $icon = 'icon-play', $order = 7);
+        $systemSummary[] = new SystemSummary\Item(
+            $key = 'heatmaps',
+            Piwik::translate('HeatmapSessionRecording_NHeatmaps', $numHeatmaps),
+            $value = null,
+            array('module' => 'HeatmapSessionRecording', 'action' => 'manageHeatmap'),
+            $icon = 'icon-drop',
+            $order = 6
+        );
+        $systemSummary[] = new SystemSummary\Item(
+            $key = 'sessionrecordings',
+            Piwik::translate('HeatmapSessionRecording_NSessionRecordings', $numSessions),
+            $value = null,
+            array('module' => 'HeatmapSessionRecording', 'action' => 'manageSessions'),
+            $icon = 'icon-play',
+            $order = 7
+        );
     }
 
     public function getQueryParametersToExclude(&$parametersToExclude)
@@ -651,6 +672,10 @@ class HeatmapSessionRecording extends \Piwik\Plugin
         $result[] = 'HeatmapSessionRecording_MatomoJSNotWritableErrorMessage';
         $result[] = 'HeatmapSessionRecording_SessionRecordings';
         $result[] = 'HeatmapSessionRecording_Heatmaps';
+        $result[] = 'HeatmapSessionRecording_Clicks';
+        $result[] = 'HeatmapSessionRecording_ClickRate';
+        $result[] = 'HeatmapSessionRecording_Moves';
+        $result[] = 'HeatmapSessionRecording_MoveRate';
     }
 
     public function getJsFiles(&$jsFiles)
@@ -667,6 +692,7 @@ class HeatmapSessionRecording extends \Piwik\Plugin
         $stylesheets[] = "plugins/HeatmapSessionRecording/stylesheets/recordings.less";
         $stylesheets[] = "plugins/HeatmapSessionRecording/vue/src/SessionRecordingVis/SessionRecordingVis.less";
         $stylesheets[] = "plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.less";
+        $stylesheets[] = "plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.less";
     }
 
     public function activate()
@@ -755,7 +781,8 @@ class HeatmapSessionRecording extends \Piwik\Plugin
 
     public function changeSessionLengthIfEmbedPage()
     {
-        if (SettingsServer::isTrackerApiRequest()
+        if (
+            SettingsServer::isTrackerApiRequest()
             || Common::isPhpCliMode()
         ) {
             return;
@@ -763,7 +790,8 @@ class HeatmapSessionRecording extends \Piwik\Plugin
 
         // if there's no token_auth=... in the URL and there's no existing HSR session, then
         // we don't change the session options and try to use the normal matomo session.
-        if (Common::getRequestVar('token_auth', false) === false
+        if (
+            Common::getRequestVar('token_auth', false) === false
             && empty($_COOKIE[self::EMBED_SESSION_NAME])
         ) {
             return;
@@ -771,7 +799,8 @@ class HeatmapSessionRecording extends \Piwik\Plugin
 
         $module = Common::getRequestVar('module', '', 'string');
         $action = Common::getRequestVar('action', '', 'string');
-        if ($module == 'HeatmapSessionRecording'
+        if (
+            $module == 'HeatmapSessionRecording'
             && $action == 'embedPage'
         ) {
             Config::getInstance()->General['login_cookie_expire'] = self::EMBED_SESSION_TIME;
@@ -786,7 +815,7 @@ class HeatmapSessionRecording extends \Piwik\Plugin
         $config = new Configuration();
         $appendWithoutSystemConfiguration = ($config->canViewSystemReport() ? '' : 'WithoutSystemConfiguration');
         $key = '';
-        switch ($type){
+        switch ($type) {
             case 'pause':
                 $key = 'HeatmapSessionRecording_PauseReason';
                 break;

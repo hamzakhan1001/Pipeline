@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Commands;
 
 use Piwik\API\Request;
@@ -22,7 +24,6 @@ use Piwik\Plugin\ConsoleCommand;
 use Piwik\Plugins\HeatmapSessionRecording\Dao\LogHsrSite;
 use Piwik\Plugins\HeatmapSessionRecording\Dao\SiteHsrDao;
 use Piwik\Plugins\HeatmapSessionRecording\HeatmapSessionRecording;
-use Piwik\Plugins\HeatmapSessionRecording\Model\SiteHsrModel;
 
 class RemoveHeatmapScreenshot extends ConsoleCommand
 {
@@ -78,7 +79,7 @@ class RemoveHeatmapScreenshot extends ConsoleCommand
             ));
             $output->writeln('Done');
         }
-        
+
         $success = Request::processRequest('HeatmapSessionRecording.deleteHeatmapScreenshot', array(
             'idSite' => $idSite,
             'idSiteHsr' => $idHeatmap

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,14 +13,18 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\HeatmapSessionRecording\Tracker;
 
 use Exception;
 use Piwik\Exception\NotYetInstalledException;
 use Piwik\Tracker;
 
-class Validator {
-    public function validate() {}
+class Validator
+{
+    public function validate()
+    {
+    }
 }
 
 class Configs
@@ -36,7 +41,7 @@ class Configs
         ));
         try {
             $environment->init();
-        } catch(NotYetInstalledException $e) {
+        } catch (NotYetInstalledException $e) {
             http_response_code(403);
             exit;
         } catch (Exception $e) {
@@ -47,7 +52,6 @@ class Configs
             }
             throw $e;
         }
-
     }
 
     public function sendResponse($response, $originalIdSite, $trackerId)

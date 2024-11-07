@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Piwik;
 
 class Breakpoint
@@ -30,10 +31,10 @@ class Breakpoint
      */
     private $name;
 
-    const MAX_LIMIT = 65000;
+    public const MAX_LIMIT = 65000;
 
-    const DEFAULT_MOBILE = 600;
-    const DEFAULT_TABLET = 960;
+    public const DEFAULT_MOBILE = 600;
+    public const DEFAULT_TABLET = 960;
 
     public function __construct($breakpoint, $name)
     {
@@ -62,5 +63,4 @@ class Breakpoint
             throw new Exception(Piwik::translate('HeatmapSessionRecording_ErrorXTooHigh', array($title, self::MAX_LIMIT)));
         }
     }
-
 }

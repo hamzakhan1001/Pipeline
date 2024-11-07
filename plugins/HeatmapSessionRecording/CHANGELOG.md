@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.0 - 2024-11-04
+- Implemented a tooltip which displays click count and rate
+
 5.1.8 - 2024-10-17
 - Fixes excluded_elements not working for escaped values for a heatmap
 
