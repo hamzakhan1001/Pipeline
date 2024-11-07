@@ -38,3 +38,19 @@ With Matomo’s Advertising Conversion Export plugin, you can export the accurat
 Unlock new levels of insight by integrating your ad campaign performance into your Matomo account.
 
 Start your 30-day free trial today and see the difference ethical, pain-free conversion data can make to your ad campaigns.
+
+### Features
+
+* Supporting exports for Google Ads, Microsoft Advertising, Yandex Ads
+* Tracking click ids of Google (gclid), Microsoft/Bing (msclkid) and Yandex (yclid).
+* Manage conversion exports containing possibilities to define
+    * Number of days to export data for (excluding today)
+    * Various attribution settings
+    * Visitor segment (to further filter exported conversions)
+    * Goals to be included in export
+* Possibility to access conversion exports with unique access tokens
+* Possibility to segment by Advertising Network and Click ID
+* Adds an icon to visitor profile and visits log for visits being referred with a click id
+
+
+  __Note:__ The plugin doesn't support export of click ids for Facebook, so all click ids with fbclid are tracked as anonymized.

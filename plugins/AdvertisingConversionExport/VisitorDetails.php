@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -95,7 +96,7 @@ class VisitorDetails extends VisitorDetailsAbstract
 
             $title = htmlentities($title, ENT_COMPAT | ENT_HTML401, 'UTF-8');
 
-            return '<span title="' . $title . '" profile-header-text="' . $visitorDetails['adProviderName'] . '" class="visitorIconClickId visitorLogTooltip"><img src="'.$visitorDetails['adProviderIcon'].'" height="16"></span>';
+            return '<span title="' . $title . '" profile-header-text="' . $visitorDetails['adProviderName'] . '" class="visitorIconClickId visitorLogTooltip"><img src="' . $visitorDetails['adProviderIcon'] . '" height="16"></span>';
         }
 
         return '';

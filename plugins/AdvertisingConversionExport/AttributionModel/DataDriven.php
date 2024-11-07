@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,7 +20,7 @@ use Piwik\Piwik;
 
 class DataDriven extends AttributionModelAbstract
 {
-    const ID = 'dataDriven';
+    public const ID = 'dataDriven';
 
     public function getExportName(): string
     {
@@ -30,5 +31,4 @@ class DataDriven extends AttributionModelAbstract
     {
         return Piwik::translate('AdvertisingConversionExport_DataDrivenAttributionModel');
     }
-
 }

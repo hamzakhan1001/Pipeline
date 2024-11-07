@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,8 +20,8 @@ use Piwik\Plugins\AdvertisingConversionExport\Export\Adapter\YandexAds;
 
 class Yandex extends ClickIdProviderAbstract
 {
-    const ID = 'Yandex';
-    const CLICK_ID_REQUEST_PARAM = 'yclid';
+    public const ID = 'Yandex';
+    public const CLICK_ID_REQUEST_PARAM = 'yclid';
 
     public function getName(): string
     {

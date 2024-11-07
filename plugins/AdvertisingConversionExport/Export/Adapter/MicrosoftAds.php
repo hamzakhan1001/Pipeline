@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -26,7 +27,7 @@ use Piwik\ProxyHttp;
  */
 class MicrosoftAds extends AdapterAbstract
 {
-    const ID = 'MicrosoftAds';
+    public const ID = 'MicrosoftAds';
 
     public static function getName(): string
     {
@@ -101,7 +102,6 @@ HEAD;
 {$clickId},{$conversionName},{$conversionTime},{$conversionValue},{$conversionCurrency}
 
 CONVERSION;
-
     }
 
     private function getTimezoneOffsetFromUTC($timezone)

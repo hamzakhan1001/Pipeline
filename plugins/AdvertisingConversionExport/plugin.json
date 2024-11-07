@@ -1,6 +1,6 @@
 {
     "name": "AdvertisingConversionExport",
-    "version": "5.1.4",
+    "version": "5.1.5",
     "description": "Provides an export of attributed goal conversions for usage in ad networks like Google Ads so you no longer need a conversion pixel.",
     "theme": false,
     "require": {

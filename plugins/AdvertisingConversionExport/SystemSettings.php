@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -55,12 +56,17 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             $field->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
             $field->availableValues = $availableStatuses;
             if ($showInlineHelp) {
-                $field->inlineHelp = Piwik::translate('AdvertisingConversionExport_' . $type . 'Description', array('<a href="https://support.google.com/google-ads/answer/14310715" target="_blank" rel="noreferrer noopener">', '</a>', '<br><br>', $availableStatuses[$defaultStatus]));
+                $field->inlineHelp = Piwik::translate(
+                    'AdvertisingConversionExport_' . $type . 'Description',
+                    array('<a href="https://support.google.com/google-ads/answer/14310715" target="_blank" rel="noreferrer noopener">', '</a>', '<br><br>', $availableStatuses[$defaultStatus])
+                );
             }
 
             $field->transform = function ($value) use ($defaultStatus) {
                 if (empty($value)) {
-                    return  $defaultStatus; // Reason for doing it here and not setting the default when making the setting is due to UI restrictions, if we set the setting default other than empty the inlineBox shows up for both the settings, and we want to have a common box for both the settings
+                    // Reason for doing it here and not setting the default when making the setting is due to UI restrictions,
+                    // if we set the setting default other than empty the inlineBox shows up for both the settings, and we want to have a common box for both the settings
+                    return  $defaultStatus;
                 }
 
                 return $value;

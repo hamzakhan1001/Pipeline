@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -25,15 +26,15 @@ use Piwik\Site;
 
 class Configuration
 {
-    const CLICK_ID_ATTRIBUTION_TYPE_FIRST = 'first';
-    const CLICK_ID_ATTRIBUTION_TYPE_LAST = 'last';
-    const CLICK_ID_ATTRIBUTION_TYPE_ALL = 'all';
-    const KEY_MAX_EXECUTION_TIME = 'advertising_conversion_export_max_execution_time';
-    const DEFAULT_MAX_EXECUTION_TIME = 0;
-    const KEY_QUERY_LIMIT = 'advertising_conversion_export_query_limit';
-    const DEFAULT_QUERY_LIMIT = 0;
-    const KEY_EXPORT_ENABLED = 'enable_export';
-    const DEFAULT_EXPORT_ENABLED = 1;
+    public const CLICK_ID_ATTRIBUTION_TYPE_FIRST = 'first';
+    public const CLICK_ID_ATTRIBUTION_TYPE_LAST = 'last';
+    public const CLICK_ID_ATTRIBUTION_TYPE_ALL = 'all';
+    public const KEY_MAX_EXECUTION_TIME = 'advertising_conversion_export_max_execution_time';
+    public const DEFAULT_MAX_EXECUTION_TIME = 0;
+    public const KEY_QUERY_LIMIT = 'advertising_conversion_export_query_limit';
+    public const DEFAULT_QUERY_LIMIT = 0;
+    public const KEY_EXPORT_ENABLED = 'enable_export';
+    public const DEFAULT_EXPORT_ENABLED = 1;
 
     protected static $clickIdAttributionTypes = [
         self::CLICK_ID_ATTRIBUTION_TYPE_FIRST,
@@ -74,8 +75,19 @@ class Configuration
     /** @var int */
     public $exportID;
 
-    protected function __construct(int $idSite, int $exportID, array $goals, string $segment, int $daysToExport, bool $onlyDirectAttribution, ?int $daysToLookBack, ?string $clickIdAttribution, ?bool $externalAttributedConversion, ?string $attributionModel, ?float $attributedCredit)
-    {
+    protected function __construct(
+        int $idSite,
+        int $exportID,
+        array $goals,
+        string $segment,
+        int $daysToExport,
+        bool $onlyDirectAttribution,
+        ?int $daysToLookBack,
+        ?string $clickIdAttribution,
+        ?bool $externalAttributedConversion,
+        ?string $attributionModel,
+        ?float $attributedCredit
+    ) {
         $this->idSite                       = $idSite;
         $this->segment                      = $segment;
         $this->daysToExport                 = $daysToExport ?? $this->daysToExport;
@@ -102,7 +114,20 @@ class Configuration
             $configurationArray['externalAttributedConversion'] = false;
         }
 
-        return new self($idSite, $exportID, $configurationArray['goals'], $configurationArray['segment'], $configurationArray['daysToExport'], (bool)$configurationArray['onlyDirectAttribution'], $configurationArray['daysToLookBack'] ?? null, $configurationArray['clickIdAttribution'] ?? null, (bool)$configurationArray['externalAttributedConversion'] ?? null, $configurationArray['attributionModel'] ?? null, $configurationArray['attributedCredit'] ?? null);
+        return new self(
+            $idSite,
+            $exportID,
+            $configurationArray['goals'],
+            $configurationArray['segment'],
+            $configurationArray['daysToExport'],
+            (bool)$configurationArray['onlyDirectAttribution'],
+            $configurationArray['daysToLookBack'] ?? null,
+            $configurationArray['clickIdAttribution'] ?? null,
+            (bool)$configurationArray['externalAttributedConversion'] ?? null,
+            $configurationArray['attributionModel'] ?? null,
+            $configurationArray['attributedCredit'] ?? null
+        )
+            ;
     }
 
     /**
@@ -123,7 +148,6 @@ class Configuration
         }
 
         if ($this->externalAttributedConversion) {
-
             $validAttributionModelNames = [];
             $isValidAttributionModel = false;
             foreach (AdvertisingConversionExport::getAttributionModels() as $attributionModel) {
