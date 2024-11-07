@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,13 +16,13 @@
 
 namespace Piwik\Plugins\CustomReports\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Common;
 use Piwik\Piwik;
 
 class Description
 {
-    const MAX_LENGTH = 1000;
+    public const MAX_LENGTH = 1000;
 
     /**
      * @var string
@@ -44,7 +45,5 @@ class Description
             $title = Piwik::translate('General_Description');
             throw new Exception(Piwik::translate('CustomReports_ErrorXTooLong', array($title, static::MAX_LENGTH)));
         }
-
     }
-
 }

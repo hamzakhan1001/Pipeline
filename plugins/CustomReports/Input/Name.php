@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -21,7 +22,7 @@ use Piwik\Piwik;
 
 class Name
 {
-    const MAX_LENGTH = 50;
+    public const MAX_LENGTH = 50;
 
     /**
      * @var string
@@ -47,5 +48,4 @@ class Name
             throw new Exception(Piwik::translate('CustomReports_ErrorXTooLong', array($title, static::MAX_LENGTH)));
         }
     }
-
 }

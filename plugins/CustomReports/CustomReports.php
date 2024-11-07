@@ -5,9 +5,10 @@
  * Description: Pull out the information you need in order to be successful. Develop your custom strategy to meet your individualized goals while saving money & time.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.0.18
+ * Version: 5.0.19
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -60,7 +61,7 @@ if (defined( 'ABSPATH')
 
 class CustomReports extends \Piwik\Plugin
 {
-    const MENU_ICON = 'icon-business';
+    public const MENU_ICON = 'icon-business';
 
     public function registerEvents()
     {
@@ -125,14 +126,14 @@ class CustomReports extends \Piwik\Plugin
         }
 
         if (!empty($dimensions)) {
-            $dimensions = array_unique(explode(',' , $dimensions));
+            $dimensions = array_unique(explode(',', $dimensions));
             $dimensionsCheck = new Dimensions($dimensions, $idSite);
             $dimensionsCheck->check();
         } else {
             $dimensions = array();
         }
 
-        $metrics = array_unique(explode(',' , $metrics));
+        $metrics = array_unique(explode(',', $metrics));
         $metricsCheck = new Metrics($metrics, $idSite);
         $metricsCheck->check();
 
@@ -240,7 +241,7 @@ class CustomReports extends \Piwik\Plugin
 
         $reports = $this->getConfiguredReports($idSite, $skipCategoryMetadata = true); // skipping metadata since it will lead to infinite recursion
         usort($reports, function ($a, $b) {
-           return strcasecmp($a['name'], $b['name']);
+            return strcasecmp($a['name'], $b['name']);
         });
 
         $addedNames = array();

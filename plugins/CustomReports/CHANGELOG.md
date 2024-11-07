@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.19 - 2024-11-05
+- Updated README.md
+
 5.0.18 - 2024-10-21
 - Added config for setting custom reports historical archiving period
 

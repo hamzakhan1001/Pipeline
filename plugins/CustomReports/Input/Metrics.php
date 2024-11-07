@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\CustomReports\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Columns\MetricsList;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
@@ -72,5 +73,4 @@ class Metrics
             throw new Exception(Piwik::translate('CustomReports_ErrorDuplicateItem', $title));
         }
     }
-
 }

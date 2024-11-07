@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -67,12 +68,13 @@ class GetCustomReport extends Report
         $idSite = Common::getRequestVar('idSite', 0, 'int');
         $idCustomReport = Common::getRequestVar('idCustomReport', 0, 'int');
 
-        if (!empty($idSite)
+        if (
+            !empty($idSite)
             && (   Common::getRequestVar('actionToWidgetize', '', 'string') === 'previewReport'
                 || Common::getRequestVar('action', '', 'string') === 'previewReport')
             && (   Common::getRequestVar('moduleToWidgetize', '', 'string') === 'CustomReports'
-                || Common::getRequestVar('module', '', 'string') === 'CustomReports')) {
-
+                || Common::getRequestVar('module', '', 'string') === 'CustomReports')
+        ) {
             $report = null;
             Piwik::postEvent('CustomReports.buildPreviewReport', array(&$report));
 
@@ -109,7 +111,7 @@ class GetCustomReport extends Report
         if ($this->doNotInitTwice) {
             return;
         }
-        
+
         $this->customReport = $report;
 
         $this->reportType = ReportType::factory($report['report_type']);
@@ -156,11 +158,15 @@ class GetCustomReport extends Report
         $period = Common::getRequestVar('period', '', 'string');
         foreach ($report['metrics'] as $metric) {
             $metricInstance = $factory->getMetric($metric);
-            if (!empty($metricInstance) &&
+            if (
+                !empty($metricInstance) &&
                 ($metricInstance instanceof ProcessedMetric || $metricInstance instanceof ArchivedMetric)
             ) {
                 if ($period != 'day' && stripos($metricInstance->getTranslatedName(), 'unique') === 0) {
-                    $metricInstance->setDocumentation(Piwik::translate('CustomReports_CommonUniqueMetricDescription', array($metricInstance->getDocumentation(), ucwords($metricInstance->getTranslatedName()), str_ireplace('Unique ', '', ucwords($metricInstance->getTranslatedName())))));
+                    $metricInstance->setDocumentation(Piwik::translate(
+                        'CustomReports_CommonUniqueMetricDescription',
+                        array($metricInstance->getDocumentation(), ucwords($metricInstance->getTranslatedName()), str_ireplace('Unique ', '', ucwords($metricInstance->getTranslatedName())))
+                    ));
                     $metricInstance->setTranslatedName(Piwik::translate('CustomReports_CommonUniqueMetric', array($metricInstance->getTranslatedName())));
                 }
                 $this->processedMetrics[] = $metricInstance;
@@ -309,17 +315,21 @@ class GetCustomReport extends Report
                     /** @var Period $period */
                     $reportStartDate = $period->getDateStart()->getTimestampUTC();
 
-                    if ((!empty($report['created_date']) && $reportStartDate < Date::factory($report['created_date'])->getTimestamp()) || (!empty($report['updated_date']) && $reportStartDate < Date::factory($report['updated_date'])->getTimestamp())) {
+                    if (
+                        (!empty($report['created_date']) && $reportStartDate < Date::factory($report['created_date'])->getTimestamp())
+                        || (!empty($report['updated_date']) && $reportStartDate < Date::factory($report['updated_date'])->getTimestamp())
+                    ) {
                         $view->config->no_data_message = Piwik::translate('CoreHome_ThereIsNoDataForThisReport') . ' ' . Piwik::translate('CustomReports_NoDataNotArchivedYet');
 
                         if (!Plugin\Manager::getInstance()->isPluginActivated('Cloud')) {
-                            $view->config->no_data_message .= ' ' . Piwik::translate('CustomReports_NoDataNotArchivedYetReprocess',
-                                    ['<a href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/custom-reports/faq_25265/') . '" target="_blank" rel="noreferrer">', '</a>']);
+                            $view->config->no_data_message .= ' ' . Piwik::translate(
+                                'CustomReports_NoDataNotArchivedYetReprocess',
+                                ['<a href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/custom-reports/faq_25265/') . '" target="_blank" rel="noreferrer">', '</a>']
+                            );
                         }
                     }
                 }
             } else {
-
                 $periodLabel = Common::getRequestVar('period', '', 'string');
                 $isEvolution = $view->isViewDataTableId(Evolution::ID);
 
@@ -351,13 +361,12 @@ class GetCustomReport extends Report
 
                         if (empty($view->config->columns_to_display)) {
                             $view->config->show_header_message = Piwik::translate('CustomReports_NoDataRemovedMetrics', implode(', ', $removedHumanReadable));
-                        } else if ($view->config->columns_to_display == array('label')) {
+                        } elseif ($view->config->columns_to_display == array('label')) {
                             $view->config->show_header_message = Piwik::translate('CustomReports_NoDataRemovedMetrics', implode(', ', $removedHumanReadable));
                             $view->config->columns_to_display = array();
                             $view->config->show_pagination_control = false;
                             $view->config->show_offset_information = false;
                         } else {
-
                             if (empty($view->config->show_footer_message)) {
                                 $view->config->show_footer_message = '';
                             } else {
@@ -396,8 +405,10 @@ class GetCustomReport extends Report
 
         $pivotBy = Common::getRequestVar('pivotBy', false);
         if (empty($pivotBy)) {
-            if ($view->isViewDataTableId(Pie::ID)
-                || $view->isViewDataTableId(Bar::ID)) {
+            if (
+                $view->isViewDataTableId(Pie::ID)
+                || $view->isViewDataTableId(Bar::ID)
+            ) {
                 /** @var Pie $view */
                 $selectableColumns = array_values($this->metrics);
                 $view->config->selectable_columns = $selectableColumns;

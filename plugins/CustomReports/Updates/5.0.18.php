@@ -44,7 +44,8 @@ class Updates_5_0_18 extends PiwikUpdates
     public function getMigrations(Updater $updater)
     {
         $tableName = Common::prefixTable('custom_reports');
-        $updateQuery = "UPDATE $tableName SET `metrics` = CONCAT(SUBSTR(`metrics`, 1, CHAR_LENGTH(`metrics`) - 1), ',\"sum_ecommerce_productquantity\"]') WHERE `status` = 'active' AND `metrics` LIKE '%product_revenue%' AND `metrics` NOT LIKE '%ecommerce_productquantity%';";
+        $updateQuery = "UPDATE $tableName SET `metrics` = CONCAT(SUBSTR(`metrics`, 1, CHAR_LENGTH(`metrics`) - 1), ',\"sum_ecommerce_productquantity\"]')";
+        $updateQuery .= " WHERE `status` = 'active' AND `metrics` LIKE '%product_revenue%' AND `metrics` NOT LIKE '%ecommerce_productquantity%';";
         $migration = $this->migration->db->sql($updateQuery);
 
         return [

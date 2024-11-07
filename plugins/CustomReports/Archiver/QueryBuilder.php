@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -97,8 +98,10 @@ class QueryBuilder
         $logTable = $this->logTablesProvider->getLogTable($dbTable);
         $tables = new JoinTables($this->logTablesProvider, [$dbTable]);
 
-        if (!$logTable->getColumnToJoinOnIdVisit() && !$logTable->getColumnToJoinOnIdAction() &&
-            !$logTable->getLinkTableToBeAbleToJoinOnVisit() && $logTable->getWaysToJoinToOtherLogTables()) {
+        if (
+            !$logTable->getColumnToJoinOnIdVisit() && !$logTable->getColumnToJoinOnIdAction() &&
+            !$logTable->getLinkTableToBeAbleToJoinOnVisit() && $logTable->getWaysToJoinToOtherLogTables()
+        ) {
             if ($tables->isTableJoinableOnVisit($dbTable)) {
                 $this->reportQuery->addFrom('log_visit');
             }
@@ -162,7 +165,7 @@ class QueryBuilder
             } else {
                 if (!$useRightJoin) {
                     $this->reportQuery->addSelect($dimension->getSqlSegment() . " AS '" . $dimension->getId() . "'");
-                    $this->reportQuery->addGroupBy( $dimension->getSqlSegment());
+                    $this->reportQuery->addGroupBy($dimension->getSqlSegment());
                 }
 
                 if ($dbDiscriminator) {
@@ -198,7 +201,8 @@ class QueryBuilder
         }
     }
 
-    private function addExtraJoinConditions(Join $join, $tableAlias) {
+    private function addExtraJoinConditions(Join $join, $tableAlias)
+    {
         if ($join->getTable() === 'goal') {
             $idSites = $this->parameters->getIdSites();
             if (!empty($idSites)) {
@@ -224,7 +228,6 @@ class QueryBuilder
         $this->reportQuery->addFrom($tableName);
 
         if ($dbDiscriminator) {
-
             // we need to add a join for this table to make sure to calc correct results when eg a goal metric or action metric is selected (to be able to measure different values for eg clicked urls vs page urls)
             $join = $dimension->getDbColumnJoin();
             $dbDiscriminatorValue = $dbDiscriminator->getValue();
@@ -254,7 +257,6 @@ class QueryBuilder
                 $where = $tableAlias . '.' . $dbDiscriminator->getColumn() . ' = "' . $dbDiscriminatorValue . '"';
                 $this->reportQuery->addWhere($where);
             } elseif ($tableName === $dbDiscriminatorTable || $this->reportQuery->hasFrom($dbDiscriminatorTable)) {
-
                 $actualTableName = $this->reportQuery->getFromAlias($dbDiscriminatorTable);
 
                 // we support for now only numeric values because we cannot use bind here as it would not be possible to position bind correctly
@@ -262,7 +264,6 @@ class QueryBuilder
                 $this->reportQuery->addWhere($where);
                 $this->reportQuery->addSelect($metric->getQuery() . " AS '" . $metricName . "'");
             } elseif ($this->reportQuery->isTableJoinable($dbDiscriminatorTable)) {
-
                 $actualTableName = $this->reportQuery->getFromAlias($dbDiscriminatorTable);
 
                 if (empty($actualTableName)) {

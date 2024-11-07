@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\CustomReports\Model;
 
 use Piwik\API\Request;
@@ -34,8 +36,8 @@ use Piwik\Site;
 
 class CustomReportsModel
 {
-    const STATUS_ACTIVE = 'active';
-    const STATUS_DELETED = 'deleted';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_DELETED = 'deleted';
 
     /**
      * @var CustomReportsDao
@@ -101,10 +103,12 @@ class CustomReportsModel
 
         $revision = $report['revision'];
 
-        if ($report['dimensions'] !== $dimensions
+        if (
+            $report['dimensions'] !== $dimensions
             || $reportType !== $report['report_type']
             || $segmentFilter !== $report['segment_filter']
-            || !$this->areMetricsEqual($metrics, $report['metrics'])) {
+            || !$this->areMetricsEqual($metrics, $report['metrics'])
+        ) {
             // we do not need to create a new revision if metrics only has a different order as we would still have all the data
             $revision++;
         }
@@ -360,6 +364,4 @@ class CustomReportsModel
         }
         $this->dao->updateColumns($idSite, $idCustomReport, $columns);
     }
-
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Piwik\Plugins\CustomReports;
-
 
 use Piwik\API\Request;
 use Piwik\Common;

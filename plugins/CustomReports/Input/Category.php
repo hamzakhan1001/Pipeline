@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,13 +16,13 @@
 
 namespace Piwik\Plugins\CustomReports\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Common;
 use Piwik\Piwik;
 
 class Category
 {
-    const MAX_LENGTH = 150;
+    public const MAX_LENGTH = 150;
 
     /**
      * @var string
@@ -47,5 +48,4 @@ class Category
             throw new Exception(Piwik::translate('CustomReports_ErrorXTooLong', array($title, static::MAX_LENGTH)));
         }
     }
-
 }

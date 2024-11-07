@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,7 +16,7 @@
 
 namespace Piwik\Plugins\CustomReports\Input;
 
-use \Exception;
+use Exception;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
 use Piwik\Plugins\CustomReports\API;
@@ -95,5 +96,4 @@ class Dimensions
 
         return $list;
     }
-
 }

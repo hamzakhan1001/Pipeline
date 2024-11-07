@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\CustomReports\DataTable\Filter;
 
 use Piwik\Columns\Dimension;
@@ -65,7 +67,6 @@ class ReportTypeTableFilter extends BaseFilter
         }
 
         foreach ($table->getRowsWithoutSummaryRow() as $row) {
-
             $label = $row->getColumn('label');
             if ($label === Archiver::LABEL_NOT_DEFINED) {
                 $label = Piwik::translate('General_NotDefined', $dimension->getName());

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -142,7 +143,8 @@ class ReportQuery
                     // if this is not directly joinable to log_visit, look for another way to join it to log_visit
                     $tables = new JoinTables($this->logTablesProvider, [$tableName]);
                     foreach ($logTable->getWaysToJoinToOtherLogTables() as $otherLogTable => $column) {
-                        if ($preferTable == $otherLogTable
+                        if (
+                            $preferTable == $otherLogTable
                             || (!$preferTable && $tables->isTableJoinableOnVisit($otherLogTable))
                         ) {
                             $this->addFrom($otherLogTable); // make sure the other table is present in the from list
@@ -265,7 +267,7 @@ class ReportQuery
 
         if (!empty($this->extraWhere) && !empty($where)) {
             $where = sprintf("( %s ) AND (%s)", $where, $this->extraWhere);
-        } elseif (!empty($this->extraWhere)){
+        } elseif (!empty($this->extraWhere)) {
             $where = $this->extraWhere;
         }
 
@@ -279,5 +281,4 @@ class ReportQuery
     {
         return $this->sortBy;
     }
-
 }

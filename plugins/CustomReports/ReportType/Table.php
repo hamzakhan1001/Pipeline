@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,11 +13,11 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\CustomReports\ReportType;
 
 use Piwik\Archive;
 use Piwik\Container\StaticContainer;
-use Piwik\Plugins\API\Reports\Get;
 use Piwik\Plugins\CoreVisualizations\Visualizations\HtmlTable;
 use Piwik\Plugins\CustomReports\Archiver;
 use Piwik\Plugins\CustomReports\GetCustomReport;
@@ -27,8 +28,8 @@ use Piwik\Plugins\CustomReports\RecordBuilders\CustomReport;
 
 class Table extends ReportType
 {
-    const ID = 'table';
-    const NUM_MAX_DIMENSIONS = 3;
+    public const ID = 'table';
+    public const NUM_MAX_DIMENSIONS = 3;
 
     public function getName()
     {
@@ -83,10 +84,9 @@ class Table extends ReportType
         if (!empty($dimension) && $dimension->getSegmentName() && !$flat && !$idSubtable) {
             if ($dimension instanceof DownloadUrl) {
                 // skip see DEV-2635, for now disabling as the segment won't work properly
-            }
-            // we do not add segmented label to table when requesting a subtable since we would need to combine the segment
-            // with the root table or all root tables above this table. We do not have this information though
-            elseif (!empty($reportData['segment_filter'])) {
+            } elseif (!empty($reportData['segment_filter'])) {
+                // we do not add segmented label to table when requesting a subtable since we would need to combine the segment
+                // with the root table or all root tables above this table. We do not have this information though
                 $segmentFilter = $reportData['segment_filter'];
                 $segmentNameDimension = $dimension->getSegmentName();
                 $table->filter(function (DataTable $table) use ($segmentFilter, $segmentNameDimension) {
@@ -118,6 +118,4 @@ class Table extends ReportType
 
         return $table;
     }
-
-
 }

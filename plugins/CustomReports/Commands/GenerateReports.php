@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -64,7 +65,7 @@ class GenerateReports extends ConsoleCommand
                 }
                 $usedNames[] = $name;
 
-                API::getInstance()->addCustomReport(1, $name, Table::ID, ['nb_uniq_visitors'], false, [$dim['uniqueId']] );
+                API::getInstance()->addCustomReport(1, $name, Table::ID, ['nb_uniq_visitors'], false, [$dim['uniqueId']]);
             }
         }
 
@@ -76,10 +77,10 @@ class GenerateReports extends ConsoleCommand
             }
         }
 
-        API::getInstance()->addCustomReport(1, 'visit all metrics', Table::ID, $allMetr, false, ["DevicesDetection.BrowserName"] );
-        API::getInstance()->addCustomReport(1, 'action all metrics', Table::ID, $allMetr, false, ["Actions.PageUrl"] );
-        API::getInstance()->addCustomReport(1, 'media all metrics', Table::ID, $allMetr, false, ["MediaAnalytics.MediaLength"] );
-        API::getInstance()->addCustomReport(1, 'conversion all metrics', Table::ID, $allMetr, false, ["Goals.Revenue"] );
+        API::getInstance()->addCustomReport(1, 'visit all metrics', Table::ID, $allMetr, false, ["DevicesDetection.BrowserName"]);
+        API::getInstance()->addCustomReport(1, 'action all metrics', Table::ID, $allMetr, false, ["Actions.PageUrl"]);
+        API::getInstance()->addCustomReport(1, 'media all metrics', Table::ID, $allMetr, false, ["MediaAnalytics.MediaLength"]);
+        API::getInstance()->addCustomReport(1, 'conversion all metrics', Table::ID, $allMetr, false, ["Goals.Revenue"]);
 
         return self::SUCCESS;
     }

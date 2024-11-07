@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -43,5 +44,4 @@ class SegmentFilter
 
         new Segment($this->segment, $this->idSites);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -17,7 +18,6 @@ namespace Piwik\Plugins\CustomReports;
 
 use Piwik\Columns\DimensionsProvider;
 use Piwik\Common;
-use Piwik\Config;
 use Piwik\Container\StaticContainer;
 use Piwik\Piwik;
 use Piwik\Plugin\ReportsProvider;
@@ -176,7 +176,7 @@ class Controller extends \Piwik\Plugin\Controller
         $view = Factory::build($type->getDefaultViewDataTable(), 'CustomReports.getCustomReport', 'CustomReports.previewReport', true);
         $view->setDataTable($dataTable);
 
-        $reportInstance = ReportsProvider::factory('CustomReports','getCustomReport');
+        $reportInstance = ReportsProvider::factory('CustomReports', 'getCustomReport');
         if (!$reportInstance) {
             // user has not configured any custom reports yet, we need to configure manually otherwise it won't work
             // because reports are cached
@@ -271,8 +271,14 @@ class Controller extends \Piwik\Plugin\Controller
 
         // Use getCustomReport as the controller action so that the apiMethod and currentControllerAction match
         // This is important so that the stored viewDataTableParameters values for the report are used
-        $view = $this->getLastUnitGraphAcrossPlugins($this->pluginName, 'getCustomReport', $columns,
-            $selectableColumns, $documentation, 'CustomReports.getCustomReport');
+        $view = $this->getLastUnitGraphAcrossPlugins(
+            $this->pluginName,
+            'getCustomReport',
+            $columns,
+            $selectableColumns,
+            $documentation,
+            'CustomReports.getCustomReport'
+        );
 
         if (empty($view->config->columns_to_display) && $report->getDefaultSortColumn()) {
             $view->config->columns_to_display = array($report->getDefaultSortColumn());
