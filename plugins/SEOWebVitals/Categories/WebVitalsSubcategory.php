@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SEOWebVitals\Categories;
 
 use Piwik\Category\Subcategory;
@@ -27,6 +29,12 @@ class WebVitalsSubcategory extends Subcategory
     public function getHelp()
     {
         return '<p>' . Piwik::translate('SEOWebVitals_WebVitalsReportDocumentation') . '</p>'
-            . '<p><a target="_blank" rel="noopener noreferrer" href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/guide/reports/seo-web-vitals/', null, null, 'App.SEOWebVitals.subcategory') . '"><span class="icon-info"></span> ' . Piwik::translate('SEOWebVitals_LearnMoreWebVitalAndImprove') . '</a></p>';
+            . '<p><a target="_blank" rel="noopener noreferrer" href="'
+            . Url::addCampaignParametersToMatomoLink(
+                'https://matomo.org/guide/reports/seo-web-vitals/',
+                null,
+                null,
+                'App.SEOWebVitals.subcategory'
+            ) . '"><span class="icon-info"></span> ' . Piwik::translate('SEOWebVitals_LearnMoreWebVitalAndImprove') . '</a></p>';
     }
 }

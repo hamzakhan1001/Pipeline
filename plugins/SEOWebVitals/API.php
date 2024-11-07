@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -24,7 +25,6 @@ use Piwik\Plugins\SEOWebVitals\Dao\Pages;
 use Piwik\Plugins\SEOWebVitals\DataTable\Filter\Audits;
 use Piwik\Plugins\SEOWebVitals\DataTable\Filter\CalculateAverages;
 use Piwik\Plugins\SEOWebVitals\DataTable\Filter\ShortenUrl;
-use Piwik\Site;
 
 /**
  * API for plugin SEOWebVitals
@@ -81,7 +81,7 @@ class API extends \Piwik\Plugin\API
             'period' => 'range',
             'date' => Date::now()->subMonth(1)->toString() . ',' . Date::now()->toString()
         ], []);
-        $siteUrls = array_map(function($row)  {
+        $siteUrls = array_map(function ($row) {
             /** @var DataTable\Row $row */
             return $row->getMetadata('url');
         }, $siteUrls->getRowsWithoutSummaryRow());

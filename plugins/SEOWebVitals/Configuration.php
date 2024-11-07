@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,9 +20,9 @@ use Piwik\Config;
 
 class Configuration
 {
-    const DEFAULT_MAX_URLS_PER_SITE = -1;
+    public const DEFAULT_MAX_URLS_PER_SITE = -1;
 
-    const KEY_MAX_URLS_PER_SITE = 'max_urls_monitor_per_site';
+    public const KEY_MAX_URLS_PER_SITE = 'max_urls_monitor_per_site';
 
     public function install()
     {

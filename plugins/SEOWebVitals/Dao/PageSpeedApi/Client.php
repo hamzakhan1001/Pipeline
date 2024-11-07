@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -29,5 +30,4 @@ class Client
     {
         return Http::sendHttpRequest($apiUrl, 120);
     }
-
 }

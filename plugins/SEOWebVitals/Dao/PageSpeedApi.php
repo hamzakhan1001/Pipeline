@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -15,20 +16,18 @@
 
 namespace Piwik\Plugins\SEOWebVitals\Dao;
 
-use Piwik\Http;
 use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedApi\Client;
 use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedApi\PageSpeedApiException;
 use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedApi\QuotaExceededException;
 use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedApi\SslRequiredException;
 use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedApi\AccessDeniedException;
-use Piwik\Plugins\SEOWebVitals\SystemSettings;
 use Piwik\UrlHelper;
 use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedApi\SiteNotAccesibleException;
 
 class PageSpeedApi
 {
-    const STRATEGY_DESKTOP = 'DESKTOP';
-    const STRATEGY_MOBILE = 'MOBILE';
+    public const STRATEGY_DESKTOP = 'DESKTOP';
+    public const STRATEGY_MOBILE = 'MOBILE';
 
     private $apiKey = '';
 
@@ -67,9 +66,9 @@ class PageSpeedApi
             $apiKey = '&key=' . rawurlencode($this->apiKey);
         }
         if ($strategy === self::STRATEGY_DESKTOP || $strategy === self::STRATEGY_MOBILE) {
-            $strategy = 'strategy='.rawurlencode($strategy);
+            $strategy = 'strategy=' . rawurlencode($strategy);
         }
-        $apiUrl = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?'.$strategy . $apiKey .'&url=' . rawurlencode($url);
+        $apiUrl = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?' . $strategy . $apiKey . '&url=' . rawurlencode($url);
 
         $response = $this->client->fetch($apiUrl);
         if (empty($response)) {
@@ -83,7 +82,7 @@ class PageSpeedApi
         if (!empty($response['error']['code'])) {
             if ($response['error']['code'] === 403) {
                 // Quota exceeded for quota metric 'Queries' and limit 'Queries per minute' of service 'pagespeedonline.googleapis.com' for consumer 'project_number:...'
-                if (stripos($response['error']['message'], 'SSL') !== FALSE) {
+                if (stripos($response['error']['message'], 'SSL') !== false) {
                     //since SSL error is thrown as 403
                     throw new SslRequiredException($response['error']['status'] . ': ' . $response['error']['message']);
                 } else {
@@ -114,5 +113,4 @@ class PageSpeedApi
     {
         return [self::STRATEGY_MOBILE, self::STRATEGY_DESKTOP];
     }
-
 }

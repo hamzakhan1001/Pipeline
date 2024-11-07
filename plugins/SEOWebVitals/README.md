@@ -75,3 +75,16 @@ With the SEO Web Vitals plugin, you can track your site's Web Vitals performance
 Unlock your website's true potential with the SEO Web Vitals plugin. Effortlessly monitor, analyse, and enhance your site's performance, paving the way for better user experiences and higher search rankings.
 
 Start your 30-day free trial and propel your website to the forefront of search rankings and user satisfaction.
+
+### Privacy features
+
+* This plugin does not store any personal or sensitive data.
+
+### Integrates with Matomo Analytics platform
+
+* Create [custom alerts](https://plugins.matomo.org/CustomAlerts) and be notified when specific web vital metrics change.
+* View the evolution over time of any web vital metrics to see when certain changes happened with [Row Evolution](https://matomo.org/docs/row-evolution/).
+* View your web vital reports on the [Matomo Mobile App](https://matomo.org/mobile/).
+* Get your web vital reports by [email](https://matomo.org/docs/email-reports/) to you, your colleagues or customers.
+* Export the web vital reports directly in your app, dashboard, or even TV screen! Even your real time reports can be [embedded](https://matomo.org/docs/embed-piwik-report/) anywhere.
+* Change the visualisation to view for example only mobile or only desktop web vital metrics.

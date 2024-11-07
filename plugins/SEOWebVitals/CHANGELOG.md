@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.8 - 2024-11-05
+- Updated README.md
+
 5.0.7 - 2024-08-26
 - Pricing updated
 

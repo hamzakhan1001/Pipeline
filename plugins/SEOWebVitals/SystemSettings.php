@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -36,7 +37,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
             $field->description = Piwik::translate('SEOWebVitals_PageSpeedApiTokenDescription');
             // todo replace the link to google API by a link to an faq from us which we need to write and describe step by step how to get the api key
-            $field->inlineHelp = '<a href="https://developers.google.com/speed/docs/insights/v5/get-started#APIKey">'.Piwik::translate('SEOWebVitals_ClickToConfigureApiKey').'</a>';
+            $field->inlineHelp = '<a href="https://developers.google.com/speed/docs/insights/v5/get-started#APIKey">' . Piwik::translate('SEOWebVitals_ClickToConfigureApiKey') . '</a>';
             $field->transform = function ($value) {
                 return trim($value);
             };

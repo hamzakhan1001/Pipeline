@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -19,43 +20,39 @@ use Piwik\Columns\Dimension;
 use Piwik\Common;
 use Piwik\Option;
 use Piwik\Piwik;
-use Piwik\Plugins\MobileAppMeasurable\Type as MobileAppType;
 use Piwik\Plugins\SEOWebVitals\Dao\PageSpeedApi;
-use Piwik\Settings\Setting;
-use Piwik\Settings\FieldConfig;
 
 class Metrics
 {
+    public const METRIC_AUDIT_SCORE = 'nb_audit_score';
+    public const METRIC_AUDIT_NUMERIC_VALUE = 'nb_audit_numeric';
+    public const METRIC_AUDIT_DISPLAY_VALUE = 'audit_display_value';
+    public const METRIC_AUDIT_NUM_CHECKS = 'nb_audit_num_checks';
 
-    const METRIC_AUDIT_SCORE = 'nb_audit_score';
-    const METRIC_AUDIT_NUMERIC_VALUE = 'nb_audit_numeric';
-    const METRIC_AUDIT_DISPLAY_VALUE = 'audit_display_value';
-    const METRIC_AUDIT_NUM_CHECKS = 'nb_audit_num_checks';
+    public const METRIC_PERFORMANCE_SCORE = 'performance_score';
 
-    const METRIC_PERFORMANCE_SCORE = 'performance_score';
+    public const METRIC_LOAD_EXPERIENCE_NUM_CHECKS = 'nb_load_experience_num_checks';
 
-    const METRIC_LOAD_EXPERIENCE_NUM_CHECKS = 'nb_load_experience_num_checks';
+    public const METRIC_LOAD_EXPERIENCE_CLS_CATEGORY = 'cls_category'; // CUMULATIVE_LAYOUT_SHIFT_SCORE
+    public const METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE = 'nb_cls_numericvalue';
 
-    const METRIC_LOAD_EXPERIENCE_CLS_CATEGORY = 'cls_category'; // CUMULATIVE_LAYOUT_SHIFT_SCORE
-    const METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE = 'nb_cls_numericvalue';
+    public const METRIC_LOAD_EXPERIENCE_LCP_CATEGORY = 'lcp_category'; // largest contentful paint
+    public const METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE = 'nb_lcp_numericvalue';
 
-    const METRIC_LOAD_EXPERIENCE_LCP_CATEGORY = 'lcp_category'; // largest contentful paint
-    const METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE = 'nb_lcp_numericvalue';
+    public const METRIC_LOAD_EXPERIENCE_FCP_CATEGORY = 'fcp_category'; // largest contentful paint
+    public const METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE = 'nb_fcp_numericvalue';
 
-    const METRIC_LOAD_EXPERIENCE_FCP_CATEGORY = 'fcp_category'; // largest contentful paint
-    const METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE = 'nb_fcp_numericvalue';
+    public const METRIC_LOAD_EXPERIENCE_FID_CATEGORY = 'fid_category'; // first input delay
+    public const METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE = 'nb_fid_numericvalue';
 
-    const METRIC_LOAD_EXPERIENCE_FID_CATEGORY = 'fid_category'; // first input delay
-    const METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE = 'nb_fid_numericvalue';
+    public const METRIC_LOAD_EXPERIENCE_INP_CATEGORY = 'inp_category'; // interaction to next paint
+    public const METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE = 'nb_inp_numericvalue';
 
-    const METRIC_LOAD_EXPERIENCE_INP_CATEGORY = 'inp_category'; // interaction to next paint
-    const METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE = 'nb_inp_numericvalue';
-
-    const OPTION_KEY_AUDIT_METRICS = 'SEOWebVitals_AuditMetrics';
+    public const OPTION_KEY_AUDIT_METRICS = 'SEOWebVitals_AuditMetrics';
 
     private $auditMetricsCached = null;
 
-    const TOP_LEVEL_ROW_METRICS = [
+    public const TOP_LEVEL_ROW_METRICS = [
         Metrics::METRIC_PERFORMANCE_SCORE,
         Metrics::METRIC_LOAD_EXPERIENCE_CLS_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE,
@@ -73,7 +70,7 @@ class Metrics
         Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE,
     ];
 
-    const TOP_LEVEL_NUMERIC_CATEGORY_MAPPING = [
+    public const TOP_LEVEL_NUMERIC_CATEGORY_MAPPING = [
         Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_CLS_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_LCP_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_FCP_CATEGORY,
@@ -81,7 +78,7 @@ class Metrics
         Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_INP_CATEGORY
     ];
 
-    const SUB_LEVEL_ROW_METRICS = [Metrics::METRIC_AUDIT_SCORE, Metrics::METRIC_AUDIT_NUMERIC_VALUE, Metrics::METRIC_AUDIT_DISPLAY_VALUE];
+    public const SUB_LEVEL_ROW_METRICS = [Metrics::METRIC_AUDIT_SCORE, Metrics::METRIC_AUDIT_NUMERIC_VALUE, Metrics::METRIC_AUDIT_DISPLAY_VALUE];
 
     public static function isStrategyMetric($metric, $strategy)
     {
@@ -217,5 +214,4 @@ class Metrics
             return trim($description);
         }
     }
-
 }

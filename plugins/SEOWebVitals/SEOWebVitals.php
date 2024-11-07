@@ -5,9 +5,10 @@
  * Description: Improve your website performance, rank higher in search results and optimise your visitor experience with SEO Web Vitals.
  * Author: InnoCraft
  * Author URI: https://matomo.org
- * Version: 5.0.7
+ * Version: 5.0.8
  */
 ?><?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -57,7 +58,7 @@ class SEOWebVitals extends \Piwik\Plugin
             'Archiving.getIdSitesToArchiveWhenNoVisits'   => 'getIdSitesToArchiveWhenNoVisits',
             'AssetManager.getJavaScriptFiles' => 'getJsFiles',
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
-            'Metrics.isLowerValueBetter'=> 'isLowerMetricValueBetter'
+            'Metrics.isLowerValueBetter' => 'isLowerMetricValueBetter'
         );
     }
 
@@ -95,7 +96,6 @@ class SEOWebVitals extends \Piwik\Plugin
 
         // todo query which sites have configured URLs and which ones not
         $idSites = array_unique(array_merge($idSites, $allIdSites));
-
     }
 
     public function install()

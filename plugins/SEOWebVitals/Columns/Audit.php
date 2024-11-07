@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -20,5 +21,4 @@ use Piwik\Plugin\Dimension\ActionDimension;
 class Audit extends ActionDimension
 {
     protected $nameSingular = 'SEOWebVitals_AuditLabData';
-
 }
