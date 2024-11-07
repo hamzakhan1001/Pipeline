@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.0.18__ - 2024-11-05
+- Updated README.md
+
 __5.0.17__ - 2024-10-08
 - Improved access check for managing accounts
 

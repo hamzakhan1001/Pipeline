@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Reports;
 
 use Piwik\Common;
@@ -23,6 +24,7 @@ use Piwik\Plugins\CoreVisualizations\Visualizations\Sparklines;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Yandex as YandexRecordBuilder;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
+
 class GetCrawlingOverviewYandex extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\Base
 {
     protected function init()
@@ -46,8 +48,28 @@ class GetCrawlingOverviewYandex extends \Piwik\Plugins\SearchEngineKeywordsPerfo
         $view->config->show_all_views_icons = \false;
         $view->config->show_table_all_columns = \false;
         $view->config->setDefaultColumnsToDisplay([YandexRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME], \false, \false);
-        $view->config->addTranslations([YandexRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlInIndex'), YandexRecordBuilder::CRAWLSTATS_APPEARED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlAppearedPages'), YandexRecordBuilder::CRAWLSTATS_REMOVED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlRemovedPages'), YandexRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlCrawledPages'), YandexRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus2xx'), YandexRecordBuilder::CRAWLSTATS_CODE_3XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus3xx'), YandexRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus4xx'), YandexRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus5xx'), YandexRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlErrors')]);
-        $view->config->selectable_columns = [YandexRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_APPEARED_PAGES_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_REMOVED_PAGES_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_CODE_3XX_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME, YandexRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME];
+        $view->config->addTranslations([
+            YandexRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlInIndex'),
+            YandexRecordBuilder::CRAWLSTATS_APPEARED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlAppearedPages'),
+            YandexRecordBuilder::CRAWLSTATS_REMOVED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlRemovedPages'),
+            YandexRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlCrawledPages'),
+            YandexRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus2xx'),
+            YandexRecordBuilder::CRAWLSTATS_CODE_3XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus3xx'),
+            YandexRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus4xx'),
+            YandexRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlHttpStatus5xx'),
+            YandexRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME => Piwik::translate('SearchEngineKeywordsPerformance_YandexCrawlErrors')
+        ]);
+        $view->config->selectable_columns = [
+            YandexRecordBuilder::CRAWLSTATS_IN_INDEX_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_APPEARED_PAGES_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_REMOVED_PAGES_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_CRAWLED_PAGES_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_CODE_2XX_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_CODE_3XX_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_CODE_4XX_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_CODE_5XX_RECORD_NAME,
+            YandexRecordBuilder::CRAWLSTATS_ERRORS_RECORD_NAME
+        ];
         $this->configureSegmentNotSupported($view);
     }
     public function configureWidgets(WidgetsList $widgetsList, ReportWidgetFactory $factory)

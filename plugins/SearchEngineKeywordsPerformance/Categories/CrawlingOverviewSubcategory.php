@@ -13,10 +13,12 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Categories;
 
 use Piwik\Category\Subcategory;
 use Piwik\Piwik;
+
 class CrawlingOverviewSubcategory extends Subcategory
 {
     protected $categoryId = 'Referrers_Referrers';

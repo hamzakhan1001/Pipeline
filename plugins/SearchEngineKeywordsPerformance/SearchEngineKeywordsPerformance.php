@@ -5,7 +5,7 @@
  * Description: All keywords searched by your users on search engines are now visible into your Referrers reports! The ultimate solution to 'Keyword not defined'.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/SearchEngineKeywordsPerformance
- * Version: 5.0.17
+ * Version: 5.0.18
  */
 ?><?php
 
@@ -22,17 +22,16 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance;
 
 use Piwik\Access;
 use Piwik\API\Request;
 use Piwik\Cache;
 use Piwik\Common;
-use Piwik\Container\StaticContainer;
 use Piwik\DataTable;
 use Piwik\Date;
 use Piwik\Notification;
-use Piwik\Nonce;
 use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin\Manager;
@@ -50,8 +49,8 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Google;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Yandex;
 use Piwik\Plugins\WebsiteMeasurable\Type as WebsiteMeasurableType;
 use Piwik\Site;
-use Piwik\Url;
 use Piwik\View;
+
  
 if (defined( 'ABSPATH')
 && function_exists('add_action')) {
@@ -72,15 +71,34 @@ if (defined( 'ABSPATH')
 
 class SearchEngineKeywordsPerformance extends \Piwik\Plugin
 {
-    const REQUEST_PARAM_ORIGINAL_REPORT = '__preventReplace';
+    public const REQUEST_PARAM_ORIGINAL_REPORT = '__preventReplace';
     /**
      * @see \Piwik\Plugin::registerEvents
      */
     public function registerEvents()
     {
-        return ['AssetManager.getStylesheetFiles' => 'getStylesheetFiles', 'Metrics.getDefaultMetricDocumentationTranslations' => 'addMetricDocumentationTranslations', 'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations', 'Metrics.getDefaultMetricSemanticTypes' => 'addDefaultMetricSemanticTypes', 'Metrics.isLowerValueBetter' => 'checkIsLowerMetricValueBetter', 'ViewDataTable.configure.end' => 'configureViewDataTable', 'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys', 'Report.filterReports' => 'manipulateReports', 'API.Request.intercept' => 'manipulateApiRequests', 'API.Referrers.getAll' => 'manipulateAllReferrersReport', 'API.Referrers.getSearchEngines' => 'manipulateSearchEnginesReportParameters', 'API.Referrers.getSearchEngines.end' => 'manipulateSearchEnginesReport', 'API.Referrers.getKeywordsFromSearchEngineId.end' => 'manipulateSearchEnginesKeywordsReport', 'Request.dispatch' => 'manipulateRequests', 'Archiving.getIdSitesToArchiveWhenNoVisits' => 'getIdSitesToArchiveWhenNoVisits', 'Db.getTablesInstalled' => 'getTablesInstalled', 'SearchEngineKeywordsPerformance.getGoogleConfigComponentExtensions' => 'getGoogleConfigComponent', 'Archiver.addRecordBuilders' => 'addRecordBuilders'];
+        return [
+            'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
+            'Metrics.getDefaultMetricDocumentationTranslations' => 'addMetricDocumentationTranslations',
+            'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
+            'Metrics.getDefaultMetricSemanticTypes' => 'addDefaultMetricSemanticTypes',
+            'Metrics.isLowerValueBetter' => 'checkIsLowerMetricValueBetter',
+            'ViewDataTable.configure.end' => 'configureViewDataTable',
+            'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
+            'Report.filterReports' => 'manipulateReports',
+            'API.Request.intercept' => 'manipulateApiRequests',
+            'API.Referrers.getAll' => 'manipulateAllReferrersReport',
+            'API.Referrers.getSearchEngines' => 'manipulateSearchEnginesReportParameters',
+            'API.Referrers.getSearchEngines.end' => 'manipulateSearchEnginesReport',
+            'API.Referrers.getKeywordsFromSearchEngineId.end' => 'manipulateSearchEnginesKeywordsReport',
+            'Request.dispatch' => 'manipulateRequests',
+            'Archiving.getIdSitesToArchiveWhenNoVisits' => 'getIdSitesToArchiveWhenNoVisits',
+            'Db.getTablesInstalled' => 'getTablesInstalled',
+            'SearchEngineKeywordsPerformance.getGoogleConfigComponentExtensions' => 'getGoogleConfigComponent',
+            'Archiver.addRecordBuilders' => 'addRecordBuilders'
+        ];
     }
-    public function addRecordBuilders(array &$recordBuilders) : void
+    public function addRecordBuilders(array &$recordBuilders): void
     {
         $idSite = \Piwik\Request::fromRequest()->getIntegerParameter('idSite', 0);
         if (!$idSite) {
@@ -126,7 +144,10 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
         $reportsToUnset = ['\\Piwik\\Plugins\\Referrers\\Reports\\GetKeywords'];
         $report = new \Piwik\Plugins\SearchEngineKeywordsPerformance\Reports\GetKeywords();
         if (!$report->isBingEnabled() && !$report->isAnyGoogleTypeEnabled() && !$report->isYandexEnabled()) {
-            $reportsToUnset = ['\\Piwik\\Plugins\\SearchEngineKeywordsPerformance\\Reports\\GetKeywords', '\\Piwik\\Plugins\\SearchEngineKeywordsPerformance\\Reports\\GetKeywordsReferrers'];
+            $reportsToUnset = [
+                '\\Piwik\\Plugins\\SearchEngineKeywordsPerformance\\Reports\\GetKeywords',
+                '\\Piwik\\Plugins\\SearchEngineKeywordsPerformance\\Reports\\GetKeywordsReferrers'
+            ];
         }
         foreach ($reportsToUnset as $unset) {
             foreach ($reports as $key => $report) {
@@ -148,7 +169,12 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
     {
         # Search Engines subtable of Channel Type report is replaced with combined keywords report
         # as combined keywords report only has visits column, ensure to always use simple table view
-        if ($module === 'Referrers' && $action === 'getReferrerType' && Common::REFERRER_TYPE_SEARCH_ENGINE == Common::getRequestVar('idSubtable', '') && 'tableAllColumns' == Common::getRequestVar('viewDataTable', '') && !$this->shouldShowOriginalReports()) {
+        if (
+            $module === 'Referrers' && $action === 'getReferrerType'
+            && Common::REFERRER_TYPE_SEARCH_ENGINE == Common::getRequestVar('idSubtable', '')
+            && 'tableAllColumns' == Common::getRequestVar('viewDataTable', '')
+            && !$this->shouldShowOriginalReports()
+        ) {
             $_GET['viewDataTable'] = 'table';
         }
         # Keywords subtable of Search Engines report for configured providers are replaced
@@ -313,7 +339,7 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
         # If any import is configured, rows of the `getSearchEngines` report will be aggregated into one row per imported engine
         # e.g. `Google`, `Google Images`, and so on will be aggregated into a `Google` row. Same for Bing & Yahoo
         #
-        $returnedValue->filter('GroupBy', ['label', function ($label) use($bingEnabled, $googleEnabled, $yandexEnabled) {
+        $returnedValue->filter('GroupBy', ['label', function ($label) use ($bingEnabled, $googleEnabled, $yandexEnabled) {
             if ($bingEnabled && (strpos($label, 'Yahoo') !== \false || strpos($label, 'Bing') !== \false)) {
                 return 'Bing & Yahoo!';
             } else {
@@ -335,7 +361,7 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
         // replace numbers for aggregated rows if no segment was applied
         if (empty($finalParameters['parameters']['segment']) && Common::getRequestVar('viewDataTable', '') !== 'tableGoals') {
             foreach ($tablesToFilter as $label => $table) {
-                $table->filter(function (DataTable $dataTable) use($googleEnabled, $bingEnabled, $yandexEnabled, $label, $finalParameters) {
+                $table->filter(function (DataTable $dataTable) use ($googleEnabled, $bingEnabled, $yandexEnabled, $label, $finalParameters) {
                     // label should hold the period representation
                     if ($finalParameters['parameters']['period'] != 'range') {
                         try {
@@ -603,7 +629,12 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
             $row = $dataTable->getRowFromIdSubDataTable($viewDataTable->requestConfig->idSubtable);
             if ($row) {
                 $label = $row->getColumn('label');
-                if (strpos($label, 'Google') !== \false && $report->isAnyGoogleTypeEnabled() || strpos($label, 'Yandex') !== \false && $report->isYandexEnabled() || (strpos($label, 'Bing') !== \false || strpos($label, 'Yahoo') !== \false) && $report->isBingEnabled()) {
+                if (
+                    strpos($label, 'Google') !== \false && $report->isAnyGoogleTypeEnabled()
+                    || strpos($label, 'Yandex') !== \false && $report->isYandexEnabled()
+                    || (strpos($label, 'Bing') !== \false
+                    || strpos($label, 'Yahoo') !== \false) && $report->isBingEnabled()
+                ) {
                     if ($this->shouldShowOriginalReports()) {
                         $viewDataTable->config->addRelatedReport('Referrers.getKeywordsFromSearchEngineId', Piwik::translate('SearchEngineKeywordsPerformance_KeywordsSubtableImported'), [self::REQUEST_PARAM_ORIGINAL_REPORT => 0]);
                     } else {
@@ -671,7 +702,7 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
         $stylesheets[] = "plugins/SearchEngineKeywordsPerformance/stylesheets/styles.less";
         $stylesheets[] = "plugins/SearchEngineKeywordsPerformance/vue/src/Configure/ConfigureConnection.less";
     }
-    public function addDefaultMetricSemanticTypes(&$types) : void
+    public function addDefaultMetricSemanticTypes(&$types): void
     {
         $types = array_merge($types, \Piwik\Plugins\SearchEngineKeywordsPerformance\Metrics::getMetricSemanticTypes());
     }
@@ -836,7 +867,7 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
         // force enable reports for rollups where child pages are configured
         if (class_exists('\\Piwik\\Plugins\\RollUpReporting\\Type') && \Piwik\Plugins\RollUpReporting\Type::ID === Site::getTypeFor($idSite)) {
             //Need to execute this as a superuser, since a user can have access to a rollup site but not all the child sites
-            Access::doAsSuperUser(function () use($searchEngine, $idSite, &$result) {
+            Access::doAsSuperUser(function () use ($searchEngine, $idSite, &$result) {
                 $rollUpModel = new \Piwik\Plugins\RollUpReporting\Model();
                 $childIdSites = $rollUpModel->getChildIdSites($idSite);
                 foreach ($childIdSites as $childIdSite) {
@@ -867,7 +898,7 @@ class SearchEngineKeywordsPerformance extends \Piwik\Plugin
      * @return void
      * @throws \Exception
      */
-    public static function displayNotificationIfRecentApiErrorsExist(array $providers) : void
+    public static function displayNotificationIfRecentApiErrorsExist(array $providers): void
     {
         $recentErrorMessages = [];
         foreach ($providers as $provider) {

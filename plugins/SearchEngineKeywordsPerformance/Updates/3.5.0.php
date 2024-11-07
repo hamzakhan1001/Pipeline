@@ -13,11 +13,13 @@
  * @link https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance;
 
 use Piwik\Updater;
 use Piwik\Updater\Migration\Factory as MigrationFactory;
 use Piwik\Updates as PiwikUpdates;
+
 class Updates_3_5_0 extends PiwikUpdates
 {
     /**

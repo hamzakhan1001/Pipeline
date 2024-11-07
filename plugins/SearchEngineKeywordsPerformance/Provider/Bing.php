@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Provider;
 
 use Piwik\Container\StaticContainer;
@@ -24,7 +25,7 @@ class Bing extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Provi
     /**
      * @inheritdoc
      */
-    const ID = 'Bing';
+    public const ID = 'Bing';
     /**
      * @inheritdoc
      */

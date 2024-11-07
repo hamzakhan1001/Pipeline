@@ -70,3 +70,18 @@ It's time you enjoy an unparalleled data-driven SEO strategy with Matomo. Start 
 
 ## Dependencies
 This plugin had its vendored dependencies scoped using [matomo scoper](https://github.com/matomo-org/matomo-scoper). This means that composer packages are prefixed so that they won't conflict with the same libraries used by other plugins. If you need to update a dependency, you should be able to run `composer install` to populate the vendor directory, make sure that you have the [DevPluginCommands plugin](https://github.com/innocraft/dev-plugin-commands) installed, and run the following command `./console devplugincommands:process-dependencies --plugin="SearchEngineKeywordsPerformance" --downgrade-php` to scope and transpile the dependencies.
+
+### Features
+* New Search Keywords report in Matomo Referrers section.
+* View Keywords analytics by search type (web VS image VS video).
+* View combined Keywords across all search engines (Google + Bing + Yahoo + Yandex).
+* Monitor Keyword rankings and Search Engine Optimisation performance for each keyword with [Row Evolution](https://matomo.org/docs/row-evolution/).
+* New Crawling overview report show how Search engines bots crawl your websites (Bing + Yahoo and Yandex).
+* View crawling overview key metrics (for Bing + Yahoo and Yandex): crawled pages, total pages in index, total inboud links, robots.txt exclusion page count, crawl errors, DNS failures, connection timeouts, page redirects (301, 302 http status), error pages (4xx http status), internet error pages (5xx http status).
+* Import the detailed list of search keywords for Google search, Google images and Google Videos directly from Google Search Console.
+* Import the detailed list of search keywords from Bing and Yahoo! search directly from Bing Webmaster Tools.
+* Import the detailed list of search keywords from Yandex search directly from Yandex Webmaster API.
+* View all crawling errors with detailed reasons like server errors, robots.txt exclusions, not found pages, ... (Bing + Yahoo)
+* Possibility to add support for other search engines that provide their data through an API (contact us).
+* Get your Keyword analytics SEO reports by [email](https://matomo.org/docs/email-reports/) to you, your colleagues or customers.
+* Export your Keyword analytics report using the [Search Keywords Performance Monitor API](http://developer.matomo.org/api-reference/reporting-api#SearchEngineKeywordsPerformance). 

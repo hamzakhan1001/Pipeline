@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Diagnostic;
 
 use Piwik\Plugins\Diagnostics\Diagnostic\Diagnostic;
@@ -22,6 +23,7 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Google;
 use Piwik\Site;
 use Piwik\Translation\Translator;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Google as ProviderGoogle;
+
 /**
  * Check the used google accounts.
  */

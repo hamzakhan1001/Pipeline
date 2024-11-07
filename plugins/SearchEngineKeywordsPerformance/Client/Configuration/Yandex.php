@@ -13,14 +13,16 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client\Configuration;
 
 use Piwik\Common;
 use Piwik\Option;
+
 class Yandex extends BaseConfiguration
 {
-    const OAUTH_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Yandex_Accounts';
-    const CLIENT_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Yandex_Client';
+    public const OAUTH_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Yandex_Accounts';
+    public const CLIENT_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Yandex_Client';
     protected $accounts = [];
     protected $clientConfig = [];
     /**

@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Provider;
 
 use Piwik\Container\StaticContainer;
@@ -23,7 +24,7 @@ class Google extends \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Pro
     /**
      * @inheritdoc
      */
-    const ID = 'Google';
+    public const ID = 'Google';
     /**
      * @inheritdoc
      */

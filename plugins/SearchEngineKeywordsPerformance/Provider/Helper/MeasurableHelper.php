@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Helper;
 
 use Piwik\Container\StaticContainer;

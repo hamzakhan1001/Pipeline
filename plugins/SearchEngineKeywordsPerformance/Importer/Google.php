@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Importer;
 
 use Piwik\ArchiveProcessor;
@@ -42,9 +43,10 @@ use Piwik\Site;
 use Piwik\Log\LoggerInterface;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Google as Provider;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Google as GoogleRecordBuilder;
+
 class Google
 {
-    const DATATABLE_METADATA_TEMPORARY = 'isTemporary';
+    public const DATATABLE_METADATA_TEMPORARY = 'isTemporary';
     /**
      * @var int site id
      */
@@ -294,14 +296,22 @@ class Google
         foreach ($rows as $keywordDataSet) {
             /** @var \Google\Service\SearchConsole\ApiDataRow $keywordDataSet */
             $keys = $keywordDataSet->getKeys();
-            $rowData = [DataTable\Row::COLUMNS => ['label' => reset($keys), Metrics::NB_CLICKS => (int) $keywordDataSet->getClicks(), Metrics::NB_IMPRESSIONS => (int) $keywordDataSet->getImpressions(), Metrics::CTR => (float) $keywordDataSet->getCtr(), Metrics::POSITION => (float) $keywordDataSet->getPosition()]];
+            $rowData = [
+                DataTable\Row::COLUMNS => [
+                    'label' => reset($keys),
+                    Metrics::NB_CLICKS => (int) $keywordDataSet->getClicks(),
+                    Metrics::NB_IMPRESSIONS => (int) $keywordDataSet->getImpressions(),
+                    Metrics::CTR => (float) $keywordDataSet->getCtr(),
+                    Metrics::POSITION => (float) $keywordDataSet->getPosition()
+                ]
+            ];
             $row = new DataTable\Row($rowData);
             $dataTable->addRow($row);
         }
         unset($keywordData);
         return $dataTable;
     }
-    protected function isImportAllowedForDate($date) : bool
+    protected function isImportAllowedForDate($date): bool
     {
         $site = new Site($this->idSite);
         $siteCreationDate = $site->getCreationDate()->subDay(30);

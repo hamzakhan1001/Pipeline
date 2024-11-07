@@ -13,15 +13,17 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client\Configuration;
 
 use Piwik\Option;
+
 class Bing extends BaseConfiguration
 {
     /**
      * Key used to store accounts in options table
      */
-    const CLIENT_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Bing_Accounts';
+    public const CLIENT_CONFIG_OPTION_NAME = 'SearchEngineKeywordsPerformance_Bing_Accounts';
     protected $accounts = [];
     /**
      * Returns stored accounts

@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Importer;
 
 use Piwik\ArchiveProcessor;
@@ -39,6 +40,7 @@ use Piwik\Site;
 use Piwik\Log\LoggerInterface;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Yandex as Provider;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\RecordBuilders\Yandex as YandexRecordBuilder;
+
 class Yandex
 {
     /**
@@ -47,7 +49,7 @@ class Yandex
      * If an empty result is returned by the API for such a day, the result will not be stored at all
      * This prevents the UI from displaying that data is available for such a day
      */
-    const MAX_DAYS_KEYWORD_DATA_DELAY = 6;
+    public const MAX_DAYS_KEYWORD_DATA_DELAY = 6;
     /**
      * Site id
      *
@@ -225,7 +227,15 @@ class Yandex
             if (empty($keywordDataSet['keyword'])) {
                 continue;
             }
-            $rowData = [DataTable\Row::COLUMNS => ['label' => $keywordDataSet['keyword'], Metrics::NB_CLICKS => (int) $keywordDataSet['clicks'], Metrics::NB_IMPRESSIONS => (int) $keywordDataSet['impressions'], Metrics::CTR => (float) round($keywordDataSet['clicks'] / $keywordDataSet['impressions'], 2), Metrics::POSITION => (float) $keywordDataSet['position']]];
+            $rowData = [
+                DataTable\Row::COLUMNS => [
+                    'label' => $keywordDataSet['keyword'],
+                    Metrics::NB_CLICKS => (int) $keywordDataSet['clicks'],
+                    Metrics::NB_IMPRESSIONS => (int) $keywordDataSet['impressions'],
+                    Metrics::CTR => (float) round($keywordDataSet['clicks'] / $keywordDataSet['impressions'], 2),
+                    Metrics::POSITION => (float) $keywordDataSet['position']
+                ]
+            ];
             $row = new DataTable\Row($rowData);
             $dataTable->addRow($row);
         }

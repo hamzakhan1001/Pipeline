@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -63,10 +64,22 @@ return [
             }
 
             if ($filePath === __DIR__ . '/vendor/google/apiclient/src/Client.php') {
-                $content = str_replace(['Monolog\Handler\StreamHandler', 'Monolog\Handler\SyslogHandler', 'Monolog\Logger'], ['\Piwik\Plugins\Monolog\Handler\FileHandler', '\Piwik\Plugins\SearchEngineKeywordsPerformance\Monolog\Handler\SEKPSystemLogHandler', '\Piwik\Log\Logger'], $content);
+                $content = str_replace(
+                    [
+                        'Monolog\Handler\StreamHandler',
+                        'Monolog\Handler\SyslogHandler', 'Monolog\Logger'
+                    ],
+                    [
+                        '\Piwik\Plugins\Monolog\Handler\FileHandler',
+                        '\Piwik\Plugins\SearchEngineKeywordsPerformance\Monolog\Handler\SEKPSystemLogHandler',
+                        '\Piwik\Log\Logger'
+                    ],
+                    $content
+                );
             }
 
-            if ($filePath === __DIR__ . '/vendor/google/apiclient/src/aliases.php'
+            if (
+                $filePath === __DIR__ . '/vendor/google/apiclient/src/aliases.php'
                 || $filePath === __DIR__ . '/vendor/google/apiclient-services/autoload.php'
             ) {
                 $content = preg_replace_callback('/([\'"])Google_/', function ($matches) {
@@ -108,8 +121,11 @@ EOF;
             // Fix the string reference of a scoped dependency in the Math lib
             $escapedPrefix = str_replace('\\', '\\\\', $prefix);
             if ($filePath === __DIR__ . '/vendor/phpseclib/phpseclib/phpseclib/Math/BigInteger.php') {
-                $content = str_replace('phpseclib3\\\\Math\\\\BigInteger\\\\Engines\\\\',
-                    "{$escapedPrefix}\\\\phpseclib3\\\\Math\\\\BigInteger\\\\Engines\\\\", $content);
+                $content = str_replace(
+                    'phpseclib3\\\\Math\\\\BigInteger\\\\Engines\\\\',
+                    "{$escapedPrefix}\\\\phpseclib3\\\\Math\\\\BigInteger\\\\Engines\\\\",
+                    $content
+                );
             }
 
             return $content;

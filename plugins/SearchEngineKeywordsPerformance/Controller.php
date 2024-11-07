@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -42,7 +43,7 @@ use Piwik\Url;
 
 class Controller extends \Piwik\Plugin\ControllerAdmin
 {
-    const OAUTH_STATE_NONCE_NAME = 'SearchEngineKeywordsPerformance.oauthStateNonce';
+    public const OAUTH_STATE_NONCE_NAME = 'SearchEngineKeywordsPerformance.oauthStateNonce';
 
     public function index()
     {
@@ -89,8 +90,10 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
 
         if (count($provider->getConfiguredSiteIds()) == 0) {
-            $notification          = new Notification(Piwik::translate('SearchEngineKeywordsPerformance_NoWebsiteConfiguredWarning',
-                $provider->getName()));
+            $notification          = new Notification(Piwik::translate(
+                'SearchEngineKeywordsPerformance_NoWebsiteConfiguredWarning',
+                $provider->getName()
+            ));
             $notification->context = Notification::CONTEXT_WARNING;
             Notification\Manager::notify($provider->getId() . 'nowebsites', $notification);
         }
@@ -98,16 +101,20 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $errors = $provider->getConfigurationProblems();
 
         if (count($errors['sites'])) {
-            $notification          = new Notification(Piwik::translate('SearchEngineKeywordsPerformance_ProviderXSitesWarning',
-                [$provider->getName()]));
+            $notification          = new Notification(Piwik::translate(
+                'SearchEngineKeywordsPerformance_ProviderXSitesWarning',
+                [$provider->getName()]
+            ));
             $notification->context = Notification::CONTEXT_WARNING;
             $notification->raw     = true;
             Notification\Manager::notify($provider->getId() . 'siteswarning', $notification);
         }
 
         if (count($errors['accounts'])) {
-            $notification          = new Notification(Piwik::translate('SearchEngineKeywordsPerformance_ProviderXAccountWarning',
-                [$provider->getName()]));
+            $notification          = new Notification(Piwik::translate(
+                'SearchEngineKeywordsPerformance_ProviderXAccountWarning',
+                [$provider->getName()]
+            ));
             $notification->context = Notification::CONTEXT_WARNING;
             $notification->raw     = true;
             Notification\Manager::notify($provider->getId() . 'accountwarning', $notification);
@@ -206,8 +213,10 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             if ($account['hasAccess']) {
                 ++$countOfAccountsWithAccess;
             }
-            $account['created_formatted'] = Date::factory(date('Y-m-d',
-                $account['created']))->getLocalized(Date::DATE_FORMAT_LONG);
+            $account['created_formatted'] = Date::factory(date(
+                'Y-m-d',
+                $account['created']
+            ))->getLocalized(Date::DATE_FORMAT_LONG);
             try {
                 $googleClient->testConfiguration($id);
             } catch (\Exception $e) {
@@ -274,7 +283,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
         $configureConnectionProps = [];
         $configureConnectionProps['baseUrl'] = Url::getCurrentUrlWithoutQueryString();
-        $configureConnectionProps['baseDomain'] = Url::getCurrentScheme().'://'.Url::getCurrentHost();
+        $configureConnectionProps['baseDomain'] = Url::getCurrentScheme() . '://' . Url::getCurrentHost();
         $configureConnectionProps['manualConfigNonce'] = $viewVariables['nonce'];
         $configureConnectionProps['primaryText'] = Piwik::translate('SearchEngineKeywordsPerformance_ConfigureTheImporterLabel1');
 
@@ -286,13 +295,15 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $isConnectAccountsActivated = Manager::getInstance()->isPluginActivated('ConnectAccounts');
         $authBaseUrl = $isConnectAccountsActivated ? "https://" . StaticContainer::get('CloudAccountsInstanceId') . '/index.php?' : '';
         $jwt = Common::getRequestVar('state', '', 'string');
-        if(empty($jwt) && Piwik::hasUserSuperUserAccess() && $isConnectAccountsActivated) {
+        if (empty($jwt) && Piwik::hasUserSuperUserAccess() && $isConnectAccountsActivated) {
             // verify an existing user by supplying a jwt too
-            $jwt = ConnectHelper::buildOAuthStateJwt(SettingsPiwik::getPiwikInstanceId(),
-                ConnectAccounts::INITIATED_BY_SEK);
+            $jwt = ConnectHelper::buildOAuthStateJwt(
+                SettingsPiwik::getPiwikInstanceId(),
+                ConnectAccounts::INITIATED_BY_SEK
+            );
         }
         $googleAuthUrl = '';
-        if($isConnectAccountsActivated) {
+        if ($isConnectAccountsActivated) {
             $strategyName = GoogleSearchConnect::getStrategyName();
             $googleAuthUrl = $authBaseUrl . Http::buildQuery([
                     'module' => 'ConnectAccounts',
@@ -314,7 +325,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
 
         $configureConnectionProps['isConnectAccountsActivated'] = $isConnectAccountsActivated;
-        if($isConnectAccountsActivated) {
+        if ($isConnectAccountsActivated) {
             $configureConnectionProps['radioOptions'] = [
                 'connectAccounts' => Piwik::translate('SearchEngineKeywordsPerformance_OptionQuickConnectWithGoogle'),
                 'manual' => Piwik::translate('ConnectAccounts_OptionAdvancedConnectWithGa'),
@@ -352,7 +363,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $config = Common::getRequestVar('client', '');
 
         if (empty($config) && !empty($_FILES['clientfile'])) {
-
             if (!empty($_FILES['clientfile']['error'])) {
                 return false;
             }
@@ -609,7 +619,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
                 $viewVariables['error'] = $e->getMessage();
                 $viewVariables['apikey'] = $apiKey;
             }
-
         }
 
         $this->addBingSiteConfigIfProvided();
@@ -621,8 +630,10 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $countOfAccountsWithAccess = 0;
         foreach ($accounts as &$account) {
             $account['urls']              = [];
-            $account['created_formatted'] = Date::factory(date('Y-m-d',
-                $account['created']))->getLocalized(Date::DATE_FORMAT_LONG);
+            $account['created_formatted'] = Date::factory(date(
+                'Y-m-d',
+                $account['created']
+            ))->getLocalized(Date::DATE_FORMAT_LONG);
             $account['hasAccess'] = Piwik::hasUserSuperUserAccessOrIsTheUser($account['username']);
             if ($account['hasAccess']) {
                 ++$countOfAccountsWithAccess;
@@ -638,8 +649,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
             if ($account['hasAccess']) {
                 foreach ($bingClient->getAvailableUrls($account['apiKey']) as $url => $status) {
-                    $urlOptions[$account['apiKey'] . '##' . $url] = $url . ' (' . substr($account['apiKey'], 0,
-                            5) . '*****' . substr($account['apiKey'], -5, 5) . ')';
+                    $urlOptions[$account['apiKey'] . '##' . $url] = $url . ' (' . substr(
+                        $account['apiKey'],
+                        0,
+                        5
+                    ) . '*****' . substr($account['apiKey'], -5, 5) . ')';
                 }
             }
         }
@@ -795,7 +809,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $notification          = new Notification(Piwik::translate('SearchEngineKeywordsPerformance_ClientConfigImported'));
             $notification->context = Notification::CONTEXT_SUCCESS;
             Notification\Manager::notify('clientConfigSaved', $notification);
-        } else if (false === $configSaved) {
+        } elseif (false === $configSaved) {
             $notification          = new Notification(Piwik::translate('SearchEngineKeywordsPerformance_ClientConfigSaveError'));
             $notification->context = Notification::CONTEXT_ERROR;
             Notification\Manager::notify('clientConfigSaved', $notification);
@@ -817,9 +831,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $account['urls']              = [];
             $account['picture']           = $userInfo['picture'];
             $account['name']              = $userInfo['name'];
-            $account['created_formatted'] = Date::factory(date('Y-m-d',
-                $account['created']))->getLocalized(Date::DATE_FORMAT_LONG);
-            $account['authDaysAgo']       = floor((time() - $account['created']) / (3600*24));
+            $account['created_formatted'] = Date::factory(date(
+                'Y-m-d',
+                $account['created']
+            ))->getLocalized(Date::DATE_FORMAT_LONG);
+            $account['authDaysAgo']       = floor((time() - $account['created']) / (3600 * 24));
             $account['hasAccess'] = Piwik::hasUserSuperUserAccessOrIsTheUser($account['username']);
             if ($account['hasAccess']) {
                 ++$countOfAccountsWithAccess;
@@ -902,7 +918,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
 
         $viewVariables['baseUrl'] = Url::getCurrentUrlWithoutQueryString();
-        $viewVariables['baseDomain'] = Url::getCurrentScheme().'://'.Url::getCurrentHost();
+        $viewVariables['baseDomain'] = Url::getCurrentScheme() . '://' . Url::getCurrentHost();
 
         return $this->renderTemplate('yandex\configuration', $viewVariables);
     }

@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Provider;
 
 use Piwik\Metrics\Formatter;
@@ -25,8 +26,8 @@ abstract class ProviderAbstract extends Singleton
     /**
      * internal provider id
      */
-    const ID = '';
-    const OPTION_PREFIX_LAST_ERROR_TIME = 'searchEngineKeywordsLastApiErrorTime_';
+    public const ID = '';
+    public const OPTION_PREFIX_LAST_ERROR_TIME = 'searchEngineKeywordsLastApiErrorTime_';
 
     /**
      * Returns internal provider id
@@ -51,55 +52,55 @@ abstract class ProviderAbstract extends Singleton
      *
      * @return string
      */
-    public abstract function getName();
+    abstract public function getName();
     /**
      * Returns an array with up to two logos to be displayed for the provider
      *
      * @return array
      */
-    public abstract function getLogoUrls();
+    abstract public function getLogoUrls();
     /**
      * Returns the description to be shown for the provider
      *
      * @return string
      */
-    public abstract function getDescription();
+    abstract public function getDescription();
     /**
      * Returns additional notes to be displayed
      *
      * @return string
      */
-    public abstract function getNote();
+    abstract public function getNote();
     /**
      * Returns wether the provider is fully configured and can be used
      *
      * @return bool
      */
-    public abstract function isConfigured();
+    abstract public function isConfigured();
     /**
      * Returns the provider client
      *
      * @return mixed
      */
-    public abstract function getClient();
+    abstract public function getClient();
     /**
      * Returns Site IDs that are configured for import
      *
      * @return array
      */
-    public abstract function getConfiguredSiteIds();
+    abstract public function getConfiguredSiteIds();
     /**
      * Returns an array with problems in current account and website configuration
      *
      * @return array [ sites => [], accounts => [] ]
      */
-    public abstract function getConfigurationProblems();
+    abstract public function getConfigurationProblems();
     /**
      * Record a new timestamp for the current provider indicating an API error occurred.
      *
      * @return void
      */
-    public function recordNewApiErrorForProvider() : void
+    public function recordNewApiErrorForProvider(): void
     {
         Option::set(self::OPTION_PREFIX_LAST_ERROR_TIME . $this->getId(), time());
     }
@@ -108,7 +109,7 @@ abstract class ProviderAbstract extends Singleton
      *
      * @return int Unix timestamp or 0;
      */
-    public function getLastApiErrorTimestamp() : int
+    public function getLastApiErrorTimestamp(): int
     {
         $option = Option::get(self::OPTION_PREFIX_LAST_ERROR_TIME . $this->getId());
         if (empty($option)) {
@@ -121,7 +122,7 @@ abstract class ProviderAbstract extends Singleton
      *
      * @return bool Indicates whether the most recent API error was less than a week ago.
      */
-    public function hasApiErrorWithinWeek() : bool
+    public function hasApiErrorWithinWeek(): bool
     {
         $timestamp = $this->getLastApiErrorTimestamp();
         if ($timestamp === 0) {
@@ -134,7 +135,7 @@ abstract class ProviderAbstract extends Singleton
      *
      * @return string Either the message or empty string depending on whether there's been a recent error.
      */
-    public function getRecentApiErrorMessage() : string
+    public function getRecentApiErrorMessage(): string
     {
         $message = '';
         if ($this->hasApiErrorWithinWeek()) {

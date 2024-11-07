@@ -13,10 +13,12 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Columns;
 
 use Piwik\Columns\Dimension;
 use Piwik\Piwik;
+
 class Keyword extends Dimension
 {
     public function getName()

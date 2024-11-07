@@ -13,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\SearchEngineKeywordsPerformance\Client;
 
 use Piwik\Date;
@@ -24,27 +25,28 @@ use Piwik\Plugins\SearchEngineKeywordsPerformance\Client\Configuration\Bing as C
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\InvalidCredentialsException;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\RateLimitApiException;
 use Piwik\Plugins\SearchEngineKeywordsPerformance\Exceptions\UnknownAPIException;
+
 class Bing
 {
     /**
      * Bing API Error codes (see https://msdn.microsoft.com/en-us/library/hh969357.aspx)
      */
-    const API_ERROR_INTERNAL = 1;
-    const API_ERROR_UNKNOWN = 2;
-    const API_ERROR_INVALID_API_KEY = 3;
-    const API_ERROR_THROTTLE_USER = 4;
-    const API_ERROR_THROTTLE_HOST = 5;
-    const API_ERROR_USER_BLOCKED = 6;
-    const API_ERROR_INVALID_URL = 7;
-    const API_ERROR_INVALID_PARAM = 8;
-    const API_ERROR_TOO_MANY_SITES = 9;
-    const API_ERROR_USER_NOT_FOUND = 10;
-    const API_ERROR_NOT_FOUND = 11;
-    const API_ERROR_ALREADY_EXISTS = 12;
-    const API_ERROR_NOT_ALLOWED = 13;
-    const API_ERROR_NOT_AUTHORIZED = 14;
-    const OPTION_NAME_THROTTLE_TIME = 'SEKP.Bing.ThrottleUser.%s';
-    const THROTTLE_BREAK_HOURS = 3;
+    public const API_ERROR_INTERNAL = 1;
+    public const API_ERROR_UNKNOWN = 2;
+    public const API_ERROR_INVALID_API_KEY = 3;
+    public const API_ERROR_THROTTLE_USER = 4;
+    public const API_ERROR_THROTTLE_HOST = 5;
+    public const API_ERROR_USER_BLOCKED = 6;
+    public const API_ERROR_INVALID_URL = 7;
+    public const API_ERROR_INVALID_PARAM = 8;
+    public const API_ERROR_TOO_MANY_SITES = 9;
+    public const API_ERROR_USER_NOT_FOUND = 10;
+    public const API_ERROR_NOT_FOUND = 11;
+    public const API_ERROR_ALREADY_EXISTS = 12;
+    public const API_ERROR_NOT_ALLOWED = 13;
+    public const API_ERROR_NOT_AUTHORIZED = 14;
+    public const OPTION_NAME_THROTTLE_TIME = 'SEKP.Bing.ThrottleUser.%s';
+    public const THROTTLE_BREAK_HOURS = 3;
     /**
      * @var Configuration
      */
@@ -82,7 +84,10 @@ class Bing
     public function removeAccount($apiKey)
     {
         $this->configuration->removeAccount($apiKey);
-        Piwik::postEvent('SearchEngineKeywordsPerformance.AccountRemoved', [['provider' => \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Bing::getInstance()->getName(), 'account' => substr($apiKey, 0, 5) . '*****' . substr($apiKey, -5, 5)]]);
+        Piwik::postEvent(
+            'SearchEngineKeywordsPerformance.AccountRemoved',
+            [['provider' => \Piwik\Plugins\SearchEngineKeywordsPerformance\Provider\Bing::getInstance()->getName(), 'account' => substr($apiKey, 0, 5) . '*****' . substr($apiKey, -5, 5)]]
+        );
         return \true;
     }
     /**
@@ -270,7 +275,9 @@ class Bing
                 if ($isUnknownError) {
                     throw new UnknownAPIException($response['Message'], $response['ErrorCode']);
                 }
-                $authenticationError = strpos($response['Message'], 'NotAuthorized') !== \false || strpos($response['Message'], 'InvalidApiKey') !== \false || in_array($response['ErrorCode'], [self::API_ERROR_NOT_AUTHORIZED, self::API_ERROR_INVALID_API_KEY]);
+                $authenticationError = strpos($response['Message'], 'NotAuthorized') !== \false
+                    || strpos($response['Message'], 'InvalidApiKey') !== \false
+                    || in_array($response['ErrorCode'], [self::API_ERROR_NOT_AUTHORIZED, self::API_ERROR_INVALID_API_KEY]);
                 if ($authenticationError) {
                     throw new InvalidCredentialsException($response['Message'], $response['ErrorCode']);
                 }
