@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,11 +13,11 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\LoginSaml;
 
 use Piwik\Log\Logger;
 use OneLogin\Saml2\Error;
-use OneLogin\Saml2\IdPMetadataParser;
 use Piwik\Common;
 use Piwik\Config as PiwikConfig;
 use Piwik\Container\StaticContainer;
@@ -26,7 +27,7 @@ use Piwik\Plugin\ControllerAdmin;
 use Piwik\Url;
 use Piwik\Version;
 use Piwik\View;
-use \Exception;
+use Exception;
 
 /**
  * Login controller
@@ -105,7 +106,7 @@ class Controller extends \Piwik\Plugins\Login\Controller
             $errors = $settings->validateMetadata($metadata);
             if (!empty($errors)) {
                 throw new \Exception(
-                    'Invalid SP metadata: '.implode(', ', $errors)
+                    'Invalid SP metadata: ' . implode(', ', $errors)
                 );
             }
 
@@ -204,7 +205,7 @@ class Controller extends \Piwik\Plugins\Login\Controller
 
                 $returnTo = null;
                 $piwikUserLogin = Piwik::getCurrentUserLogin();
-                $this->logger->info("Initiated the Single Log Out for user with login ".$piwikUserLogin);
+                $this->logger->info("Initiated the Single Log Out for user with login " . $piwikUserLogin);
                 $samlAuth->logout($returnTo, array(), $nameId, $sessionIndex, false, $nameIdFormat, $nameIdNameQualifier, $nameIdSPNameQualifier);
             } else {
                 $this->redirectToDashboardWithError("SAML Single Log Out is disabled.");
@@ -230,7 +231,7 @@ class Controller extends \Piwik\Plugins\Login\Controller
 
                 $errors = $samlAuth->getErrors();
                 if (!empty($errors)) {
-                    $this->logger->error('SAMLResponse rejected. '.$samlAuth->getLastErrorReason());
+                    $this->logger->error('SAMLResponse rejected. ' . $samlAuth->getLastErrorReason());
                     $this->logger->debug($samlAuth->getLastResponseXML());
                     $errorMsg = "Invalid SAMLResponse. ";
                     if ($debug) {
@@ -247,14 +248,14 @@ class Controller extends \Piwik\Plugins\Login\Controller
                         $attributes = $samlAuth->getAttributes();
                     }
 
-                    $this->logger->debug('Attributes: '.json_encode($attributes));
+                    $this->logger->debug('Attributes: ' . json_encode($attributes));
                     $nameId = $samlAuth->getNameId();
                     $nameidFormat = $samlAuth->getNameIdFormat();
                     $sessionIndex = $samlAuth->getSessionIndex();
                     $nameIdNameQualifier = $samlAuth->getNameIdNameQualifier();
                     $nameIdSPNameQualifier = $samlAuth->getNameIdSPNameQualifier();
                     $sessionExpiration = $samlAuth->getSessionExpiration();
-                    $this->logger->debug('NameId: '.$nameId.'  ||  NameIDFormat: '.$nameidFormat .'  ||  SessionIndex:'.$sessionIndex);
+                    $this->logger->debug('NameId: ' . $nameId . '  ||  NameIDFormat: ' . $nameidFormat . '  ||  SessionIndex:' . $sessionIndex);
 
                     // Check if user exists
                     $isNewUser = empty($this->samlFactory->retrieveUserIfExists($attributes, $nameId));
@@ -323,7 +324,7 @@ class Controller extends \Piwik\Plugins\Login\Controller
         if (Config::isSamlEnabled()) {
             if (Config::isSamlSLOEnabled()) {
                 $piwikUserLogin = Piwik::getCurrentUserLogin();
-                $this->logger->info("Initiated the Single Logout Service for user with login ".$piwikUserLogin);
+                $this->logger->info("Initiated the Single Logout Service for user with login " . $piwikUserLogin);
                 $retrieveFromServer = Config::getConfigOption('advanced_retrieve_parameters_from_server');
 
                 try {
@@ -334,12 +335,12 @@ class Controller extends \Piwik\Plugins\Login\Controller
                     $samlAuth->processSLO(false, null, $retrieveFromServer, $callBackLogout);
                     $errors = $samlAuth->getErrors();
                     if (!empty($errors)) {
-                        $this->logger->error("Error at Single Logout Service endpoint. User with login ".$piwikUserLogin.". ".$samlAuth->getLastErrorReason());
+                        $this->logger->error("Error at Single Logout Service endpoint. User with login " . $piwikUserLogin . ". " . $samlAuth->getLastErrorReason());
                     } else {
-                        $this->logger->info("Single Logout Service executed. User with login ".$piwikUserLogin." logged out");
+                        $this->logger->info("Single Logout Service executed. User with login " . $piwikUserLogin . " logged out");
                     }
 
-                    $logoutUrl = Url::getCurrentUrlWithoutFileName().'index.php';
+                    $logoutUrl = Url::getCurrentUrlWithoutFileName() . 'index.php';
 
                     $generalConfig = PiwikConfig::getInstance()->General;
                     if (!empty($generalConfig['login_logout_url'])) {
@@ -376,7 +377,7 @@ class Controller extends \Piwik\Plugins\Login\Controller
     private function redirectToLoginWithError($errorMessage)
     {
         $baseUrl = Url::getCurrentUrlWithoutFileName();
-        $loginUrl = $baseUrl . 'index.php?samlErrorMessage='.urlencode($errorMessage);
+        $loginUrl = $baseUrl . 'index.php?samlErrorMessage=' . urlencode($errorMessage);
         Url::redirectToUrl($loginUrl);
         exit();
     }

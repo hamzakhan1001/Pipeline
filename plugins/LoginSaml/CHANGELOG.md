@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.1 - 2024-11-05
+- Updated README.md
+
 5.1.0 - 2024-10-15
 - Fixes normal login flow to work only for superusers
 - Added code to skip password confirmation for create token auth

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -12,6 +13,7 @@
  * @link    https://www.innocraft.com/
  * @license For license details see https://www.innocraft.com/license
  */
+
 namespace Piwik\Plugins\LoginSaml\Saml;
 
 use Piwik\Log\Logger;
@@ -162,7 +164,7 @@ class UserAccessParser
     {
         // if the user is a superuser, we don't need to check the other attributes
         if ($this->isSuperUserAccessGrantedForSamlUser()) {
-            $this->logger->debug("UserAccessParser::".__FUNCTION__.": user found to be superuser");
+            $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": user found to be superuser");
 
             return array('superuser' => true);
         }
@@ -193,19 +195,19 @@ class UserAccessParser
 
     private function addSiteAccess(&$sitesByAccess, $accessLevel, $accessAttributeValues)
     {
-        $this->logger->debug("UserAccessParser::".__FUNCTION__.": attribute value for ".$accessLevel." access is ".join(',', $accessAttributeValues));
+        $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": attribute value for " . $accessLevel . " access is " . join(',', $accessAttributeValues));
 
         $siteIds = array();
         foreach ($accessAttributeValues as $value) {
             $siteIds = array_merge($siteIds, $this->getSiteIdsFromAccessAttribute($value));
         }
 
-        $this->logger->debug("UserAccessParser::".__FUNCTION__.": adding ".$accessLevel." access for sites: ".join(',', $siteIds));
+        $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": adding " . $accessLevel . " access for sites: " . join(',', $siteIds));
 
         $allSitesSet = $this->getSetOfAllSites();
         foreach ($siteIds as $idSite) {
             if (!isset($allSitesSet[$idSite])) {
-                $this->logger->debug("UserAccessParser::".__FUNCTION__.": site [ id = ".$idSite." ] does not exist, ignoring");
+                $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": site [ id = " . $idSite . " ] does not exist, ignoring");
                 continue;
             }
 
@@ -295,7 +297,8 @@ class UserAccessParser
     {
         $attributeValue = trim(strval($attributeValue));
 
-        if ($attributeValue === '1'
+        if (
+            $attributeValue === '1'
             || strtolower($attributeValue) === 'true'
             || empty($attributeValue)
         ) {
@@ -358,9 +361,9 @@ class UserAccessParser
 
         if (count($parts) == 1) {
             return array(null, trim($parts[0]));
-        } else if (count($parts) >= 2) {
+        } elseif (count($parts) >= 2) {
             if (count($parts) > 2) {
-                $this->logger->debug("UserAccessParser::".__FUNCTION__.": Improper server specification in SAML access attribute: '".$spec."'");
+                $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": Improper server specification in SAML access attribute: '" . $spec . "'");
             }
 
             $parts = array($parts[0], $parts[1]);
@@ -392,7 +395,7 @@ class UserAccessParser
                 $result = false;
             } else {
                 if (strlen($matches[0]) != strlen($instanceId)) {
-                    $this->logger->debug("UserAccessParser::".__FUNCTION__.": Found extra characters in Matomo instance ID. Whole ID entry = ".$instanceId.".");
+                    $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": Found extra characters in Matomo instance ID. Whole ID entry = " . $instanceId . ".");
                 }
 
                 $result = true;
@@ -400,7 +403,7 @@ class UserAccessParser
         }
 
         if ($result) {
-            $this->logger->debug("UserAccessParser::".__FUNCTION__.": Matched this instance with '".$instanceId."'.");
+            $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": Matched this instance with '" . $instanceId . "'.");
         }
 
         return $result;
@@ -428,9 +431,9 @@ class UserAccessParser
         $parsed = @parse_url($url);
         if (empty($parsed)) {
             if ($isThisPiwikUrl) {
-                $this->logger->warning("UserAccessParser::".__FUNCTION__.": Invalid Matomo URL found for this instance '".$url."'.");
+                $this->logger->warning("UserAccessParser::" . __FUNCTION__ . ": Invalid Matomo URL found for this instance '" . $url . "'.");
             } else {
-                $this->logger->debug("UserAccessParser::".__FUNCTION__.": Invalid instance ID URL found '".$url."'.");
+                $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": Invalid instance ID URL found '" . $url . "'.");
             }
 
             return false;
@@ -442,7 +445,7 @@ class UserAccessParser
         }
 
         if (empty($parsed['host'])) {
-            $this->logger->debug("UserAccessParser::".__FUNCTION__.": Found strange URL - '".$url."'.");
+            $this->logger->debug("UserAccessParser::" . __FUNCTION__ . ": Found strange URL - '" . $url . "'.");
             $parsed['host'] = '';
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -31,14 +32,13 @@ return array(
         $logger = new Logger('LoginSaml', array($handler));
 
         return $logger;
-
     }),
 
     'LoginSaml.log.level' => DI::factory(function (Container $c) {
         if ($c->has('ini.LoginSaml.log_level')) {
             $level = $c->get('ini.LoginSaml.log_level');
             return constant('Piwik\Log\Logger::' . strtoupper($level));
-        } else if ($c->has('ini.log.log_level')) {
+        } elseif ($c->has('ini.log.log_level')) {
             return $c->get('ini.log.log_level');
         } else {
             return Logger::ERROR;
