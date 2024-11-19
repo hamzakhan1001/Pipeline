@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.0 - 2024-11-18
+- Added an option to sort subcategory reports
+
 5.0.19 - 2024-11-05
 - Updated README.md
 

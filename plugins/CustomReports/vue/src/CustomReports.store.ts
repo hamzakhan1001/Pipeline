@@ -285,13 +285,13 @@ class CustomReportsStore {
     });
   }
 
-  findReport(idCustomReport: number): Promise<DeepReadonly<CustomReport>> {
+  findReport(idCustomReport: number, isReload: boolean): Promise<DeepReadonly<CustomReport>> {
     // before going through an API request we first try to find it in loaded reports
     const found = this.state.value.reports.find(
       (r) => parseInt(`${r.idcustomreport}`, 10) === idCustomReport,
     );
 
-    if (found) {
+    if (found && !isReload) {
       return Promise.resolve(found);
     }
 
@@ -334,6 +334,7 @@ class CustomReportsStore {
   createOrUpdateReport(
     report: CustomReport,
     method: string,
+    childReportIds: Array<string|number>,
   ): Promise<{ type: string, message?: string, response?: { value: number|string }}> {
     this.privateState.isUpdating = true;
     return AjaxHelper.post<{ value: number|string }>(
@@ -347,6 +348,7 @@ class CustomReportsStore {
         categoryId: report.category?.id,
         subcategoryId: report.subcategory?.id,
         idSite: report.site.id,
+        subCategoryReportIds: childReportIds,
       },
       {
         dimensionIds: arrayFilterAndRemoveDuplicates(report.dimensions),

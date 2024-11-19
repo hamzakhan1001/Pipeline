@@ -126,9 +126,13 @@ class GetCustomReport extends Report
         // TODO we may need to adjust defaultSortColumn if it was ignored by report builder eg if metric is actually
         // not joinable anymore or does not exist anymore
         $this->defaultSortColumn = reset($report['metrics']);
+        $this->order = 0;
 
         if (!empty($report['subcategory']['id'])) {
             $this->subcategoryId = $report['subcategory']['id'];
+            if ($report['subcategory_order'] != 9999999) {
+                $this->order = $report['subcategory_order'];
+            }
         } elseif (!empty($report['category']['id']) && $report['category']['id'] === CustomReportsDao::DEFAULT_CATEGORY) {
             $this->subcategoryId = $report['idcustomreport'];
         } else {

@@ -5,7 +5,7 @@
  * Description: Pull out the information you need in order to be successful. Develop your custom strategy to meet your individualized goals while saving money & time.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.0.19
+ * Version: 5.1.0
  */
 ?><?php
 
@@ -359,6 +359,8 @@ class CustomReports extends \Piwik\Plugin
         $result[] = 'CustomReports_InfoReportIsLockedBrowserArchivingDisabled';
         $result[] = 'CustomReports_Dimension';
         $result[] = 'CustomReports_WarningProductRevenueMetricDependency';
+        $result[] = 'CustomReports_OrderSubCategoryReports';
+        $result[] = 'CustomReports_OrderSubCategoryReportsDescription';
     }
 
     public function addGlossaryItems(&$glossaryItems)

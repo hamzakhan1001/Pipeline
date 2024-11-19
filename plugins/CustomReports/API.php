@@ -199,8 +199,9 @@ class API extends \Piwik\Plugin\API
      *                                   call 'CustomReports.getAvailableCategories'.
      * @param string $description  An optional description for the report, will be shown in the title help icon of the report.
      * @param string $segmentFilter   An optional segment to filter the report data. Needs to be sent urlencoded.
+     * @param int[] $subCategoryReportIds List of sub report ids mapped to this report
      */
-    public function updateCustomReport($idSite, $idCustomReport, $name, $reportType, $metricIds, $categoryId = false, $dimensionIds = array(), $subcategoryId = false, $description = '', $segmentFilter = '')
+    public function updateCustomReport($idSite, $idCustomReport, $name, $reportType, $metricIds, $categoryId = false, $dimensionIds = array(), $subcategoryId = false, $description = '', $segmentFilter = '', $subCategoryReportIds = [])
     {
         $this->validator->checkWritePermission($idSite);
 
@@ -261,7 +262,7 @@ class API extends \Piwik\Plugin\API
             throw new \Exception(Piwik::translate('CustomReports_ErrorProductRevenueMetricDependency'));
         }
 
-        $this->model->updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $updatedDate);
+        $this->model->updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $updatedDate, $subCategoryReportIds);
 
         if ($shouldReArchive) {
             $updatedReport = $this->model->getCustomReportById($idCustomReport);

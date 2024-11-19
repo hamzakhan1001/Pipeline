@@ -81,6 +81,9 @@
         "ProductsWithX": "Products with %s",
         "ContentImpressions": "Content Impressions",
         "ErrorProductRevenueMetricDependency": "Product Revenue metrics need an accompanying Product Quantity metric in the same report.",
-        "WarningProductRevenueMetricDependency": "Product Revenue metrics need an accompanying Product Quantity metric in the same report. The accompanying metric has been added automatically. %1$sLearn more%2$s."
+        "WarningProductRevenueMetricDependency": "Product Revenue metrics need an accompanying Product Quantity metric in the same report. The accompanying metric has been added automatically. %1$sLearn more%2$s.",
+        "OrderSubCategoryReports": "Order Subcategory reports",
+        "OrderSubCategoryReportsDescription": "Optional: Adjust the order in which subcategories will be shown while viewing this custom report.",
+        "ErrorInvalidSubCategoryReport": "Invalid subcategory report ids."
     }
 }
