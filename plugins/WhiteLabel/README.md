@@ -2,6 +2,19 @@
 
 ## Description
 
+White Label plugin will:
+
+* Boost the visibility of your own brand
+* Strengthen the loyalty of your clients and users
+* Change the Matomo header colour to your own branding
+* Remove all the Matomo branded widgets from your users' dashboards
+* Remove marketplace plugin teasers. For example, on the administration home page
+* Remove the help page which promotes Matomo
+* Remove several mentions of Matomo across the UI
+* Whitelabel the tracking endpoints (piwik.js and piwik.php)
+* Optionally, remove links that point to Matomo or Piwik
+* Give you the possibility to change the product name from "Matomo" / "Piwik" to your chosen name
+
 Provide your clients with personalised, white-label dashboards and reports. Elevate your brand identity and credibility with a seamless user experience.
 
 Presenting analytics to your clients should elevate your agency's stature, not undermine it. But when third-party branding sneaks in, it clouds your professionalism and risks clients questioning whose brand they're truly engaging with, diluting the trust you've worked hard to establish.

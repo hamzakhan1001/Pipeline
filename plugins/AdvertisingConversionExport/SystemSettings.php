@@ -20,6 +20,7 @@ use Piwik\Piwik;
 use Piwik\Settings\Setting;
 use Piwik\Settings\FieldConfig;
 use Piwik\Plugins\AdvertisingConversionExport\Validators\ConsentStatus;
+use Piwik\Url;
 
 /**
  * Defines Settings for AdvertisingConversionExport.
@@ -37,6 +38,9 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     /** @var Setting */
     public $ad_personalization_consent_status;
 
+    /** @var Setting */
+    public $anonymize_click_ids;
+
     private $availableStatuses = array('UNKNOWN' => 'Unknown', 'UNSPECIFIED' => 'Unspecified', 'GRANTED' => 'Granted', 'DENIED' => 'Denied');
 
     private const DEFAULT_STATUS = 'UNSPECIFIED';
@@ -45,6 +49,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     {
         $this->ad_user_data_consent_status = $this->createConsentStatus('AdUserData', true);
         $this->ad_personalization_consent_status = $this->createConsentStatus('AdPersonalization');
+        $this->anonymize_click_ids = $this->createAnonymizeClickIds();
     }
 
     private function createConsentStatus($type, $showInlineHelp = false)
@@ -73,6 +78,44 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             };
 
             $field->validators[] = new ConsentStatus($availableStatuses);
+        });
+    }
+
+    private function createAnonymizeClickIds()
+    {
+        $providers = AdvertisingConversionExport::getAvailableClickIdProviders();
+        $defaultValues = [];
+        $availableValues = [];
+        foreach ($providers as $provider) {
+            $defaultValues[] = $provider::ID;
+            $availableValues[] = ['name' => 'anonymizeClickIds[]', 'value' => $provider->getName(), 'key' => $provider::ID];
+        }
+        return $this->makeSetting('anonymizeClickIds', $defaultValues, FieldConfig::TYPE_ARRAY, function (FieldConfig $field) use ($defaultValues, $availableValues) {
+            $faqURL = Url::addCampaignParametersToMatomoLink(
+                'https://matomo.org/faq/advertising-conversion-export/exported-clickids-have-value-as-anonymized/',
+                null,
+                null,
+                'App.CoreAdminHome.generalSettings'
+            );
+            $field->introduction = Piwik::translate('AdvertisingConversionExport_AnonymiseClickIDSettingTitle');
+            $field->inlineHelp = Piwik::translate(
+                'AdvertisingConversionExport_AnonymiseClickIDSettingDescription',
+                [
+                    '<a target="_blank" rel="noreferrer noopener" href="' . $faqURL . '">',
+                    '</a>',
+                    '<br><br><strong>',
+                    '</strong>',
+                ]
+            );
+            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+            $field->availableValues = $availableValues;
+            $field->validate = function ($values) use ($defaultValues) {
+                foreach ($values as $value) {
+                    if (!in_array($value, $defaultValues)) {
+                        throw new \Exception('Invalid value "' . $value . '"');
+                    }
+                }
+            };
         });
     }
 }

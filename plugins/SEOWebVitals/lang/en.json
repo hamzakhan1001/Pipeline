@@ -23,7 +23,6 @@
         "MetricCLSDescription": "Cumulative layout shift measures visual stability which means the movement of visible elements within the view port. Pages should have a CLS of less than 0.1. A lower value is better.",
         "MetricLCPDescription": "Largest contentful paint measures loading performance and marks the time at which the largest text or image is painted. The LCP should occur within 2.5 seconds. A lower value is better.",
         "MetricFCPDescription": "First contentful paint measures the time until the browser can render the first piece of content after a user navigated to your page. Pages should have an FCP of less than 1s. A lower value is better.",
-        "MetricFIDDescription": "First input delay measures interactivity. Pages should have a FID of less than 100ms. A lower value is better. The FCP should occur within 1.5 seconds. A lower value is better.",
         "MetricINPDescription": "INP (Interaction to Next Paint) assesses a page's overall responsiveness to clicks, taps and keyboard interactions. Values under 200ms are generally considered good, values over 500ms are generally considered poor.",
         "DiagnosticReportPerformance": "SEO Web Vitals Performance",
         "DiagnosticInternetDisabledComment": "SEO Web Vitals cannot fetch any data for its report as the internet is disabled on this Matomo.",

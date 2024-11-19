@@ -326,6 +326,28 @@
         >
           {{ translate('CustomReports_ReportEditNotAllowedAllWebsites') }}
         </div>
+        <div class="form-group row" v-if="childReports.length">
+          <h3 class="col s12"
+              v-text="translate('CustomReports_OrderSubCategoryReports')"></h3>
+          <div class="col s12 m6">
+            <ul id="childReports" class="col s12 m6">
+              <li v-for="childReport in childReports"
+                  :key="childReport.idcustomreport"
+                  :data-id="childReport.idcustomreport"
+              >
+                <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{ childReport.name }}
+              </li>
+            </ul>
+          </div>
+          <div class="col s12 m6">
+            <div class="form-help">
+              <div
+                class="form-description"
+                v-text="translate('CustomReports_OrderSubCategoryReportsDescription')">
+              </div>
+            </div>
+          </div>
+        </div>
         <SaveButton
           class="createButton"
           v-show="canEdit"
@@ -401,7 +423,7 @@ import {
 import { Field, SaveButton } from 'CorePluginsAdmin';
 import { SegmentGenerator } from 'SegmentEditor';
 import CustomReportsStore from '../CustomReports.store';
-import { CustomReport } from '../types';
+import { CustomReport, ChildReport } from '../types';
 
 interface ReportEditState {
   isDirty: boolean;
@@ -410,6 +432,8 @@ interface ReportEditState {
   isUnlocked: boolean;
   canEdit: boolean;
   dependencyAdded: boolean;
+  childReports: ChildReport[];
+  childReportIds: Array<string|number>;
 }
 
 const notificationId = 'reportsmanagement';
@@ -451,6 +475,8 @@ export default defineComponent({
       isUnlocked: false,
       canEdit: true,
       dependencyAdded: false,
+      childReports: [],
+      childReportIds: [],
     };
   },
   created() {
@@ -535,7 +561,7 @@ export default defineComponent({
       Matomo.helper.lazyScrollToContent();
 
       if (this.edit && idCustomReport) {
-        CustomReportsStore.findReport(idCustomReport).then((report) => {
+        CustomReportsStore.findReport(idCustomReport, true).then((report) => {
           if (!report) {
             return;
           }
@@ -544,6 +570,27 @@ export default defineComponent({
           this.isLocked = true;
           this.isUnlocked = false;
           this.canEdit = true;
+          this.childReports = this.report.child_reports ?? [];
+          if (this.childReports.length) {
+            Object.values((this.childReports) as ChildReport[]).forEach((value) => {
+              this.childReportIds.push(value.idcustomreport);
+            });
+          }
+          $(document).ready(() => {
+            $('#childReports').sortable({
+              connectWith: '#childReports',
+              update: () => {
+                this.isDirty = true;
+                const childReportsListItems = $('#childReports li');
+                this.childReportIds = [];
+                childReportsListItems.each((idx, li) => {
+                  if (li.dataset.id) {
+                    this.childReportIds.push(li.dataset.id);
+                  }
+                });
+              },
+            });
+          });
 
           let idSite = this.report.idsite;
           if (idSite === 0 || idSite === '0' || idSite === 'all') {
@@ -587,6 +634,7 @@ export default defineComponent({
           },
           subcategory: null,
           segment_filter: '',
+          child_reports: [],
         } as unknown as CustomReport;
         this.isLocked = false;
         this.canEdit = true;
@@ -621,7 +669,11 @@ export default defineComponent({
         return;
       }
 
-      CustomReportsStore.createOrUpdateReport(this.report, method).then((response) => {
+      CustomReportsStore.createOrUpdateReport(
+        this.report,
+        method,
+        this.childReportIds,
+      ).then((response) => {
         if (!response || response.type === 'error' || !response.response) {
           return;
         }
@@ -875,7 +927,11 @@ export default defineComponent({
       }
 
       const method = 'CustomReports.updateCustomReport';
-      CustomReportsStore.createOrUpdateReport(this.report, method).then((response) => {
+      CustomReportsStore.createOrUpdateReport(
+        this.report,
+        method,
+        this.childReportIds,
+      ).then((response) => {
         if (!response || response.type === 'error') {
           return;
         }

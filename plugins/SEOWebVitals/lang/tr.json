@@ -28,7 +28,6 @@
         "MetricAuditScorePercentageDescription": "100 değerinin en iyi olduğu puan yüzdesi.",
         "MetricCLSDescription": "Birikimli görünüm kayması (CLS), bakış açısı içindeki görünür ögelerin hareketi anlamına gelen görsel kararlılığı ölçer. Sayfaların birikimli görünüm kayması geğeri 0,1 altında olmalıdır. Daha düşük bir değer daha iyidir.",
         "MetricFCPDescription": "İlk içerik boyaması (FCP), bir kullanıcının sayfanızı açmasından sonra tarayıcının ilk içerik parçasını oluşturabilmesine kadar geçen süreyi ölçer. Sayfaların ilk içerik boyaması değeri 1 saniyeden az olmalıdır. Daha düşük bir değer daha iyidir.",
-        "MetricFIDDescription": "İlk giriş gecikmesi (FID) etkileşimi ölçer. Sayfaların ilk giriş gecikmesi değeri 100ms altında olmalıdır. Daha düşük bir değer daha iyidir. İlk içerik boyama (FCP) 1,5 saniye içinde gerçekleşmelidir. Daha düşük bir değer daha iyidir.",
         "MetricINPDescription": "INP (Sonraki boyama ile etkileşim), bir sayfanın tıklamalara, dokunmalara ve klavye etkileşimlerine karşı genel duyarlılığını değerlendirir. 200 ms altındaki değerler genellikle iyi kabul edilir, 500 ms üzerindeki değerler ise genellikle kötü olarak kabul edilir.",
         "MetricInformation": "%s bilgiler",
         "MetricInformationDescription": "Bu denetim için ek bilgiler.",

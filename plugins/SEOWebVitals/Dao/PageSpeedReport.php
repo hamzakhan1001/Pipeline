@@ -86,11 +86,6 @@ class PageSpeedReport
         return $this->getCategory('CUMULATIVE_LAYOUT_SHIFT_SCORE');
     }
 
-    public function getFirstInputDelayCategory()
-    {
-        return $this->getCategory('FIRST_INPUT_DELAY_MS');
-    }
-
     public function getLargestContentfulPaintCategory()
     {
         return $this->getCategory('LARGEST_CONTENTFUL_PAINT_MS');
@@ -118,11 +113,6 @@ class PageSpeedReport
     public function getInteractionToNextPaintValue()
     {
         return $this->getPercentile('INTERACTION_TO_NEXT_PAINT');
-    }
-
-    public function getFirstInputDelayValue()
-    {
-        return $this->getPercentile('FIRST_INPUT_DELAY_MS');
     }
 
     public function getLargestContentfulPaintValue()

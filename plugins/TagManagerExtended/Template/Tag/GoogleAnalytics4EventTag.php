@@ -66,6 +66,8 @@ class GoogleAnalytics4EventTag extends BaseTag
 
             $this->makeSetting('eventParameters', '', FieldConfig::TYPE_ARRAY, function (FieldConfig $field) {
                 $field->uiControl = FieldConfig::UI_CONTROL_MULTI_TUPLE;
+                $field->title = Piwik::translate('TagManagerExtended_GoogleAnalytics4EventParametersTitle');
+                $field->description = Piwik::translate('TagManagerExtended_GoogleAnalytics4EventParametersDescription');
 
                 $field1 = new FieldConfig\MultiPair(Piwik::translate('Parameter'), 'parameter', FieldConfig::UI_CONTROL_TEXT);
                 $field1->customFieldComponent = self::FIELD_VARIABLE_COMPONENT;

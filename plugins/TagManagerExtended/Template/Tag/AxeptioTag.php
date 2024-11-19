@@ -64,6 +64,13 @@ class AxeptioTag extends BaseTag
                 $field->customFieldComponent = self::FIELD_VARIABLE_COMPONENT;
                 $field->validators[] = new NotEmpty();
             }),
+
+            $this->makeSetting('cookieVersion', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+                $field->title = Piwik::translate('TagManagerExtended_AxeptioCookiesVersionTitle');
+                $field->description = Piwik::translate('TagManagerExtended_AxeptioCookiesVersionDescription');
+                $field->customFieldComponent = self::FIELD_VARIABLE_COMPONENT;
+                $field->validators[] = new NotEmpty();
+            }),
         );
     }
 

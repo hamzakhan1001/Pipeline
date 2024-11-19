@@ -1,5 +1,9 @@
 ## Changelog
 
+__5.2.0__ - 2024-11-18
+* Security improvements around token save and display
+* Added option to not anonymise click IDs via SystemSetting
+
 __5.1.5__ - 2024-11-04
 * Updated README.md
 

@@ -60,6 +60,7 @@ class CustomReportsDao
                   `description` VARCHAR(" . Description::MAX_LENGTH . ") NOT NULL DEFAULT '',
                   `category` VARCHAR(" . Category::MAX_LENGTH . ") NOT NULL DEFAULT '" . self::DEFAULT_CATEGORY . "',
                   `subcategory` VARCHAR(" . Subcategory::MAX_LENGTH . ") NOT NULL DEFAULT '',
+                  `subcategory_order` MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT 9999999,
                   `dimensions` TEXT NOT NULL,
                   `metrics` TEXT NOT NULL,
                   `segment_filter` TEXT NOT NULL DEFAULT '',
@@ -217,6 +218,14 @@ class CustomReportsDao
         return $this->enrichRecord($row);
     }
 
+    public function getChildReports(int $idSite, int $idCustomReport): array
+    {
+        $query = sprintf('SELECT idcustomreport, name, subcategory_order FROM %s WHERE (idsite = ? or idsite = 0) and subcategory = ? and status = ? order by subcategory_order ASC', $this->tablePrefixed);
+        $db = $this->getDb();
+
+        return $db->fetchAll($query, array($idSite, $idCustomReport, CustomReportsModel::STATUS_ACTIVE));
+    }
+
     /**
      * @param int $idCustomReport
      * @return array|bool
@@ -228,6 +237,33 @@ class CustomReportsDao
         $row = $db->fetchRow($query, array($idCustomReport, CustomReportsModel::STATUS_ACTIVE));
 
         return $this->enrichRecord($row);
+    }
+
+    public function updateReportOrder($idCustomReport, $subCategoryOrder, $idSite)
+    {
+        $bind = [];
+        $query = sprintf('UPDATE %s SET subcategory_order = ? WHERE idcustomreport = ? AND idsite = ?', $this->tablePrefixed);
+        $bind[] = (int) $subCategoryOrder;
+        $bind[] = (int) $idCustomReport;
+        $bind[] = (int) $idSite;
+
+        // we do not use $db->update() here as this method is as well used in Tracker mode and the tracker DB does not
+        // support "->update()". Therefore we use the query method where we know it works with tracker and regular DB
+        $this->getDb()->query($query, $bind);
+    }
+
+    public function getReportIds(array $idCustomReports): array
+    {
+        $idCustomReportsFilteredValues = $this->filterNonNumericValues($idCustomReports);
+        if (empty($idCustomReportsFilteredValues)) {
+            return [];
+        }
+        $query = sprintf('SELECT idcustomreport FROM %s WHERE idcustomreport  in(' . implode(',', $idCustomReportsFilteredValues) . ') and status = ?', $this->tablePrefixed);
+
+        return $this->getDb()->fetchAll(
+            $query,
+            array(CustomReportsModel::STATUS_ACTIVE)
+        );
     }
 
     private function enrichRecords($records)
@@ -306,5 +342,14 @@ class CustomReportsDao
     protected function getCurrentTime()
     {
         return Date::now()->getDatetime();
+    }
+
+    private function filterNonNumericValues(array $values): array
+    {
+        // allow only int values
+        return array_filter($values, function ($value) {
+
+            return (is_int($value) || (is_string($value) && ctype_digit($value)));
+        });
     }
 }

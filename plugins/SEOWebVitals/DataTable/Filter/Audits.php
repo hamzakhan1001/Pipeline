@@ -28,8 +28,18 @@ class Audits extends BaseFilter
     {
         $metrics = new Metrics();
 
-        foreach ($table->getRows() as $row) {
+        foreach ($table->getRows() as $id => $row) {
             $label = $row->getColumn('label');
+
+            // In March 2024, Google PageSpeed replaced the FID metric with a new INP metric, but
+            // their API still returns the FID, so we'll hide it for now until they stop responding with it.
+            // Note: With #PG-3040 we tried removing this line, but this required too many changes in tests/Fixtures/log-webvitals.sql
+            // Hence we decided to leave this code as it is for tests to pass without much effort
+            if ($label == 'max-potential-fid') {
+                $table->deleteRow($id);
+                continue;
+            }
+
             $row->setMetadata('audit_id', $label);
             $row->setColumn('label', $metrics->getAuditTitle($label));
 

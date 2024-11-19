@@ -101,6 +101,28 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     }
 
     /**
+     * Generates / Sends the conversion export that belongs to the given idExport
+     *
+     * @throws \Throwable
+     */
+    public function downloadConversionExport()
+    {
+        $idSite = \Piwik\Request::fromRequest()->getIntegerParameter('idSite');
+        // Need to skip the access code check for tests, as it will echo the output and cannot write tests for downloadConversionExport() due to that
+        if (!defined('PIWIK_TEST_MODE') || !PIWIK_TEST_MODE) {
+            Piwik::checkUserHasViewAccess($idSite);
+        }
+        $model = new Model();
+        $idExport = \Piwik\Request::fromRequest()->getIntegerParameter('idExport');
+
+        $export = $model->getByIdExport($idExport);
+        if ($export['idsite'] != $idSite) {
+            throw new \Exception('Requested conversion export could not be found for this site');
+        }
+        $this->generateExport($export, $model);
+    }
+
+    /**
      * Generates / Sends the conversion export that belongs to the given access token
      *
      * @throws \Throwable
@@ -114,12 +136,16 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         // Here is no permission check on purpose to avoid the requirement of using a token_auth
         $export = $model->getByAccessToken($accessToken);
 
+        $this->generateExport($export, $model);
+    }
+
+    private function generateExport($export, $model)
+    {
         if (empty($export)) {
             throw new \Exception('Requested conversion export could not be found');
         }
 
         $model->updateRequestTime($export['idexport']);
-
         $exportAdapter = AdvertisingConversionExport::getExportAdapterById($export['type']);
 
         if (empty($exportAdapter)) {

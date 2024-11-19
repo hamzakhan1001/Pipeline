@@ -1,5 +1,28 @@
 ## Changelog
 
+## v5.1.3
+
+fix: Google Ads Conversion init gtag.js itself
+
+## v5.1.2
+
+Update CustomHTML with overflow auto
+
+## v5.1.1
+
+Update CustomHTML native tag to enhance textarea
+
+## v5.1.0
+
+Add tag to Tag Manager
+
+- Google Consent Mode (v2)
+
+Update tags :
+
+- Google Analytics 4 : Event
+- Axeptio (support Google Consent Mode v2)
+
 ## v5.0.9
 
 Add tag to Tag Manager

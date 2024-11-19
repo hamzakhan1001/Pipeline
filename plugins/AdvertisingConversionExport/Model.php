@@ -73,6 +73,7 @@ class Model
     public function add(int $idSite, string $name, string $type, string $description, string $accessToken, array $parameters): int
     {
         $db = $this->getDatabase();
+        $accessToken = $this->hashAccessToken($accessToken);
         $db->insert($this->tablePrefixed, [
             'idsite'       => $idSite,
             'name'         => $name,
@@ -118,6 +119,7 @@ class Model
     public function updateAccessToken(int $idExport, string $accessToken): void
     {
         $db = $this->getDatabase();
+        $accessToken = $this->hashAccessToken($accessToken);
         $db->update($this->tablePrefixed, [
             'access_token' => $accessToken,
             'ts_modified'  => Date::now()->getDatetime(),
@@ -133,6 +135,7 @@ class Model
      */
     public function getByAccessToken($accessToken): array
     {
+        $accessToken = $this->hashAccessToken($accessToken);
         $query = sprintf(
             'SELECT * FROM %s WHERE `access_token` = ? AND `deleted` = 0',
             $this->tablePrefixed
@@ -275,6 +278,14 @@ class Model
             ? Date::factory($entry['ts_requested'])->getLocalized('M/d/yy h:mm a')
             : null;
 
+        $entry['access_token'] = '********';
+
         return $entry;
+    }
+
+    private function hashAccessToken(string $accessToken): string
+    {
+        $configuration = new Configuration();
+        return sha1($accessToken . $configuration->getSalt());
     }
 }

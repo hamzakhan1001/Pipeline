@@ -91,13 +91,13 @@ class CustomReportsModel
         return false;
     }
 
-    public function updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $updatedDate)
+    public function updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $updatedDate, $subCategoryReportIds)
     {
         if ($reportType === Evolution::ID) {
             $dimensions = array();
         }
 
-        $this->validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId);
+        $this->validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $subCategoryReportIds);
 
         $report = $this->getCustomReportById($idCustomReport);
 
@@ -130,6 +130,10 @@ class CustomReportsModel
         // idsite in order to update the report!
 
         $this->updateReportColumns($report['idsite'], $idCustomReport, $columns);
+
+        if (!empty($subCategoryReportIds)) {
+            $this->updateSubCategoryReportsOrder($subCategoryReportIds, $idSite);
+        }
     }
 
     /**
@@ -141,7 +145,7 @@ class CustomReportsModel
     public function getCustomReport($idSite, $idCustomReport)
     {
         $report = $this->dao->getCustomReport($idSite, $idCustomReport);
-        return $this->enrichReport($report);
+        return $this->enrichReport($report, false, true);
     }
 
     /**
@@ -152,7 +156,7 @@ class CustomReportsModel
     public function getCustomReportById($idCustomReport)
     {
         $report = $this->dao->getCustomReportById($idCustomReport);
-        return $this->enrichReport($report);
+        return $this->enrichReport($report, false, true);
     }
 
     /**
@@ -177,7 +181,7 @@ class CustomReportsModel
         return $reports;
     }
 
-    private function enrichReport($report, $skipCategoryMetadata = false)
+    private function enrichReport($report, $skipCategoryMetadata = false, $addChildReports = false)
     {
         if (empty($report)) {
             return $report;
@@ -193,6 +197,10 @@ class CustomReportsModel
             $category = $report['category'];
             $report['category'] = $this->buildCategoryMetadata($category);
             $report['subcategory'] = $this->buildSubcategoryMetadata($category, $report['subcategory']);
+        }
+
+        if ($addChildReports) {
+            $report['child_reports'] = $this->dao->getChildReports($report['idsite'], $report['idcustomreport']);
         }
 
         return $report;
@@ -303,7 +311,7 @@ class CustomReportsModel
         return Date::now()->getDatetime();
     }
 
-    private function validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId)
+    private function validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $subCategoryReportIds = [])
     {
         $nameObj = new Name($name);
         $nameObj->check();
@@ -345,6 +353,10 @@ class CustomReportsModel
         if (!empty($dimensions) && is_array($dimensions) && count($dimensions) > Table::NUM_MAX_DIMENSIONS) {
             throw new Exception(Piwik::translate('CustomReports_ErrorTooManyDimension', Table::NUM_MAX_DIMENSIONS));
         }
+
+        if (!empty($subCategoryReportIds) && count($subCategoryReportIds) != count($this->dao->getReportIds($subCategoryReportIds))) {
+            throw new Exception(Piwik::translate('CustomReports_ErrorInvalidSubCategoryReport'));
+        }
     }
 
     public function deactivateReportsForSite($idSite)
@@ -363,5 +375,14 @@ class CustomReportsModel
             $columns['updated_date'] = $this->getCurrentDateTime();
         }
         $this->dao->updateColumns($idSite, $idCustomReport, $columns);
+    }
+
+    private function updateSubCategoryReportsOrder($subCategoryReportIds, $idSite)
+    {
+        if (!empty($subCategoryReportIds)) {
+            foreach ($subCategoryReportIds as $subCategoryReportIdIndex => $subCategoryReportId) {
+                $this->dao->updateReportOrder($subCategoryReportId, $subCategoryReportIdIndex, $idSite);
+            }
+        }
     }
 }

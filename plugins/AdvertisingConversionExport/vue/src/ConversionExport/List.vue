@@ -96,12 +96,7 @@
               <a
                 class="table-action icon-download"
                 :title="translate('AdvertisingConversionExport_DownloadExport')"
-                @click="openExport(exp.access_token)"
-              />
-              <a
-                class="table-action icon-export"
-                :title="translate('AdvertisingConversionExport_ShowDownloadLink')"
-                @click="showLink(exp.access_token)"
+                @click="openExport(exp.idexport, exp.idsite)"
               />
               <a
                 class="table-action icon-edit"
@@ -145,25 +140,6 @@
         role="no"
         type="button"
         :value="translate('General_No')"
-      />
-    </div>
-    <div
-      class="ui-confirm"
-      id="showExportLink"
-      ref="showExportLink"
-    >
-      <h2>{{ translate('AdvertisingConversionExport_DownloadLink') }} </h2>
-      <textarea
-        readonly
-        id="exportLink"
-        onclick="this.select()"
-        :value="exportLink"
-      />
-      {{ translate('AdvertisingConversionExport_DoNotShare') }}
-      <input
-        role="yes"
-        type="button"
-        :value="translate('General_Close')"
       />
     </div>
   </div>
@@ -218,11 +194,12 @@ export default defineComponent({
     getDisplayGoalName(goal: { name: string }) {
       return goal.name ? `(&#x279C;&nbsp;${Matomo.helper.htmlEntities(goal.name)})` : '';
     },
-    getDownloadLink(accessToken: string) {
+    getDownloadLink(idExport: string, idSite: string) {
       const params = MatomoUrl.stringify({
         module: 'AdvertisingConversionExport',
-        action: 'generateConversionExport',
-        accessToken,
+        action: 'downloadConversionExport',
+        idExport,
+        idSite,
       });
       return `${window.location.origin}${window.location.pathname}?${params}`;
     },
@@ -235,12 +212,8 @@ export default defineComponent({
         idExport,
       });
     },
-    openExport(accessToken: string) {
-      window.open(this.getDownloadLink(accessToken));
-    },
-    showLink(accessToken: string) {
-      this.exportLink = this.getDownloadLink(accessToken);
-      Matomo.helper.modalConfirm(this.$refs.showExportLink as HTMLElement);
+    openExport(idExport: string, idSite: string) {
+      window.open(this.getDownloadLink(idExport, idSite));
     },
     deleteExport(conversionExport: ConversionExport) {
       Matomo.helper.modalConfirm(this.$refs.confirmDeleteExport as HTMLElement, {

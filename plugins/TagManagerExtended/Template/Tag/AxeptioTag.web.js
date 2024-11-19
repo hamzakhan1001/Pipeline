@@ -3,9 +3,20 @@
     this.fire = function () {
 
       var clientId = parameters.get("clientId");
+      var cookiesVersion = parameters.get("cookiesVersion");
 
       window.axeptioSettings = {
-        clientId: clientId
+        clientId: clientId,
+        cookiesVersion: cookiesVersion,
+        googleConsentMode: {
+          "default": {
+            analytics_storage: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied",
+            wait_for_update: 500
+          }
+        }
       };
 
       (function (d, s) {

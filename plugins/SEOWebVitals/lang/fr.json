@@ -27,7 +27,6 @@
         "MetricAuditScorePercentageDescription": "Pourcentage de score où 100 est le meilleur.",
         "MetricCLSDescription": "Le décalage cumulatif de la mise en page mesure la stabilité visuelle, c'est-à-dire le mouvement des éléments visibles dans le port d'affichage. Les pages doivent avoir un CLS inférieur à 0,1. Une valeur inférieure est préférable.",
         "MetricFCPDescription": "First contentful paint mesure le temps nécessaire pour que le navigateur puisse rendre le premier élément de contenu après qu'un utilisateur a navigué vers votre page. Les pages doivent avoir un FCP inférieur à 1s. Une valeur inférieure est préférable.",
-        "MetricFIDDescription": "First input delay mesure l'interactivité. Les pages doivent avoir un DPI inférieur à 100 ms. Une valeur inférieure est préférable. Le PCF doit se produire dans un délai de 1,5 seconde. Une valeur inférieure est préférable.",
         "MetricInformation": "Information %s",
         "MetricInformationDescription": "Informations supplémentaires pour cet audit.",
         "MetricLCPDescription": "Largest contentful paint mesure les performances de chargement et marque le moment où le plus grand texte ou la plus grande image est peint. Le LCP doit se produire dans les 2,5 secondes. Une valeur inférieure est préférable.",

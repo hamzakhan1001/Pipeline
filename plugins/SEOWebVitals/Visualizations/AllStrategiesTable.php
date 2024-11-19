@@ -43,9 +43,9 @@ class AllStrategiesTable extends HtmlTable
         $auditId = $row->getMetadata('audit_id');
         if (
             $auditId && in_array($auditId, [
-            'first-contentful-paint', 'first-meaningful-paint', 'total-blocking-time',
-            'largest-contentful-paint', 'max-potential-fid', 'cumulative-layout-shift'
-            ])
+                    'first-contentful-paint', 'first-meaningful-paint', 'total-blocking-time',
+                    'largest-contentful-paint', 'cumulative-layout-shift'
+                ])
         ) {
             return ['style' => 'font-weight:bold'];
         } elseif ($auditId) {
