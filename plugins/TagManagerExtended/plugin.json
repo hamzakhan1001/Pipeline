@@ -1,10 +1,10 @@
 {
     "name": "TagManagerExtended",
     "description": "Adds several useful tags, triggers and variables to the Tag Manager",
-    "version": "5.0.10",
+    "version": "5.1.3",
     "theme": false,
     "require": {
-        "matomo": ">=5.0.0-stable,<6.0.0-b1"
+        "matomo": ">=5.1.0-stable,<6.0.0-b1"
     },
     "authors": [
         {
@@ -26,7 +26,10 @@
         "Extended",
         "TagManager",
         "Tags",
-        "Enhance"
+        "Enhance",
+        "Consent",
+        "Mode",
+        "CMP"
     ],
     "category": "insights"
 }

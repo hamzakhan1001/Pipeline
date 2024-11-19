@@ -5,7 +5,7 @@
  * Description: Adds several useful tags, triggers and variables to the Tag Manager
  * Author: Openmost
  * Author URI: https://openmost.io/products/tag-manager-extended/
- * Version: 5.0.10
+ * Version: 5.1.3
  */
 ?><?php
 /**
@@ -37,5 +37,21 @@ if (defined( 'ABSPATH')
 
 class TagManagerExtended extends \Piwik\Plugin
 {
+    public function registerEvents()
+    {
+        return array(
+            'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
+            'AssetManager.getJavaScriptFiles' => 'getJavaScriptFiles',
+        );
+    }
 
+    public function getStylesheetFiles(&$files)
+    {
+        $files[] = "plugins/TagManagerExtended/stylesheets/style.less";
+    }
+
+    public function getJavaScriptFiles(&$files)
+    {
+        $files[] = "plugins/TagManagerExtended/javascripts/script.js";
+    }
 }

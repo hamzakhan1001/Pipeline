@@ -25,6 +25,8 @@
         conversionData.currency = currency;
       }
 
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
       gtag("event", "conversion", conversionData);
 
     };

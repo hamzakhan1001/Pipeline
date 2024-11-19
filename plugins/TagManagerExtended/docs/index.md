@@ -27,16 +27,18 @@ This plugin adds several useful tags, triggers and variables to the Tag Manager 
 
 - Matomo Analytics : Ecommerce
 - Matomo Analytics : Search
-- Google Analytics 4
+- Google Analytics 4 (obsolete, use Google Tag instead)
 - Google Analytics 4 : Event
-- Google Tag
+- Google Consent Mode (v2)
+- Google Tag (gtag.js)
+- Google User-Provided Data
 - Hotjar
 - Microsoft Clarity
 - Simple Analytics
 
 **[Consent Management Platform]**
 
-- Axeptio
+- Axeptio (support Google Consent Mode v2)
 - CookieYes
 - Cookiebot
 - OneTrust
