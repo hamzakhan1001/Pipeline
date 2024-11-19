@@ -130,9 +130,6 @@ class WebVitals extends RecordBuilder
                         Metrics::METRIC_LOAD_EXPERIENCE_CLS_CATEGORY => $response->getCumulativeLayoutShiftCategory(),
                         Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => $response->getCumulativeLayoutShiftValue(),
 
-                        Metrics::METRIC_LOAD_EXPERIENCE_FID_CATEGORY => $response->getFirstInputDelayCategory(),
-                        Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE => $response->getFirstInputDelayValue(),
-
                         Metrics::METRIC_LOAD_EXPERIENCE_INP_CATEGORY => $response->getInteractionToNextPaintCategory(),
                         Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => $response->getInteractionToNextPaintValue(),
 
@@ -250,9 +247,6 @@ class WebVitals extends RecordBuilder
             Metrics::METRIC_PERFORMANCE_SCORE => '',
             Metrics::METRIC_LOAD_EXPERIENCE_CLS_CATEGORY => '',
             Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => 0,
-
-            Metrics::METRIC_LOAD_EXPERIENCE_FID_CATEGORY => '',
-            Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE => 0,
 
             Metrics::METRIC_LOAD_EXPERIENCE_INP_CATEGORY => '',
             Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => 0,

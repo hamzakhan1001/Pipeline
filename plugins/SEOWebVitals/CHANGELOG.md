@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.9 - 2024-11-18
+- Removed FID metric and INP banner
+
 5.0.8 - 2024-11-05
 - Updated README.md
 

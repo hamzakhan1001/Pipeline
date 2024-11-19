@@ -5,7 +5,7 @@
  * Description: Improve your website performance, rank higher in search results and optimise your visitor experience with SEO Web Vitals.
  * Author: InnoCraft
  * Author URI: https://matomo.org
- * Version: 5.0.8
+ * Version: 5.0.9
  */
 ?><?php
 
@@ -74,7 +74,6 @@ class SEOWebVitals extends \Piwik\Plugin
     {
         if (!$isLowerBetter) {
             $metrics = Metrics::appendAllStrategies([Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => 1,
-                Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE => 1,
                 Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => 1,
                 Metrics::METRIC_AUDIT_DISPLAY_VALUE => 1,
                 Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE => 1,

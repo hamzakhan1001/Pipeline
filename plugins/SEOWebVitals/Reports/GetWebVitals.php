@@ -80,7 +80,6 @@ class GetWebVitals extends Report
             $metrics = [
                 Metrics::METRIC_PERFORMANCE_SCORE,
                 Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE,
-                Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE,
                 Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE,
                 Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE,
                 Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE,
@@ -272,11 +271,6 @@ class GetWebVitals extends Report
                     }
                 } else {
                     if ($view->isViewDataTableId(HtmlTable::ID)) {
-                        $view->config->show_header_message = '<div class="alert alert-info inp-banner-alert">'
-                            . Piwik::translate(
-                                'SEOWebVitals_INPBannerDescriptionPastDeadline',
-                                ['<b>', '</b>', '<a href="https://web.dev/blog/inp-cwv" target="_blank" rel="noreferrer nopener">', '</a>']
-                            ) . '</div>';
                         $view->config->show_footer_message .= '<br><br>';
                         $view->config->show_footer_message .= Piwik::translate('SEOWebVitals_AllScoresAreCalculated', ['', '']);
 
@@ -302,9 +296,7 @@ class GetWebVitals extends Report
                                 $columnDisplayValue = Metrics::appendStrategy($metric, $strategy);
                                 $displayValue = $row->getColumn($columnDisplayValue);
                                 if ($metric !== Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE) {
-                                    if ($metric === Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE) {
-                                        $displayValue = empty($displayValue) ? "-" : Piwik::translate('SEOWebVitals_NbMilliseconds', $displayValue);
-                                    } elseif ($metric === Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE) {
+                                    if ($metric === Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE) {
                                         $displayValue = Piwik::translate('SEOWebVitals_NbMilliseconds', $displayValue);
                                     } else {
                                         $displayValue = $displayValue / 1000;

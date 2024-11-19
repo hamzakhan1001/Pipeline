@@ -42,9 +42,6 @@ class Metrics
     public const METRIC_LOAD_EXPERIENCE_FCP_CATEGORY = 'fcp_category'; // largest contentful paint
     public const METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE = 'nb_fcp_numericvalue';
 
-    public const METRIC_LOAD_EXPERIENCE_FID_CATEGORY = 'fid_category'; // first input delay
-    public const METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE = 'nb_fid_numericvalue';
-
     public const METRIC_LOAD_EXPERIENCE_INP_CATEGORY = 'inp_category'; // interaction to next paint
     public const METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE = 'nb_inp_numericvalue';
 
@@ -56,9 +53,6 @@ class Metrics
         Metrics::METRIC_PERFORMANCE_SCORE,
         Metrics::METRIC_LOAD_EXPERIENCE_CLS_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE,
-
-        Metrics::METRIC_LOAD_EXPERIENCE_FID_CATEGORY,
-        Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE,
 
         Metrics::METRIC_LOAD_EXPERIENCE_INP_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE,
@@ -74,7 +68,6 @@ class Metrics
         Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_CLS_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_LCP_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_FCP_CATEGORY,
-        Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_FID_CATEGORY,
         Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => Metrics::METRIC_LOAD_EXPERIENCE_INP_CATEGORY
     ];
 
@@ -125,7 +118,6 @@ class Metrics
             Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => Piwik::translate('SEOWebVitals_MetricCLSDescription'),
             Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE => Piwik::translate('SEOWebVitals_MetricLCPDescription'),
             Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE => Piwik::translate('SEOWebVitals_MetricFCPDescription'),
-            Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE => Piwik::translate('SEOWebVitals_MetricFIDDescription'),
             Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => Piwik::translate('SEOWebVitals_MetricINPDescription'),
         ]);
     }
@@ -140,7 +132,6 @@ class Metrics
             Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => Dimension::TYPE_NUMBER,
             Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE => Dimension::TYPE_NUMBER,
             Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE => Dimension::TYPE_NUMBER,
-            Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE => Dimension::TYPE_NUMBER,
             Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => Dimension::TYPE_NUMBER,
         ]);
     }
@@ -155,7 +146,6 @@ class Metrics
             Metrics::METRIC_LOAD_EXPERIENCE_CLS_NUMERICVALUE => '%s CLS',
             Metrics::METRIC_LOAD_EXPERIENCE_LCP_NUMERICVALUE => '%s LCP',
             Metrics::METRIC_LOAD_EXPERIENCE_FCP_NUMERICVALUE => '%s FCP',
-            Metrics::METRIC_LOAD_EXPERIENCE_FID_NUMERICVALUE => '%s FID',
             Metrics::METRIC_LOAD_EXPERIENCE_INP_NUMERICVALUE => '%s INP',
         ]);
     }
