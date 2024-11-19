@@ -42,6 +42,43 @@
           >
           </Field>
         </div>
+        <div class="row accesstokenhead">
+          <label class="col s12">
+            {{ translate('AdvertisingConversionExport_ExportURL') }} <a
+            v-show="conversionExport.idexport"
+            @click="regenerateAccessToken()"
+          >({{ translate('AdvertisingConversionExport_Regenerate') }})</a>
+          </label>
+        </div>
+        <div class="export-url-div form-group row matomo-form-field"
+             id="exportUrlDiv"
+             v-if="conversionExport.access_token">
+          <div class="col s12 m6">
+            <div>
+              <pre v-copy-to-clipboard="{}">{{ showDownloadLink() }}</pre>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="form-help">
+              <span class="inline-help" v-html="$sanitize(accessTokenInlineHelp)"></span>
+            </div>
+          </div>
+        </div>
+        <div class="export-url-div form-group row matomo-form-field"
+             id="exportUrlDiv"
+             v-else>
+          <div class="col s12 m6">
+            <div>
+              <pre
+                v-text="translate('AdvertisingConversionExport_FieldExportURLPlaceholder')"></pre>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="form-help">
+              <span class="inline-help" v-html="$sanitize(accessTokenInlineHelp)"></span>
+            </div>
+          </div>
+        </div>
         <div name="type">
           <Field
             uicontrol="radio"
@@ -67,27 +104,6 @@
             :tabindex="26"
             :placeholder="translate('AdvertisingConversionExport_ExportDescriptionPlaceHolder')"
             :inline-help="translate('AdvertisingConversionExport_ExportDescriptionHelp')"
-          >
-          </Field>
-        </div>
-        <div class="row accesstokenhead">
-          <label class="col s12">
-            {{ translate('AdvertisingConversionExport_AccessToken') }} <a
-              v-show="conversionExport.idexport"
-              @click="regenerateAccessToken()"
-            >({{ translate('AdvertisingConversionExport_Regenerate') }})</a>
-          </label>
-        </div>
-        <div name="access_token">
-          <Field
-            uicontrol="text"
-            name="access_token"
-            title
-            v-model="conversionExport.access_token"
-            :maxlength="100"
-            :disabled="true"
-            :placeholder="translate('AdvertisingConversionExport_FieldAccessTokenPlaceholder')"
-            :inline-help="accessTokenInlineHelp"
           >
           </Field>
         </div>
@@ -417,6 +433,7 @@ import {
   NotificationType,
   clone,
   MatomoUrl,
+  CopyToClipboard,
 } from 'CoreHome';
 import { Field, SaveButton } from 'CorePluginsAdmin';
 import { SegmentGenerator } from 'SegmentEditor';
@@ -432,6 +449,7 @@ interface ConversionExportEditState {
   conversionExport: ConversionExport;
   showNoteMessage: boolean;
   noteMessage: string;
+  initialTokenValue: string;
 }
 
 interface ExportType {
@@ -461,6 +479,9 @@ const CLICK_ID_ATTRIBUTION_OPTIONS = {
 };
 
 export default defineComponent({
+  directives: {
+    CopyToClipboard,
+  },
   props: {
     idExport: Number,
     exportTypes: {
@@ -493,6 +514,7 @@ export default defineComponent({
       conversionExport: {} as unknown as ConversionExport,
       showNoteMessage: false,
       noteMessage: 'test',
+      initialTokenValue: '',
     };
   },
   created() {
@@ -557,6 +579,10 @@ export default defineComponent({
                 ?? DEFAULT_ATTRIBUTION_MODEL;
             params.attributedCredit = params.attributedCredit
                 ?? DEFAULT_ATTRIBUTED_CREDIT;
+          }
+
+          if (this.initialTokenValue) {
+            this.conversionExport.access_token = this.initialTokenValue;
           }
 
           ConversionExportStore.fetchGoals().then(() => {
@@ -651,6 +677,12 @@ export default defineComponent({
         yes: () => {
           ConversionExportStore.regenerateAccessToken(idExport).then((token) => {
             this.conversionExport.access_token = token.value;
+            if (token.value) {
+              this.showNotification(
+                translate('AdvertisingConversionExport_ExportUpdatedWithExportURLMessage'),
+                'success',
+              );
+            }
           });
         },
       });
@@ -663,9 +695,14 @@ export default defineComponent({
         return;
       }
 
-      ConversionExportStore.createOrUpdateExport(this.conversionExport, method).then((response) => {
+      ConversionExportStore.createExport(this.conversionExport, method).then((response) => {
         this.isDirty = false;
-        const idExport = response.response!.value;
+        console.log(response, 'response');
+        const { idExport } = response.response!;
+        const { accessToken } = response.response!;
+        if (accessToken) {
+          this.initialTokenValue = accessToken;
+        }
         ConversionExportStore.reload().then(() => {
           if (Matomo.helper.isReportingPage()) {
             Matomo.postEvent('updateReportingMenu');
@@ -678,7 +715,7 @@ export default defineComponent({
 
           setTimeout(() => {
             this.showNotification(
-              translate('AdvertisingConversionExport_ExportCreated'),
+              translate('AdvertisingConversionExport_ExportCreatedWithExportURLMessage'),
               response.type as NotificationType['context'],
             );
           }, 200);
@@ -724,7 +761,7 @@ export default defineComponent({
 
       const method = 'AdvertisingConversionExport.updateConversionExport';
 
-      ConversionExportStore.createOrUpdateExport(this.conversionExport, method).then((response) => {
+      ConversionExportStore.updateExport(this.conversionExport, method).then((response) => {
         if (response.type === 'error') {
           return;
         }
@@ -774,6 +811,14 @@ export default defineComponent({
       }
 
       return true;
+    },
+    showDownloadLink() {
+      const params = MatomoUrl.stringify({
+        module: 'AdvertisingConversionExport',
+        action: 'generateConversionExport',
+        accessToken: (this.conversionExport.access_token === '********' ? '' : this.conversionExport.access_token),
+      });
+      return `${window.location.origin}${window.location.pathname}?${params}${this.conversionExport.access_token === '********' ? '&accessToken={YOUR_EXPORT_ACCESS_TOKEN}' : ''}`;
     },
   },
   computed: {

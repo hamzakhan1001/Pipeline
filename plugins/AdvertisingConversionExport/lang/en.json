@@ -37,6 +37,8 @@
         "EditExport": "Edit conversion export",
         "ErrorXNotProvided": "Please provide a value for \"%1$s\".",
         "ExportCreated": "Conversion export created.",
+        "ExportCreatedWithExportURLMessage": "Conversion export created. Please copy the Export URL located below the name field and store it securely, as this URL, with the included access token, is only shown once. If you come back to this conversion export later, the Export URL will still be visible but it will not include the access token. If you lose access you can generate a new Export URL, and your current URL will be invalidated.",
+        "ExportUpdatedWithExportURLMessage": "Conversion export URL regenerated. Please copy the Export URL located below the name field and store it securely, as this URL, with the included access token, is only shown once. If you come back to this conversion export later, the Export URL will still be visible but it will not include the access token. If you lose access you can generate a new Export URL, and your current URL will be invalidated.",
         "ExportDescriptionHelp": "A description might be handy to further describe the conversion export and what it will be used for.",
         "ExportDescriptionPlaceHolder": "e.g. 'This export includes all Ecommerce conversions attributed to Google Ads coming from Australia'",
         "ExportNameHelp": "Define a short name that helps you identify this conversion export in the exports list.",
@@ -49,6 +51,7 @@
         "ExternalAttributedConversionHelp": "When exporting conversion data for Google Ads, enabling this option supports external attribution. This functionality allows you to assign fractional conversion credit to each ad interaction. Additionally, you'll have the capability to specify both the Attribution Model for the export and the Attributed Credit for individual conversions.",
         "ExternalAttributedConversionInvalid": "The field 'External attributed conversion' must be boolean or boolean-equivalent.",
         "FieldAccessTokenPlaceholder": "The access token will be automatically generated after the export is created.",
+        "FieldExportURLPlaceholder": "The export URL will be automatically generated after the export is created.",
         "FieldNamePlaceholder": "e.g. 'Ecommerce conversion export'",
         "FirstClickId": "First Click ID",
         "GoalAlias": "Alias name in export",
@@ -83,6 +86,9 @@
         "AdUserDataTitle": "Ad User Data Consent Status",
         "AdUserDataDescription": "Set the consent status for the Ad User Data and Ad Personalization fields in the conversion exports file for Google, %1$slearn more%2$s.%3$s Default: %4$s",
         "AdPersonalizationTitle": "Ad Personalization Consent Status",
-        "InvalidConsentStatusException": "Invalid consent status selected"
+        "InvalidConsentStatusException": "Invalid consent status selected",
+        "ExportURL": "Export URL",
+        "AnonymiseClickIDSettingTitle": "Anonymise Click IDs",
+        "AnonymiseClickIDSettingDescription": "By default, Matomo anonymises Click IDs from ad providers with no export configured. Uncheck this option to stop anonymising Click IDs for providers without a configured export. %1$sLearn more%2$s. %3$sNote:%4$s If an export is already configured for an ad provider, Click IDs will not be anonymised for that provider, regardless of this setting."
     }
 }

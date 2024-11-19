@@ -5,7 +5,7 @@
  * Description: Provides an export of attributed goal conversions for usage in ad networks like Google Ads so you no longer need a conversion pixel.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/AdvertisingConversionExport
- * Version: 5.1.5
+ * Version: 5.2.0
  */
 ?><?php
 
@@ -91,6 +91,9 @@ class AdvertisingConversionExport extends \Piwik\Plugin
         $model->install();
         $logTable = new LogClickId();
         $logTable->install();
+
+        $config = new Configuration();
+        $config->install();
     }
 
     public function uninstall()
@@ -140,6 +143,7 @@ class AdvertisingConversionExport extends \Piwik\Plugin
         $translationKeys[] = 'AdvertisingConversionExport_EditExport';
         $translationKeys[] = 'AdvertisingConversionExport_ErrorXNotProvided';
         $translationKeys[] = 'AdvertisingConversionExport_ExportCreated';
+        $translationKeys[] = 'AdvertisingConversionExport_ExportCreatedWithExportURLMessage';
         $translationKeys[] = 'AdvertisingConversionExport_ExportDescriptionHelp';
         $translationKeys[] = 'AdvertisingConversionExport_ExportDescriptionPlaceHolder';
         $translationKeys[] = 'AdvertisingConversionExport_ExportNameHelp';
@@ -193,6 +197,9 @@ class AdvertisingConversionExport extends \Piwik\Plugin
         $translationKeys[] = 'General_Value';
         $translationKeys[] = 'General_Yes';
         $translationKeys[] = 'AdvertisingConversionExport_PleaseConfigureDaysToExport';
+        $translationKeys[] = 'AdvertisingConversionExport_ExportURL';
+        $translationKeys[] = 'AdvertisingConversionExport_ExportUpdatedWithExportURLMessage';
+        $translationKeys[] = 'AdvertisingConversionExport_FieldExportURLPlaceholder';
     }
 
     /**

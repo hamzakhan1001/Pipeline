@@ -229,7 +229,49 @@ class ConversionExportStore {
     });
   }
 
-  createOrUpdateExport(
+  createExport(
+    conversionExport: ConversionExport,
+    method: string,
+  ): Promise<{ type: string, message?: string, response?:
+      { idExport: string|number, accessToken: string } }> {
+    this.privateState.isUpdating = true;
+    const onlyDirectAttribution = [true, 'true', 1, '1']
+      .includes(conversionExport.parameters?.onlyDirectAttribution ?? false) ? 1 : 0;
+    const externalAttributedConversion = [true, 'true', 1, '1']
+      .includes(conversionExport.parameters?.externalAttributedConversion ?? false) ? 1 : 0;
+    return AjaxHelper.post(
+      {},
+      {
+        idExport: conversionExport.idexport,
+        name: conversionExport.name.trim(),
+        type: conversionExport.type,
+        description: conversionExport.description.trim(),
+        method,
+        parameters: {
+          ...(conversionExport.parameters || {}),
+          onlyDirectAttribution,
+          externalAttributedConversion,
+
+          // remove goal configs where no goal was chosen
+          goals: (conversionExport.parameters?.goals || [])
+            .filter((g) => g.idgoal !== '' && g.idgoal! >= 0),
+        },
+      },
+      {
+        withTokenInUrl: true,
+      },
+    ).then((response) => ({
+      type: 'success',
+      response,
+    })).catch((e) => ({
+      type: 'error',
+      message: e.message || e,
+    })).finally(() => {
+      this.privateState.isUpdating = false;
+    });
+  }
+
+  updateExport(
     conversionExport: ConversionExport,
     method: string,
   ): Promise<{ type: string, message?: string, response?: { value: string|number } }> {

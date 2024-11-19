@@ -19,6 +19,7 @@ namespace Piwik\Plugins\AdvertisingConversionExport\Tracker;
 use Piwik\Common;
 use Piwik\Plugins\AdvertisingConversionExport\AdvertisingConversionExport;
 use Piwik\Plugins\AdvertisingConversionExport\Dao\LogClickId;
+use Piwik\Plugins\AdvertisingConversionExport\SystemSettings;
 use Piwik\Tracker;
 use Piwik\Tracker\Request;
 use Piwik\Tracker\Visit\VisitProperties;
@@ -109,8 +110,9 @@ class RequestProcessor extends Tracker\RequestProcessor
             }
             $requestClickId = Common::getRequestVar($provider::CLICK_ID_REQUEST_PARAM, '', null, $params);
             if (!empty($requestClickId)) {
+                $systemSetting = new SystemSettings();
                 return [
-                    'adclickid' => !empty($allConfiguredExportTypes[$provider->getExportID()]) ? $requestClickId : 'anonymized',
+                    'adclickid' => (!empty($allConfiguredExportTypes[$provider->getExportID()]) || !in_array($provider::ID, $systemSetting->anonymize_click_ids->getValue())) ? $requestClickId : 'anonymized',
                     'provider'  => $provider::ID,
                 ];
             }

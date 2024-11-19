@@ -46,3 +46,8 @@ export interface ConversionExport {
   ts_requested_pretty: null|string;
   type: string;
 }
+
+export interface CreateExportResponse {
+  idExport: string|number;
+  accessToken: string;
+}

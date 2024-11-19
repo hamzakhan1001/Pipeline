@@ -99,13 +99,13 @@ class API extends \Piwik\Plugin\API
     /**
      * Creates a new conversion export
      *
-     * @param int    $idSite      id of the website the export is for
-     * @param string $name        name of the conversion export
-     * @param string $type        type of the export (e.g. GoogleAds, YandexAds,...)
-     * @param array  $parameters  configuration array of the export
+     * @param int $idSite id of the website the export is for
+     * @param string $name name of the conversion export
+     * @param string $type type of the export (e.g. GoogleAds, YandexAds,...)
+     * @param array $parameters configuration array of the export
      * @param string $description description of the export
-     * @return int id of the newly added report
-     * @throws \Exception
+     * @return array [] id of the newly added report and the accessToken
+     * @throws \Zend_Db_Adapter_Exception
      */
     public function addConversionExport($idSite, $name, $type, $parameters, $description = '')
     {
@@ -113,10 +113,12 @@ class API extends \Piwik\Plugin\API
 
         $this->sanitizeParameters($parameters);
 
-        $response = $this->model->add($idSite, $name, $type, $description, $this->getRandomAccessToken(), $parameters);
+        $accessToken = $this->getRandomAccessToken();
+        $idExport = $this->model->add($idSite, $name, $type, $description, $accessToken, $parameters);
         Tracker\Cache::deleteCacheWebsiteAttributes($idSite);
 
-        return $response;
+
+        return ['idExport' => $idExport, 'accessToken' => $accessToken];
     }
 
     /**
