@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -61,7 +62,7 @@ class WhiteLabel extends \Piwik\Plugin
         );
     }
 
-    public function sendMail(Mail  $mail)
+    public function sendMail(Mail $mail)
     {
         $settings = $this->getSystemSettings();
         $brandName = $settings->brandName->getValue();
@@ -162,7 +163,8 @@ class WhiteLabel extends \Piwik\Plugin
     public function onRequestEndReplacePiwik(&$output, $module, $action)
     {
         $format = Common::getRequestVar('format', false, 'string');
-        if ($module == 'API'
+        if (
+            $module == 'API'
             && ($action == '' || $action == 'index')
             && $format == 'original'
         ) {
@@ -170,7 +172,8 @@ class WhiteLabel extends \Piwik\Plugin
         }
 
         $method = Common::getRequestVar('method', false, 'string');
-        if (($module == 'TagManager' && $action == 'exportContainerVersion')
+        if (
+            ($module == 'TagManager' && $action == 'exportContainerVersion')
             || ($module == 'API' && $method == 'TagManager.exportContainerVersion')
         ) {
             return;
@@ -216,7 +219,7 @@ class WhiteLabel extends \Piwik\Plugin
                         continue;
                     }
                     if ($type['id'] === 'MatomoConfiguration') {
-                        foreach ($type['parameters'] as &$parameter){
+                        foreach ($type['parameters'] as &$parameter) {
                             if ($parameter['name'] === 'jsEndpoint') {
                                 $parameter['availableValues'] = array('js/tracker.php');
                                 $parameter['defaultValue'] = 'js/tracker.php';
@@ -322,7 +325,6 @@ class WhiteLabel extends \Piwik\Plugin
                     }
                 }
             }
-
         }
     }
 }

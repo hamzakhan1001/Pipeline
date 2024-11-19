@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -85,7 +86,6 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                         throw new \Exception($message);
                     }
                 }
-
             };
         });
     }
@@ -103,7 +103,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     {
         return $this->makeSetting('whitelabelTrackingEndpoint', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('WhiteLabel_SettingWhitelabelTrackingEndpoint');
-            $url = '"'.SettingsPiwik::getPiwikUrl() . 'js/tracker.php' . '"';
+            $url = '"' . SettingsPiwik::getPiwikUrl() . 'js/tracker.php' . '"';
             $field->description = Piwik::translate('WhiteLabel_SettingWhitelabelTrackingEndpointDescription', $url);
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
@@ -152,7 +152,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 if (substr($value, 0, 1) === '#') {
                     $value = substr($value, 1);
                 }
-                if (ctype_xdigit($value) && in_array(strlen($value),array(3,6), true)) {
+                if (ctype_xdigit($value) && in_array(strlen($value), array(3,6), true)) {
                     return;
                 }
                 throw new \Exception("The header background value '$value' is not valid. Expected value is for example 'ffffff' or 'fff'.");
@@ -166,7 +166,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             };
         });
     }
-    
+
     public function save()
     {
         parent::save();
@@ -186,7 +186,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 if (substr($value, 0, 1) === '#') {
                     $value = substr($value, 1);
                 }
-                if (ctype_xdigit($value) && in_array(strlen($value),array(3,6), true)) {
+                if (ctype_xdigit($value) && in_array(strlen($value), array(3,6), true)) {
                     return;
                 }
                 throw new \Exception("The header background value '$value' is not valid. Expected value is for example 'ffffff' or 'fff'.");
@@ -200,5 +200,4 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             };
         });
     }
-
 }

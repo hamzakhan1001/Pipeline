@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.4 - 2024-11-11
+- Updated README.md
+
 5.0.3 - 2024-09-09
 - Added a SystemSetting to enable/disable help section
 

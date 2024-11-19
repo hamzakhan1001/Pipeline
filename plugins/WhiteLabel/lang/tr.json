@@ -5,16 +5,19 @@
         "SettingBrandNameMaxLen": "Marka / ürün adı en fazla %s karakter uzunluğunda olabilir.",
         "SettingBrandNameTitle": "Özel marka / ürün adı",
         "SettingColorHelp": "Lütfen \"ffffff\" gibi onaltılık bir renk değeri yazın.",
-        "SettingEnableWhatsNewSectionDescription": "Bu seçenek etkinleştirildiğinde üst menü çubuğunda 'Yenilikler bölümü' görüntülenir.",
-        "SettingEnableWhatsNewSectionInlineHelp": "%1$sNot:%2$s Özel bir marka ayarlanırsa ya da matomo.org bağlantılarını kaldırma özelliği etkinleştirilirse, bu ayar yok sayılır ve 'Yenilikler bölümü' her zaman otomatik olarak gizlenir.",
+        "SettingEnableHelpSectionDescription": "Açıldığında, üst menü çubuğunda 'Yardım simgesi' görüntülenir.",
+        "SettingEnableHelpSectionInlineHelp": "%1$sNot:%2$s Yardım bölümü, özel bir marka adı belirlendiğinde veya matomo.org bağlantılarını silme özelliği açık olduğunda bile Matomo bağlantılarını görüntüler.",
+        "SettingEnableHelpSectionTitle": "Yardım bölümü görüntülensin",
+        "SettingEnableWhatsNewSectionDescription": "Açıldığında, üst menü çubuğunda 'Yenilikler bölümü' görüntülenir.",
+        "SettingEnableWhatsNewSectionInlineHelp": "%1$sNot:%2$s Özel bir marka ayarlanırsa ya da matomo.org bağlantılarını kaldırma özelliği açılırsa, bu ayar yok sayılır ve 'Yenilikler bölümü' her zaman otomatik olarak gizlenir.",
         "SettingEnableWhatsNewSectionTitle": "Yenilikler bölümü görüntülensin",
         "SettingHeaderBackgroundColor": "Başlık arka plan rengi",
         "SettingHeaderFontColor": "Başlık yazı rengi",
-        "SettingMarketplaceOnlySuperUserDescription": "Varsayılan olarak oturum açan tüm kullanıcılar mağazayı görebilir. Bu seçenek etkinleştirildiğinde, Mağaza yalnızca süper kullanıcılara görüntülenir. Bu seçenek, mağazanın kullanıcılara görüntülenmesinin istenmediği ancak mağaza üzerinden kolayca uygulama eki kurmanın ve güncellemenin istendiği durumlarda yararlıdır.",
+        "SettingMarketplaceOnlySuperUserDescription": "Varsayılan olarak oturum açan tüm kullanıcılar mağazayı görebilir. Bu seçenek açıldığında, Mağaza yalnızca süper kullanıcılara görüntülenir. Bu seçenek, mağazanın kullanıcılara görüntülenmesinin istenmediği ancak mağaza üzerinden kolayca uygulama eki kurmanın ve güncellemenin istendiği durumlarda yararlıdır.",
         "SettingMarketplaceOnlySuperUserTitle": "Mağaza yalnızca süper kullanıcılara görüntülensin",
         "SettingRemoveLinksToMatomo": "Yeni: matomo.org bağlantıları kaldırılsın (deneme aşamasında)",
-        "SettingRemoveLinksToMatomoDescription": "Bu seçenek etkinleştirildiğinde, süper kullanıcılar dışındaki tüm kullanıcılar için matomo.org bağlantıları kaldırılır. Şu aşamada tüm bağlantıların %%100 kaldırılmayacağını ve bazı yerlerde bağlantıların görüntülenebileceğini unutmayın.",
+        "SettingRemoveLinksToMatomoDescription": "Açıldığında, süper kullanıcılar dışındaki tüm kullanıcılar için matomo.org bağlantıları kaldırılır. Şu aşamada tüm bağlantıların %%100 kaldırılmayacağını ve bazı yerlerde bağlantıların görüntülenebileceğini unutmayın.",
         "SettingWhitelabelTrackingEndpoint": "Beyaz etiket izleme bitiş noktası",
-        "SettingWhitelabelTrackingEndpointDescription": "Bu seçenek etkinleştirildiğinde, izleme kodu üretecindeki ve API ile istenilen izleme kodlarında \"piwik.js\" ve \"piwik.php\" ifadeleri \"js/tracker.php\" ile değiştirilir. Bu seçenek etkinleştirilirken, sunucunuzu %s isteklerini kabul ettiğinden emin olmanız önerilir"
+        "SettingWhitelabelTrackingEndpointDescription": "Açıldığında, izleme kodu üretecindeki ve API ile istenilen izleme kodlarında \"piwik.js\" ve \"piwik.php\" ifadeleri \"js/tracker.php\" ile değiştirilir. Bu özellik açılırken, sunucunuzu %s isteklerini kabul ettiğinden emin olmanız önerilir"
     }
 }

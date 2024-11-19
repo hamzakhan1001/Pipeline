@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -46,7 +47,7 @@ class Brand
             $output = str_replace($replace, $replaceWith, $output);
         }
 
-        $output = str_replace( ' - free/libre analytics platform', '', $output);
+        $output = str_replace(' - free/libre analytics platform', '', $output);
         $output = str_replace($temporaryReplace, $noBrandReplace, $output);
         return $output;
     }
@@ -54,7 +55,6 @@ class Brand
     public function removeLinksToMatomo($output)
     {
         if (empty($output)) {
-
             return $output;
         }
         $pattern = array(
@@ -115,5 +115,4 @@ class Brand
 
         return true;
     }
-
 }
