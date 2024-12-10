@@ -114,14 +114,25 @@ class API extends \Piwik\Plugin\API
      *                                   call 'CustomReports.getAvailableCategories'.
      * @param string $description  An optional description for the report, will be shown in the title help icon of the report.
      * @param string $segmentFilter   An optional segment to filter the report data. Needs to be sent urlencoded.
+     * @param string[] $multipleIdSites   An optional list of idsites for which we need to execute the report
      * @return int
      */
-    public function addCustomReport($idSite, $name, $reportType, $metricIds, $categoryId = false, $dimensionIds = array(), $subcategoryId = false, $description = '', $segmentFilter = '')
+    public function addCustomReport($idSite, $name, $reportType, $metricIds, $categoryId = false, $dimensionIds = array(), $subcategoryId = false, $description = '', $segmentFilter = '', $multipleIdSites = [])
     {
-        $this->validator->checkWritePermission($idSite);
-
-        // prevent creating reports for sites that do not yet exist but might in the future
-        $this->validator->checkSiteExists($idSite);
+        if (!empty($multipleIdSites) && $idSite != 'all' && $idSite != '0') {
+            $multipleIdSites = array_unique($multipleIdSites);
+            Piwik::checkUserHasSuperUserAccess();
+            foreach ($multipleIdSites as $multipleIdSite) {
+                $this->validator->checkSiteExists($multipleIdSite);
+            }
+            if (!in_array($idSite, $multipleIdSites)) {
+                throw new \Exception(Piwik::translate('CustomReports_ErrorInvalidMultipleIdSite', [$idSite]));
+            }
+        } else {
+            $this->validator->checkWritePermission($idSite);
+            // prevent creating reports for sites that do not yet exist but might in the future
+            $this->validator->checkSiteExists($idSite);
+        }
 
         if (empty($categoryId)) {
             $categoryId = CustomReportsDao::DEFAULT_CATEGORY;
@@ -142,8 +153,8 @@ class API extends \Piwik\Plugin\API
             throw new \Exception(Piwik::translate('CustomReports_ErrorProductRevenueMetricDependency'));
         }
 
-        $idReport = $this->model->createCustomReport($idSite, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $createdDate);
-        $report = $this->model->getCustomReportById($idReport);
+        $idReport = $this->model->createCustomReport($idSite, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $createdDate, $multipleIdSites);
+        $report = $this->model->getCustomReportById($idReport, $idSite);
 
         $config = StaticContainer::get(Configuration::class);
         $startDate = $config->getReArchiveReportsInPastLastNMonths();
@@ -152,9 +163,9 @@ class API extends \Piwik\Plugin\API
         }
 
         $this->archiveInvalidator->scheduleReArchiving(
-            $idSite === 0 || $idSite === '0' || $idSite == 'all' ? 'all' : [$idSite],
+            $idSite === 0 || $idSite === '0' || $idSite == 'all' ? 'all' : (!empty($multipleIdSites) ? $multipleIdSites : [$idSite]),
             'CustomReports',
-            Archiver::makeRecordName($idReport, $report['revision']),
+            Archiver::makeRecordName($idReport, $report['revision'] ?? '0'),
             $startDate
         );
 
@@ -200,22 +211,45 @@ class API extends \Piwik\Plugin\API
      * @param string $description  An optional description for the report, will be shown in the title help icon of the report.
      * @param string $segmentFilter   An optional segment to filter the report data. Needs to be sent urlencoded.
      * @param int[] $subCategoryReportIds List of sub report ids mapped to this report
+     * @param string[] $multipleIdSites An optional list of idsites for which we need to execute the report
      */
-    public function updateCustomReport($idSite, $idCustomReport, $name, $reportType, $metricIds, $categoryId = false, $dimensionIds = array(), $subcategoryId = false, $description = '', $segmentFilter = '', $subCategoryReportIds = [])
-    {
-        $this->validator->checkWritePermission($idSite);
-
-        // prevent creating reports for sites that do not yet exist but might in the future
-        $this->validator->checkSiteExists($idSite);
+    public function updateCustomReport(
+        $idSite,
+        $idCustomReport,
+        $name,
+        $reportType,
+        $metricIds,
+        $categoryId = false,
+        $dimensionIds = array(),
+        $subcategoryId = false,
+        $description = '',
+        $segmentFilter = '',
+        $subCategoryReportIds = [],
+        $multipleIdSites = []
+    ) {
+        if (!empty($multipleIdSites) && $idSite != 'all' && $idSite != '0') {
+            $multipleIdSites = array_unique($multipleIdSites);
+            Piwik::checkUserHasSuperUserAccess();
+            foreach ($multipleIdSites as $multipleIdSite) {
+                $this->validator->checkSiteExists($multipleIdSite);
+            }
+            if (!in_array($idSite, $multipleIdSites)) {
+                throw new \Exception(Piwik::translate('CustomReports_ErrorInvalidMultipleIdSite', [$idSite]));
+            }
+        } else {
+            $this->validator->checkWritePermission($idSite);
+            // prevent creating reports for sites that do not yet exist but might in the future
+            $this->validator->checkSiteExists($idSite);
+        }
 
         // we cannot get report by idSite, idCustomReport since the idSite may change!
-        $report = $this->model->getCustomReportById($idCustomReport);
+        $report = $this->model->getCustomReportById($idCustomReport, $idSite);
 
         if (empty($report)) {
             throw new \Exception(Piwik::translate('CustomReports_ErrorReportDoesNotExist'));
         }
 
-        if ($report['idsite'] != $idSite) {
+        if ($report['idsite'] != $idSite && empty($multipleIdSites)) {
             // if the site changes for a report, make sure the user write permission for the old and the new site
             $this->validator->checkWritePermission($report['idsite']);
         }
@@ -262,10 +296,10 @@ class API extends \Piwik\Plugin\API
             throw new \Exception(Piwik::translate('CustomReports_ErrorProductRevenueMetricDependency'));
         }
 
-        $this->model->updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $updatedDate, $subCategoryReportIds);
+        $this->model->updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensionIds, $metricIds, $segmentFilter, $categoryId, $subcategoryId, $updatedDate, $subCategoryReportIds, $multipleIdSites);
 
         if ($shouldReArchive) {
-            $updatedReport = $this->model->getCustomReportById($idCustomReport);
+            $updatedReport = $this->model->getCustomReportById($idCustomReport, $idSite);
             $config = StaticContainer::get(Configuration::class);
             $startDate = $config->getReArchiveReportsInPastLastNMonths();
             if (!empty($startDate)) {
@@ -273,7 +307,7 @@ class API extends \Piwik\Plugin\API
             }
 
             $this->archiveInvalidator->scheduleReArchiving(
-                $idSite === 0 || $idSite === '0' || $idSite == 'all' ? 'all' : [$idSite],
+                $idSite === 0 || $idSite === '0' || $idSite == 'all' ? 'all' : (!empty($multipleIdSites) ? $multipleIdSites : [$idSite]),
                 'CustomReports',
                 Archiver::makeRecordName($idCustomReport, $updatedReport['revision']),
                 $startDate
@@ -355,13 +389,14 @@ class API extends \Piwik\Plugin\API
             // and wouldn't need this code but it is to prevent any possible future security bugs.
             throw new \Exception('Cannot delete report, site does not match');
         } elseif (!empty($report)) {
+            $multipleIDSites = $report['multiple_idsites'] ? explode(',', $report['multiple_idsites']) : [];
             $this->archiveInvalidator->removeInvalidationsSafely(
-                [$idSite],
+                $multipleIDSites ? $multipleIDSites : [$idSite],
                 'CustomReports',
                 Archiver::makeRecordName($idCustomReport, $report['revision'])
             );
 
-            $this->model->deactivateReport($idSite, $idCustomReport, $report['name']);
+            $this->model->deactivateReport($multipleIDSites ? -1 : $idSite, $idCustomReport, $report['name']);
             Piwik::postEvent('CustomReports.deleteCustomReport.end', array($idSite, $idCustomReport));
             $this->clearCache();
         }
@@ -474,8 +509,7 @@ class API extends \Piwik\Plugin\API
         $rows = array();
 
         $dimensionsToIgnore = array(
-            'Actions.IdPageview', 'Actions.ActionType', 'CoreHome.VisitId',
-            'UserCountry.Region', 'GeoIp2.Region', // not working on it's own as it needs country in combination in order to format title and have unique values
+            'Actions.IdPageview', 'CoreHome.VisitId',
             'DevicesDetection.OsVersion', // only makes sense in combination with Os Family
             'CoreHome.LinkVisitActionId', 'CoreHome.LinkVisitActionIdPages', 'UserCountry.Provider'
         );

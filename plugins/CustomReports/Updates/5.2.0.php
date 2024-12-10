@@ -15,9 +15,9 @@ use Piwik\Updater\Migration;
 use Piwik\Updater\Migration\Factory as MigrationFactory;
 
 /**
- * Update for version 5.1.0.
+ * Update for version 5.2.0.
  */
-class Updates_5_1_0 extends PiwikUpdates
+class Updates_5_2_0 extends PiwikUpdates
 {
     /**
      * @var MigrationFactory
@@ -43,7 +43,8 @@ class Updates_5_1_0 extends PiwikUpdates
     public function getMigrations(Updater $updater)
     {
         return [
-            $this->migration->db->addColumn('custom_reports', 'subcategory_order', 'MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT 9999999', 'subcategory')
+            $this->migration->db->changeColumn('custom_reports', 'idsite', 'idsite', 'INT NOT NULL'),
+            $this->migration->db->addColumn('custom_reports', 'multiple_idsites', 'VARCHAR(2000) NULL', 'status')
         ];
     }
 

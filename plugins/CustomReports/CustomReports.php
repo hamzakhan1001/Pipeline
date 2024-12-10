@@ -5,7 +5,7 @@
  * Description: Pull out the information you need in order to be successful. Develop your custom strategy to meet your individualized goals while saving money & time.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.1.0
+ * Version: 5.2.0
  */
 ?><?php
 
@@ -361,6 +361,18 @@ class CustomReports extends \Piwik\Plugin
         $result[] = 'CustomReports_WarningProductRevenueMetricDependency';
         $result[] = 'CustomReports_OrderSubCategoryReports';
         $result[] = 'CustomReports_OrderSubCategoryReportsDescription';
+        $result[] = 'CustomReports_WarningRegionDimensionDependency';
+        $result[] = 'CustomReports_SelectMeasurablesMatchingSearch';
+        $result[] = 'CustomReports_FindMeasurables';
+        $result[] = 'CustomReports_ReportEditNotAllowedMultipleWebsites';
+        $result[] = 'CustomReports_ReportAvailableToMultipleWebsites';
+        $result[] = 'CustomReports_NoMeasurableAssignedYet';
+        $result[] = 'CustomReports_MatchingSearchNotFound';
+        $result[] = 'CustomReports_MatchingSearchConfirmTitle';
+        $result[] = 'CustomReports_MatchingSearchConfirmTitleAlreadyAdded';
+        $result[] = 'CustomReports_MatchingSearchMatchedAdd';
+        $result[] = 'CustomReports_MatchingSearchMatchedAlreadyAdded';
+        $result[] = 'CustomReports_ReportAllWebsitesNonSuperUserHelp';
     }
 
     public function addGlossaryItems(&$glossaryItems)

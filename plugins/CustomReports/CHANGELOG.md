@@ -1,5 +1,13 @@
 ## Changelog
 
+5.2.0 - 2024-12-09
+- Added option to assign multiple idSites to a single report
+- Added action type dimension
+- Updated region dimension query to group by country and show region name instead of region code 
+
+5.1.1 - 2024-12-02
+- Added region and action type dimension
+
 5.1.0 - 2024-11-18
 - Added an option to sort subcategory reports
 

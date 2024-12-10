@@ -68,7 +68,17 @@
                 class="icon-info2"
                 :title="translate('CustomReports_ReportAvailableToAllWebsites')"
                 v-show="!report.idsite && isSuperUser"
-              /></td>
+              />
+              <span
+                class="icon-locked"
+                :title="translate('CustomReports_ReportEditNotAllowedMultipleWebsites')"
+                v-show="!isSuperUser && isMultiSiteReport(report)"
+              /><span
+                class="icon-info2"
+                :title="translate('CustomReports_ReportAvailableToMultipleWebsites')"
+                v-show="isSuperUser && isMultiSiteReport(report)"
+              />
+            </td>
             <td
               class="description"
               :title="htmlEntities(report.description)"
@@ -99,7 +109,7 @@
                 class="table-action icon-delete"
                 :title="translate('CustomReports_DeleteReportInfo')"
                 @click="deleteReport(report)"
-                v-show="report.idsite || isSuperUser"
+                v-show="(report.idsite && !isMultiSiteReport(report)) || isSuperUser"
               />
             </td>
           </tr>
@@ -207,6 +217,9 @@ export default defineComponent({
     truncate: truncateText2,
     htmlEntities(v: string) {
       return Matomo.helper.htmlEntities(v);
+    },
+    isMultiSiteReport(report: CustomReport) {
+      return (report.multiple_idsites && report.multiple_idsites.split(','));
     },
   },
   computed: {

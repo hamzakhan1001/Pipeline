@@ -53,7 +53,7 @@ class CustomReportsDao
         // exists yet and need to re-archive reports for it
         DbHelper::createTable($this->table, "
                   `idcustomreport` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-                  `idsite` int(11) UNSIGNED NOT NULL,
+                  `idsite` int(11) NOT NULL,
                   `revision` MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT 0,
                   `report_type` VARCHAR(10) NOT NULL DEFAULT '" . Table::ID . "',
                   `name` VARCHAR(" . Name::MAX_LENGTH . ") NOT NULL,
@@ -67,6 +67,7 @@ class CustomReportsDao
                   `created_date` DATETIME NOT NULL,
                   `updated_date` DATETIME NOT NULL,
                   `status` VARCHAR(10) NOT NULL DEFAULT '" . CustomReportsModel::STATUS_ACTIVE . "',
+                  `multiple_idsites` VARCHAR(2000),
                   PRIMARY KEY (`idcustomreport`),
                   UNIQUE unique_site_name (`idsite`, `name`)");
     }
@@ -76,7 +77,7 @@ class CustomReportsDao
         Db::query(sprintf('DROP TABLE IF EXISTS `%s`', $this->tablePrefixed));
     }
 
-    public function addCustomReport($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $status, $createdDate)
+    public function addCustomReport($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $status, $createdDate, $multipleIdSites)
     {
         $columns = array(
             'idsite' => $idSite,
@@ -90,8 +91,15 @@ class CustomReportsDao
             'category' => $categoryId,
             'status' => $status,
             'created_date' => $createdDate,
-            'updated_date' => $createdDate
+            'updated_date' => $createdDate,
+            'multiple_idsites' => ''
         );
+
+        if ($multipleIdSites) {
+            $columns['idsite'] = -1;
+            $columns['multiple_idsites'] = implode(',', $multipleIdSites);
+        }
+
         $columns = $this->encodeFieldsWhereNeeded($columns);
 
         $bind = array_values($columns);
@@ -141,7 +149,7 @@ class CustomReportsDao
             }
             $fields = implode(',', $fields);
 
-            $query = sprintf('UPDATE %s SET %s WHERE idcustomreport = ? AND idsite = ?', $this->tablePrefixed, $fields);
+            $query = sprintf('UPDATE %s SET %s WHERE idcustomreport = ? AND (idsite = ? or idsite = -1)', $this->tablePrefixed, $fields);
             $bind[] = (int) $idCustomReport;
             $bind[] = (int) $idSite;
 
@@ -187,11 +195,11 @@ class CustomReportsDao
      */
     public function getCustomReports($idSite)
     {
-        $query = sprintf('SELECT * FROM %s WHERE (idsite = ? or idsite = 0) and status = ?', $this->tablePrefixed);
+        $query = sprintf('SELECT * FROM %s WHERE (idsite = ? or idsite = 0 or idsite = -1) and status = ?', $this->tablePrefixed);
         $db = $this->getDb();
         $rows = $db->fetchAll($query, array($idSite, CustomReportsModel::STATUS_ACTIVE));
 
-        return $this->enrichRecords($rows);
+        return $this->enrichRecords($rows, $idSite);
     }
 
     /**
@@ -201,7 +209,7 @@ class CustomReportsDao
     {
         $table = $this->tablePrefixed;
         $reports = $this->getDb()->fetchAll("SELECT * FROM $table");
-        return $this->enrichRecords($reports);
+        return $this->enrichRecords($reports, 'all');
     }
 
     /**
@@ -211,11 +219,11 @@ class CustomReportsDao
      */
     public function getCustomReport($idSite, $idCustomReport)
     {
-        $query = sprintf('SELECT * FROM %s WHERE (idsite = ? or idsite = 0) and idcustomreport = ? and status = ? LIMIT 1', $this->tablePrefixed);
+        $query = sprintf('SELECT * FROM %s WHERE (idsite = ? or idsite = 0 or idsite = -1) and idcustomreport = ? and status = ? LIMIT 1', $this->tablePrefixed);
         $db = $this->getDb();
         $row = $db->fetchRow($query, array($idSite, $idCustomReport, CustomReportsModel::STATUS_ACTIVE));
 
-        return $this->enrichRecord($row);
+        return $this->enrichRecord($row, $idSite);
     }
 
     public function getChildReports(int $idSite, int $idCustomReport): array
@@ -230,13 +238,13 @@ class CustomReportsDao
      * @param int $idCustomReport
      * @return array|bool
      */
-    public function getCustomReportById($idCustomReport)
+    public function getCustomReportById($idCustomReport, $idSite)
     {
         $query = sprintf('SELECT * FROM %s WHERE idcustomreport = ? and status = ? LIMIT 1', $this->tablePrefixed);
         $db = $this->getDb();
         $row = $db->fetchRow($query, array($idCustomReport, CustomReportsModel::STATUS_ACTIVE));
 
-        return $this->enrichRecord($row);
+        return $this->enrichRecord($row, $idSite);
     }
 
     public function updateReportOrder($idCustomReport, $subCategoryOrder, $idSite)
@@ -266,23 +274,47 @@ class CustomReportsDao
         );
     }
 
-    private function enrichRecords($records)
+    private function enrichRecords($records, $idSite)
     {
         if (empty($records)) {
             return $records;
         }
 
-        foreach ($records as $index => $record) {
-            $records[$index] = $this->enrichRecord($record);
+        $data = array();
+
+        foreach ($records as $record) {
+            if ($idSite === 'all' && !empty($record['multiple_idsites'])) {
+                $multipleIdSites = $record['multiple_idsites'] ? explode(',', $record['multiple_idsites']) : [];
+                foreach ($multipleIdSites as $multipleIdSite) {
+                    $record['idsite'] = $multipleIdSite;
+                    $data[] = $this->enrichRecord($record, $multipleIdSite);
+                }
+            } elseif ($record['idsite'] == -1) {
+                $multipleIdSites = $record['multiple_idsites'] ? explode(',', $record['multiple_idsites']) : [];
+                if (!in_array($idSite, $multipleIdSites)) {
+                    continue;
+                }
+                $record['idsite'] = $idSite;
+                $data[] = $this->enrichRecord($record, $idSite);
+            } else {
+                $data[] = $this->enrichRecord($record, $record['idsite']);
+            }
         }
 
-        return $records;
+        return $data;
     }
 
-    private function enrichRecord($record)
+    private function enrichRecord($record, $idSite)
     {
         if (empty($record)) {
             return $record;
+        }
+        if ($record['idsite'] == -1) {
+            $multipleIdSites = $record['multiple_idsites'] ? explode(',', $record['multiple_idsites']) : [];
+            if ($idSite != -1 && !in_array($idSite, $multipleIdSites) && $idSite !== 'all' && $idSite != '0') {
+                return [];
+            }
+            $record['idsite'] = $idSite;
         }
 
         $record['idcustomreport'] = (int) $record['idcustomreport'];
@@ -290,6 +322,7 @@ class CustomReportsDao
         $record['revision'] = (int) $record['revision'];
         $record['dimensions'] = $this->decodeField($record['dimensions']);
         $record['metrics'] = $this->decodeField($record['metrics']);
+        $record['multiple_idsites'] = $record['multiple_idsites'];
 
         if (!empty($record['created_date']) && strpos($record['created_date'], '0000') !== false) {
             $record['created_date'] = null;

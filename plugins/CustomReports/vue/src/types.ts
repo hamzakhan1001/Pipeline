@@ -33,6 +33,11 @@ interface Subcategory {
   order?: number;
 }
 
+export interface Site {
+  idsite: string | number;
+  name: string;
+}
+
 export interface ChildReport {
   idcustomreport: string|number;
   name: string;
@@ -56,6 +61,8 @@ export interface CustomReport {
   subcategory: Subcategory|null;
   updated_date: string;
   child_reports: ChildReport[]
+  multipleIdSites: Site[];
+  multiple_idsites: null|string;
 
   linkIdSite?: string|number;
   subcategoryLink?: string|number;

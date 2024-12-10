@@ -335,6 +335,7 @@ class CustomReportsStore {
     report: CustomReport,
     method: string,
     childReportIds: Array<string|number>,
+    multipleIdSites: Array<string|number>,
   ): Promise<{ type: string, message?: string, response?: { value: number|string }}> {
     this.privateState.isUpdating = true;
     return AjaxHelper.post<{ value: number|string }>(
@@ -349,6 +350,7 @@ class CustomReportsStore {
         subcategoryId: report.subcategory?.id,
         idSite: report.site.id,
         subCategoryReportIds: childReportIds,
+        multipleIdSites,
       },
       {
         dimensionIds: arrayFilterAndRemoveDuplicates(report.dimensions),

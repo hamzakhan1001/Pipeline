@@ -14,7 +14,9 @@
         "Unlock": "Unlock",
         "ApplyTo": "Apply to",
         "ReportEditNotAllowedAllWebsites": "Because this report is available for all websites, only a user with Super User access can change this report.",
+        "ReportEditNotAllowedMultipleWebsites": "Because this report is available for multiple websites, only a user with Super User access can change this report.",
         "ReportAvailableToAllWebsites": "This report is available for all websites.",
+        "ReportAvailableToMultipleWebsites": "This report is available for multiple websites.",
         "AvailableAllWebsites": "Available in all websites",
         "WarningRequiresUnlock": "In order to make changes to this report content, you need to \"unlock\" this report. When you make changes to the report configuration and update this report, new reporting data needs to be generated and previously generated reports for this report won't be available anymore.",
         "WarningOnUpdateReportMightGetLost": "When you update this custom report, previously generated reports for this custom report will become unavailable.",
@@ -55,6 +57,7 @@
         "Category": "Category",
         "ReportCategoryHelp": "Select the main reporting category under which this report will be available in the reporting menu.",
         "ReportAllWebsitesHelp": "Select the website this report should be available for. You can also choose \"All websites\" to make this report available for all your sites (also sites that will be created in the future).",
+        "ReportAllWebsitesNonSuperUserHelp": "Select the website this report should be available for.",
         "ReportDimensionsHelp": "Dimensions typically describe characteristics and is usually shown in the first column of a report. You can select up to three dimensions, for example Browser, Country, City. At least one dimension needs to be selected.",
         "ReportMetricsHelp": "Metrics are quantitative measurements. For example, if you want to increase the traffic on your website, include \"Visits\", if you are improving the performance of your website, include \"Avg. Generation Time\".",
         "ReportSegmentHelp": "A filter lets you see this report only for a subset of your visitors. For example, you can filter this report down by mobile device users only.",
@@ -84,6 +87,15 @@
         "WarningProductRevenueMetricDependency": "Product Revenue metrics need an accompanying Product Quantity metric in the same report. The accompanying metric has been added automatically. %1$sLearn more%2$s.",
         "OrderSubCategoryReports": "Order Subcategory reports",
         "OrderSubCategoryReportsDescription": "Optional: Adjust the order in which subcategories will be shown while viewing this custom report.",
-        "ErrorInvalidSubCategoryReport": "Invalid subcategory report ids."
+        "ErrorInvalidSubCategoryReport": "Invalid subcategory report ids.",
+        "SelectMeasurablesMatchingSearch": "or add all measureables that contain the following search term",
+        "FindMeasurables": "Find measurables",
+        "NoMeasurableAssignedYet": "No measurable has been assigned yet, please select a measurable from the selector above.",
+        "MatchingSearchNotFound": "There is no measurable matching the search term %s.",
+        "MatchingSearchConfirmTitle": "Are you sure you want to add %s matching measurables?",
+        "MatchingSearchConfirmTitleAlreadyAdded": "%s matching measurables are already added",
+        "MatchingSearchMatchedAdd": "These %1$s measurables matched %2$s and will be added to this custom report",
+        "MatchingSearchMatchedAlreadyAdded": "These %1$s measurables matched %2$s but are already added to this custom report",
+        "ErrorInvalidMultipleIdSite": "For multiple idsites, idsite:%1$s should be included in the list."
     }
 }
