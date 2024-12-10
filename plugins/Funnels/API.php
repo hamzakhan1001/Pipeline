@@ -593,7 +593,7 @@ class API extends PluginApi
      */
     public function testUrlMatchesSteps($url, $steps)
     {
-        $this->validator->checkHasSomeWritePermission();
+        Piwik::checkUserHasSomeViewAccess();
 
         if ($url === '' || $url === false || $url === null) {
             return array('url' => '', 'tests' => array());

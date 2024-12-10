@@ -5,7 +5,7 @@
  * Description: Identify and understand where your visitors drop off to increase your conversions, sales and revenue with your existing traffic.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/Funnels
- * Version: 5.3.6
+ * Version: 5.3.8
  */
 ?><?php
 

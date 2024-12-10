@@ -60,7 +60,7 @@ class GetFunnelFlowTable extends GetFunnelFlow
             $config->setSubcategoryId($funnel['idfunnel']);
             $config->setAction('funnelReportTable');
             $config->setOrder(30);
-            $config->setParameters(['idGoal' => $funnel['idgoal'], 'idFunnel' => $funnel['idfunnel']]);
+            $config->setParameters(['idGoal' => $funnel['idgoal'], 'idFunnel' => $funnel['idfunnel'], 'filter_limit' => -1]);
             $config->setIsWide();
             $config->setIsNotWidgetizable();
             $widgetsList->addWidgetConfig($config);

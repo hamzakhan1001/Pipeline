@@ -29,24 +29,12 @@ class Validator
 
     public function checkHasSomeWritePermission()
     {
-        if ($this->supportsMethod('checkUserHasSomeWriteAccess')) {
-            // since Matomo 3.6.0
-            Piwik::checkUserHasSomeWriteAccess();
-            return;
-        }
-
-        Piwik::checkUserHasSomeAdminAccess();
+        Piwik::checkUserHasSomeWriteAccess();
     }
 
     public function checkWritePermission($idSite)
     {
-        if ($this->supportsMethod('checkUserHasWriteAccess')) {
-            // since Matomo 3.6.0
-            Piwik::checkUserHasWriteAccess($idSite);
-        } else {
-            Piwik::checkUserHasAdminAccess($idSite);
-        }
-
+        Piwik::checkUserHasWriteAccess($idSite);
         $this->checkSiteExists($idSite);
     }
 
@@ -76,12 +64,7 @@ class Validator
             return false;
         }
 
-        if ($this->supportsMethod('isUserHasWriteAccess')) {
-            // since Matomo 3.6.0
-            return Piwik::isUserHasWriteAccess($idSite);
-        }
-
-        return Piwik::isUserHasAdminAccess($idSite);
+        return Piwik::isUserHasWriteAccess($idSite);
     }
 
     public function validateFunnelConfiguration($activated, $steps)
