@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.1 - 2024-12-02
+- Added activities to track deleting recorded sessions and page views
+
 5.2.0 - 2024-11-04
 - Implemented a tooltip which displays click count and rate
 

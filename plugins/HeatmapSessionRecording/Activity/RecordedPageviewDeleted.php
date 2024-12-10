@@ -18,13 +18,17 @@ namespace Piwik\Plugins\HeatmapSessionRecording\Activity;
 
 use Piwik\Piwik;
 
-class HeatmapUpdated extends BaseActivity
+class RecordedPageviewDeleted extends BaseActivity
 {
-    protected $eventName = 'API.HeatmapSessionRecording.updateHeatmap.end';
+    protected $eventName = 'API.HeatmapSessionRecording.deleteRecordedPageview.end';
 
     public function extractParams($eventData)
     {
-        [$return, $finalAPIParameters] = $eventData;
+        [$result, $finalAPIParameters] = $eventData;
+
+        if (empty($finalAPIParameters['parameters'])) {
+            return false;
+        }
 
         $idSiteHsr = $finalAPIParameters['parameters']['idSiteHsr'];
         $idSite = $finalAPIParameters['parameters']['idSite'];
@@ -37,6 +41,6 @@ class HeatmapUpdated extends BaseActivity
         $siteName = $this->getSiteNameFromActivityData($activityData);
         $hsrName = $this->getHsrNameFromActivityData($activityData);
 
-        return Piwik::translate('HeatmapSessionRecording_HeatmapUpdatedActivity', [$hsrName, $siteName]);
+        return Piwik::translate('HeatmapSessionRecording_RecordedPageviewDeletedActivity', [$hsrName, $siteName]);
     }
 }

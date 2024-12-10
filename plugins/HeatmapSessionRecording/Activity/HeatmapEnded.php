@@ -16,6 +16,8 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Activity;
 
+use Piwik\Piwik;
+
 class HeatmapEnded extends BaseActivity
 {
     protected $eventName = 'HeatmapSessionRecording.endHeatmap';
@@ -37,8 +39,6 @@ class HeatmapEnded extends BaseActivity
         $siteName = $this->getSiteNameFromActivityData($activityData);
         $hsrName = $this->getHsrNameFromActivityData($activityData);
 
-        $desc = sprintf('ended the heatmap "%1$s" for site "%2$s"', $hsrName, $siteName);
-
-        return $desc;
+        return Piwik::translate('HeatmapSessionRecording_HeatmapEndedActivity', [$hsrName, $siteName]);
     }
 }

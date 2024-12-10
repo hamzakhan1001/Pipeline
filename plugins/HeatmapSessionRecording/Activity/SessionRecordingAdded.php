@@ -16,13 +16,15 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Activity;
 
+use Piwik\Piwik;
+
 class SessionRecordingAdded extends BaseActivity
 {
     protected $eventName = 'API.HeatmapSessionRecording.addSessionRecording.end';
 
     public function extractParams($eventData)
     {
-        list($idSiteHsr, $finalAPIParameters) = $eventData;
+        [$idSiteHsr, $finalAPIParameters] = $eventData;
 
         $idSite = $finalAPIParameters['parameters']['idSite'];
 
@@ -34,8 +36,6 @@ class SessionRecordingAdded extends BaseActivity
         $siteName = $this->getSiteNameFromActivityData($activityData);
         $hsrName = $this->getHsrNameFromActivityData($activityData);
 
-        $desc = sprintf('added a session recording "%1$s" for site "%2$s"', $hsrName, $siteName);
-
-        return $desc;
+        return Piwik::translate('HeatmapSessionRecording_SessionRecordingAddedActivity', [$hsrName, $siteName]);
     }
 }
