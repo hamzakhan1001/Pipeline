@@ -16,13 +16,15 @@
 
 namespace Piwik\Plugins\HeatmapSessionRecording\Activity;
 
+use Piwik\Piwik;
+
 class SessionRecordingDeleted extends BaseActivity
 {
     protected $eventName = 'API.HeatmapSessionRecording.deleteSessionRecording.end';
 
     public function extractParams($eventData)
     {
-        list($result, $finalAPIParameters) = $eventData;
+        [$result, $finalAPIParameters] = $eventData;
 
         if (empty($finalAPIParameters['parameters'])) {
             return false;
@@ -39,8 +41,6 @@ class SessionRecordingDeleted extends BaseActivity
         $siteName = $this->getSiteNameFromActivityData($activityData);
         $hsrName = $this->getHsrNameFromActivityData($activityData);
 
-        $desc = sprintf('deleted the session recording "%1$s" for site "%2$s"', $hsrName, $siteName);
-
-        return $desc;
+        return Piwik::translate('HeatmapSessionRecording_SessionRecordingDeletedActivity', [$hsrName, $siteName]);
     }
 }

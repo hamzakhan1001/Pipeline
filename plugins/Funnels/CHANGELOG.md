@@ -1,5 +1,12 @@
 ## Changelog
 
+5.3.8 - 2024-12-03
+- Fixed issue where report table failed to display all funnel steps when exceeding 10 steps
+
+5.3.7 - 2024-11-21
+- Fixed issue where the Exits subtable didn't always load for view-only users
+- Fixed issue where the step evolution wouldn't load if the step name contained an ampersand
+
 5.3.6 - 2024-11-05
 - Updated README.md
 

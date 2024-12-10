@@ -54,17 +54,17 @@ class CustomReportsModel
         $this->dao = $dao;
     }
 
-    public function createCustomReport($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $createdDate)
+    public function createCustomReport($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $createdDate, $multipleIdSites)
     {
         if ($reportType === Evolution::ID) {
             $dimensions = array();
         }
 
-        $this->validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId);
+        $this->validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, [], $multipleIdSites);
 
         $status = self::STATUS_ACTIVE;
 
-        $idCustomReport = $this->dao->addCustomReport($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $status, $createdDate);
+        $idCustomReport = $this->dao->addCustomReport($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $status, $createdDate, $multipleIdSites);
 
         return $idCustomReport;
     }
@@ -91,15 +91,15 @@ class CustomReportsModel
         return false;
     }
 
-    public function updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $updatedDate, $subCategoryReportIds)
+    public function updateCustomReport($idSite, $idCustomReport, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $updatedDate, $subCategoryReportIds, $multipleIdSites)
     {
         if ($reportType === Evolution::ID) {
             $dimensions = array();
         }
 
-        $this->validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $subCategoryReportIds);
+        $this->validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $subCategoryReportIds, $multipleIdSites);
 
-        $report = $this->getCustomReportById($idCustomReport);
+        $report = $this->getCustomReportById($idCustomReport, $idSite);
 
         $revision = $report['revision'];
 
@@ -124,8 +124,13 @@ class CustomReportsModel
             'subcategory' => $subcategoryId,
             'category' => $categoryId,
             'updated_date' => $updatedDate,
-            'revision' => $revision
+            'revision' => $revision,
+            'multiple_idsites' => '',
         );
+        if (!empty($multipleIdSites)) {
+            $columns['idsite'] = -1;
+            $columns['multiple_idsites'] = implode(',', $multipleIdSites);
+        }
         // idsite might change when configuring a report so we cannot use $idSite but need to use the currently stored
         // idsite in order to update the report!
 
@@ -150,12 +155,13 @@ class CustomReportsModel
 
     /**
      * @param $idCustomReport
+     * @param $idSite
      * @return array|false
      * @throws \Exception
      */
-    public function getCustomReportById($idCustomReport)
+    public function getCustomReportById($idCustomReport, $idSite)
     {
-        $report = $this->dao->getCustomReportById($idCustomReport);
+        $report = $this->dao->getCustomReportById($idCustomReport, $idSite);
         return $this->enrichReport($report, false, true);
     }
 
@@ -201,6 +207,9 @@ class CustomReportsModel
 
         if ($addChildReports) {
             $report['child_reports'] = $this->dao->getChildReports($report['idsite'], $report['idcustomreport']);
+
+            // Since child reports are added for single reports so add multiple_sites info for single reports only
+            $report['multipleIdSites'] = $report['multiple_idsites'] ? $this->getMultipleIdSitesInfo(explode(',', $report['multiple_idsites'])) : [];
         }
 
         return $report;
@@ -311,7 +320,7 @@ class CustomReportsModel
         return Date::now()->getDatetime();
     }
 
-    private function validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $subCategoryReportIds = [])
+    private function validateReportValues($idSite, $name, $description, $reportType, $dimensions, $metrics, $segmentFilter, $categoryId, $subcategoryId, $subCategoryReportIds = [], $multipleIdSites = [])
     {
         $nameObj = new Name($name);
         $nameObj->check();
@@ -328,13 +337,25 @@ class CustomReportsModel
         $subcategoryObj = new Subcategory($subcategoryId);
         $subcategoryObj->check();
 
-        $dimensionsObj = new Dimensions($dimensions, $idSite);
-        $dimensionsObj->check();
+        if (!empty($multipleIdSites)) {
+            foreach ($multipleIdSites as $multipleIdSite) {
+                $dimensionsObj = new Dimensions($dimensions, $multipleIdSite);
+                $dimensionsObj->check();
 
-        $metricsObj = new Metrics($metrics, $idSite);
-        $metricsObj->check();
+                $metricsObj = new Metrics($metrics, $multipleIdSite);
+                $metricsObj->check();
+            }
+        } else {
+            $dimensionsObj = new Dimensions($dimensions, $idSite);
+            $dimensionsObj->check();
 
-        if (!empty($idSite)) {
+            $metricsObj = new Metrics($metrics, $idSite);
+            $metricsObj->check();
+        }
+
+        if (!empty($multipleIdSites)) {
+            $idSite = $multipleIdSites;
+        } elseif (!empty($idSite)) {
             $idSite = array($idSite);
         } elseif ($idSite === '0' || $idSite === 0 || $idSite === 'all') {
             // just fetching some sites as we have to pass them to the segment selector
@@ -384,5 +405,25 @@ class CustomReportsModel
                 $this->dao->updateReportOrder($subCategoryReportId, $subCategoryReportIdIndex, $idSite);
             }
         }
+    }
+
+    private function getMultipleIdSitesInfo($idSites)
+    {
+        $sitesInfo = [];
+
+        if (!empty($idSites)) {
+            foreach ($idSites as $idSite) {
+                if (empty($idSite)) {
+                    $sitesInfo[] = array('idsite' => $idSite, 'name' => Piwik::translate('General_MultiSitesSummary'));
+                } else {
+                    // If we don't do this, it will fail for admin users who can just view the edit-report, but has no access to all the sites
+                    \Piwik\Access::doAsSuperUser(function () use ($idSite, &$sitesInfo) {
+                        $sitesInfo[] = array('idsite' => $idSite, 'name' => Site::getNameFor($idSite));
+                    });
+                }
+            }
+        }
+
+        return $sitesInfo;
     }
 }

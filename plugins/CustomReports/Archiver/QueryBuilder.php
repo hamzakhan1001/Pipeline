@@ -27,6 +27,7 @@ use Piwik\DataAccess\LogQueryBuilder\JoinTables;
 use Piwik\DataTable;
 use Piwik\Log;
 use Piwik\Plugin\ArchivedMetric;
+use Piwik\Plugins\Actions\Columns\ActionType;
 use Piwik\Plugins\CustomReports\Configuration;
 use Piwik\Plugin\LogTablesProvider;
 use Piwik\Segment;
@@ -110,6 +111,16 @@ class QueryBuilder
             }
         }
 
+        // Special handling for ActionType dimension
+        if ($dimension instanceof ActionType) {
+            if (!$this->reportQuery->hasFrom('log_link_visit_action')) {
+                $this->reportQuery->addFrom('log_link_visit_action');
+            }
+            if (!$this->reportQuery->hasFrom('log_visit')) {
+                $this->reportQuery->addFrom('log_visit');
+            }
+        }
+
         if ($useRightJoin) {
             $tableArray = [
                 'table' => $dbTable,
@@ -164,8 +175,14 @@ class QueryBuilder
                 }
             } else {
                 if (!$useRightJoin) {
-                    $this->reportQuery->addSelect($dimension->getSqlSegment() . " AS '" . $dimension->getId() . "'");
-                    $this->reportQuery->addGroupBy($dimension->getSqlSegment());
+                    if ($dimension->getSegmentName() === 'regionCode') {
+                        $this->reportQuery->addSelect("CONCAT(log_visit.location_region, '|', log_visit.location_country) AS '" . $dimension->getId() . "'");
+                        $this->reportQuery->addGroupBy($dimension->getSqlSegment());
+                        $this->reportQuery->addGroupBy('log_visit.location_country');
+                    } else {
+                        $this->reportQuery->addSelect($dimension->getSqlSegment() . " AS '" . $dimension->getId() . "'");
+                        $this->reportQuery->addGroupBy($dimension->getSqlSegment());
+                    }
                 }
 
                 if ($dbDiscriminator) {

@@ -5,7 +5,7 @@
  * Description: This plugin offers various options to prevent spammers and bots from making your data inaccurate so you can rely on your data again.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.5
+ * Version: 5.0.6
  */
 ?><?php
 

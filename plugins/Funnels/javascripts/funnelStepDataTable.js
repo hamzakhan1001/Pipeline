@@ -256,7 +256,10 @@
     function handleEvolutionClick(event)
     {
         const tr = event.target.closest('tr');
-        const label = $(tr).data('label');
+        var label = $(tr).data('label');
+        if (label) {
+            label = encodeURIComponent(label);
+        }
         const isComparison = $(tr).hasClass('comparisonRow');
         const params = getParamsFromRowParentTable(tr);
 

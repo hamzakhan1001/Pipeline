@@ -103,7 +103,7 @@ class Table extends ReportType
         if (!empty($dimension)) {
             // we cannot really queue since the sorting by label wouldn't work correctly when it would sort eg
             // a translation key or an enum value like "EU" or "MAC"
-            $table->filter('Piwik\Plugins\CustomReports\DataTable\Filter\ReportTypeTableFilter', [$idSite, $dimension, $nestedDimensions]);
+            $table->filter('Piwik\Plugins\CustomReports\DataTable\Filter\ReportTypeTableFilter', [$idSite, $dimension, $nestedDimensions, $flat]);
         }
 
         if (!GetCustomReport::supportsUniqueMetric($period, $isEvolution = false)) {

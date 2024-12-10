@@ -30,7 +30,12 @@
       class="alert alert-danger"
       v-show="!canEdit"
     >
-      {{ translate('CustomReports_ReportEditNotAllowedAllWebsites') }}
+      <span v-if="multipleSites.length">
+            {{ translate('CustomReports_ReportEditNotAllowedMultipleWebsites') }}
+      </span>
+      <span v-else>
+            {{ translate('CustomReports_ReportEditNotAllowedAllWebsites') }}
+      </span>
     </div>
     <form @submit="edit ? updateReport() : createReport()">
       <div>
@@ -85,9 +90,67 @@
           </div>
           <div class="col s12 m6">
             <div class="form-help">
-              <span class="inline-help">
+              <span class="inline-help" v-if="isSuperUser">
                 {{ translate('CustomReports_ReportAllWebsitesHelp') }}
               </span>
+              <span class="inline-help" v-else>
+                {{ translate('CustomReports_ReportAllWebsitesNonSuperUserHelp') }}
+              </span>
+            </div>
+          </div>
+          <div class="col s12 m6"
+               v-if="report.site.id !== 'all' && report.site.id !== '0' && report.site.id !== 0">
+            <div v-if="isSuperUser">
+              <span for="websitecontains">
+                {{ translate('CustomReports_SelectMeasurablesMatchingSearch') }}
+              </span>
+              <br/>
+              <input
+                class="control_text customReportSearchMeasurablesField"
+                type="text"
+                id="websitecontains"
+                v-model="containsText"
+                :placeholder="translate('General_Search')"
+              />
+              <input
+                style="margin-left:3.5px"
+                :disabled="!containsText"
+                class="btn customReportSearchFindMeasurables"
+                type="button"
+                @click="addSitesContaining(containsText)"
+                :value="translate('CustomReports_FindMeasurables')"
+              />
+            </div>
+            <div v-if="isSuperUser || multipleSites.length">
+              <br>
+              <table class="entityTable">
+                <thead>
+                <tr>
+                  <th class="siteId">{{ translate('General_Id') }}</th>
+                  <th class="siteName">{{ translate('General_Name') }}</th>
+                  <th class="siteAction" v-if="isSuperUser">{{ translate('General_Remove') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-show="!multipleSites.length">
+                  <td colspan="3">{{ translate('CustomReports_NoMeasurableAssignedYet') }}</td>
+                </tr>
+                <tr
+                  v-show="multipleSites.length > 0"
+                  v-for="(site, index) in multipleSites"
+                  :key="index"
+                >
+                  <td>{{ site.idsite }}</td>
+                  <td>{{ site.name }}</td>
+                  <td class="siteAction" v-if="isSuperUser">
+                    <span
+                      class="icon-minus table-action"
+                      @click="removeSite(site)"
+                    />
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -324,7 +387,12 @@
           class="alert alert-danger"
           v-show="!canEdit"
         >
-          {{ translate('CustomReports_ReportEditNotAllowedAllWebsites') }}
+          <span v-if="multipleSites.length">
+            {{ translate('CustomReports_ReportEditNotAllowedMultipleWebsites') }}
+          </span>
+          <span v-else>
+            {{ translate('CustomReports_ReportEditNotAllowedAllWebsites') }}
+          </span>
         </div>
         <div class="form-group row" v-if="childReports.length">
           <h3 class="col s12"
@@ -418,12 +486,12 @@ import {
   NotificationsStore,
   NotificationType,
   clone,
-  MatomoUrl, externalLink,
+  MatomoUrl, externalLink, AjaxHelper,
 } from 'CoreHome';
 import { Field, SaveButton } from 'CorePluginsAdmin';
 import { SegmentGenerator } from 'SegmentEditor';
 import CustomReportsStore from '../CustomReports.store';
-import { CustomReport, ChildReport } from '../types';
+import { CustomReport, ChildReport, Site } from '../types';
 
 interface ReportEditState {
   isDirty: boolean;
@@ -434,6 +502,9 @@ interface ReportEditState {
   dependencyAdded: boolean;
   childReports: ChildReport[];
   childReportIds: Array<string|number>;
+  containsText: string;
+  multipleSites: null|Site[];
+  multipleIdSites: Array<string|number>;
 }
 
 const notificationId = 'reportsmanagement';
@@ -477,6 +548,9 @@ export default defineComponent({
       dependencyAdded: false,
       childReports: [],
       childReportIds: [],
+      containsText: '',
+      multipleSites: [],
+      multipleIdSites: [],
     };
   },
   created() {
@@ -571,6 +645,13 @@ export default defineComponent({
           this.isUnlocked = false;
           this.canEdit = true;
           this.childReports = this.report.child_reports ?? [];
+          if (this.report.multipleIdSites && this.report.multipleIdSites.length && this.report.site.id !== 'all' && this.report.site.id !== '0' && this.report.site.id !== 0) {
+            this.multipleSites = this.report.multipleIdSites;
+            if (!this.isSuperUser) {
+              this.canEdit = false;
+              this.isLocked = false;
+            }
+          }
           if (this.childReports.length) {
             Object.values((this.childReports) as ChildReport[]).forEach((value) => {
               this.childReportIds.push(value.idcustomreport);
@@ -669,10 +750,22 @@ export default defineComponent({
         return;
       }
 
+      this.multipleIdSites = [];
+      if (this.multipleSites && this.multipleSites.length && this.report.site.id !== 'all' && this.report.site.id !== '0' && this.report.site.id !== 0) {
+        this.multipleIdSites.push(Matomo.idSite as number);
+        this.multipleSites.forEach((item) => {
+          const idSite = item.idsite as number;
+          if (!this.multipleIdSites.includes(idSite)) {
+            this.multipleIdSites.push(idSite);
+          }
+        });
+      }
+
       CustomReportsStore.createOrUpdateReport(
         this.report,
         method,
         this.childReportIds,
+        this.multipleIdSites,
       ).then((response) => {
         if (!response || response.type === 'error' || !response.response) {
           return;
@@ -824,6 +917,9 @@ export default defineComponent({
     setWebsiteChanged() {
       this.setValueHasChanged();
       this.initReportOptions();
+      if (this.report.site.id === 'all' || this.report.site.id === '0' || this.report.site.id === 0) {
+        this.multipleSites = [];
+      }
     },
     removeDimension(index: number) {
       if (this.isLocked) {
@@ -832,6 +928,8 @@ export default defineComponent({
         });
         return;
       }
+
+      window.$('div.ui-tooltip[role="tooltip"]:not([style*="display: none"])').remove();
 
       if (index > -1) {
         this.report.dimensions = [...this.report.dimensions];
@@ -887,6 +985,8 @@ export default defineComponent({
         return;
       }
 
+      window.$('div.ui-tooltip[role="tooltip"]:not([style*="display: none"])').remove();
+
       if (index > -1) {
         this.report.metrics = [...this.report.metrics];
         this.report.metrics.splice(index, 1);
@@ -926,11 +1026,23 @@ export default defineComponent({
         return;
       }
 
+      this.multipleIdSites = [];
+      if (this.multipleSites && this.multipleSites.length && this.report.site.id !== 'all' && this.report.site.id !== '0' && this.report.site.id !== 0) {
+        this.multipleIdSites.push(Matomo.idSite as number);
+        this.multipleSites.forEach((item) => {
+          const idSite = item.idsite as number;
+          if (!this.multipleIdSites.includes(idSite)) {
+            this.multipleIdSites.push(idSite);
+          }
+        });
+      }
+
       const method = 'CustomReports.updateCustomReport';
       CustomReportsStore.createOrUpdateReport(
         this.report,
         method,
         this.childReportIds,
+        this.multipleIdSites,
       ).then((response) => {
         if (!response || response.type === 'error') {
           return;
@@ -1019,6 +1131,91 @@ export default defineComponent({
     doesReportIncludeProductQuantityMetric(): boolean {
       return this.report.metrics.includes('sum_ecommerce_productquantity')
         || this.report.metrics.includes('avg_ecommerce_productquantity');
+    },
+    isSiteIncludedAlready(idSite: string|number) {
+      if (this.multipleSites && this.multipleSites.length) {
+        return this.multipleSites.some((item) => `${item.idsite}` === `${idSite}`);
+      }
+      return false;
+    },
+    removeSite(site: Site) {
+      if (this.multipleSites) {
+        this.isDirty = true;
+        this.multipleSites = this.multipleSites.filter((item) => item.idsite !== site.idsite);
+      }
+    },
+    addSitesContaining(searchTerm: string) {
+      if (!searchTerm) {
+        return;
+      }
+
+      const displaySearchTerm = `"${Matomo.helper.escape(Matomo.helper.htmlEntities(searchTerm))}"`;
+
+      AjaxHelper.fetch<Site[]>({
+        method: 'SitesManager.getSitesWithAdminAccess',
+        pattern: searchTerm,
+        filter_limit: -1,
+      }).then((sites) => {
+        if (!sites || !sites.length) {
+          const sitesToAdd = `<div>
+            <h2>${translate('CustomReports_MatchingSearchNotFound', displaySearchTerm)}</h2>
+            <input role="ok" type="button" value="${translate('General_Ok')}"/>
+          </div>`;
+          Matomo.helper.modalConfirm(sitesToAdd);
+          return;
+        }
+
+        const newSites: string[] = [];
+        const alreadyAddedSites: string[] = [];
+
+        sites.forEach((site) => {
+          const siteName = window.vueSanitize(Matomo.helper.htmlEntities(site.name));
+          const siteTitle = `${siteName} (id ${parseInt(`${site.idsite}`, 10)})<br />`;
+          if (this.isSiteIncludedAlready(`${site.idsite}`)) {
+            alreadyAddedSites.push(siteTitle);
+          } else {
+            newSites.push(siteTitle);
+          }
+        });
+
+        let title = translate('CustomReports_MatchingSearchConfirmTitle', newSites.length);
+        if (alreadyAddedSites.length) {
+          const text = translate('CustomReports_MatchingSearchConfirmTitleAlreadyAdded', alreadyAddedSites.length);
+          title += ` (${text})`;
+        }
+        let sitesToAdd = `<div><h2>${title}</h2><p>
+          ${translate('CustomReports_MatchingSearchMatchedAdd', newSites.length, displaySearchTerm)}:
+          <br /><br />`;
+        sitesToAdd += newSites.join('');
+
+        if (alreadyAddedSites.length) {
+          const text = translate(
+            'CustomReports_MatchingSearchMatchedAlreadyAdded',
+            alreadyAddedSites.length,
+            displaySearchTerm,
+          );
+          sitesToAdd += `<br />${text}:<br /><br />${alreadyAddedSites.join('')}`;
+        }
+
+        sitesToAdd += `</p><input role="yes" type="button" value="${translate('General_Yes')}"/>
+          <input role="no" type="button" value="${translate('General_No')}"/>
+          </div>`;
+        Matomo.helper.modalConfirm(sitesToAdd, {
+          yes: () => {
+            sites.forEach((site) => {
+              if (this.multipleSites) {
+                if (!this.isSiteIncludedAlready(`${site.idsite}`)) {
+                  this.isDirty = true;
+                  this.multipleSites.push(
+                    { idsite: site.idsite as string, name: site.name as string },
+                  );
+                }
+              }
+            });
+            this.containsText = '';
+          },
+        });
+      });
     },
   },
   computed: {

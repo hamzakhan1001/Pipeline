@@ -216,6 +216,17 @@
         "Clicks": "Clicks:",
         "ClickRate": "Click rate:",
         "Moves": "Moves:",
-        "MoveRate": "Move rate:"
+        "MoveRate": "Move rate:",
+        "HeatmapAddedActivity": "added a heatmap \"%1$s\" for site \"%2$s\"",
+        "HeatmapDeletedActivity": "deleted the heatmap \"%1$s\" for site \"%2$s\"",
+        "HeatmapEndedActivity": "ended the heatmap \"%1$s\" for site \"%2$s\"",
+        "HeatmapScreenshotDeletedActivity": "deleted the heatmap screenshot \"%1$s\" for site \"%2$s\"",
+        "HeatmapUpdatedActivity": "updated the heatmap \"%1$s\" for site \"%2$s\"",
+        "SessionRecordingAddedActivity": "added a session recording \"%1$s\" for site \"%2$s\"",
+        "SessionRecordingDeletedActivity": "deleted the session recording \"%1$s\" for site \"%2$s\"",
+        "SessionRecordingEndedActivity": "ended the session recording \"%1$s\" for site \"%2$s\"",
+        "SessionRecordingUpdatedActivity": "updated the session recording \"%1$s\" for site \"%2$s\"",
+        "RecordedSessionDeletedActivity": "deleted a recorded session for session recording \"%1$s\" for site \"%2$s\"",
+        "RecordedPageviewDeletedActivity": "deleted a recorded page view for session recording \"%1$s\" for site \"%2$s\""
     }
 }

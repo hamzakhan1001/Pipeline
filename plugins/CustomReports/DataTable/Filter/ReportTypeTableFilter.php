@@ -31,12 +31,15 @@ class ReportTypeTableFilter extends BaseFilter
     private $dimension;
     private $idSite;
 
-    public function __construct($table, $idSite, $dimension, $nestedDimensions)
+    private $isFlat;
+
+    public function __construct($table, $idSite, $dimension, $nestedDimensions, $flat = false)
     {
         parent::__construct($table);
         $this->dimension = $dimension;
         $this->dimensions = $nestedDimensions;
         $this->idSite = $idSite;
+        $this->isFlat = $flat;
     }
 
     /**
@@ -70,6 +73,20 @@ class ReportTypeTableFilter extends BaseFilter
             $label = $row->getColumn('label');
             if ($label === Archiver::LABEL_NOT_DEFINED) {
                 $label = Piwik::translate('General_NotDefined', $dimension->getName());
+            } elseif ($dimension->getSegmentName() === 'regionCode' && !empty($label)) {
+                $explodedValues = explode('|', $label);
+                if (count($explodedValues) == 2) {
+                    $regionCode = $explodedValues[0];
+                    $countryCode = $explodedValues[1];
+                    $label = $regionCode . ', ' . $countryCode;
+                    if (\Piwik\Plugin\Manager::getInstance()->isPluginActivated('UserCountry')) {
+                        $label = \Piwik\Plugins\UserCountry\getRegionNameFromCodes($countryCode, $regionCode) . ', ' . \Piwik\Plugins\UserCountry\countryTranslate($countryCode);
+                        $logo = \Piwik\Plugins\UserCountry\getFlagFromCode($countryCode);
+                        if ($logo && !$this->isFlat) {
+                            $row->setMetadata('logo', $logo);
+                        }
+                    }
+                }
             } else {
                 $label = $dimension->formatValue($label, $this->idSite, $formatter);
             }
