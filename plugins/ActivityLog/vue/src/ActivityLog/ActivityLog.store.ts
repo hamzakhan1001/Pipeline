@@ -18,10 +18,21 @@ import {
   computed,
   readonly,
 } from 'vue';
-import { AjaxHelper, Matomo, translate } from 'CoreHome';
+import {
+  AjaxHelper,
+  Matomo,
+  translate,
+  MatomoUrl,
+} from 'CoreHome';
 import { Entry } from '../types';
 
 interface Option {
+  key: string;
+  value: string;
+}
+
+interface OptionGroup {
+  group: string;
   key: string;
   value: string;
 }
@@ -38,6 +49,7 @@ interface ActivityLogStoreState {
   hasNext: boolean;
   totalNumberOfSites: number;
   availableUsers: Option[];
+  availableTypes: OptionGroup[];
   filter: {
     userLogin: string;
     activityType: string;
@@ -57,6 +69,7 @@ class ActivityLogStore {
     hasNext: false,
     totalNumberOfSites: 0,
     availableUsers: [],
+    availableTypes: [],
     filter: {
       userLogin: '',
       activityType: '',
@@ -72,9 +85,13 @@ class ActivityLogStore {
 
     if (Matomo.hasSuperUserAccess) {
       promises.push(this.fetchAvailableUsers());
+      promises.push(this.fetchAvailableTypes());
     } else {
       this.privateState.availableUsers = [
         { key: Matomo.userLogin!, value: Matomo.userLogin! },
+      ];
+      this.privateState.availableTypes = [
+        { group: translate('General_All'), key: '', value: translate('General_All') },
       ];
     }
 
@@ -86,6 +103,8 @@ class ActivityLogStore {
       method: 'ActivityLog.getEntryCount',
       filterByUserLogin: this.state.value.filter.userLogin,
       filterByActivityType: this.state.value.filter.activityType,
+      date: MatomoUrl.parsed.value.date,
+      period: MatomoUrl.parsed.value.period,
     }).then((count) => {
       if (!count || !count.value) {
         return;
@@ -127,6 +146,28 @@ class ActivityLogStore {
     });
   }
 
+  fetchAvailableTypes(): Promise<void> {
+    return AjaxHelper.fetch<OptionGroup[]>({
+      method: 'ActivityLog.getAllActivityTypes',
+      filter_limit: -1,
+    }).then((types) => {
+      if (!types || !Array.isArray(types)) {
+        return;
+      }
+
+      const availableUsers = [
+        {
+          group: translate('General_All'),
+          key: '',
+          value: translate('General_All'),
+        },
+        ...types,
+      ];
+
+      this.privateState.availableTypes = availableUsers;
+    });
+  }
+
   onError(): void {
     this.setActivities([]);
   }
@@ -155,10 +196,9 @@ class ActivityLogStore {
     this.fetchActivityLog();
   }
 
-  applyFilter(userLogin?: string) {
-    if (userLogin) {
-      this.privateState.filter.userLogin = userLogin;
-    }
+  applyFilter(userLogin?: string, activityType?: string) {
+    this.privateState.filter.userLogin = userLogin ?? '';
+    this.privateState.filter.activityType = activityType ?? '';
 
     this.privateState.currentPage = 0;
     this.fetchActivityCount();
@@ -181,6 +221,8 @@ class ActivityLogStore {
       limit,
       filterByUserLogin: this.privateState.filter.userLogin,
       filterByActivityType: this.privateState.filter.activityType,
+      date: MatomoUrl.parsed.value.date,
+      period: MatomoUrl.parsed.value.period,
     }).then((activities) => {
       if (!activities) {
         this.onError();

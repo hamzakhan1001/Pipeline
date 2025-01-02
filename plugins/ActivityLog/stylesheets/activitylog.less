@@ -99,6 +99,11 @@
   }
 
   .user-filter {
+    margin-right: 1rem;
+  }
+
+  .user-filter, .type-filter {
+    display: inline-block;
     > div {
       display: flex;
       flex-direction: row;
@@ -110,6 +115,34 @@
       margin: 0 0 0 5px;
       display: inline-block;
       width: auto;
+    }
+  }
+
+  .type-filter {
+    .matomo-form-field {
+      display: inline-block;
+      position: absolute;
+    }
+
+    .expandableSelector {
+      top: -2.8rem;
+      width: 200px;
+      background-color: rgba(255, 255, 255, .9);
+      padding-left: 6px;
+      border: 1px solid #f2f2f2;
+      border-radius: 2px;
+      height: 36px;
+    }
+
+    .select-dropdown {
+      border-bottom: unset;
+      height: 36px;
+      font-size: 13px;
+      width: 170px;
+    }
+
+    h4.expandableListCategory {
+      width: 290px;
     }
   }
 

@@ -20,6 +20,7 @@ use Piwik\Common;
 use Piwik\Db;
 use Piwik\DbHelper;
 use Matomo\Network\IPUtils;
+use Piwik\Period;
 
 class Model
 {
@@ -102,10 +103,11 @@ class Model
      * @param int $limit amount of entries to return
      * @param null|string $filterByUserLogin userLogin to filter by
      * @param null|string $filterByActivityType activity type to filter by
+     * @param null|Period $period period to filter by
      *
      * @return array
      */
-    public function getEntries($offset = 0, $limit = 25, $filterByUserLogin = null, $filterByActivityType = null)
+    public function getEntries($offset = 0, $limit = 25, $filterByUserLogin = null, $filterByActivityType = null, $period = null)
     {
         $query = sprintf('SELECT * FROM %s ', Common::prefixTable($this->tableName));
 
@@ -120,6 +122,13 @@ class Model
         if ($filterByActivityType) {
             $where[] = 'type = ?';
             $bind[]  = $filterByActivityType;
+        }
+
+        if (!empty($period)) {
+            $where[] = 'ts_created >= ?';
+            $bind[]  = $period->getDateTimeStart()->getDatetime();
+            $where[] = 'ts_created <= ?';
+            $bind[]  = $period->getDateTimeEnd()->getDatetime();
         }
 
         if (!empty($where)) {
@@ -148,9 +157,10 @@ class Model
      *
      * @param null|string $filterByUserLogin
      * @param null|string $filterByActivityType
+     * @param null|Period $period period to filter by
      * @return array
      */
-    public function getAvailableEntryCount($filterByUserLogin = null, $filterByActivityType = null)
+    public function getAvailableEntryCount($filterByUserLogin = null, $filterByActivityType = null, $period = null)
     {
         $query = sprintf('SELECT COUNT(id) FROM %s ', Common::prefixTable($this->tableName));
 
@@ -165,6 +175,13 @@ class Model
         if ($filterByActivityType) {
             $where[] = 'type = ?';
             $bind[]  = $filterByActivityType;
+        }
+
+        if (!empty($period)) {
+            $where[] = 'ts_created >= ?';
+            $bind[]  = $period->getDateTimeStart()->getDatetime();
+            $where[] = 'ts_created <= ?';
+            $bind[]  = $period->getDateTimeEnd()->getDatetime();
         }
 
         if (!empty($where)) {
@@ -194,6 +211,17 @@ class Model
             date('Y-m-d H:i:s', $timestampFrom),
             date('Y-m-d H:i:s', $timestampTo)
         ]);
+    }
+
+    public function getAllActivityTypes($limit = -1)
+    {
+        $query = sprintf('SELECT distinct type FROM %s order by type ASC', Common::prefixTable($this->tableName));
+
+        if ($limit !== -1) {
+            $query .= sprintf(' LIMIT %d', $limit);
+        }
+
+        return $this->getDatabase()->fetchAll($query);
     }
 
     /**

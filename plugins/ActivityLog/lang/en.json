@@ -82,6 +82,7 @@
         "ConsoleCommand": "Console Command",
         "System": "System",
         "FilterByUser": "Filter by user",
+        "FilterByType": "Filter by type",
         "NoActivities": "No activities found",
         "ActivityDisabledTwoFactorAuthForUser": "disabled two-factor authentication for user %s",
         "ActivityDisabledTwoFactorAuth": "disabled two-factor authentication",
