@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -11,7 +12,6 @@
 
 namespace Piwik\Plugins\MarketingCampaignsReporting\Campaign;
 
-use Piwik\Common;
 use Piwik\Plugins\MarketingCampaignsReporting\MarketingCampaignsReporting;
 use Piwik\Tracker\PageUrl;
 use Piwik\Tracker\Request;
@@ -29,7 +29,8 @@ class CampaignDetector implements CampaignDetectorInterface
         $landingUrl       = PageUrl::cleanupUrl($landingUrl);
         $landingUrlParsed = parse_url($landingUrl);
 
-        if (!isset($landingUrlParsed['query'])
+        if (
+            !isset($landingUrlParsed['query'])
             && !isset($landingUrlParsed['fragment'])
         ) {
             return false;
@@ -84,9 +85,6 @@ class CampaignDetector implements CampaignDetectorInterface
     {
         $valueFromRequest = UrlHelper::getParameterFromQueryString($queryString, $param) ?? '';
         $valueFromRequest = trim(urldecode($valueFromRequest));
-        if ($param != "mtm_clid") {
-            $valueFromRequest = Common::mb_strtolower($valueFromRequest);
-        }
         $valueFromRequest = substr($valueFromRequest, 0, 250);
         if (!empty($valueFromRequest)) {
             return $valueFromRequest;
