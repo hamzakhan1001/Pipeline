@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -16,10 +17,13 @@ use Piwik\ArchiveProcessor\Record;
 use Piwik\ArchiveProcessor\RecordBuilder;
 use Piwik\Common;
 use Piwik\Config;
+use Piwik\Container\StaticContainer;
 use Piwik\DataAccess\LogAggregator;
 use Piwik\DataTable;
 use Piwik\Metrics;
 use Piwik\Plugins\MarketingCampaignsReporting\Archiver;
+use Piwik\Plugins\MarketingCampaignsReporting\SystemSettings;
+use Piwik\Version;
 
 class CampaignReporting extends RecordBuilder
 {
@@ -76,7 +80,9 @@ class CampaignReporting extends RecordBuilder
     protected function aggregateFromLogs(LogAggregator $logAggregator, array $records, $dimensions, $table, $aggregatorMethod): void
     {
         $whereClause = $table . ".referer_type = " . Common::REFERRER_TYPE_CAMPAIGN;
-        $query       = $logAggregator->$aggregatorMethod($dimensions, $whereClause);
+        $query = $aggregatorMethod === 'queryConversionsByDimension' && version_compare(Version::VERSION, '5.2.0-b6', '>=')
+            ? $logAggregator->$aggregatorMethod($dimensions, $whereClause, [], [], false, false, true)
+            : $logAggregator->$aggregatorMethod($dimensions, $whereClause);
 
         $recordToDimensions = $this->getRecordToDimensions();
 
@@ -101,7 +107,7 @@ class CampaignReporting extends RecordBuilder
                         Metrics::INDEX_BOUNCE_COUNT => $row[Metrics::INDEX_BOUNCE_COUNT],
                         Metrics::INDEX_NB_VISITS_CONVERTED => $row[Metrics::INDEX_NB_VISITS_CONVERTED],
                     ];
-                } else if ($aggregatorMethod == 'queryConversionsByDimension') {
+                } elseif ($aggregatorMethod == 'queryConversionsByDimension') {
                     $idGoal = (int) $row['idgoal'];
                     $columns = [
                         Metrics::INDEX_GOALS => [
@@ -128,15 +134,21 @@ class CampaignReporting extends RecordBuilder
 
     protected function getLabelFromRowDimensions(array $dimensionsAsLabel, array $row): string
     {
+        $systemSettings = StaticContainer::get(SystemSettings::class);
         $labels = [];
         foreach ($dimensionsAsLabel as $dimensionLabelPart) {
-            if (isset($row[$dimensionLabelPart])
+            if (
+                isset($row[$dimensionLabelPart])
                 && $row[$dimensionLabelPart] != ''
             ) {
                 $labels[] = $row[$dimensionLabelPart];
             }
         }
         $label = implode(Archiver::SEPARATOR_COMBINED_DIMENSIONS, $labels);
+        if ($label && !$systemSettings->doNotChangeCaseOfUtmParameters->getValue()) {
+            $label = Common::mb_strtolower($label);
+        }
+
         return $label;
     }
 
