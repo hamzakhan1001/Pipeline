@@ -36,7 +36,8 @@ class ActivityLog extends \Piwik\Plugin
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
             'Db.getTablesInstalled' => 'getTablesInstalled',
             'API.CoreAdminHome.invalidateArchivedReports' => 'recordReportsInvalidatedForApiRequest',
-            'Console.doRun' => 'checkConsoleCommandsToRecordReportsInvalidated'
+            'Console.doRun' => 'checkConsoleCommandsToRecordReportsInvalidated',
+            'API.getPagesComparisonsDisabledFor' => 'getPagesComparisonsDisabledFor',
         ];
 
         $activities = Manager::getInstance()->getMapOfEventToActivity();
@@ -201,6 +202,7 @@ class ActivityLog extends \Piwik\Plugin
         $translationKeys[] = "ActivityLog_Dimension";
         $translationKeys[] = "ActivityLog_Scope";
         $translationKeys[] = "ActivityLog_TotalRecordsFound";
+        $translationKeys[] = "ActivityLog_FilterByType";
     }
 
     public static function supportsWriteRole()
@@ -234,5 +236,10 @@ class ActivityLog extends \Piwik\Plugin
                 Piwik::checkUserHasSuperUserAccess();
                 break;
         }
+    }
+
+    public function getPagesComparisonsDisabledFor(&$pages)
+    {
+        $pages[] = 'ActivityLog.index';
     }
 }

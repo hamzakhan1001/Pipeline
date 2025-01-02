@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.0 - 2024-12-16
+- Added an option to filter activities by date and type
+
 5.0.7 - 2024-11-04
 - Updated README.md
 

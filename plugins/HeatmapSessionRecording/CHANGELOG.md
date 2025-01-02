@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.2 - 2024-12-16
+- Fixes PHP deprecation warnings
+
 5.2.1 - 2024-12-02
 - Added activities to track deleting recorded sessions and page views
 

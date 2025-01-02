@@ -28,6 +28,8 @@ class Controller extends ControllerAdmin
         $view = new View('@ActivityLog/index');
         $view->showPagingBottom = true;
 
+        self::setPeriodVariablesView($view);
+
         $this->setBasicVariablesView($view);
 
         return $view->render();

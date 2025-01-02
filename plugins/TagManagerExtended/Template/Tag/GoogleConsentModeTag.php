@@ -38,7 +38,7 @@ class GoogleConsentModeTag extends BaseTag
 
     public function getCategory()
     {
-        return self::CATEGORY_ANALYTICS;
+        return Piwik::translate('TagManagerExtended_ConsentManagementPlatform');
     }
 
     public function getIcon()

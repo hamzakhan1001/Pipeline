@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) InnoCraft Ltd - All rights reserved.
  *
@@ -71,11 +72,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
 
         $details = array(
-            
+
             "name" => "WooCommerce Matomo Analytics",
             "slug" => "woocommerce-piwik-analytics",
-            "version" => '1.0.24',
-            "last_updated" => '2024-09-26 15:12:00',
+            "version" => '1.0.25',
+            "last_updated" => '2024-12-12 10:17:00',
             "download_url" => $piwikUrl . "index.php?module=WooCommerceAnalytics&action=download",
             "homepage" => Url::addCampaignParametersToMatomoLink("https://plugins.matomo.org/WooCommerceAnalytics/"),
             "requires" => "4.5",

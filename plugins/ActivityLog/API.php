@@ -18,6 +18,7 @@ namespace Piwik\Plugins\ActivityLog;
 
 use Piwik\Date;
 use Piwik\Metrics\Formatter;
+use Piwik\Period\Factory;
 use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugins\ActivityLog\Activity\Manager;
@@ -54,10 +55,12 @@ class API extends \Piwik\Plugin\API
      * @param int $limit amount of entries to return
      * @param null|string $filterByUserLogin userLogin to filter by
      * @param null|string $filterByActivityType activity type to filter by
+     * @param null|string $period period to filter by
+     * @param null|string $date date to filter by
      *
      * @return array
      */
-    public function getEntries($offset = 0, $limit = 25, $filterByUserLogin = null, $filterByActivityType = null)
+    public function getEntries($offset = 0, $limit = 25, $filterByUserLogin = null, $filterByActivityType = null, $period = null, $date = null)
     {
         if ($limit == -1) {
             $limit = PHP_INT_MAX;
@@ -70,8 +73,13 @@ class API extends \Piwik\Plugin\API
 
         $filterByUserLogin = $this->getFilterByUserLogin($filterByUserLogin);
 
+        $periodObject = null;
+        if (!empty($period) && !empty($date)) {
+            $periodObject = Factory::build($period, $date);
+        }
+
         $model   = $this->getModel();
-        $entries = $model->getEntries($offset, $limit, $filterByUserLogin, $filterByActivityType);
+        $entries = $model->getEntries($offset, $limit, $filterByUserLogin, $filterByActivityType, $periodObject);
 
         $settings = new SystemSettings();
         $formatter = new Formatter();
@@ -130,15 +138,51 @@ class API extends \Piwik\Plugin\API
      *
      * @param null|string $filterByUserLogin
      * @param null|string $filterByActivityType
+     * @param null|string $period period to filter by
+     * @param null|string $date date to filter by
      * @return array
      */
-    public function getEntryCount($filterByUserLogin = null, $filterByActivityType = null)
+    public function getEntryCount($filterByUserLogin = null, $filterByActivityType = null, $period = null, $date = null)
     {
         ActivityLog::checkPermission();
         $filterByUserLogin = $this->getFilterByUserLogin($filterByUserLogin);
 
+        $periodObject = null;
+        if (!empty($period) && !empty($date)) {
+            $periodObject = Factory::build($period, $date);
+        }
+
         $model = $this->getModel();
-        return $model->getAvailableEntryCount($filterByUserLogin, $filterByActivityType);
+        return $model->getAvailableEntryCount($filterByUserLogin, $filterByActivityType, $periodObject);
+    }
+
+    public function getAllActivityTypes($filterLimit = -1)
+    {
+        ActivityLog::checkPermission();
+
+        $model = $this->getModel();
+        $rows = $model->getAllActivityTypes($filterLimit);
+        $typeData = [];
+        if (!empty($rows)) {
+            foreach ($rows as $row) {
+                [$pluginName, $activity] = explode('/', $row['type']);
+                if ($activity === 'APIRequested') {
+                    $activity = 'Api requested';
+                }
+                $activity[0] = strtolower($activity[0]);
+                $pluginName[0] = strtolower($pluginName[0]);
+                $splitArray = preg_split('/(?=[A-Z])/', $activity);
+                $splitArrayPluginName = preg_split('/(?=[A-Z])/', $pluginName);
+
+                $typeData[] = [
+                    'group' => ucwords(implode(' ', $splitArrayPluginName)),
+                    'key' => $row['type'],
+                    'value' => strtolower(implode(' ', $splitArray)),
+                ];
+            }
+        }
+
+        return $typeData;
     }
 
     private function getFilterByUserLogin($filterByUserLogin)

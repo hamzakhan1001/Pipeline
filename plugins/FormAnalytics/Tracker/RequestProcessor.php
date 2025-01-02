@@ -230,7 +230,11 @@ class RequestProcessor extends Tracker\RequestProcessor
                 $formsParams = Common::getRequestVar(self::PARAM_FORMS_WITH_PAGEVIEW, [], 'array', $params);
                 if (!empty($formsParams)) {
                     foreach ($formsParams as $formParams) {
-                        $formParams = array_merge($originalParams, $formParams);
+                        if ($formParams && is_array($formParams)) {
+                            $formParams = array_merge($originalParams, $formParams);
+                        } else {
+                            $formParams = $originalParams;
+                        }
                         $this->processFormParams($idSite, $formParams, $pageUrl, $idVisit, $idVisitor, $request, $action);
                     }
                 }

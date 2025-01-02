@@ -8,8 +8,8 @@
 namespace Piwik\Plugins\TagManagerExtended\Template\Tag;
 
 use Piwik\Piwik;
-use Piwik\Settings\FieldConfig;
 use Piwik\Plugins\TagManager\Template\Tag\BaseTag;
+use Piwik\Settings\FieldConfig;
 use Piwik\Validators\NotEmpty;
 
 class AxeptioTag extends BaseTag

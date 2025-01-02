@@ -58,6 +58,7 @@
         "ExceptionMessageCampaignCombinationDoesNotExist": "The campaign combination does not exist anymore",
         "ExceptionMessagePeriodInvalid": "Not a valid period, available values are %1$s,",
         "NoGoalEnabledWithoutWriteAccess": "No goal has been enabled for this report. Users with at least write access can enable the attribution report when creating or editing a goal.",
-        "NoGoalEnabledWithWriteAccess": "No goal has been enabled for this report. You can enable the attribution report when creating or editing a goal."
+        "NoGoalEnabledWithWriteAccess": "No goal has been enabled for this report. You can enable the attribution report when creating or editing a goal.",
+        "AttributionForGoalX": "Channel Attribution for Goal (%1$s) - Dimension (%2$s)"
     }
 }

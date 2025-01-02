@@ -1,6 +1,6 @@
 {
     "name": "ActivityLog",
-    "version": "5.0.7",
+    "version": "5.1.0",
     "description": "Get a detailed audit log of all activities happening in your Matomo Analytics for increased security, risk management, and problem diagnostic.",
     "theme": false,
     "require": {

@@ -55,7 +55,7 @@
   <div class="user-filter" :style="{ visibility: hasSuperUserAccess ? 'visible' : 'hidden' }">
     <span style="margin-right:3.5px">{{ translate('ActivityLog_FilterByUser') }}:</span>
 
-    <select @change="applyFilter($event.target.value)" class="browser-default">
+    <select @change="applyFilter()" class="browser-default" v-model="userFilterValue">
       <option
         v-for="option in availableUsers"
         :key="option.key"
@@ -68,14 +68,34 @@
       </option>
     </select>
   </div>
+  <div class="type-filter" :style="{ visibility: hasSuperUserAccess ? 'visible' : 'hidden' }">
+    <span>{{ translate('ActivityLog_FilterByType') }}:</span>
+    <Field
+        uicontrol="expandable-select"
+        name="selectexpand"
+        :options="availableTypes"
+        v-model="typeFilterValue"
+        @update:model-value="typeFilterValue = $event; applyFilter()"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { Field } from 'CorePluginsAdmin';
 import { Matomo } from 'CoreHome';
 import ActivityLogStore from './ActivityLog.store';
 
 export default defineComponent({
+  components: {
+    Field,
+  },
+  data() {
+    return {
+      userFilterValue: '',
+      typeFilterValue: '',
+    };
+  },
   props: {},
   methods: {
     previousPage() {
@@ -84,8 +104,8 @@ export default defineComponent({
     nextPage() {
       ActivityLogStore.nextPage();
     },
-    applyFilter(userLogin?: string) {
-      ActivityLogStore.applyFilter(userLogin);
+    applyFilter() {
+      ActivityLogStore.applyFilter(this.userFilterValue, this.typeFilterValue);
     },
   },
   computed: {
@@ -119,8 +139,14 @@ export default defineComponent({
     userLoginFilter(): string {
       return ActivityLogStore.state.value.filter.userLogin;
     },
+    typeFilter(): string {
+      return ActivityLogStore.state.value.filter.activityType;
+    },
     availableUsers(): (typeof ActivityLogStore)['state']['value']['availableUsers'] {
       return ActivityLogStore.state.value.availableUsers;
+    },
+    availableTypes(): (typeof ActivityLogStore)['state']['value']['availableTypes'] {
+      return ActivityLogStore.state.value.availableTypes;
     },
   },
 });

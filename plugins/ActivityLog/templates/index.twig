@@ -1,5 +1,9 @@
 {% extends 'admin.twig' %}
 
+{% block topcontrols %}
+    {% include '@CoreHome/_periodSelect.twig' %}
+{% endblock %}
+
 {% set title %}{{ 'ActivityLog_ActivityLog'|translate }}{% endset %}
 
 {% block content %}
