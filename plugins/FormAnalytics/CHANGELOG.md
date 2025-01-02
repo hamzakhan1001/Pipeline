@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.14 - 2024-12-16
+- Fixes warning due to form parameters not being an array
+
 5.0.13 - 2024-11-05
 - Updated README.md
 
