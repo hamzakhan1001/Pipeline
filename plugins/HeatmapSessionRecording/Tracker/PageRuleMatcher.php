@@ -221,7 +221,7 @@ class PageRuleMatcher
                 break;
             case self::TYPE_REGEXP:
                 $pattern = self::completeRegexpPattern($valueToMatch);
-                if (preg_match($pattern, $attributeValue)) {
+                if ($pattern && $attributeValue && preg_match($pattern, $attributeValue)) {
                     $matches = true;
                 }
                 break;
@@ -236,7 +236,7 @@ class PageRuleMatcher
 
     public static function completeRegexpPattern($pattern)
     {
-        return '/' . str_replace('/', '\/', stripslashes($pattern)) . '/i';
+        return $pattern ? ('/' . str_replace('/', '\/', stripslashes($pattern)) . '/i') : $pattern;
     }
 
     public static function doesTargetTypeRequireValue($type)

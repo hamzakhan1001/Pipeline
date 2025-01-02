@@ -397,7 +397,7 @@ class SiteHsrModel
         unset($heatmap['capture_keystrokes']);
         $heatmap['created_date_pretty'] = Date::factory($heatmap['created_date'])->getLocalized(DateTimeFormatProvider::DATE_FORMAT_SHORT);
 
-        if (!method_exists(SettingsServer::class, 'isMatomoForWordPress') || !SettingsServer::isMatomoForWordPress()) {
+        if ((!method_exists(SettingsServer::class, 'isMatomoForWordPress') || !SettingsServer::isMatomoForWordPress()) && !SettingsServer::isTrackerApiRequest()) {
             $heatmap['heatmapViewUrl'] = self::completeWidgetUrl('showHeatmap', 'idSiteHsr=' . (int) $heatmap['idsitehsr'] . '&useDateUrl=0', (int) $heatmap['idsite']);
         }
 
