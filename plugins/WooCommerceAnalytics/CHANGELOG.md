@@ -1,6 +1,13 @@
 ## Changelog
 
-5.1.3
+5.1.5 - 2024-12-12
+- Better handling of tracking failures.
+- Better logging of tracking requests for diagnosing tracking failures.
+
+5.1.4 - 2024-11-05
+- Updated README.md
+
+5.1.3 - 2024-09-30
 - Avoid fatal error in the WordPress plugin when an order item's product info cannot be found.
 - Better logging and a new diagnostic tool to lookup order metadata in the WordPress plugin.
 

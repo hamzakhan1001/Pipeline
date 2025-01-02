@@ -78,3 +78,18 @@ Integrate your ecommerce store with Matomo and supercharge your web analytics.
 Unlock the full potential of your store with Matomo's WooCommerce Analytics plugin. Dive deep into actionable insights, prioritise the channels that matter, and truly understand your visitors' journeys.
 
 Start your 30-day free trial today and empower your ecommerce strategy with data-driven decisions.
+
+### Features
+
+* Tracks orders and cart updates even when ad-blocker is enabled
+* Find out where your users really abandon your cart
+* Supports product variables / variations
+* Supports WooCommerce Subscriptions
+* Supports custom order numbers
+* Supports WPML
+* Works with most other WooCommerce plugins that provide for example up-selling and cross-selling features
+* Learn which channels (search, social, websites, ...) drives the most traffic to know on which channel you should spend more time and money
+* Understand which products and categories your customers are really interested in
+* Find out where you are losing money by analyzing the flow of users from the referrer to the product page, to cart, and to checkout
+* Figure out how your Ecommerce activities perform over time
+* Explore which devices your customers use the most, where they come from (down to cities), how long it took them to purchase, and much more. 
