@@ -1,0 +1,30 @@
+{
+    "name": "ExtraApiInformation",
+    "description": "Exposes some information via API that is not normally available",
+    "version": "0.1.3",
+    "theme": false,
+    "require": {
+        "matomo": ">=5.0.0-stable,<6.0.0-b1"
+    },
+    "authors": [
+        {
+          "name": "Digitalist Open Cloud",
+          "email": "cloud@digitalist.com",
+          "homepage": "https://digitalist.cloud"
+        },
+        {
+            "name": "Mikke Schirén",
+            "email": "mikke.schiren@digitalist.com",
+            "homepage": "https://digitalist.cloud"
+        }
+      ],
+      "support": {
+        "email": "cloud@digitalist.com",
+        "docs": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-ExtraApiInformation",
+        "issues": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-ExtraApiInformation/issues",
+        "source": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-ExtraApiInformation"
+      },
+    "homepage": "",
+    "license": "GPL v3+",
+    "keywords": []
+}
