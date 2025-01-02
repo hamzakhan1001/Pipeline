@@ -155,7 +155,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/AdvertisingConversionExport/vue/src/ConversionExport/Edit.vue?vue&type=template&id=d4b99f0e
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/AdvertisingConversionExport/vue/src/ConversionExport/Edit.vue?vue&type=template&id=7c092bf5
 
 var _hoisted_1 = {
   class: "loadingPiwik"
@@ -655,7 +655,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["content-title"]);
 }
-// CONCATENATED MODULE: ./plugins/AdvertisingConversionExport/vue/src/ConversionExport/Edit.vue?vue&type=template&id=d4b99f0e
+// CONCATENATED MODULE: ./plugins/AdvertisingConversionExport/vue/src/ConversionExport/Edit.vue?vue&type=template&id=7c092bf5
 
 // EXTERNAL MODULE: external "CoreHome"
 var external_CoreHome_ = __webpack_require__("19dc");
@@ -1259,6 +1259,7 @@ var CLICK_ID_ATTRIBUTION_OPTIONS = {
         return;
       }
 
+      this.addGoalNameIfEmpty();
       ConversionExportStore_store.createExport(this.conversionExport, method).then(function (response) {
         _this3.isDirty = false;
         console.log(response, 'response');
@@ -1323,6 +1324,7 @@ var CLICK_ID_ATTRIBUTION_OPTIONS = {
         return;
       }
 
+      this.addGoalNameIfEmpty();
       var method = 'AdvertisingConversionExport.updateConversionExport';
       ConversionExportStore_store.updateExport(this.conversionExport, method).then(function (response) {
         if (response.type === 'error') {
@@ -1383,6 +1385,37 @@ var CLICK_ID_ATTRIBUTION_OPTIONS = {
         accessToken: this.conversionExport.access_token === '********' ? '' : this.conversionExport.access_token
       });
       return "".concat(window.location.origin).concat(window.location.pathname, "?").concat(params).concat(this.conversionExport.access_token === '********' ? '&accessToken={YOUR_EXPORT_ACCESS_TOKEN}' : '');
+    },
+    addGoalNameIfEmpty: function addGoalNameIfEmpty() {
+      var _this$conversionExpor13,
+          _this$conversionExpor14,
+          _this$conversionExpor15,
+          _this5 = this;
+
+      if ((_this$conversionExpor13 = this.conversionExport) !== null && _this$conversionExpor13 !== void 0 && (_this$conversionExpor14 = _this$conversionExpor13.parameters) !== null && _this$conversionExpor14 !== void 0 && (_this$conversionExpor15 = _this$conversionExpor14.goals) !== null && _this$conversionExpor15 !== void 0 && _this$conversionExpor15.length) {
+        this.conversionExport.parameters.goals.forEach(function (goal, index) {
+          if (goal.idgoal && !goal.name) {
+            var _this5$conversionExpo, _this5$conversionExpo2;
+
+            var goalName = _this5.getGoalName(goal.idgoal);
+
+            if ((_this5$conversionExpo = _this5.conversionExport) !== null && _this5$conversionExpo !== void 0 && (_this5$conversionExpo2 = _this5$conversionExpo.parameters) !== null && _this5$conversionExpo2 !== void 0 && _this5$conversionExpo2.goals) {
+              _this5.conversionExport.parameters.goals[index].name = goalName;
+            }
+          }
+        });
+      }
+    },
+    getGoalName: function getGoalName(idGoal) {
+      if (this.goals) {
+        for (var i = 0; i < this.goals.length; i += 1) {
+          if (this.goals[i].key === idGoal) {
+            return this.goals[i].value;
+          }
+        }
+      }
+
+      return '';
     }
   },
   computed: {

@@ -13,7 +13,7 @@
         "AllClickIds": "Krejt ID-të e Klikimeve",
         "AnonymiseClickIDSettingDescription": "Si parazgjedhje, Matomo anonimizon ID Klikimesh nga shërbyes reklamash pa formësim eksportimi. Hiqjani shenjën kësaj mundësie që të ndalet anonimizimi i ID-ve të Klikimeve për shërbime pa një formësim eksportimi. %1$sMësoni më tepër%2$s. %3$sShënim:%4$s Nëse për një shërbim ka tashmë një eksportim të formësuar, ID-të e Klikimeve s’do të anonimizohen për atë shërbim, pavarësisht nga ky rregullim.",
         "AnonymiseClickIDSettingTitle": "Anonimizo ID Klikimesh",
-        "AttributedCreditHelp": "Përcaktoni kreditin përpjesëtimor shndërrimi për çdo ndërveprim me reklama. Për shembull, një vlerë prej 0.5 i cakton ndërveprimit 50% të vlerës së shndërrimit. Kjo vlerë duhet të jetë më e madhe se 0 dhe më e vogël ose baras me 1.",
+        "AttributedCreditHelp": "Përcaktoni kreditin përpjesëtimor të shndërrimit për çdo ndërveprim me reklama. Për shembull, një vlerë prej 0.5 i cakton ndërveprimit 50% të vlerës së shndërrimit. Kjo vlerë duhet të jetë më e madhe se 0 dhe më e vogël ose baras me 1.",
         "AttributedCreditInvalid": "Fusha “Kredit i Atribuar” duhet të jetë një numër më i madh se 0 dhe më pak ose baras me 1.",
         "AttributionModelHelp": "Zgjidhni modelin e atribuimit për caktim kredite shndërrimesh për ndërveprim me reklama. “Bazuar në të dhëna” përdor nxënie nga makina për të përcaktuar se sa kredit t’i caktohet çdo ndërveprimi, bazuar në të dhëna historike shndërrimesh. “Klikimi i fundit” i cakton tërë kreditin ndërveprimit përfundimtar me reklamat para shndërrimit.",
         "AttributionModelInvalid": "Fusha “Model Atribuimi” duhet të jetë një nga vlerat vijuese: ",

@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.2.1__ - 2024-12-16
+* Started setting alias name as goal name if empty on save
+
 __5.2.0__ - 2024-11-18
 * Security improvements around token save and display
 * Added option to not anonymise click IDs via SystemSetting

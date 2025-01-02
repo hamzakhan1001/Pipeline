@@ -694,6 +694,7 @@ export default defineComponent({
       if (!this.checkRequiredFieldsAreSet()) {
         return;
       }
+      this.addGoalNameIfEmpty();
 
       ConversionExportStore.createExport(this.conversionExport, method).then((response) => {
         this.isDirty = false;
@@ -758,6 +759,7 @@ export default defineComponent({
       if (!this.checkRequiredFieldsAreSet()) {
         return;
       }
+      this.addGoalNameIfEmpty();
 
       const method = 'AdvertisingConversionExport.updateConversionExport';
 
@@ -819,6 +821,28 @@ export default defineComponent({
         accessToken: (this.conversionExport.access_token === '********' ? '' : this.conversionExport.access_token),
       });
       return `${window.location.origin}${window.location.pathname}?${params}${this.conversionExport.access_token === '********' ? '&accessToken={YOUR_EXPORT_ACCESS_TOKEN}' : ''}`;
+    },
+    addGoalNameIfEmpty() {
+      if (this.conversionExport?.parameters?.goals?.length) {
+        this.conversionExport.parameters.goals.forEach((goal, index) => {
+          if (goal.idgoal && !goal.name) {
+            const goalName = this.getGoalName(goal.idgoal as string);
+            if (this.conversionExport?.parameters?.goals) {
+              this.conversionExport.parameters.goals[index].name = goalName;
+            }
+          }
+        });
+      }
+    },
+    getGoalName(idGoal: string) {
+      if (this.goals) {
+        for (let i = 0; i < this.goals.length; i += 1) {
+          if (this.goals[i].key === idGoal) {
+            return this.goals[i].value;
+          }
+        }
+      }
+      return '';
     },
   },
   computed: {

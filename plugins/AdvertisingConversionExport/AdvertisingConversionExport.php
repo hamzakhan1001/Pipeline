@@ -5,7 +5,7 @@
  * Description: Provides an export of attributed goal conversions for usage in ad networks like Google Ads so you no longer need a conversion pixel.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/AdvertisingConversionExport
- * Version: 5.2.0
+ * Version: 5.2.1
  */
 ?><?php
 
