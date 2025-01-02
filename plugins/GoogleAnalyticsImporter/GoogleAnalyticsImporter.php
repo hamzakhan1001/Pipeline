@@ -5,7 +5,7 @@
  * Description: Import reports from a Google Analytics account into Matomo.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.21
+ * Version: 5.0.22
  */
 ?><?php
 
@@ -15,6 +15,7 @@
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
+
 namespace Piwik\Plugins\GoogleAnalyticsImporter;
 
 use Piwik\ArchiveProcessor\Parameters;
@@ -39,6 +40,7 @@ use Piwik\SettingsPiwik;
 use Piwik\Url;
 use Piwik\Site;
 use Piwik\Log\LoggerInterface;
+
  
 if (defined( 'ABSPATH')
 && function_exists('add_action')) {
@@ -59,7 +61,7 @@ if (defined( 'ABSPATH')
 
 class GoogleAnalyticsImporter extends \Piwik\Plugin
 {
-    const OPTION_ARCHIVING_FINISHED_FOR_SITE_PREFIX = 'GoogleAnalyticsImporter.archivingFinished.';
+    public const OPTION_ARCHIVING_FINISHED_FOR_SITE_PREFIX = 'GoogleAnalyticsImporter.archivingFinished.';
     private static $keywordMethods = ['Referrers.getKeywords', 'Referrers.getKeywordsForPageUrl', 'Referrers.getKeywordsForPageTitle', 'Referrers.getKeywordsFromSearchEngineId', 'Referrers.getKeywordsFromCampaignId'];
     private static $unsupportedDataTableReports = ["Actions.getDownloads", "Actions.getDownload", "Actions.getOutlinks", "Actions.getOutlink", "Actions.getPageUrlsFollowingSiteSearch", "Actions.getPageTitlesFollowingSiteSearch", "Actions.getSiteSearchNoResultKeywords", "VisitTime.getVisitInformationPerLocalTime", "DevicesDetection.getBrowserEngines", "DevicePlugins.getPlugin", "UserId.getUsers", "Contents.getContentNames", "Contents.getContentPieces", "VisitorInterest.getNumberOfVisitsPerPage", "Provider.getProvider"];
     public function registerEvents()
@@ -233,7 +235,6 @@ class GoogleAnalyticsImporter extends \Piwik\Plugin
         $translationKeys[] = 'GoogleAnalyticsImporter_OauthFailedMessage';
         $translationKeys[] = 'GoogleAnalyticsImporter_ConfigureImportNotificationMessage';
         $translationKeys[] = 'GoogleAnalyticsImporter_ConfigureTheImporterHelp';
-        $translationKeys[] = 'GoogleAnalyticsImporter_ConfigureTheImporterHelpNewDate';
         $translationKeys[] = 'GoogleAnalyticsImporter_ConfigureTheImporterLabel1';
         $translationKeys[] = 'GoogleAnalyticsImporter_ConfigureTheImporterLabel2';
         $translationKeys[] = 'GoogleAnalyticsImporter_ConfigureTheImporterLabel3';
@@ -285,7 +286,7 @@ class GoogleAnalyticsImporter extends \Piwik\Plugin
             $translation = API::getKeywordNotDefinedString();
             $labelToLookFor = '(not provided)';
         }
-        $returnedValue->filter(function (DataTable $table) use($translation, $labelToLookFor) {
+        $returnedValue->filter(function (DataTable $table) use ($translation, $labelToLookFor) {
             $row = $table->getRowFromLabel($labelToLookFor);
             if (!empty($row)) {
                 $row->setColumn('label', $translation);
@@ -387,7 +388,7 @@ class GoogleAnalyticsImporter extends \Piwik\Plugin
     public static function datesOverlap($periods, $start_time_key = 'start_time', $end_time_key = 'end_time')
     {
         // order periods by start_time
-        usort($periods, function ($a, $b) use($start_time_key, $end_time_key) {
+        usort($periods, function ($a, $b) use ($start_time_key, $end_time_key) {
             return strtotime($a[$start_time_key]) <=> strtotime($b[$end_time_key]);
         });
         // check two periods overlap
@@ -405,7 +406,7 @@ class GoogleAnalyticsImporter extends \Piwik\Plugin
      * @return bool
      * @throws \Exception
      */
-    public static function canDisplayImportPendingNotice() : array
+    public static function canDisplayImportPendingNotice(): array
     {
         $isGASite = \false;
         $instance = new \Piwik\Plugins\GoogleAnalyticsImporter\ImportStatus();
@@ -471,14 +472,16 @@ class GoogleAnalyticsImporter extends \Piwik\Plugin
             $jwt = ConnectHelper::buildOAuthStateJwt(SettingsPiwik::getPiwikInstanceId(), ConnectAccounts::INITIATED_BY_GA);
         }
         $googleAuthUrl = '';
+        $additionalHelpText = '';
         if ($isConnectAccountsActivated) {
             $googleAuthUrl = $authBaseUrl . Http::buildQuery(['module' => 'ConnectAccounts', 'action' => 'initiateOauth', 'state' => $jwt, 'strategy' => GoogleConnect::getStrategyName()]);
+            $additionalHelpText = Piwik::translate('GoogleAnalyticsImporter_NoteImportNotCountedAsHit', ['<strong>', '</strong>']);
         }
         $idSite = Request::fromRequest()->getIntegerParameter('idSite', 0);
         // If for some reason the idSite query parameter isn't set, look up the default site ID
         if ($idSite < 1) {
             $idSite = StaticContainer::get(UserPreferences::class)->getDefaultWebsiteId();
         }
-        return ['isConnectAccountsActivated' => $isConnectAccountsActivated, 'primaryText' => Piwik::translate('GoogleAnalyticsImporter_ConfigureTheImporterLabel1'), 'radioOptions' => !$isConnectAccountsActivated ? [] : ['connectAccounts' => Piwik::translate('ConnectAccounts_OptionQuickConnectWithGa'), 'manual' => Piwik::translate('ConnectAccounts_OptionAdvancedConnectWithGa')], 'googleAuthUrl' => $googleAuthUrl, 'manualConfigText' => Piwik::translate('GoogleAnalyticsImporter_ConfigureTheImporterLabel2') . '<br />' . Piwik::translate('GoogleAnalyticsImporter_ConfigureTheImporterLabel3', ['<a href="'.Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/general/set-up-google-analytics-import/').'" rel="noreferrer noopener" target="_blank">', '</a>']), 'manualConfigNonce' => $nonce, 'manualActionUrl' => Url::getCurrentUrlWithoutQueryString() . '?' . Http::buildQuery(['module' => 'GoogleAnalyticsImporter', 'action' => 'configureClient', 'idSite' => $idSite]), 'connectAccountsUrl' => $googleAuthUrl, 'connectAccountsBtnText' => Piwik::translate('ConnectAccounts_ConnectWithGoogleText'), 'additionalHelpText' => Piwik::translate('GoogleAnalyticsImporter_ConfigureTheImporterHelpNewDate', ['<strong>', '</strong>'])];
+        return ['isConnectAccountsActivated' => $isConnectAccountsActivated, 'primaryText' => Piwik::translate('GoogleAnalyticsImporter_ConfigureTheImporterLabel1'), 'radioOptions' => !$isConnectAccountsActivated ? [] : ['connectAccounts' => Piwik::translate('ConnectAccounts_OptionQuickConnectWithGa'), 'manual' => Piwik::translate('ConnectAccounts_OptionAdvancedConnectWithGa')], 'googleAuthUrl' => $googleAuthUrl, 'manualConfigText' => Piwik::translate('GoogleAnalyticsImporter_ConfigureTheImporterLabel2') . '<br />' . Piwik::translate('GoogleAnalyticsImporter_ConfigureTheImporterLabel3', ['<a href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/general/set-up-google-analytics-import/') . '" rel="noreferrer noopener" target="_blank">', '</a>']), 'manualConfigNonce' => $nonce, 'manualActionUrl' => Url::getCurrentUrlWithoutQueryString() . '?' . Http::buildQuery(['module' => 'GoogleAnalyticsImporter', 'action' => 'configureClient', 'idSite' => $idSite]), 'connectAccountsUrl' => $googleAuthUrl, 'connectAccountsBtnText' => Piwik::translate('ConnectAccounts_ConnectWithGoogleText'), 'additionalHelpText' => $additionalHelpText];
     }
 }
