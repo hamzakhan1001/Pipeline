@@ -1,5 +1,11 @@
 ## Changelog
 
+5.0.8 - 2024-12-23
+- Fixes no idSite being passed in mobile app
+
+5.0.7 - 2024-12-16
+- Added MultiChannelConversionAttribution to the list of report metatdata
+
 5.0.6 - 2024-11-05
 - Updated README.md
 

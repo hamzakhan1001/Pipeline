@@ -46,7 +46,7 @@ class GetChannelAttribution extends Base
     {
         $this->categoryId = 'Goals_Goals';
 
-        $models = Common::getRequestVar('attributionModels', '', 'string');
+        $models = \Piwik\Request::fromRequest()->getStringParameter('attributionModels', '');
         $models = explode(',', $models);
         $this->compareModels = Models\Base::getByIds($models);
 
@@ -87,7 +87,7 @@ class GetChannelAttribution extends Base
 
     private function requestsSubtable()
     {
-        return Common::getRequestVar('idSubtable', 0, 'int') > 0;
+        return \Piwik\Request::fromRequest()->getIntegerParameter('idSubtable', 0) > 0;
     }
 
     public function configureView(ViewDataTable $view)
@@ -183,8 +183,8 @@ class GetChannelAttribution extends Base
         $view->config->search_recursive = true;
         $view->config->show_all_views_icons = false;
 
-        $view->requestConfig->request_parameters_to_modify['idGoal'] = Common::getRequestVar('idGoal', 0, 'int');
-        $view->requestConfig->request_parameters_to_modify['attributionModels'] = Common::getRequestVar('comparisonMetric', '', 'string');
+        $view->requestConfig->request_parameters_to_modify['idGoal'] = \Piwik\Request::fromRequest()->getIntegerParameter('idGoal', 0);
+        $view->requestConfig->request_parameters_to_modify['attributionModels'] = \Piwik\Request::fromRequest()->getStringParameter('comparisonMetric', '');
         $view->config->custom_parameters['idGoal'] = $view->requestConfig->request_parameters_to_modify['idGoal'];
         $view->config->custom_parameters['attributionModels'] = $view->requestConfig->request_parameters_to_modify['attributionModels'];
 
@@ -205,15 +205,15 @@ class GetChannelAttribution extends Base
 
     public static function isRequestingRowEvolutionPopover()
     {
-        $action = Common::getRequestVar('action', '', 'string');
+        $action = \Piwik\Request::fromRequest()->getStringParameter('action', '');
 
         return $action === 'getRowEvolutionPopover' || $action === 'getRowEvolutionGraph';
     }
 
     public static function isRequestingGlossary()
     {
-        return Common::getRequestVar('action', '', 'string') === 'glossary'
-            && Common::getRequestVar('module', '', 'string') === 'API';
+        return \Piwik\Request::fromRequest()->getStringParameter('action', '') === 'glossary'
+            && \Piwik\Request::fromRequest()->getStringParameter('module', '') === 'API';
     }
 
     public function getMetricNamesToProcessReportTotals()
@@ -231,13 +231,53 @@ class GetChannelAttribution extends Base
     {
         // we do only want to make it work for row evolution.
         if (self::isRequestingRowEvolutionPopover() || self::isRequestingGlossary()) {
-            $idGoal = Common::getRequestVar('idGoal', -2, 'int');
+            $idGoal = \Piwik\Request::fromRequest()->getIntegerParameter('idGoal', -2);
             $this->parameters = array('idGoal' => $idGoal);
 
             parent::configureReportMetadata($availableReports, $infos);
 
             $this->parameters = array();
         }
+
+        // If this isn't for the API endpoint looking up report metadata, simply return
+        if (\Piwik\Request::fromRequest()->getStringParameter('method', '') !== 'API.getReportMetadata') {
+            return;
+        }
+
+        $paramOverride = [];
+        if (isset($_GET['idSites']) && is_numeric($_GET['idSites'])) {
+            // fix for mobile app not working due to no idSite being sent to below API requests
+            $paramOverride['idSite'] = (int) $_GET['idSites'];
+        }
+        // Since it's the endpoint for getting metadata, let's get the metadata for all the goals and combinations
+        $goals = Request::processRequest('Goals.getGoals', $paramOverride);
+        $combinations = Request::processRequest('MultiChannelConversionAttribution.getAvailableCampaignDimensionCombinations', $paramOverride);
+        // If there aren't any goals or combinations, return early
+        if (empty($goals) || empty($combinations)) {
+            return;
+        }
+
+        foreach ($goals as $goal) {
+            $goalName = Common::sanitizeInputValue($goal['name']);
+            $this->parameters = [
+                'idGoal' => $goal['idgoal'],
+            ];
+            // This specific order formula was copied from plugins/Funnels/Reports/GetMetrics.php to ensure proper ordering
+            // If this number is changed, the report won't be grouped with the correct goal
+            $this->order      = 52.1 + $goal['idgoal'] * 3;
+
+            // Include each combination for every goal
+            foreach ($combinations as $combination) {
+                // This makes a fractional change to the order to ensure that the combinations are in the correct order
+                // Using an integer value moves the report too far and will no longer be grouped with the correct goal
+                $this->order += (intval($combination['key']) * 0.1);
+                $this->name = Piwik::translate('MultiChannelConversionAttribution_AttributionForGoalX', [$goalName, $combination['value']]);
+                $this->parameters['idCampaignDimensionCombination'] = $combination['key'];
+                $availableReports[] = $this->buildReportMetadata();
+            }
+        }
+
+        $this->parameters = array();
     }
 
     public function render()

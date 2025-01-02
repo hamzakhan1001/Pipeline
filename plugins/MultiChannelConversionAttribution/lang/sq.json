@@ -1,6 +1,7 @@
 {
     "MultiChannelConversionAttribution": {
         "Attribution": "Atribuim",
+        "AttributionForGoalX": "Atribuim Kanali për Synimin (%1$s) - Përmasa (%2$s)",
         "AttributionModelX": "Model Atribuimi %s",
         "CampaignCombinationEdit": "%1$sPërpunojeni%2$s",
         "CampaignDimensionCombinationPeriodSettingTitle": "Ditë para shndërrimit",
@@ -9,7 +10,7 @@
         "CampaignDimensionCombinationSettingHelpLine1": "%1$sDitë para shndërrimit:%2$s Mund të ndryshoni numrin e ditë të cilat duhen marrë parasysh para shndërrimit. Si parazgjedhje, mund të përzgjidhni 7, 30, 60 dhe 90 ditë.",
         "CampaignDimensionCombinationSettingHelpLine1FAQ": "%1$sMësoni më tepër%2$s.",
         "CampaignDimensionCombinationSettingHelpLine2": "%1$sFusha të Epërmi dhe Nënniveli:%2$s Ndërthurja e përmasave që zgjidhni përcakton dimensionin për nëntabela të shfaqur kur klikoni mbi “Fushata” te raporti %3$sMulti Atribuime%4$s.",
-        "CampaignDimensionCombinationSettingHelpLine3": "%1$sShënim:%2$s Nëse ndryshoni një ndërthurje, të dhënat për atë ndërthurje do të përpunohen që prej datës në të cilën ndryshuat ndërthurjen dhe raportet s’do të përmbajnë të dhëna të dikurshme (për çarëdo synimesh).",
+        "CampaignDimensionCombinationSettingHelpLine3": "%1$sShënim:%2$s Nëse ndryshoni një ndërthurje, të dhënat për atë ndërthurje do të përpunohen që prej datës në të cilën ndryshuat ndërthurjen dhe raportet s’do të përmbajnë të dhëna të dikurshme (për çfarëdo synimesh).",
         "CampaignDimensionCombinationSettingHelpLine3ReArchiveFaq": "Që të shihni të dhëna të dikurshme pas ndryshimit të një ndërthurjeje, mund të riarkivoni të dhënat. Që të mësoni më tepër se si të riarkivohen të dhëna në Matomo, ju lutemi, shihni këto %1$sPBR%2$s.",
         "CampaignDimensionCombinationSettingTitle": "Ndërthurje Përmasash Fushatash",
         "CampaignDimensionCombinationSettingTitleNew": "Analizimi i atribuimeve të shndërrimeve mund të japë përfundime të fuqishme për optimizimin e marketingut tuaj, por duhet të përdorni përmasa që kanë kuptim për rastin tuaj. Mund të zgjidhni deri në 3 ndërthurje përmasash, për të cilat Matomo-ja do të përpunojë raporte %1$sMulti Atribuim%2$s:",
@@ -50,6 +51,8 @@
         "MultiAttributionEnabledForGoal": "Atribuimi Shumëkanalësh i Shndërrimeve është i aktivizuar për këtë objektiv",
         "MultiChannelConversionAttribution": "Atribuim Shumëkanalësh Shndërrimesh",
         "NoGoalEnabled": "Për këtë raport s’ka të aktivizuar ndonjë objektiv. Aktivizimin e një raporti atribuimesh mund ta aktivizojë një përdorues me, të paktën , të drejta shkrimi, kur krijohet ose përpunohet një objektiv.",
+        "NoGoalEnabledWithWriteAccess": "Për këtë raport s’janë aktivizuar synime. Raportin e atribuimeve mund të aktivizoni kur krijoni ose përpunoni një synim.",
+        "NoGoalEnabledWithoutWriteAccess": "Për këtë raport s’janë aktivizuar synime. Raportin e atribuimeve mund të aktivizojnë përdorues me të paktën leje shkrimi , kur krijohet ose përpunohet një synim.",
         "PositionBased": "Bazuar Në Pozicion",
         "PositionBasedDocumentation": "Shumica e vlerës së atribuimit i shkon ndërveprimit të parë dhe të fundit (40%% secili), vlera e mbetur ndahet në mënyrë të barabartë mes krejt ndërveprimeve të tjera.",
         "SelectModel": "Përzgjidhni model",

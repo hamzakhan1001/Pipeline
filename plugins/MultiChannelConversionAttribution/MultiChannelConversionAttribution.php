@@ -5,7 +5,7 @@
  * Description: Get a clear understanding of how much credit each of your marketing channel is actually responsible for to shift your marketing efforts wisely.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.0.6
+ * Version: 5.0.8
  */
 ?><?php
 
