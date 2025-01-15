@@ -33,7 +33,7 @@
         "OptionsENABLESLO": "Abilita la funzionalità Single Log Out",
         "OptionsENABLESLODescription": "Se non si controlla l'ambiente SAML, si consiglia di disabilitare lo SLO e chiedere agli utenti di pulire\/chiudere sessione\/browser",
         "OptionsFORCESAML": "Forza il Login SAML",
-        "OptionsFORCESAMLescription": "Abilitalo per forzare l'accesso degli utenti tramite SAML. Un Super User può aggiungere il %1$sparametro GET alla pagina %2$s per utilizzare la procedura locale di accesso.",
+        "OptionsFORCESAMLDescription": "Abilitalo per forzare l'accesso degli utenti tramite SAML.",
         "OptionsForceSAMLVersionDesc": "Nota: Attualmente stai utilizzando la versione %1$s di Matomo. Questa impostazione funziona completamente solo con la versione %2$s e superiori.",
         "AttributeMappingSettings": "Impostazioni Mappatura Attributi",
         "AttributeMappingUSERNAME": "Login (nome utente)",

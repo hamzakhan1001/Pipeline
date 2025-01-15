@@ -94,7 +94,7 @@
         "OptionsENABLESLO": "Habilitar la funcionalidad de cierre de sesión único",
         "OptionsENABLESLODescription": "Si no controla el entorno SAML, recomendamos desactivar el SLO y pedir a los usuarios que limpien/cierren sesión/navegador",
         "OptionsFORCESAML": "Forzar inicio de sesión SAML",
-        "OptionsFORCESAMLescription": "Habilítelo para forzar a los usuarios a iniciar sesión con SAML. Los Super Usuarios pueden agregar el %1$s parámetro GET para la%2$s página que los utilice durante el proceso de inicio de sesión local.",
+        "OptionsFORCESAMLDescription": "Habilítelo para forzar a los usuarios a iniciar sesión con SAML.",
         "OptionsForceSAMLVersionDesc": "Nota: Está usando la versión %1$s de Matomo. Esta configuración solo funciona completamente con la versión %2$sy posteriores.",
         "OptionsNORMALMODE": "Codigo Normal Login",
         "OptionsNORMALMODEDescription": "Por defecto, si estableces ?normal en la url de loginl, podrás evitar el forzado SAML y acceder a la vista normal de login. Si estableces en este campo un valor, dicho valor será necesario ser proporcionado para evitar el forzado SAML con ?normal=valor.",

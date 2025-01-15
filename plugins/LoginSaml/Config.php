@@ -42,6 +42,9 @@ class Config
         'options_enable_slo' => 0,
         'options_forcesaml' => 0,
         'options_normalmode' => '',
+        'options_preventnonsuperusers' => 0,
+        'options_preventsuperusers' => 0,
+        'options_loginexceptionlist' => '',
         'attributemapping_username' => '',
         'attributemapping_email' => '',
         'enable_synchronize_access_from_saml' => 0,
@@ -119,6 +122,35 @@ class Config
     {
         $configData = self::getPluginOptionValuesWithDefaults();
         return (isset($configData['options_forcesaml']) && $configData['options_forcesaml']);
+    }
+
+    public static function isPreventNonSuperUsersEnabled()
+    {
+        $configData = self::getPluginOptionValuesWithDefaults();
+        return (isset($configData['options_preventnonsuperusers']) && $configData['options_preventnonsuperusers']);
+    }
+
+    public static function isPreventSuperUsersEnabled()
+    {
+        $configData = self::getPluginOptionValuesWithDefaults();
+        return (isset($configData['options_preventsuperusers']) && $configData['options_preventsuperusers']);
+    }
+
+    public static function getLoginExceptionList()
+    {
+        $configData = self::getPluginOptionValuesWithDefaults();
+        $loginExceptionList = [];
+        if (isset($configData['options_loginexceptionlist']) && !empty($configData['options_loginexceptionlist'])) {
+            $loginExceptionList = array_map('trim', explode(",", $configData['options_loginexceptionlist']));
+        };
+
+        return $loginExceptionList;
+    }
+
+    public static function checkIfUsernameBelongLoginExceptionList($username)
+    {
+        $loginExceptionList = self::getLoginExceptionList();
+        return in_array(strtolower($username), array_map('strtolower', $loginExceptionList));
     }
 
     public static function isBypass2faEnabled()

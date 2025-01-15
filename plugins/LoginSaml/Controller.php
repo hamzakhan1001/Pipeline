@@ -18,13 +18,16 @@ namespace Piwik\Plugins\LoginSaml;
 
 use Piwik\Log\Logger;
 use OneLogin\Saml2\Error;
-use Piwik\Common;
 use Piwik\Config as PiwikConfig;
 use Piwik\Container\StaticContainer;
+use Piwik\Date;
 use Piwik\Notification;
 use Piwik\Piwik;
 use Piwik\Plugin\ControllerAdmin;
+use Piwik\Request;
+use Piwik\Session\SessionNamespace;
 use Piwik\Url;
+use Piwik\UrlHelper;
 use Piwik\Version;
 use Piwik\View;
 use Exception;
@@ -166,12 +169,13 @@ class Controller extends \Piwik\Plugins\Login\Controller
             $samlAuth = $this->samlFactory->getSamlAuth();
             $this->logger->info('Initiated the Single Sign On, Redirecting to the IdP');
 
-            $target = Common::getRequestVar('target', '', 'string');
-            if (!empty($target) && Url::isLocalUrl($target)) {
-                $samlAuth->login($target);
-            } else {
-                $samlAuth->login();
+            $request = Request::fromRequest();
+            $target = $request->getStringParameter("target", null);
+            $reauth = $request->getBoolParameter("reauth", false);
+            if (isset($target) && !Url::isLocalUrl($target)) {
+                $target = null;
             }
+            $samlAuth->login($target, [], $reauth);
         } else {
             $this->redirectToLoginWithError("SAML is disabled.");
         }
@@ -294,6 +298,23 @@ class Controller extends \Piwik\Plugins\Login\Controller
                         }
 
                         if ($this->samlFactory->authenticateAndReloadAccess($user, $samlData)) {
+                            // Set the password as verified, to avoid password confirmations
+                            // The call to $this->passwordVerify->setPasswordVerifiedCorrectly();
+                            // executes a redirection
+                            $sessionNamespace = new SessionNamespace('Login');
+                            $redirectParams = null;
+                            if (!empty($_POST['RelayState'])) {
+                                $target = $_POST['RelayState'];
+                                $queryString = Url::getQueryStringFromUrl($target);
+                                $redirectParams = UrlHelper::getArrayFromQueryString($queryString);
+                            }
+                            if (!empty($redirectParams)) {
+                                $sessionNamespace->redirectParams = $redirectParams;
+                            }
+                            $sessionNamespace->lastPasswordAuth = Date::now()->getDatetime();
+                            $sessionNamespace->setExpirationSeconds($this->passwordVerify::VERIFY_VALID_FOR_MINUTES * 60, 'redirectParams');
+                            $sessionNamespace->setExpirationSeconds($this->passwordVerify::VERIFY_VALID_FOR_MINUTES * 60, 'lastPasswordAuth');
+
                             // Redirect user
                             if (!empty($_POST['RelayState'])) {
                                 $urlToRedirect = $_POST['RelayState'];

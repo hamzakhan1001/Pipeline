@@ -206,7 +206,7 @@
                 :title="translate('LoginSaml_OptionsFORCESAML')"
               >
                 <template #inline-help>
-                  {{ translate('LoginSaml_OptionsFORCESAMLescription', '?normal', 'index.php') }}
+                  {{ translate('LoginSaml_OptionsFORCESAMLDescription', '?normal', 'index.php') }}
                   <br/><br/>
                   <span v-if="ifForceSamlNotSupported">
                     {{ translate('LoginSaml_OptionsForceSAMLVersionDesc', currentVersion,
@@ -222,6 +222,36 @@
                 v-model="actualSamlConfig.options_normalmode"
                 :title="translate('LoginSaml_OptionsNORMALMODE')"
                 :inline-help="translate('LoginSaml_OptionsNORMALMODEDescription')"
+              >
+              </Field>
+            </div>
+            <div>
+              <Field
+                uicontrol="checkbox"
+                name="options_preventnonsuperusers"
+                v-model="actualSamlConfig.options_preventnonsuperusers"
+                :title="translate('LoginSaml_OptionsPREVENTNONSUPERUSERS')"
+                :inline-help="translate('LoginSaml_OptionsPREVENTNONSUPERUSERSDescription')"
+              >
+              </Field>
+            </div>
+            <div>
+              <Field
+                uicontrol="checkbox"
+                name="options_preventsuperusers"
+                v-model="actualSamlConfig.options_preventsuperusers"
+                :title="translate('LoginSaml_OptionsPREVENTSUPERUSERS')"
+                :inline-help="translate('LoginSaml_OptionsPREVENTSUPERUSERSDescription')"
+              >
+              </Field>
+            </div>
+            <div name="options_loginexceptionlist">
+              <Field
+                uicontrol="textarea"
+                name="options_loginexceptionlist"
+                v-model="actualSamlConfig.options_loginexceptionlist"
+                :title="translate('LoginSaml_OptionsEXCEPTIONLIST')"
+                :inline-help="translate('LoginSaml_OptionsEXCEPTIONLISTDescription')"
               >
               </Field>
             </div>
@@ -637,6 +667,9 @@ interface LoginSamlConfig {
   options_enable_slo: number;
   options_forcesaml: number;
   options_normalmode: string;
+  options_preventnonsuperusers: number;
+  options_preventsuperusers: number;
+  options_loginexceptionlist: string;
   attributemapping_username: string;
   attributemapping_email: string;
   enable_synchronize_access_from_saml: number;
