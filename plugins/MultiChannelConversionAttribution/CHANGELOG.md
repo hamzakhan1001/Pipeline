@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.9 - 2025-01-15
+- Lower campaign values based on event to honor keep campaign parameter capitalisation setting
+
 5.0.8 - 2024-12-23
 - Fixes no idSite being passed in mobile app
 
