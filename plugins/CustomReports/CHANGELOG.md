@@ -1,5 +1,11 @@
 ## Changelog
 
+5.2.2 - 2025-01-15
+- Lower campaign values based on a event to honor keep campaign parameter capitalisation setting
+
+5.2.1 - 2025-01-06
+- Added code to allow admins to add/edit multiple websites if access to all websites in a report
+
 5.2.0 - 2024-12-09
 - Added option to assign multiple idSites to a single report
 - Added action type dimension

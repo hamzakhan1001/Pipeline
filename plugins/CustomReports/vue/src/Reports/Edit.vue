@@ -30,11 +30,11 @@
       class="alert alert-danger"
       v-show="!canEdit"
     >
-      <span v-if="multipleSites.length">
-            {{ translate('CustomReports_ReportEditNotAllowedMultipleWebsites') }}
+      <span v-if="multipleSites.length && !report.allowedToEdit">
+            {{ translate('CustomReports_ReportEditNotAllowedMultipleWebsitesAccessIssue') }}
       </span>
       <span v-else>
-            {{ translate('CustomReports_ReportEditNotAllowedAllWebsites') }}
+            {{ translate('CustomReports_ReportEditNotAllowedAllWebsitesUpdated') }}
       </span>
     </div>
     <form @submit="edit ? updateReport() : createReport()">
@@ -80,7 +80,7 @@
                 <SiteSelector
                   id="all_websites"
                   :model-value="report.site"
-                  @update:model-value="report.site = $event; setWebsiteChanged()"
+                  @update:model-value="report.site = $event; setWebsiteChanged($event)"
                   :show-all-sites-item="isSuperUser"
                   :switch-site-on-select="false"
                   :show-selected-site="true"
@@ -100,7 +100,7 @@
           </div>
           <div class="col s12 m6"
                v-if="report.site.id !== 'all' && report.site.id !== '0' && report.site.id !== 0">
-            <div v-if="isSuperUser">
+            <div v-if="report.allowedToEdit">
               <span for="websitecontains">
                 {{ translate('CustomReports_SelectMeasurablesMatchingSearch') }}
               </span>
@@ -121,14 +121,16 @@
                 :value="translate('CustomReports_FindMeasurables')"
               />
             </div>
-            <div v-if="isSuperUser || multipleSites.length">
+            <div v-if="report.allowedToEdit || multipleSites.length">
               <br>
               <table class="entityTable">
                 <thead>
                 <tr>
                   <th class="siteId">{{ translate('General_Id') }}</th>
                   <th class="siteName">{{ translate('General_Name') }}</th>
-                  <th class="siteAction" v-if="isSuperUser">{{ translate('General_Remove') }}</th>
+                  <th class="siteAction" v-if="report.allowedToEdit">
+                    {{ translate('General_Remove') }}
+                  </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -142,7 +144,7 @@
                 >
                   <td>{{ site.idsite }}</td>
                   <td>{{ site.name }}</td>
-                  <td class="siteAction" v-if="isSuperUser">
+                  <td class="siteAction" v-if="report.allowedToEdit">
                     <span
                       class="icon-minus table-action"
                       @click="removeSite(site)"
@@ -387,11 +389,11 @@
           class="alert alert-danger"
           v-show="!canEdit"
         >
-          <span v-if="multipleSites.length">
-            {{ translate('CustomReports_ReportEditNotAllowedMultipleWebsites') }}
+          <span v-if="multipleSites.length && !report.allowedToEdit">
+            {{ translate('CustomReports_ReportEditNotAllowedMultipleWebsitesAccessIssue') }}
           </span>
           <span v-else>
-            {{ translate('CustomReports_ReportEditNotAllowedAllWebsites') }}
+            {{ translate('CustomReports_ReportEditNotAllowedAllWebsitesUpdated') }}
           </span>
         </div>
         <div class="form-group row" v-if="childReports.length">
@@ -486,7 +488,7 @@ import {
   NotificationsStore,
   NotificationType,
   clone,
-  MatomoUrl, externalLink, AjaxHelper,
+  MatomoUrl, externalLink, AjaxHelper, SiteRef,
 } from 'CoreHome';
 import { Field, SaveButton } from 'CorePluginsAdmin';
 import { SegmentGenerator } from 'SegmentEditor';
@@ -647,7 +649,7 @@ export default defineComponent({
           this.childReports = this.report.child_reports ?? [];
           if (this.report.multipleIdSites && this.report.multipleIdSites.length && this.report.site.id !== 'all' && this.report.site.id !== '0' && this.report.site.id !== 0) {
             this.multipleSites = this.report.multipleIdSites;
-            if (!this.isSuperUser) {
+            if (!this.report.allowedToEdit) {
               this.canEdit = false;
               this.isLocked = false;
             }
@@ -716,6 +718,7 @@ export default defineComponent({
           subcategory: null,
           segment_filter: '',
           child_reports: [],
+          allowedToEdit: true,
         } as unknown as CustomReport;
         this.isLocked = false;
         this.canEdit = true;
@@ -761,6 +764,10 @@ export default defineComponent({
         });
       }
 
+      if (this.multipleIdSites && this.multipleIdSites.length) {
+        // need to update this else this creates an issue after save
+        this.report.site.id = Matomo.idSite;
+      }
       CustomReportsStore.createOrUpdateReport(
         this.report,
         method,
@@ -914,11 +921,15 @@ export default defineComponent({
       this.setValueHasChanged();
       this.addMetricIfMissingDependency(metric);
     },
-    setWebsiteChanged() {
+    setWebsiteChanged(newValue: SiteRef) {
       this.setValueHasChanged();
       this.initReportOptions();
       if (this.report.site.id === 'all' || this.report.site.id === '0' || this.report.site.id === 0) {
         this.multipleSites = [];
+      } else if (this.report.allowedToEdit && !this.isSiteIncludedAlready(`${newValue.id}`) && this.multipleSites) {
+        this.multipleSites.push(
+          { idsite: newValue.id as string, name: newValue.name as string },
+        );
       }
     },
     removeDimension(index: number) {
@@ -1038,6 +1049,10 @@ export default defineComponent({
       }
 
       const method = 'CustomReports.updateCustomReport';
+      if (this.multipleIdSites && this.multipleIdSites.length) {
+        // need to update this else this creates an issue after save
+        this.report.site.id = Matomo.idSite;
+      }
       CustomReportsStore.createOrUpdateReport(
         this.report,
         method,

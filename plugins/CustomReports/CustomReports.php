@@ -5,7 +5,7 @@
  * Description: Pull out the information you need in order to be successful. Develop your custom strategy to meet your individualized goals while saving money & time.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.2.0
+ * Version: 5.2.2
  */
 ?><?php
 
@@ -328,7 +328,7 @@ class CustomReports extends \Piwik\Plugin
         $result[] = 'CustomReports_AvailableAllWebsites';
         $result[] = 'CustomReports_ErrorMissingMetric';
         $result[] = 'CustomReports_ErrorMissingDimension';
-        $result[] = 'CustomReports_ReportEditNotAllowedAllWebsites';
+        $result[] = 'CustomReports_ReportEditNotAllowedAllWebsitesUpdated';
         $result[] = 'CustomReports_RemoveMetric';
         $result[] = 'CustomReports_RemoveDimension';
         $result[] = 'CustomReports_ReportAvailableToAllWebsites';
@@ -364,7 +364,7 @@ class CustomReports extends \Piwik\Plugin
         $result[] = 'CustomReports_WarningRegionDimensionDependency';
         $result[] = 'CustomReports_SelectMeasurablesMatchingSearch';
         $result[] = 'CustomReports_FindMeasurables';
-        $result[] = 'CustomReports_ReportEditNotAllowedMultipleWebsites';
+        $result[] = 'CustomReports_ReportEditNotAllowedMultipleWebsitesAccessIssue';
         $result[] = 'CustomReports_ReportAvailableToMultipleWebsites';
         $result[] = 'CustomReports_NoMeasurableAssignedYet';
         $result[] = 'CustomReports_MatchingSearchNotFound';

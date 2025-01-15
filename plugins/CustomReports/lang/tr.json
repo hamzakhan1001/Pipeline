@@ -64,7 +64,6 @@
         "ReportCreated": "Rapor eklendi.",
         "ReportDescriptionHelp": "Rapor başlığının yanındaki yardım simgesine tıklandığında görüntülenecek isteğe bağlı açıklama. Raporun amacını açıklayan bilgiler yazılabilir.",
         "ReportDimensionsHelp": "Boyutlar genellikle karakteristikleri tanımlar ve bir raporun ilk sütununda bulunur. Tarayıcı, Ülke, Şehir gibi en çok üç boyut seçebilirsiniz. En az bir boyut seçilmelidir.",
-        "ReportEditNotAllowedAllWebsites": "Bu rapor tüm siteler için kullanılabileceğinden, yalnızca süper kullanıcı izinlerine sahip bir kullanıcı bu raporu düzenleyebilir.",
         "ReportHasFilterApplied": "Bu rapora şu süzgeç uygulandı: %s.",
         "ReportMetricsHelp": "Ölçümler, işlemlerin sayısal değerlerini belirtir. Örneğin sitenin trafiğini arttırmak istiyorsanız, \"Ziyaretler\" ölçümünü, sitesinin hızını arttırmak istiyorsanız \"Ortalama üretilme süresi\" ölçümünü eklemelisiniz.",
         "ReportName": "Rapor adı",

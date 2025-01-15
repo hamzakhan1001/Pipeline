@@ -5,7 +5,7 @@
  * Description: Measure the effectiveness of your marketing campaigns. New reports, segments & track up to five channels: campaign, source, medium, keyword, content.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.1.0
+ * Version: 5.1.1
  */
 ?><?php
 
@@ -67,6 +67,7 @@ class MarketingCampaignsReporting extends Plugin
             'Report.filterReports'                        => 'removeOriginalCampaignReport',
             'Insights.addReportToOverview'                => 'addReportToInsightsOverview',
             'AssetManager.getStylesheetFiles'             => 'getStylesheetFiles',
+            'Plugin.shouldLowerCampaignCase'              => 'shouldLowerCampaignCase',
         );
     }
 
@@ -146,5 +147,11 @@ class MarketingCampaignsReporting extends Plugin
     public function isTrackerPlugin()
     {
         return true;
+    }
+
+    public function shouldLowerCampaignCase($pluginName, &$shouldLowerCampaignCase)
+    {
+        $systemSettings = StaticContainer::get(SystemSettings::class);
+        $shouldLowerCampaignCase = !$systemSettings->doNotChangeCaseOfUtmParameters->getValue();
     }
 }

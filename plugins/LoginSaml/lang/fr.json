@@ -92,7 +92,7 @@
         "OptionsENABLESLO": "Activer la fonctionnalité de déconnexion unique",
         "OptionsENABLESLODescription": "Si vous ne contrôlez pas l'environnement SAML, nous vous recommandons de désactiver le SLO et de demander aux utilisateurs de nettoyer/fermer leur session/navigateur",
         "OptionsFORCESAML": "Forcer la connexion SAML",
-        "OptionsFORCESAMLescription": "Activez la fonction pour forcer les utilisateurs à se connecter avec SAML. Les super utilisateurs peuvent ajouter le paramètre GET %1$s à la page %2$s pour utiliser le processus de connexion local.",
+        "OptionsFORCESAMLDescription": "Activez la fonction pour forcer les utilisateurs à se connecter avec SAML.",
         "OptionsForceSAMLVersionDesc": "Note : Vous utilisez actuellement la version %1$s de Matomo. Ce paramètre ne fonctionne complètement qu'avec la version %2$s et supérieure.",
         "OptionsIDENTIFYFIELD": "Champ pour identifier l'utilisateur",
         "OptionsIDENTIFYFIELDDescription": "Choisir entre l'email ou l'identifiant (nom d'utilisateur) afin de faire correspondre les données de l'utilisateur IdP avec le compte utilisateur local",

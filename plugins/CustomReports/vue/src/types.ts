@@ -63,6 +63,7 @@ export interface CustomReport {
   child_reports: ChildReport[]
   multipleIdSites: Site[];
   multiple_idsites: null|string;
+  allowedToEdit: boolean;
 
   linkIdSite?: string|number;
   subcategoryLink?: string|number;

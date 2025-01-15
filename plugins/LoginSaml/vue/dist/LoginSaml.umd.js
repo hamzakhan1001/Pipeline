@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "plugins/LoginSaml/vue/dist/";
+/******/ 	__webpack_require__.p = "plugins/plugins/LoginSaml/vue/dist/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -148,7 +148,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/LoginSaml/vue/src/Admin/Admin.vue?vue&type=template&id=396126a5
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/LoginSaml/vue/src/Admin/Admin.vue?vue&type=template&id=0645d866
 
 var _hoisted_1 = {
   class: "pull-right",
@@ -179,14 +179,15 @@ var _hoisted_7 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vu
 var _hoisted_8 = {
   key: 0
 };
-
-var _hoisted_9 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("hr", null, null, -1);
+var _hoisted_9 = {
+  name: "options_loginexceptionlist"
+};
 
 var _hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("hr", null, null, -1);
 
-var _hoisted_11 = ["innerHTML"];
+var _hoisted_11 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("hr", null, null, -1);
 
-var _hoisted_12 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("br", null, null, -1);
+var _hoisted_12 = ["innerHTML"];
 
 var _hoisted_13 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("br", null, null, -1);
 
@@ -194,86 +195,88 @@ var _hoisted_14 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_V
 
 var _hoisted_15 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("br", null, null, -1);
 
-var _hoisted_16 = {
+var _hoisted_16 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("br", null, null, -1);
+
+var _hoisted_17 = {
   name: "saml_superuser_access_field"
 };
-var _hoisted_17 = {
+var _hoisted_18 = {
   name: "user_access_attribute_server_specification_delimiter"
 };
-var _hoisted_18 = {
+var _hoisted_19 = {
   name: "user_access_attribute_server_separator"
 };
-var _hoisted_19 = {
+var _hoisted_20 = {
   name: "instance_name"
 };
 
-var _hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("hr", null, null, -1);
+var _hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("hr", null, null, -1);
 
-var _hoisted_21 = {
+var _hoisted_22 = {
   name: "advanced_strict"
 };
-var _hoisted_22 = {
+var _hoisted_23 = {
   name: "advanced_debug"
 };
-var _hoisted_23 = {
+var _hoisted_24 = {
   name: "advanced_spentityid"
 };
-var _hoisted_24 = {
+var _hoisted_25 = {
   name: "advanced_nameidformat"
 };
-var _hoisted_25 = {
+var _hoisted_26 = {
   name: "advanced_nameid_encrypted"
 };
-var _hoisted_26 = {
+var _hoisted_27 = {
   name: "advanced_authn_request_signed"
 };
-var _hoisted_27 = {
+var _hoisted_28 = {
   name: "advanced_logout_request_signed"
 };
-var _hoisted_28 = {
+var _hoisted_29 = {
   name: "advanced_logout_response_signed"
 };
-var _hoisted_29 = {
+var _hoisted_30 = {
   name: "advanced_metadata_signed"
 };
-var _hoisted_30 = {
+var _hoisted_31 = {
   name: "advanced_want_message_signed"
 };
-var _hoisted_31 = {
+var _hoisted_32 = {
   name: "advanced_requestedauthncontext"
 };
-var _hoisted_32 = {
+var _hoisted_33 = {
   name: "advanced_want_assertion_signed"
 };
-var _hoisted_33 = {
+var _hoisted_34 = {
   name: "advanced_want_assertion_encrypted"
 };
-var _hoisted_34 = {
+var _hoisted_35 = {
   name: "advanced_want_nameid_encrypted"
 };
-var _hoisted_35 = {
+var _hoisted_36 = {
   name: "advanced_retrieve_parameters_from_server"
 };
-var _hoisted_36 = {
+var _hoisted_37 = {
   name: "advanced_set_proxy_vars"
 };
-var _hoisted_37 = {
+var _hoisted_38 = {
   name: "advanced_sp_x509cert"
 };
-var _hoisted_38 = {
+var _hoisted_39 = {
   name: "advanced_sp_privatekey"
 };
-var _hoisted_39 = {
+var _hoisted_40 = {
   name: "advanced_signaturealgorithm"
 };
-var _hoisted_40 = {
+var _hoisted_41 = {
   name: "advanced_digestalgorithm"
 };
-var _hoisted_41 = {
+var _hoisted_42 = {
   name: "advanced_use_friendlyname"
 };
 
-var _hoisted_42 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("hr", null, null, -1);
+var _hoisted_43 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("hr", null, null, -1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Field = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Field");
@@ -452,7 +455,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             title: _ctx.translate('LoginSaml_OptionsFORCESAML')
           }, {
             "inline-help": Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withCtx"])(function () {
-              return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_OptionsFORCESAMLescription', '?normal', 'index.php')) + " ", 1), _hoisted_6, _hoisted_7, _ctx.ifForceSamlNotSupported ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("span", _hoisted_8, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_OptionsForceSAMLVersionDesc', _ctx.currentVersion, '3.6.1')), 1)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)];
+              return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_OptionsFORCESAMLDescription', '?normal', 'index.php')) + " ", 1), _hoisted_6, _hoisted_7, _ctx.ifForceSamlNotSupported ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("span", _hoisted_8, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_OptionsForceSAMLVersionDesc', _ctx.currentVersion, '3.6.1')), 1)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)];
             }),
             _: 1
           }, 8, ["modelValue", "title"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
@@ -466,14 +469,41 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "inline-help": _ctx.translate('LoginSaml_OptionsNORMALMODEDescription')
           }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
+            name: "options_preventnonsuperusers",
+            modelValue: _ctx.actualSamlConfig.options_preventnonsuperusers,
+            "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+              return _ctx.actualSamlConfig.options_preventnonsuperusers = $event;
+            }),
+            title: _ctx.translate('LoginSaml_OptionsPREVENTNONSUPERUSERS'),
+            "inline-help": _ctx.translate('LoginSaml_OptionsPREVENTNONSUPERUSERSDescription')
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+            uicontrol: "checkbox",
+            name: "options_preventsuperusers",
+            modelValue: _ctx.actualSamlConfig.options_preventsuperusers,
+            "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+              return _ctx.actualSamlConfig.options_preventsuperusers = $event;
+            }),
+            title: _ctx.translate('LoginSaml_OptionsPREVENTSUPERUSERS'),
+            "inline-help": _ctx.translate('LoginSaml_OptionsPREVENTSUPERUSERSDescription')
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_9, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+            uicontrol: "textarea",
+            name: "options_loginexceptionlist",
+            modelValue: _ctx.actualSamlConfig.options_loginexceptionlist,
+            "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
+              return _ctx.actualSamlConfig.options_loginexceptionlist = $event;
+            }),
+            title: _ctx.translate('LoginSaml_OptionsEXCEPTIONLIST'),
+            "inline-help": _ctx.translate('LoginSaml_OptionsEXCEPTIONLISTDescription')
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+            uicontrol: "checkbox",
             name: "sync_saml_session_expiration",
             modelValue: _ctx.actualSamlConfig.sync_saml_session_expiration,
-            "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+            "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
               return _ctx.actualSamlConfig.sync_saml_session_expiration = $event;
             }),
             title: _ctx.translate('LoginSaml_EnableSamlSessionExpirationSynchronization'),
             "inline-help": _ctx.translate('LoginSaml_EnableSamlSessionExpirationSynchronizationDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), _hoisted_9, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), _hoisted_10, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
             saving: ajaxForm.isSubmitting,
             onConfirm: function onConfirm($event) {
               return ajaxForm.submitForm();
@@ -490,7 +520,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             uicontrol: "text",
             name: "attributemapping_username",
             modelValue: _ctx.actualSamlConfig.attributemapping_username,
-            "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+            "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
               return _ctx.actualSamlConfig.attributemapping_username = $event;
             }),
             title: _ctx.translate('LoginSaml_AttributeMappingUSERNAME'),
@@ -499,12 +529,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             uicontrol: "text",
             name: "attributemapping_email",
             modelValue: _ctx.actualSamlConfig.attributemapping_email,
-            "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
+            "onUpdate:modelValue": _cache[20] || (_cache[20] = function ($event) {
               return _ctx.actualSamlConfig.attributemapping_email = $event;
             }),
             title: _ctx.translate('LoginSaml_AttributeMappingEMAIL'),
             "inline-help": _ctx.translate('LoginSaml_AttributeMappingEMAILDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), _hoisted_10, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), _hoisted_11, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
             saving: ajaxForm.isSubmitting,
             onConfirm: function onConfirm($event) {
               return ajaxForm.submitForm();
@@ -519,11 +549,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withCtx"])(function () {
           return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("p", {
             innerHTML: _ctx.$sanitize(_ctx.readMoreAboutAccessSyncText)
-          }, null, 8, _hoisted_11), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, _hoisted_12), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "enable_synchronize_access_from_saml",
             modelValue: _ctx.actualSamlConfig.enable_synchronize_access_from_saml,
-            "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
+            "onUpdate:modelValue": _cache[21] || (_cache[21] = function ($event) {
               return _ctx.actualSamlConfig.enable_synchronize_access_from_saml = $event;
             }),
             title: _ctx.translate('LoginSaml_EnableSamlAccessSynchronization'),
@@ -532,14 +562,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             context: "info"
           }, {
             default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withCtx"])(function () {
-              return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("strong", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_ExpectedSamlAttributes')), 1), _hoisted_12, _hoisted_13, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_ExpectedSamlAttributesPrelude')) + ":", 1), _hoisted_14, _hoisted_15, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("ul", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleViewAttribute), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleWriteAttribute), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleAdminAttribute), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleSuperuserAttribute), 1)])];
+              return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("strong", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_ExpectedSamlAttributes')), 1), _hoisted_13, _hoisted_14, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.translate('LoginSaml_ExpectedSamlAttributesPrelude')) + ":", 1), _hoisted_15, _hoisted_16, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("ul", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleViewAttribute), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleWriteAttribute), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleAdminAttribute), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("li", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.sampleSuperuserAttribute), 1)])];
             }),
             _: 1
           })]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "text",
             name: "saml_view_access_field",
             modelValue: _ctx.actualSamlConfig.saml_view_access_field,
-            "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
+            "onUpdate:modelValue": _cache[22] || (_cache[22] = function ($event) {
               return _ctx.actualSamlConfig.saml_view_access_field = $event;
             }),
             title: _ctx.translate('LoginSaml_SamlViewAccessField'),
@@ -548,7 +578,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             uicontrol: "text",
             name: "saml_write_access_field",
             modelValue: _ctx.actualSamlConfig.saml_write_access_field,
-            "onUpdate:modelValue": _cache[20] || (_cache[20] = function ($event) {
+            "onUpdate:modelValue": _cache[23] || (_cache[23] = function ($event) {
               return _ctx.actualSamlConfig.saml_write_access_field = $event;
             }),
             title: _ctx.translate('LoginSaml_SamlWriteAccessField'),
@@ -557,48 +587,48 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             uicontrol: "text",
             name: "saml_admin_access_field",
             modelValue: _ctx.actualSamlConfig.saml_admin_access_field,
-            "onUpdate:modelValue": _cache[21] || (_cache[21] = function ($event) {
+            "onUpdate:modelValue": _cache[24] || (_cache[24] = function ($event) {
               return _ctx.actualSamlConfig.saml_admin_access_field = $event;
             }),
             title: _ctx.translate('LoginSaml_SamlAdminAccessField'),
             "inline-help": _ctx.translate('LoginSaml_SamlAdminAccessFieldDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_16, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_17, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "text",
             name: "saml_superuser_access_field",
             modelValue: _ctx.actualSamlConfig.saml_superuser_access_field,
-            "onUpdate:modelValue": _cache[22] || (_cache[22] = function ($event) {
+            "onUpdate:modelValue": _cache[25] || (_cache[25] = function ($event) {
               return _ctx.actualSamlConfig.saml_superuser_access_field = $event;
             }),
             title: _ctx.translate('LoginSaml_SamlSuperUserAccessField'),
             "inline-help": _ctx.translate('LoginSaml_SamlSuperUserAccessFieldDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_17, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_18, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "text",
             name: "user_access_attribute_server_specification_delimiter",
             modelValue: _ctx.actualSamlConfig.user_access_attribute_server_specification_delimiter,
-            "onUpdate:modelValue": _cache[23] || (_cache[23] = function ($event) {
+            "onUpdate:modelValue": _cache[26] || (_cache[26] = function ($event) {
               return _ctx.actualSamlConfig.user_access_attribute_server_specification_delimiter = $event;
             }),
             title: _ctx.translate('LoginSaml_SamlUserAccessAttributeServerSpecDelimiter'),
             "inline-help": _ctx.translate('LoginSaml_SamlUserAccessAttributeServerSpecDelimiterDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_18, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_19, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "text",
             name: "user_access_attribute_server_separator",
             modelValue: _ctx.actualSamlConfig.user_access_attribute_server_separator,
-            "onUpdate:modelValue": _cache[24] || (_cache[24] = function ($event) {
+            "onUpdate:modelValue": _cache[27] || (_cache[27] = function ($event) {
               return _ctx.actualSamlConfig.user_access_attribute_server_separator = $event;
             }),
             title: _ctx.translate('LoginSaml_SamlUserAccessAttributeServerSeparator'),
             "inline-help": _ctx.translate('LoginSaml_SamlUserAccessAttributeServerSeparatorDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_19, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_20, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "text",
             name: "instance_name",
             modelValue: _ctx.actualSamlConfig.instance_name,
-            "onUpdate:modelValue": _cache[25] || (_cache[25] = function ($event) {
+            "onUpdate:modelValue": _cache[28] || (_cache[28] = function ($event) {
               return _ctx.actualSamlConfig.instance_name = $event;
             }),
             title: _ctx.translate('LoginSaml_ThisPiwikInstanceName'),
             "inline-help": _ctx.translate('LoginSaml_ThisPiwikInstanceNameDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])])], 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.actualSamlConfig.enable_synchronize_access_from_saml]]), _hoisted_20, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
+          }, null, 8, ["modelValue", "title", "inline-help"])])], 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.actualSamlConfig.enable_synchronize_access_from_saml]]), _hoisted_21, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
             saving: ajaxForm.isSubmitting,
             onConfirm: function onConfirm($event) {
               return ajaxForm.submitForm();
@@ -611,200 +641,200 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "content-title": _ctx.translate('LoginSaml_AdvancedSettings')
       }, {
         default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withCtx"])(function () {
-          return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_21, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_22, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_strict",
             modelValue: _ctx.actualSamlConfig.advanced_strict,
-            "onUpdate:modelValue": _cache[26] || (_cache[26] = function ($event) {
+            "onUpdate:modelValue": _cache[29] || (_cache[29] = function ($event) {
               return _ctx.actualSamlConfig.advanced_strict = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedSTRICT'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedSTRICTDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_22, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_23, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_debug",
             modelValue: _ctx.actualSamlConfig.advanced_debug,
-            "onUpdate:modelValue": _cache[27] || (_cache[27] = function ($event) {
+            "onUpdate:modelValue": _cache[30] || (_cache[30] = function ($event) {
               return _ctx.actualSamlConfig.advanced_debug = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedDEBUG'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedDEBUGDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_23, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_24, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "text",
             name: "advanced_spentityid",
             modelValue: _ctx.actualSamlConfig.advanced_spentityid,
-            "onUpdate:modelValue": _cache[28] || (_cache[28] = function ($event) {
+            "onUpdate:modelValue": _cache[31] || (_cache[31] = function ($event) {
               return _ctx.actualSamlConfig.advanced_spentityid = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedSPENTITYID'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedSPENTITYIDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_24, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_25, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "select",
             name: "advanced_nameidformat",
             modelValue: _ctx.actualSamlConfig.advanced_nameidformat,
-            "onUpdate:modelValue": _cache[29] || (_cache[29] = function ($event) {
+            "onUpdate:modelValue": _cache[32] || (_cache[32] = function ($event) {
               return _ctx.actualSamlConfig.advanced_nameidformat = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedNAMEIDFORMAT'),
             options: _ctx.nameidformatOptions,
             "inline-help": _ctx.translate('LoginSaml_AdvancedNAMEIDFORMATDescription')
-          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_25, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_26, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_nameid_encrypted",
             modelValue: _ctx.actualSamlConfig.advanced_nameid_encrypted,
-            "onUpdate:modelValue": _cache[30] || (_cache[30] = function ($event) {
+            "onUpdate:modelValue": _cache[33] || (_cache[33] = function ($event) {
               return _ctx.actualSamlConfig.advanced_nameid_encrypted = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedNAMEIDENCRYPTED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedNAMEIDENCRYPTEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_26, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_authn_request_signed",
             modelValue: _ctx.actualSamlConfig.advanced_authn_request_signed,
-            "onUpdate:modelValue": _cache[31] || (_cache[31] = function ($event) {
+            "onUpdate:modelValue": _cache[34] || (_cache[34] = function ($event) {
               return _ctx.actualSamlConfig.advanced_authn_request_signed = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedAUTHNREQUESTSIGNED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedAUTHNREQUESTSIGNEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_28, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_logout_request_signed",
             modelValue: _ctx.actualSamlConfig.advanced_logout_request_signed,
-            "onUpdate:modelValue": _cache[32] || (_cache[32] = function ($event) {
+            "onUpdate:modelValue": _cache[35] || (_cache[35] = function ($event) {
               return _ctx.actualSamlConfig.advanced_logout_request_signed = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedLOGOUTREQUESTSIGNED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedLOGOUTREQUESTSIGNEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_28, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_29, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_logout_response_signed",
             modelValue: _ctx.actualSamlConfig.advanced_logout_response_signed,
-            "onUpdate:modelValue": _cache[33] || (_cache[33] = function ($event) {
+            "onUpdate:modelValue": _cache[36] || (_cache[36] = function ($event) {
               return _ctx.actualSamlConfig.advanced_logout_response_signed = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedLOGOUTRESPONSESIGNED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedLOGOUTRESPONSESIGNEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_29, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_30, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_metadata_signed",
             modelValue: _ctx.actualSamlConfig.advanced_metadata_signed,
-            "onUpdate:modelValue": _cache[34] || (_cache[34] = function ($event) {
+            "onUpdate:modelValue": _cache[37] || (_cache[37] = function ($event) {
               return _ctx.actualSamlConfig.advanced_metadata_signed = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedMETADATASIGNED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedMETADATASIGNEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_30, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_31, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_want_message_signed",
             modelValue: _ctx.actualSamlConfig.advanced_want_message_signed,
-            "onUpdate:modelValue": _cache[35] || (_cache[35] = function ($event) {
+            "onUpdate:modelValue": _cache[38] || (_cache[38] = function ($event) {
               return _ctx.actualSamlConfig.advanced_want_message_signed = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedWANTMESSAGESIGNED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedWANTMESSAGESIGNEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_31, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_32, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "multiselect",
             name: "advanced_requestedauthncontext",
             modelValue: _ctx.actualSamlConfig.advanced_requestedauthncontext,
-            "onUpdate:modelValue": _cache[36] || (_cache[36] = function ($event) {
+            "onUpdate:modelValue": _cache[39] || (_cache[39] = function ($event) {
               return _ctx.actualSamlConfig.advanced_requestedauthncontext = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedREQUESTEDAUTHNCONTEXT'),
             options: _ctx.requestedauthncontextOptions,
             "inline-help": _ctx.translate('LoginSaml_AdvancedREQUESTEDAUTHNCONTEXTDescription')
-          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_32, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_33, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_want_assertion_signed",
             modelValue: _ctx.actualSamlConfig.advanced_want_assertion_signed,
-            "onUpdate:modelValue": _cache[37] || (_cache[37] = function ($event) {
+            "onUpdate:modelValue": _cache[40] || (_cache[40] = function ($event) {
               return _ctx.actualSamlConfig.advanced_want_assertion_signed = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedWANTASSERTIONSIGNED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedWANTASSERTIONSIGNEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_33, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_34, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_want_assertion_encrypted",
             modelValue: _ctx.actualSamlConfig.advanced_want_assertion_encrypted,
-            "onUpdate:modelValue": _cache[38] || (_cache[38] = function ($event) {
+            "onUpdate:modelValue": _cache[41] || (_cache[41] = function ($event) {
               return _ctx.actualSamlConfig.advanced_want_assertion_encrypted = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedWANTASSERTIONENCRYPTED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedWANTASSERTIONENCRYPTEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_34, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_35, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_want_nameid_encrypted",
             modelValue: _ctx.actualSamlConfig.advanced_want_nameid_encrypted,
-            "onUpdate:modelValue": _cache[39] || (_cache[39] = function ($event) {
+            "onUpdate:modelValue": _cache[42] || (_cache[42] = function ($event) {
               return _ctx.actualSamlConfig.advanced_want_nameid_encrypted = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedWANTNAMEIDENCRYPTED'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedWANTNAMEIDENCRYPTEDDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_35, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_36, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_retrieve_parameters_from_server",
             modelValue: _ctx.actualSamlConfig.advanced_retrieve_parameters_from_server,
-            "onUpdate:modelValue": _cache[40] || (_cache[40] = function ($event) {
+            "onUpdate:modelValue": _cache[43] || (_cache[43] = function ($event) {
               return _ctx.actualSamlConfig.advanced_retrieve_parameters_from_server = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedRETRIEVEFROMSERVER'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedRETRIEVEFROMSERVERDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_36, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_37, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_set_proxy_vars",
             modelValue: _ctx.actualSamlConfig.advanced_set_proxy_vars,
-            "onUpdate:modelValue": _cache[41] || (_cache[41] = function ($event) {
+            "onUpdate:modelValue": _cache[44] || (_cache[44] = function ($event) {
               return _ctx.actualSamlConfig.advanced_set_proxy_vars = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedSETPROXYVARS'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedSETPROXYVARSDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_37, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_38, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "textarea",
             name: "advanced_sp_x509cert",
             modelValue: _ctx.actualSamlConfig.advanced_sp_x509cert,
-            "onUpdate:modelValue": _cache[42] || (_cache[42] = function ($event) {
+            "onUpdate:modelValue": _cache[45] || (_cache[45] = function ($event) {
               return _ctx.actualSamlConfig.advanced_sp_x509cert = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedSPx509CERT'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedSPx509CERTDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_38, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_39, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "textarea",
             name: "advanced_sp_privatekey",
             modelValue: _ctx.actualSamlConfig.advanced_sp_privatekey,
-            "onUpdate:modelValue": _cache[43] || (_cache[43] = function ($event) {
+            "onUpdate:modelValue": _cache[46] || (_cache[46] = function ($event) {
               return _ctx.actualSamlConfig.advanced_sp_privatekey = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedSPPRIVATEKEY'),
             "inline-help": _ctx.translate('LoginSaml_AdvancedSPPRIVATEKEYDescription')
-          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_39, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_40, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "select",
             name: "advanced_signaturealgorithm",
             modelValue: _ctx.actualSamlConfig.advanced_signaturealgorithm,
-            "onUpdate:modelValue": _cache[44] || (_cache[44] = function ($event) {
+            "onUpdate:modelValue": _cache[47] || (_cache[47] = function ($event) {
               return _ctx.actualSamlConfig.advanced_signaturealgorithm = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedSIGNATUREALGORITHM'),
             options: _ctx.signaturealgorithmOptions,
             "inline-help": _ctx.translate('LoginSaml_AdvancedSIGNATUREALGORITHMDescription')
-          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_40, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_41, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "select",
             name: "advanced_digestalgorithm",
             modelValue: _ctx.actualSamlConfig.advanced_digestalgorithm,
-            "onUpdate:modelValue": _cache[45] || (_cache[45] = function ($event) {
+            "onUpdate:modelValue": _cache[48] || (_cache[48] = function ($event) {
               return _ctx.actualSamlConfig.advanced_digestalgorithm = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedDIGESTALGORITM'),
             options: _ctx.digestalgorithmOptions,
             "inline-help": _ctx.translate('LoginSaml_AdvancedDIGESTALGORITMDescription')
-          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_41, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+          }, null, 8, ["modelValue", "title", "options", "inline-help"])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", _hoisted_42, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
             uicontrol: "checkbox",
             name: "advanced_use_friendlyname",
             modelValue: _ctx.actualSamlConfig.advanced_use_friendlyname,
-            "onUpdate:modelValue": _cache[46] || (_cache[46] = function ($event) {
+            "onUpdate:modelValue": _cache[49] || (_cache[49] = function ($event) {
               return _ctx.actualSamlConfig.advanced_use_friendlyname = $event;
             }),
             title: _ctx.translate('LoginSaml_AdvancedUSEFRIENDLYNAME'),
             "inline-help": _ctx.friendlyNameDescriptionText
-          }, null, 8, ["modelValue", "title", "inline-help"])]), _hoisted_42, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
+          }, null, 8, ["modelValue", "title", "inline-help"])]), _hoisted_43, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SaveButton, {
             saving: ajaxForm.isSubmitting,
             onConfirm: function onConfirm($event) {
               return ajaxForm.submitForm();
@@ -817,7 +847,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["form-data"])])]);
 }
-// CONCATENATED MODULE: ./plugins/LoginSaml/vue/src/Admin/Admin.vue?vue&type=template&id=396126a5
+// CONCATENATED MODULE: ./plugins/LoginSaml/vue/src/Admin/Admin.vue?vue&type=template&id=0645d866
 
 // EXTERNAL MODULE: external "CoreHome"
 var external_CoreHome_ = __webpack_require__("19dc");

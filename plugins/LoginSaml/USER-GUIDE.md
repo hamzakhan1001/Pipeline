@@ -105,8 +105,13 @@ In order to identify your Matomo user accounts you need to set a value on the **
 
 You may also enable or disable the single logout functionality. Note that if you disable it, the Single Logout Service data will be not published on the Service Provider metadata.
 
-You can also force users to use SAML authentication by enabling the "Force SAML Login" setting. Doing this will redirect all users directly to the Identity Provider, so the Matomo login screen will never be displayed. Super Users will still have to login normally to, for example, configure the SAML plugin. Super Users can login through the Matomo login screen by appending `?normal` to the URL when visiting Matomo. (Note: other users will not be able to login this way.)
+You can also force users to use SAML authentication by enabling the "Force SAML Login" setting. Doing this will redirect all users directly to the Identity Provider, so the Matomo login screen will never be displayed. To skip Force SAML and be able to access Matomo login screen, append `?normal` to the login page URL.
+If you set a value at "Normal MODE Login", then you need to append `?normal=value`.
 
+You can prevent users to login via the normal login form by the use of the flags "Prevent normal login for non super users" and "Prevent normal login for super users".
+When enabled, if a user matches the forced role and the username is not listed in the exception list, that user will be forced to use SAML, and the normal login form authentication will fail.
+
+If "Prevent normal login for super users" is enabled, we recommend to at least whitelist an account to be used in case that SAML integration breaks and you need a way to use the normal Matomo login to access and fix it (break glass account).
 
 To avoid Matomo asking you for password confirmation for specific actions (Invite user, 2FA changes, Create new auth token, ...), make sure to disable the "enable password confirmation" field.
 

@@ -1,5 +1,14 @@
 ## Changelog
 
+5.2.0 - 2024-12-16
+- Add 2 new flags "Prevent normal login for non super users" and "Prevent normal login for super users"
+  and an exception list. When enabled, if a user matches the forced role and is not in the exception list
+  gonna be forced to use SAML, and the normal login form will fail.
+  There is a behavior change with respect to the previous LoginSAML versions, as previously,
+  if ForceSAML was enabled, we prevented super users from using the skip ForceSAML mechanism (normal mode login)
+  to use the normal login. Now, the “Prevent normal login for super users” needs to be enabled to
+  continue such behavior. Notice that by default, “Prevent normal login for super users” is now disabled.
+
 5.1.1 - 2024-11-05
 - Updated README.md
 

@@ -22,6 +22,7 @@ use Piwik\ArchiveProcessor\RecordBuilder;
 use Piwik\Common;
 use Piwik\DataAccess\LogAggregator;
 use Piwik\DataTable;
+use Piwik\Piwik;
 use Piwik\Plugins\MultiChannelConversionAttribution\Archiver;
 use Piwik\Plugins\MultiChannelConversionAttribution\Metrics;
 use Piwik\Plugins\MultiChannelConversionAttribution\Model\GoalAttributionModel;
@@ -58,6 +59,11 @@ class GoalAttribution extends RecordBuilder
      */
     private $lastNonDirectColumns;
 
+    /**
+     * @var bool
+     */
+    private $shouldLowerCampaignCase  = false;
+
     public function __construct(array $campaignDimensionCombination, array $idGoals, int $maxRowsInTable, int $maxRowsInSubtable)
     {
         parent::__construct();
@@ -79,6 +85,7 @@ class GoalAttribution extends RecordBuilder
         foreach ($this->lastNonDirectColumns as $column) {
             $this->defaultRow[$column] = 0;
         }
+        Piwik::postEvent('Plugin.shouldLowerCampaignCase', [$pluginName = 'MultiChannelConversionAttribution', &$this->shouldLowerCampaignCase]);
     }
 
     public function getRecordMetadata(ArchiveProcessor $archiveProcessor): array
@@ -114,11 +121,15 @@ class GoalAttribution extends RecordBuilder
         $channelRecordCombined = new DataTable(); // for all goals
         foreach ($idGoals as $idGoal) {
             $daysPriorToConversion = $campaignDimensionCombination['period'];
-            $columnToQuery = 'logv.' . $campaignDimensionCombination['topLevel'];
-            $columnToQueryNonDirect = 'log_vvv.' . $campaignDimensionCombination['topLevel'];
+            $columnToQuery = $this->shouldLowerCampaignCase ? 'LOWER(logv.' . $campaignDimensionCombination['topLevel'] . ')' : 'logv.' . $campaignDimensionCombination['topLevel'];
+            $columnToQueryNonDirect =  $this->shouldLowerCampaignCase ? 'LOWER(log_vvv.' . $campaignDimensionCombination['topLevel'] . ')' : 'log_vvv.' . $campaignDimensionCombination['topLevel'];
             if (!empty($campaignDimensionCombination['subLevel'])) {
-                $columnToQuery = "concat(logv." . $campaignDimensionCombination['topLevel'] . ",' - ',logv." . $campaignDimensionCombination['subLevel'] . ")";
-                $columnToQueryNonDirect = "concat(log_vvv." . $campaignDimensionCombination['topLevel'] . ",' - ',log_vvv." . $campaignDimensionCombination['subLevel'] . ")";
+                $columnToQuery =  $this->shouldLowerCampaignCase ?
+                    "concat(LOWER(logv." . $campaignDimensionCombination['topLevel'] . "),' - ',LOWER(logv." . $campaignDimensionCombination['subLevel'] . "))"
+                    : "concat(logv." . $campaignDimensionCombination['topLevel'] . ",' - ',logv." . $campaignDimensionCombination['subLevel'] . ")";
+                $columnToQueryNonDirect =  $this->shouldLowerCampaignCase ?
+                    "concat(LOWER(log_vvv." . $campaignDimensionCombination['topLevel'] . "),' - ',LOWER(log_vvv." . $campaignDimensionCombination['subLevel'] . "))"
+                    : "concat(log_vvv." . $campaignDimensionCombination['topLevel'] . ",' - ',log_vvv." . $campaignDimensionCombination['subLevel'] . ")";
             }
             $sinceTime = $start->subDay($daysPriorToConversion)->getDatetime();
 

@@ -16,7 +16,11 @@
 
 use Piwik\Container\Container;
 use Piwik\Log\Logger;
+use Piwik\Date;
 use Piwik\DI;
+use Piwik\Plugins\Login\PasswordVerifier;
+use Piwik\Session\SessionNamespace;
+use Piwik\Url;
 
 return array(
 
@@ -89,9 +93,23 @@ return array(
         ['Login.userRequiresPasswordConfirmation', \Piwik\DI::value(function (&$requiresPasswordConfirmation, $login) {
             $samlEnabled = \Piwik\Plugins\LoginSaml\Config::isSamlEnabled();
             $enablePasswordConfirmation = \Piwik\Plugins\LoginSaml\Config::getConfigOption('enable_password_confirmation');
-            if ($samlEnabled && !$enablePasswordConfirmation) {
-                if (isset($_SESSION['saml_data']) && isset($_SESSION['saml_data']['saml_login']) && $_SESSION['saml_data']['saml_login']) {
-                    $requiresPasswordConfirmation = false;
+            if ($samlEnabled) {
+                $testMode = defined('PIWIK_TEST_MODE') && PIWIK_TEST_MODE;
+                $loggedWithSAML = isset($_SESSION['saml_data']) && isset($_SESSION['saml_data']['saml_login']) && $_SESSION['saml_data']['saml_login'];
+                if (($testMode || $loggedWithSAML)) {
+                    if ($enablePasswordConfirmation) {
+                        // Check if the user has authenticated recently via SAML
+                        $sessionNamespace = new SessionNamespace('Login');
+                        if (!empty($sessionNamespace->lastPasswordAuth)) {
+                            $lastAuthValidTo = Date::factory($sessionNamespace->lastPasswordAuth)->addPeriod(PasswordVerifier::VERIFY_VALID_FOR_MINUTES, 'minute');
+                            $now = Date::now()->addPeriod(PasswordVerifier::VERIFY_REVALIDATE_X_MINUTES_LEFT, 'minute');
+                            if ($lastAuthValidTo && $now->isEarlier($lastAuthValidTo)) {
+                                $requiresPasswordConfirmation = false;
+                            }
+                        }
+                    } else {
+                        $requiresPasswordConfirmation = false;
+                    }
                 }
             }
         })],
@@ -100,12 +118,24 @@ return array(
         $request = \Piwik\Request::fromRequest();
         $enablePasswordConfirmation = \Piwik\Plugins\LoginSaml\Config::getConfigOption('enable_password_confirmation');
         $samlEnabled = \Piwik\Plugins\LoginSaml\Config::isSamlEnabled();
-        if ($samlEnabled && !$enablePasswordConfirmation &&  $request->getStringParameter('module', '') === 'Login' && $request->getStringParameter('action', '') === 'confirmPassword') {
-            if (isset($_SESSION['saml_data']) && isset($_SESSION['saml_data']['saml_login']) && $_SESSION['saml_data']['saml_login']) {
-                $previous->setPasswordVerifiedCorrectly();
+        if ($samlEnabled &&  $request->getStringParameter('module', '') === 'Login' && $request->getStringParameter('action', '') === 'confirmPassword') {
+            $testMode = defined('PIWIK_TEST_MODE') && PIWIK_TEST_MODE;
+            $loggedWithSAML = isset($_SESSION['saml_data']) && isset($_SESSION['saml_data']['saml_login']) && $_SESSION['saml_data']['saml_login'];
+            if ($testMode || $loggedWithSAML) {
+                if (!$enablePasswordConfirmation) {
+                    $previous->setPasswordVerifiedCorrectly();
+                } else {
+                    $sessionNamespace = new SessionNamespace('Login');
+                    $desiredTarget  = Url::getCurrentUrlWithoutFileName() . 'index.php' . Url::getCurrentQueryStringWithParametersModified(
+                        $sessionNamespace->redirectParams
+                    );
+
+                    $samlLoginUrl = "index.php?module=LoginSaml&action=singleSignOn";
+                    $samlLoginUrl .= "&target=" . urlencode($desiredTarget) . "&reauth=1";
+                    Url::redirectToUrl($samlLoginUrl);
+                }
             }
         }
-
         return $previous;
     }),
 );

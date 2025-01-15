@@ -27,7 +27,7 @@
         "OptionsENABLESLO": "Ativar a funcionalidade de encerramento integrado da sessão (SLO)",
         "OptionsENABLESLODescription": "Se não controla o ambiente SAML, recomendamos que desative o SLO e peça aos utilizadores para limpar\/fechar a sessão\/navegador",
         "OptionsFORCESAML": "Forçar autenticação SAML",
-        "OptionsFORCESAMLescription": "Ative esta opção para forçar a autenticação dos utilizadores através do SAML. Os super-utilizadores podem adicionar o parâmetro GET %1$s à página %2$s para utilizar um processo de autenticação local.",
+        "OptionsFORCESAMLDescription": "Ative esta opção para forçar a autenticação dos utilizadores através do SAML.",
         "OptionsForceSAMLVersionDesc": "Nota: Está a utilizar o Matomo na versão %1$s. Esta definição apenas funciona integralmente na versão %2$s ou mais recente.",
         "AttributeMappingSettings": "Definições de mapeamento de atributos",
         "AttributeMappingUSERNAME": "Nome de utilizador",

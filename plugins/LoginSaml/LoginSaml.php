@@ -109,10 +109,16 @@ class LoginSaml extends Plugin
         $translationKeys[] = 'LoginSaml_OptionsENABLESLO';
         $translationKeys[] = 'LoginSaml_OptionsENABLESLODescription';
         $translationKeys[] = 'LoginSaml_OptionsFORCESAML';
-        $translationKeys[] = 'LoginSaml_OptionsFORCESAMLescription';
+        $translationKeys[] = 'LoginSaml_OptionsFORCESAMLDescription';
         $translationKeys[] = 'LoginSaml_OptionsForceSAMLVersionDesc';
         $translationKeys[] = 'LoginSaml_OptionsNORMALMODE';
         $translationKeys[] = 'LoginSaml_OptionsNORMALMODEDescription';
+        $translationKeys[] = 'LoginSaml_OptionsPREVENTNONSUPERUSERS';
+        $translationKeys[] = 'LoginSaml_OptionsPREVENTNONSUPERUSERSDescription';
+        $translationKeys[] = 'LoginSaml_OptionsPREVENTSUPERUSERS';
+        $translationKeys[] = 'LoginSaml_OptionsPREVENTSUPERUSERSDescription';
+        $translationKeys[] = 'LoginSaml_OptionsEXCEPTIONLIST';
+        $translationKeys[] = 'LoginSaml_OptionsEXCEPTIONLISTDescription';
         $translationKeys[] = 'LoginSaml_EnableSamlSessionExpirationSynchronization';
         $translationKeys[] = 'LoginSaml_EnableSamlSessionExpirationSynchronizationDescription';
         $translationKeys[] = 'LoginSaml_AttributeMappingSettings';
@@ -334,11 +340,6 @@ class LoginSaml extends Plugin
     // a superuser or not
     public function onLoginDone($login)
     {
-        $forceSAMLEnabled = Config::isForceSamlEnabled();
-        if (!$forceSAMLEnabled) {
-            return;
-        }
-
         if (isset($_GET['action']) && $_GET['action'] === 'assertionConsumerService') {
             return;
         }
@@ -349,8 +350,18 @@ class LoginSaml extends Plugin
             $user = $userModel->getUserByEmail($login);
         }
 
-        if (!$this->checkIfLoginIsSuperUser($login)) {
-            throw new Exception("Only Super Users can login using the normal method.");
+        if (!empty($user)) {
+            if (!Config::checkIfUsernameBelongLoginExceptionList($user['login'])) {
+                if ($this->checkIfLoginIsSuperUser($user['login'])) {
+                    if (Config::isPreventSuperUsersEnabled()) {
+                        throw new Exception("Super Users can't login using the normal method.");
+                    }
+                } else {
+                    if (Config::isPreventNonSuperUsersEnabled()) {
+                        throw new Exception("Non Super Users can't login using the normal method.");
+                    }
+                }
+            }
         }
     }
 

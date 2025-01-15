@@ -121,9 +121,8 @@ class API extends \Piwik\Plugin\API
     {
         if (!empty($multipleIdSites) && $idSite != 'all' && $idSite != '0') {
             $multipleIdSites = array_unique($multipleIdSites);
-            Piwik::checkUserHasSuperUserAccess();
             foreach ($multipleIdSites as $multipleIdSite) {
-                $this->validator->checkSiteExists($multipleIdSite);
+                $this->validator->checkWritePermission($multipleIdSite);
             }
             if (!in_array($idSite, $multipleIdSites)) {
                 throw new \Exception(Piwik::translate('CustomReports_ErrorInvalidMultipleIdSite', [$idSite]));
@@ -229,9 +228,8 @@ class API extends \Piwik\Plugin\API
     ) {
         if (!empty($multipleIdSites) && $idSite != 'all' && $idSite != '0') {
             $multipleIdSites = array_unique($multipleIdSites);
-            Piwik::checkUserHasSuperUserAccess();
             foreach ($multipleIdSites as $multipleIdSite) {
-                $this->validator->checkSiteExists($multipleIdSite);
+                $this->validator->checkWritePermission($multipleIdSite);
             }
             if (!in_array($idSite, $multipleIdSites)) {
                 throw new \Exception(Piwik::translate('CustomReports_ErrorInvalidMultipleIdSite', [$idSite]));
@@ -340,6 +338,11 @@ class API extends \Piwik\Plugin\API
             }
             return -1;
         });
+
+        foreach ($reports as &$report) {
+            $this->addAllowedToEditStatus($report);
+        }
+
         return $reports;
     }
 
@@ -361,7 +364,10 @@ class API extends \Piwik\Plugin\API
 
         $this->model->checkReportExists($idSite, $idCustomReport);
 
-        return $this->model->getCustomReport($idSite, $idCustomReport);
+        $report =  $this->model->getCustomReport($idSite, $idCustomReport);
+        $this->addAllowedToEditStatus($report);
+
+        return $report;
     }
 
     /**
@@ -390,6 +396,11 @@ class API extends \Piwik\Plugin\API
             throw new \Exception('Cannot delete report, site does not match');
         } elseif (!empty($report)) {
             $multipleIDSites = $report['multiple_idsites'] ? explode(',', $report['multiple_idsites']) : [];
+            if ($multipleIDSites) {
+                foreach ($multipleIDSites as $multipleIdSite) {
+                    $this->validator->checkWritePermission($multipleIdSite);
+                }
+            }
             $this->archiveInvalidator->removeInvalidationsSafely(
                 $multipleIDSites ? $multipleIDSites : [$idSite],
                 'CustomReports',
@@ -748,5 +759,20 @@ class API extends \Piwik\Plugin\API
         $table = $reportType->fetchApi($idSite, $idCustomReport, $period, $date, $segment, $expanded, $flat, $idSubtable, $columns);
 
         return $table;
+    }
+
+    private function addAllowedToEditStatus(&$report)
+    {
+        $idSite = $report['idsite'];
+        $multipleIdSites = $report['multiple_idsites'] ? explode(',', $report['multiple_idsites']) : array();
+        if (Piwik::hasUserSuperUserAccess()) {
+            $allowedToEdit = true;
+        } elseif ($idSite == 'all' || $idSite == '0') {
+            $allowedToEdit = false;
+        } else {
+            $allowedToEdit = $multipleIdSites ? Piwik::isUserHasWriteAccess($multipleIdSites) : Piwik::isUserHasWriteAccess($idSite);
+        }
+
+        $report['allowedToEdit'] = $allowedToEdit;
     }
 }

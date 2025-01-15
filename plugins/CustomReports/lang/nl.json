@@ -51,7 +51,6 @@
         "ReportCreated": "Het rapport is met succes aangemaakt.",
         "ReportDescriptionHelp": "Een optionele omschrijving voor je rapport, welke wordt getoond wanneer je op help icoon klikt naast de rapport titel klikt. Je kan bijvoorbeeld het doel benoemen van het rapport.",
         "ReportDimensionsHelp": "Dimensies beschrijven typische karakteristieken en wordt doorgaans in de eerste kolom van een rapport getoond. Je kan maximaal drie dimensies selecteren, bijvoorbeeld Browser, Land en Stad. In ieder geval dient één dimensie geselecteerd te worden.",
-        "ReportEditNotAllowedAllWebsites": "Dit rapport is beschikbaar voor alle websites. Om deze reden kan alleen een gebruiker met Super User rechten wijzigingen aanbrengen.",
         "ReportHasFilterApplied": "Dit rapport heeft de volgende filters: 1%s",
         "ReportMetricsHelp": "Statistieken zijn kwantitatieve metingen. Bijvoorbeeld, wanneer je het verkeer op je website wilt verhogen, voeg \"Bezoeken\" toe. Wanneer je de prestatie van je website wilt verbeteren, voeg dan \"Gemiddelde generatietijd \"toe.",
         "ReportName": "Rapport naam",

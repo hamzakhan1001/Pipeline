@@ -97,7 +97,7 @@
         "OptionsENABLESLO": "Tek oturum kapatma özelliği kullanılsın",
         "OptionsENABLESLODescription": "SAML ortamını kontrol edemiyorsanız tek oturum kapatma özelliğini kapattıktan sonra kullanıcılardan oturumlarını temizlemelerini ya da tarayıcılarını kapatmalarını isteyin",
         "OptionsFORCESAML": "SAML oturum açma dayatılsın",
-        "OptionsFORCESAMLescription": "Açıldığında, kullanıcıların oturum açması için SAML kullanılır. Süper kullanıcılar yerel oturum açma işleminin kullanılabilmesi için sayfaya %1$sGET parametresini%2$s ekleyebilir.",
+        "OptionsFORCESAMLDescription": "Açıldığında, kullanıcıların oturum açması için SAML kullanılır.",
         "OptionsForceSAMLVersionDesc": "Not: Şu anda Matomo %1$s sürümünü kullanıyorsunuz. Bu ayar yalnızca %2$s ve üzerindeki sürümlerde kullanılabilir.",
         "OptionsIDENTIFYFIELD": "Kullanıcıyı belirten alan",
         "OptionsIDENTIFYFIELDDescription": "Yerel kullanıcı hesabı ile kimlik hizmeti sağlayıcıdan gelen kullanıcı bilgilerinin eşleştirilmesi için kullanılacak e-posta ya da oturum açma adını (kullanıcı adı) seçin",
