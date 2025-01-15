@@ -5,9 +5,10 @@
  * Description: Visualise any report in Matomo as a Treemap. Click on the Treemap icon in each report to load the visualisation.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.1
+ * Version: 5.0.2
  */
 ?><?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -84,5 +85,4 @@ class TreemapVisualization extends \Piwik\Plugin
         $jsFiles[] = 'plugins/TreemapVisualization/libs/Jit/jit-2.0.1-yc.js';
         $jsFiles[] = 'plugins/TreemapVisualization/javascripts/treemapViz.js';
     }
-
 }
