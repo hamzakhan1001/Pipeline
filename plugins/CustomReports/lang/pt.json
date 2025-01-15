@@ -51,7 +51,6 @@
         "ReportCreated": "O relatório foi criado com sucesso.",
         "ReportDescriptionHelp": "Uma descrição opcional para o seu relatório que será apresentada quando clica no ícone de ajuda junto ao nome do relatório. Por exemplo, poderia indicar o propósito deste relatório.",
         "ReportDimensionsHelp": "Tipicamente, as dimensões descrevem caraterísticas e habitualmente são apresentadas na primeira coluna de um relatório. Pode selecionar até três dimensões, por exemplo, Navegador, País, Cidade. Tem de ser selecionada pelo menos uma dimensão.",
-        "ReportEditNotAllowedAllWebsites": "Dado que este relatório está disponível para todos os sites, apenas um utilizador com acesso de super-utilizador pode alterar este relatório.",
         "ReportHasFilterApplied": "Este relatório tem o seguinte filtro aplicado: %s.",
         "ReportMetricsHelp": "As métricas são medidas quantitativas. Por exemplo, se quiser aumentar o tráfego no seu site, inclua \"Visitas\"; se pretende melhorar o desempenho, inclua \"Tempo médio de processamento\".",
         "ReportName": "Nome do relatório",

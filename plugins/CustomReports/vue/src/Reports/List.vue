@@ -62,7 +62,7 @@
             <td class="index">{{ report.idcustomreport }}</td>
             <td class="name">{{ report.name }} <span
                 class="icon-locked"
-                :title="translate('CustomReports_ReportEditNotAllowedAllWebsites')"
+                :title="translate('CustomReports_ReportEditNotAllowedAllWebsitesUpdated')"
                 v-show="!report.idsite && !isSuperUser"
               /><span
                 class="icon-info2"
@@ -71,12 +71,12 @@
               />
               <span
                 class="icon-locked"
-                :title="translate('CustomReports_ReportEditNotAllowedMultipleWebsites')"
-                v-show="!isSuperUser && isMultiSiteReport(report)"
+                :title="translate('CustomReports_ReportEditNotAllowedMultipleWebsitesAccessIssue')"
+                v-show="!report.allowedToEdit && isMultiSiteReport(report)"
               /><span
                 class="icon-info2"
                 :title="translate('CustomReports_ReportAvailableToMultipleWebsites')"
-                v-show="isSuperUser && isMultiSiteReport(report)"
+                v-show="report.allowedToEdit && isMultiSiteReport(report)"
               />
             </td>
             <td
@@ -109,7 +109,7 @@
                 class="table-action icon-delete"
                 :title="translate('CustomReports_DeleteReportInfo')"
                 @click="deleteReport(report)"
-                v-show="(report.idsite && !isMultiSiteReport(report)) || isSuperUser"
+                v-show="(report.idsite && !isMultiSiteReport(report)) || report.allowedToEdit"
               />
             </td>
           </tr>

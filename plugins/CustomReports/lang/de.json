@@ -57,7 +57,6 @@
         "ReportCreated": "Der Bericht wurde erfolgreich erstellt.",
         "ReportDescriptionHelp": "Eine optionale Beschreibung für diesen Bericht. Diese wird angezeigt, wenn Sie auf das Hilfesymbol neben dem Berichtstitel klicken. Zum Beispiel können Sie hier den Zweck dieses Berichts erwähnen.",
         "ReportDimensionsHelp": "Dimensionen beschreiben normalerweise Merkmale und werden normalerweise in der ersten Spalte eines Berichts angezeigt. Sie können bis zu drei Dimensionen auswählen, z. B. Browser, Land, Stadt. Mindestens eine Dimension muss ausgewählt werden.",
-        "ReportEditNotAllowedAllWebsites": "Weil dieser Bericht für alle Websites verfügbar ist, können nur Super User diesen Bericht bearbeiten.",
         "ReportHasFilterApplied": "Dieser Report hat den folgenden Filter angewendet: %s.",
         "ReportMetricsHelp": "Metriken sind quantitative Messungen. Wenn Sie beispielsweise die Besucherzahl auf Ihrer Website erhöhen möchten, fügen Sie \"Besucher\" hinzu. Wollen Sie zum Beispiel die Leistung Ihrer Website verbessern, fügen Sie \"Durchschnittliche Generierungszeit\" hinzu.",
         "ReportName": "Bericht Name",

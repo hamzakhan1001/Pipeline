@@ -57,7 +57,6 @@
         "ReportCreated": "Le rapport a été créé avec succès.",
         "ReportDescriptionHelp": "Une description facultative de votre rapport qui s'affichera lorsque vous cliquerez sur l'icône d'aide à côté du titre du rapport. Par exemple, vous pourriez mentionner le but de ce rapport.",
         "ReportDimensionsHelp": "Les dimensions décrivent des caractéristiques et sont généralement affichées dans la première colonne du rapport. Vous pouvez sélectionner jusqu'à trois dimensions, par exemple le navigateur, le pays, la ville. Au moins une dimension doit être sélectionnée.",
-        "ReportEditNotAllowedAllWebsites": "Comme ce rapport est disponible pour tous les sites, seul un utilisateur avec les accès Super Utilisateur peut changer ce rapport.",
         "ReportHasFilterApplied": "Ce rapport a le filtre suivant : %s.",
         "ReportMetricsHelp": "Les éléments mesurables sont des mesures quantitatives. Par exemple, si vous souhaitez augmenter le trafic de votre site web, incluez \"Visites\", si vous recherchez la performance de votre site web, incluez \"Moyenne du temps de génération\".",
         "ReportName": "Nom du rapport",

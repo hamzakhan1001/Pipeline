@@ -55,7 +55,6 @@
         "ReportCreated": "Il report è stato creato con successo.",
         "ReportDescriptionHelp": "Una descrizione facoltativa del tuo report che verrà visualizzata quando clicchi sull'icona della guida accanto al titolo del report stesso. Ad esempio, potresti citare lo scopo di questo report.",
         "ReportDimensionsHelp": "Le dimensioni tipicamente descrivono le caratteristiche e di solito vengono visualizzate nella prima colonna di un report. Puoi selezionare fino a tre dimensioni, ad esempio Browser, Nazione, Città. Deve essere selezionata almeno una dimensione.",
-        "ReportEditNotAllowedAllWebsites": "Poiché questo report è disponibile per tutti i siti web, solo un utente con accesso Super User può modificarlo.",
         "ReportHasFilterApplied": "Questo report ha applicati i seguenti files: %s.",
         "ReportMetricsHelp": "Le metriche sono misure quantitative. Ad esempio, se desideri aumentare il traffico sul tuo sito web, includi \"Visite\", se stai migliorando le prestazioni del tuo sito web, includi \"Tempo Medio di Generazione\".",
         "ReportName": "Nome report",

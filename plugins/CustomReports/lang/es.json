@@ -49,7 +49,6 @@
         "ReportCreated": "El informe se ha creado exitosamente.",
         "ReportDescriptionHelp": "Una descripción opcional para su informe que se mostrará cuando haga clic en el icono de ayuda junto al título del informe. Por ejemplo, podría mencionar el propósito de este informe.",
         "ReportDimensionsHelp": "Las dimensiones normalmente describen las características y generalmente se muestran en la primera columna de un informe. Puede seleccionar hasta tres dimensiones, por ejemplo, Navegador, País, Ciudad. Al menos una dimensión debe ser seleccionada.",
-        "ReportEditNotAllowedAllWebsites": "Debido a que este informe está disponible para todos los sitios web, solo aquellos usuarios con atributos de Super Usuario pueden cambiarlo.",
         "ReportHasFilterApplied": "Este informe tiene aplicado el siguiente filtro: %s.",
         "ReportMetricsHelp": "Las métricas son medidas cuantitativas. Por ejemplo, si desea aumentar el tráfico en su sitio web, incluya \"Visitas\", si está mejorando el rendimiento de su sitio web, incluya \"Tiempo promedio de generación\".",
         "ReportName": "Nombre del informe",

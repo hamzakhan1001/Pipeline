@@ -56,6 +56,11 @@ class QueryBuilder
     private $hasMetric = false;
 
     /**
+     * @var bool
+     */
+    private $shouldLowerCampaignCase  = false;
+
+    /**
      * @var Parameters
      */
     private $parameters;
@@ -74,6 +79,7 @@ class QueryBuilder
 
         $this->logAggregator = $logAggregator;
         $this->parameters = $parameters;
+        Piwik::postEvent('Plugin.shouldLowerCampaignCase', [$pluginName = 'CustomReports', &$this->shouldLowerCampaignCase]);
     }
 
     public function isValid()
@@ -180,7 +186,11 @@ class QueryBuilder
                         $this->reportQuery->addGroupBy($dimension->getSqlSegment());
                         $this->reportQuery->addGroupBy('log_visit.location_country');
                     } else {
-                        $this->reportQuery->addSelect($dimension->getSqlSegment() . " AS '" . $dimension->getId() . "'");
+                        $select = $dimension->getSqlSegment();
+                        if ($this->shouldLowerCampaignCase && stripos($dimension->getSegmentName(), 'campaign') === 0) {
+                            $select = 'LOWER(' . $select . ')';
+                        }
+                        $this->reportQuery->addSelect($select . " AS '" . $dimension->getId() . "'");
                         $this->reportQuery->addGroupBy($dimension->getSqlSegment());
                     }
                 }
