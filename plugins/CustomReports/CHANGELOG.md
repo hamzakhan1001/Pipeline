@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.3 - 2025-01-20
+- Fixes add and update report not working when rearchive_reports_in_past_last_n_months & custom_reports_rearchive_reports_in_past_last_n_months config is set as 0
+
 5.2.2 - 2025-01-15
 - Lower campaign values based on a event to honor keep campaign parameter capitalisation setting
 
