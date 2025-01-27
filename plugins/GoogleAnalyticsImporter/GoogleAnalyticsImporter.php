@@ -5,7 +5,7 @@
  * Description: Import reports from a Google Analytics account into Matomo.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.22
+ * Version: 5.1.0
  */
 ?><?php
 
@@ -164,6 +164,7 @@ class GoogleAnalyticsImporter extends \Piwik\Plugin
         $translationKeys[] = 'GoogleAnalyticsImporter_Start';
         $translationKeys[] = 'GoogleAnalyticsImporter_RateLimitHelp';
         $translationKeys[] = 'GoogleAnalyticsImporter_CloudRateLimitHelp';
+        $translationKeys[] = 'GoogleAnalyticsImporter_StatusCloudRateLimitedDescription';
         $translationKeys[] = 'GoogleAnalyticsImporter_RateLimitHourlyHelp';
         $translationKeys[] = 'GoogleAnalyticsImporter_KilledStatusHelp';
         $translationKeys[] = 'GoogleAnalyticsImporter_ResumeDesc';
@@ -268,6 +269,7 @@ class GoogleAnalyticsImporter extends \Piwik\Plugin
             $translationKeys[] = "ConnectAccounts_OptionQuickConnectWithGa";
             $translationKeys[] = "ConnectAccounts_OptionAdvancedConnectWithGa";
         }
+        $translationKeys[] = "GoogleAnalyticsImporter_StatusErroredName";
     }
     public function getJsFiles(&$files)
     {
