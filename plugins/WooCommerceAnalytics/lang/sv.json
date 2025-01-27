@@ -8,6 +8,8 @@
         "InstallLoginWordPress": "Logga in på din WordPress / WooCommerce.",
         "InstallWordPress": "Installera det nedladdade pluginet genom att gå till \"Plugins =&gt; Lägg till =&gt; Ladda upp plugin\".",
         "UpdatingPlugin": "Uppdaterar pluginet i WooCommerce",
+        "UpdatingPluginConfigured2": "Så snart du har konfigurerat \"%1$s URL\" under \"WooCommerce =&gt; Inställningar =&gt; %1$s\", kommer WooCommerce-pluginet automatiskt att kontrollera efter uppdateringar och du kommer att kunna uppdatera detta plugin med ett enda klick i WordPress.",
+        "UpdatingPluginPiwikServer": "För att uppdateringarna ska fungera måste detta Matomo-plugin vara installerat på den konfigurerade Matomo-instansen. Det rekommenderas också att uppdatera detta Matomo-plugin när en uppdatering är tillgänglig.",
         "WoocommerceIntegration": "Integration av WooCommerce",
         "WoocommercePluginDescription": "Spåra WooCommerce-ordrar och kundvagnsuppdateringar till din Matomo."
     }

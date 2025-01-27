@@ -1,5 +1,9 @@
 ## Changelog
 
+5.2.0 - 2025-01-26
+- New feature: allow the PHP tracker in the WordPress plugin to be modified via a WordPress filter.
+- New diagnostic to catch cookie domain configuration issues early.
+
 5.1.5 - 2024-12-12
 - Better handling of tracking failures.
 - Better logging of tracking requests for diagnosing tracking failures.

@@ -1,7 +1,7 @@
 {
   "name": "WooCommerceAnalytics",
   "description": "Drive more revenue, improve your sales funnel, and get accurate insights with our Matomo Analytics Ecommerce tracking integration for your WooCommerce",
-  "version": "5.1.5",
+  "version": "5.2.0",
   "theme": false,
   "require": {
     "matomo": ">=5.0.0-rc5,<6.0.0-b1"

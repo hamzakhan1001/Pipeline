@@ -75,8 +75,8 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
             "name" => "WooCommerce Matomo Analytics",
             "slug" => "woocommerce-piwik-analytics",
-            "version" => '1.0.25',
-            "last_updated" => '2024-12-12 10:17:00',
+            "version" => '1.0.26',
+            "last_updated" => '2025-01-25 18:37:00',
             "download_url" => $piwikUrl . "index.php?module=WooCommerceAnalytics&action=download",
             "homepage" => Url::addCampaignParametersToMatomoLink("https://plugins.matomo.org/WooCommerceAnalytics/"),
             "requires" => "4.5",
