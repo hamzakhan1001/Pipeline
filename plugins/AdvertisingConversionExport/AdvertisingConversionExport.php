@@ -5,7 +5,7 @@
  * Description: Provides an export of attributed goal conversions for usage in ad networks like Google Ads so you no longer need a conversion pixel.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/AdvertisingConversionExport
- * Version: 5.2.1
+ * Version: 5.2.2
  */
 ?><?php
 
@@ -65,7 +65,8 @@ class AdvertisingConversionExport extends \Piwik\Plugin
             'AssetManager.getStylesheetFiles'        => 'getStylesheetFiles',
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
             'Db.getTablesInstalled'                  => 'getTablesInstalled',
-            'Tracker.Cache.getSiteAttributes'        => 'addConfiguredExportTypes'
+            'Tracker.Cache.getSiteAttributes'        => 'addConfiguredExportTypes',
+            'Request.dispatch'                       => 'updateGetParamsIfHttpsExportRequest'
         ];
     }
 
@@ -264,5 +265,25 @@ class AdvertisingConversionExport extends \Piwik\Plugin
     {
         $model = new Model();
         $content[self::SITE_CONVERSION_AVAILABLE_EXPORTS] = $model->getAllConfiguredExportTypes($idSite);
+    }
+
+    /**
+     * Decode the query params and set the module and action, as the query params are encoded when sent from Google and Matomo redirects it to login page
+     */
+    public function updateGetParamsIfHttpsExportRequest(&$module, &$action, &$parameters)
+    {
+        if (!empty($_GET) && count($_GET) === 1) {
+            $key = array_key_first($_GET);
+            if (strpos($key, 'generateConversionExport') !== false) {
+                $getParams = [];
+                // if we don't use QUERY_STRING here, dot gets replaced by _ and creates a token mismatch if token contains a dot
+                parse_str(urldecode($_SERVER['QUERY_STRING']), $getParams);
+                if (!empty($getParams) && !empty($getParams['module']) && !empty($getParams['action']) && $getParams['module'] === 'AdvertisingConversionExport' && $getParams['action'] === 'generateConversionExport') {
+                    $module = $getParams['module'];
+                    $action = $getParams['action'];
+                    $_GET = $getParams;
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,8 @@
 ## Changelog
 
+__5.2.2__ - 2025-01-20
+* Started supporting HTTPS export for GoogleAds
+
 __5.2.1__ - 2024-12-16
 * Started setting alias name as goal name if empty on save
 

@@ -22,6 +22,7 @@ use Piwik\Piwik;
 use Piwik\Plugins\AdvertisingConversionExport\Export\Adapter\AdapterAbstract;
 use Piwik\Plugins\AdvertisingConversionExport\Export\Cache;
 use Piwik\Plugins\AdvertisingConversionExport\Export\Configuration;
+use Piwik\Request;
 use Piwik\View;
 
 class Controller extends \Piwik\Plugin\ControllerAdmin
@@ -130,16 +131,18 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function generateConversionExport()
     {
         $model = new Model();
+        $request = Request::fromRequest();
 
-        $accessToken = Common::getRequestVar('accessToken', null, 'string');
+        $accessToken = $request->getStringParameter('accessToken', null);
+        $requestType = $request->getStringParameter('requestType', '');
 
         // Here is no permission check on purpose to avoid the requirement of using a token_auth
         $export = $model->getByAccessToken($accessToken);
+        $isHTTPRequest = ($requestType === 'https');
 
-        $this->generateExport($export, $model);
+        $this->generateExport($export, $model, $isHTTPRequest);
     }
-
-    private function generateExport($export, $model)
+    private function generateExport($export, $model, $isHTTPRequest = false)
     {
         if (empty($export)) {
             throw new \Exception('Requested conversion export could not be found');
@@ -152,15 +155,15 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             throw new \Exception('Invalid export type configured');
         }
 
-        Access::doAsSuperUser(function () use ($export, $exportAdapter) {
+        Access::doAsSuperUser(function () use ($export, $exportAdapter, $isHTTPRequest) {
             $configuration = Configuration::build($export['idsite'], $export['parameters'], $export['idexport']);
             /** @var AdapterAbstract $exportAdapter */
             $exportAdapter = new $exportAdapter($configuration);
 
-            $cache = new Cache($export['idexport']);
+            $cache = new Cache($export['idexport'] . ($isHTTPRequest ? '_https' : ''));
 
             if (!$cache->contains()) {
-                $content = $exportAdapter->generate();
+                $content = $exportAdapter->generate($isHTTPRequest);
                 $cache->save($content);
             }
 

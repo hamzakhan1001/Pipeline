@@ -58,6 +58,7 @@
         "GoalAliasPlaceholder": "Alias name",
         "GoogleAdsExportDescription": "Provides an export in CSV format for easy import in Google Ads. The export will only include conversions that are associated with a Google Click ID (gclid)",
         "GoogleAdsExportFAQText": "Please refer to this %1$sFAQ%2$s to learn more on how to configure Google Ads for this import.",
+        "GoogleAdsHttpsExportFAQText": "%1$sNote:%2$s %3$sLearn more%4$s about configuring %1$sHTTPS%2$s imports for Google Ads.",
         "IncludedConversions": "Included conversions",
         "LastClickId": "Last Click ID",
         "LastClickAttributionModel": "Last click",

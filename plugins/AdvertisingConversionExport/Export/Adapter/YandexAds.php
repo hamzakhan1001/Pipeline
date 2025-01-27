@@ -42,7 +42,7 @@ class YandexAds extends AdapterAbstract
         return Yandex::getInstance();
     }
 
-    public function generate(): string
+    public function generate($isHTTPRequest = false): string
     {
         $content = $this->getFileHeader();
 

@@ -35,7 +35,8 @@ class GoogleAds extends AdapterAbstract
         $faqURL = Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/reports/how-to-set-up-conversion-import-in-google-ads/');
 
         return Piwik::translate('AdvertisingConversionExport_GoogleAdsExportDescription') . '. '
-            . Piwik::translate('AdvertisingConversionExport_GoogleAdsExportFAQText', array('<a href="' . $faqURL . '" target="_blank" rel="noreferrer noopener">', '</a>'));
+            . Piwik::translate('AdvertisingConversionExport_GoogleAdsExportFAQText', array('<a href="' . $faqURL . '" target="_blank" rel="noreferrer noopener">', '</a>'))
+            . '<br>' . Piwik::translate('AdvertisingConversionExport_GoogleAdsHttpsExportFAQText', array('<strong>', '</strong>', '<a href="' . $faqURL . '" target="_blank" rel="noreferrer noopener">', '</a>'));
     }
 
     protected function getClickIdProvider()
@@ -43,10 +44,12 @@ class GoogleAds extends AdapterAbstract
         return Google::getInstance();
     }
 
-    public function generate(): string
+    public function generate($isHTTPRequest = false): string
     {
         $this->iterateAndReturnResultSet = true;
-        if ($this->configuration->externalAttributedConversion) {
+        if ($isHTTPRequest) {
+            $content = $this->getFileHeaderForHttpsRequest();
+        } elseif ($this->configuration->externalAttributedConversion) {
             $content = $this->getFileHeaderWithExternalAttributedConversion();
         } else {
             $content = $this->getFileHeaderWithoutExternalAttributedConversion();
@@ -60,7 +63,9 @@ class GoogleAds extends AdapterAbstract
 
         if (!empty($conversionRows)) {
             foreach ($conversionRows as $conversion) {
-                if ($this->configuration->externalAttributedConversion) {
+                if ($isHTTPRequest) {
+                    $content .= $this->getFileBodyForHttpsRequest($conversion);
+                } elseif ($this->configuration->externalAttributedConversion) {
                     $content .= $this->getConversionDataWithExternalAttributedConversion($conversion);
                 } else {
                     $content .= $this->getConversionDataWithoutExternalAttributedConversion($conversion);
@@ -137,6 +142,28 @@ CONVERSION;
 
         return <<<CONVERSION
 {$clickId},{$conversionName},{$conversionTime},{$conversionValue},{$conversionCurrency},{$adUserData},{$adPersonalization}
+
+CONVERSION;
+    }
+
+    private function getFileHeaderForHttpsRequest()
+    {
+        return <<<HEAD
+gclid,conversion_event_time,conversion_value,currency_code
+
+HEAD;
+    }
+
+    private function getFileBodyForHttpsRequest($conversion)
+    {
+        $goal               = $this->configuration->getGoalConfig($conversion['idgoal']);
+        $clickId            = $conversion['adclickid'];
+        $conversionValue    = $goal->getConversionValue($conversion['revenue']);
+        $conversionCurrency = $this->configuration->getSite()->getCurrency();
+        $conversionTime     = Date::factory($conversion['server_time'], $this->configuration->getSite()->getTimezone())->getTimestamp();
+
+        return <<<CONVERSION
+{$clickId},{$conversionTime},{$conversionValue},{$conversionCurrency}
 
 CONVERSION;
     }
