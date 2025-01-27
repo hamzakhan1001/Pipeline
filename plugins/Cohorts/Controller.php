@@ -22,6 +22,8 @@ use Piwik\Date;
 use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugins\Cohorts\Reports\GetCohorts;
+use Piwik\Plugins\Cohorts\Reports\GetCohortsChart;
+use Piwik\Plugins\Cohorts\Reports\GetCohortsTable;
 use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Evolution;
 use Piwik\Request;
 use Piwik\Site;
@@ -29,6 +31,26 @@ use Piwik\ViewDataTable\Factory;
 
 class Controller extends \Piwik\Plugin\Controller
 {
+    public function index()
+    {
+        $this->checkSitePermission();
+
+        // Get the defaults in case the query parameters aren't present
+        $savedParams = GetCohortsTable::getSavedDefaultReportParameters();
+        $request = Request::fromRequest();
+        // Get the selected metric from the URL. If none is found, default to visits
+        $selectedMetric = $request->getStringParameter('metric', $savedParams['metric']);
+        $limits = GetCohortsChart::ALLOWED_FILTER_LIMITS;
+        $selectedLimit = $request->getIntegerParameter('filter_limit', $savedParams['filter_limit']);
+
+        return $this->renderTemplate('index', [
+            'metrics' => GetCohorts::getAvailableCohortsMetricsTranslations(),
+            'selectedMetric' => $selectedMetric,
+            'limits' => array_combine($limits, $limits),
+            'selectedLimit' => $selectedLimit,
+        ]);
+    }
+
     public function getEvolutionGraph()
     {
         $this->checkSitePermission();
@@ -103,6 +125,67 @@ class Controller extends \Piwik\Plugin\Controller
         foreach ($translations as $metric => $translation) {
             $view->config->addTranslation($metric, $translation);
         }
+
+        return $this->renderView($view);
+    }
+
+    /**
+     * This was mostly adapted from the getEvolutionGraph method
+     *
+     * @return string|null
+     * @throws \Exception
+     */
+    public function getCohortsChart()
+    {
+        $this->checkSitePermission();
+
+        $cohortDates = $this->getCohortsEvolutionPeriods();
+        $displayDateRange = $this->getDateRangeToDisplay($cohortDates);
+
+        $period = Common::getRequestVar('period');
+
+        /** @var Evolution $view */
+        $view = Factory::build(Evolution::ID, 'Cohorts.getCohortsOverPeriods', 'Cohorts.getCohortsChart');
+        $view->config->show_periods = false;
+        $view->config->title = Piwik::translate('Cohorts_CohortsChart');
+        $view->config->show_limit_control = false;
+        $view->config->hide_annotations_view = true;
+        $view->config->show_series_picker = false;
+
+        // Sort rows by the 'label' column in ascending order
+        $view->requestConfig->request_parameters_to_modify['filter_sort_column'] = 'label';
+        $view->requestConfig->request_parameters_to_modify['filter_sort_order'] = 'asc';
+
+        // Set the metric so that the graph knows how to format it correctly
+        $request = Request::fromRequest();
+        // Get the defaults in case the query parameters aren't present
+        $savedParams = GetCohortsTable::getSavedDefaultReportParameters();
+        $metric = $request->getStringParameter('metric', $savedParams['metric']);
+        $view->config->columns_to_display = [$metric];
+
+        $view->requestConfig->filter_limit = $request->getIntegerParameter('filter_limit', $savedParams['filter_limit']);
+
+        if (property_exists($view->config, 'disable_comparison')) {
+            $view->config->disable_comparison = true;
+        }
+
+        $view->requestConfig->request_parameters_to_modify['cohorts'] = $cohortDates;
+        $view->requestConfig->request_parameters_to_modify['displayDateRange'] = $displayDateRange;
+        // Set the lastN number so that the annotations don't try to load too many annotations and cause a JS error
+        $view->config->custom_parameters['evolution_' . $period . '_last_n'] = $this->getTheLastNValueBasedOnPeriods($period, $cohortDates);
+
+        $view->config->filters[] = [function (DataTable $table) use ($period) {
+            GetCohorts::prettifyCohortsLabelsInTable($table, $period);
+        }];
+
+        // translations
+        $translations = GetCohorts::getAvailableCohortsMetricsTranslations();
+        foreach ($translations as $metric => $translation) {
+            $view->config->addTranslation($metric, $translation);
+        }
+
+        // Set this so that it's used in the export URL
+        $view->requestConfig->request_parameters_to_modify['metrics'] = $request->getStringParameter('metric', $savedParams['metric']);
 
         return $this->renderView($view);
     }

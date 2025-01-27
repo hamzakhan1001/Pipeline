@@ -65,6 +65,7 @@
         "GoalAliasPlaceholder": "Emër aliasi",
         "GoogleAdsExportDescription": "Furnizon një eksportim në formatin CSV, për importim të lehtë në Google Ads. Eksportimi do të përfshijë vetëm shndërrime që u përshoqërohen një Google Click ID (gclid)",
         "GoogleAdsExportFAQText": "Që të mësoni se si të formësoni Google Ads për këtë importim, ju lutemi, shihni te këto %1$sPBR%2$s.",
+        "GoogleAdsHttpsExportFAQText": "%1$sShënim:%2$s %3$sMësoni më tepër%4$s rreth formësimit të importimeve %1$sHTTPS%2$s për Google Ads.",
         "IncludedConversions": "Shndërrime të përfshira",
         "InvalidConsentStatusException": "U përzgjodh gjendje e pavlefshme pranimi",
         "LastClickAttributionModel": "Klikim i fundit",

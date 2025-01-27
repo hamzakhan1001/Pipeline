@@ -35,7 +35,7 @@ class GetCohortsOverTime extends Report
         parent::init();
 
         $this->categoryId = 'General_Visitors';
-        $this->subcategoryId = 'Cohorts_Cohorts';
+        // Don't set the subcategory since we don't want this report to show in the Cohorts tab
         $this->name = Piwik::translate('Cohorts_CohortsOverTime');
 
         $this->processedMetrics = [

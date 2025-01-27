@@ -5,7 +5,7 @@
  * Description: Track your retention efforts over time and keep your visitors engaged and coming back for more.
  * Author: InnoCraft
  * Author URI: https://plugins.matomo.org/Cohorts
- * Version: 5.0.11
+ * Version: 5.1.0
  */
 ?><?php
 
@@ -57,7 +57,8 @@ class Cohorts extends \Piwik\Plugin
             'AssetManager.getJavaScriptFiles' => 'getJsFiles',
             'Metrics.getDefaultMetricTranslations' => 'getDefaultMetricTranslations',
             'API.getPagesComparisonsDisabledFor'     => 'getPagesComparisonsDisabledFor',
-            'Metrics.getEvolutionUnit' => 'removeSecondsUnit'
+            'Metrics.getEvolutionUnit' => 'removeSecondsUnit',
+            'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
         ];
     }
 
@@ -85,11 +86,13 @@ class Cohorts extends \Piwik\Plugin
     public function getStylesheets(&$stylesheets)
     {
         $stylesheets[] =  'plugins/Cohorts/stylesheets/dataTableVizCohorts.less';
+        $stylesheets[] =  'plugins/Cohorts/vue/src/Controls/CohortControls.less';
     }
 
     public function getJsFiles(&$javascripts)
     {
         $javascripts[] = 'plugins/Cohorts/javascripts/cohortsDataTable.js';
+        $javascripts[] = 'plugins/Cohorts/javascripts/cohortsEvolutionGraphDataTable.js';
     }
 
     public function removeSecondsUnit(&$unit, $column, $idSite)
@@ -180,5 +183,11 @@ class Cohorts extends \Piwik\Plugin
         }
 
         return $newString;
+    }
+
+    public function getClientSideTranslationKeys(&$result)
+    {
+        $result[] = 'Cohorts_Cohorts';
+        $result[] = 'General_Metric';
     }
 }

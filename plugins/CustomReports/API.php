@@ -156,9 +156,10 @@ class API extends \Piwik\Plugin\API
         $report = $this->model->getCustomReportById($idReport, $idSite);
 
         $config = StaticContainer::get(Configuration::class);
-        $startDate = $config->getReArchiveReportsInPastLastNMonths();
-        if (!empty($startDate)) {
-            $startDate = Date::yesterday()->subMonth($startDate)->setDay(1);
+        $startDate = null;
+        $subMonth = $config->getReArchiveReportsInPastLastNMonths();
+        if (!empty($subMonth)) {
+            $startDate = Date::yesterday()->subMonth($subMonth)->setDay(1);
         }
 
         $this->archiveInvalidator->scheduleReArchiving(
@@ -299,9 +300,10 @@ class API extends \Piwik\Plugin\API
         if ($shouldReArchive) {
             $updatedReport = $this->model->getCustomReportById($idCustomReport, $idSite);
             $config = StaticContainer::get(Configuration::class);
-            $startDate = $config->getReArchiveReportsInPastLastNMonths();
-            if (!empty($startDate)) {
-                $startDate = Date::yesterday()->subMonth($startDate)->setDay(1);
+            $startDate = null;
+            $subMonth = $config->getReArchiveReportsInPastLastNMonths();
+            if (!empty($subMonth)) {
+                $startDate = Date::yesterday()->subMonth($subMonth)->setDay(1);
             }
 
             $this->archiveInvalidator->scheduleReArchiving(

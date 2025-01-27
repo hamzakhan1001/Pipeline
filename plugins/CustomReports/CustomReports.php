@@ -5,7 +5,7 @@
  * Description: Pull out the information you need in order to be successful. Develop your custom strategy to meet your individualized goals while saving money & time.
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.2.2
+ * Version: 5.2.3
  */
 ?><?php
 

@@ -12,6 +12,7 @@ namespace Piwik\Plugins\TreemapVisualization;
 
 use Piwik\API\Request;
 use Piwik\Common;
+use Piwik\DataTable;
 use Piwik\Metrics;
 use Piwik\Period\Range;
 use Piwik\Plugins\TreemapVisualization\Visualizations\Treemap;
@@ -48,7 +49,7 @@ class API extends \Piwik\Plugin\API
         $availableHeight = false,
         $show_evolution_values = false
     ) {
-        if (trim($apiMethod) === 'TreemapVisualization.getTreemapData') {
+        if (!Request::isCurrentApiRequestTheRootApiRequest()) {
             return [];
         }
 
@@ -69,6 +70,10 @@ class API extends \Piwik\Plugin\API
         $params['disable_queued_filters'] = true;
 
         $dataTable = Request::processRequest("$apiMethod", $params);
+
+        if (!$dataTable instanceof DataTable) {
+            return [];
+        }
 
         $columns = explode(',', $column);
         $column  = reset($columns);

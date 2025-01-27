@@ -160,6 +160,7 @@ import {
   Matomo,
   AjaxHelper,
   MatomoUrl,
+  externalLink,
 } from 'CoreHome';
 import { Field, SaveButton } from 'CorePluginsAdmin';
 import { DeviceType, HeatmapMetadata, HeatmapType } from '../types';
@@ -932,6 +933,10 @@ export default defineComponent({
     },
     changeHeatmapType(heatmapType: number) {
       this.heatmapType = heatmapType;
+      this.totalClicks = 0;
+      this.clickCount = 0;
+      this.clickRate = 0;
+      this.dataCoordinates = [];
       this.fetchHeatmap();
     },
     handleMouseMove(event: MouseEvent) {
@@ -1048,11 +1053,19 @@ export default defineComponent({
       }));
     },
     recordedSamplesSince() {
-      return translate(
+      const string1 = translate(
         'HeatmapSessionRecording_HeatmapXRecordedSamplesSince',
         `<span class="deviceAllCountSamples">${this.actualNumSamples.nb_samples_device_all}</span>`,
         this.createdDate,
       );
+      const linkString = externalLink('https://matomo.org/subcategory/troubleshoot-7/');
+      const string2 = translate(
+        'HeatmapSessionRecording_HeatmapTroubleshoot',
+        linkString,
+        '</a>',
+      );
+
+      return `${string1} ${string2}`;
     },
     deviceTypesWithSamples() {
       return (this.deviceTypes as DeviceType[]).map((deviceType) => {

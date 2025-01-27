@@ -72,11 +72,6 @@ cw(function(){cm(dL,dN,dM,dO)})};this.setEcommerceView=function(dP,dL,dN,dM){cN=
 }return au},getAsyncTracker:function(ay,ax){var aw;if(M&&M.length&&M[0]){aw=M[0]}else{return ai(ay,ax)}if(!ax&&!ay){return aw}if((!N(ax)||null===ax)&&aw){ax=aw.getSiteId()}if((!N(ay)||null===ay)&&aw){ay=aw.getTrackerUrl()}var av,au=0;for(au;au<M.length;au++){av=M[au];if(av&&String(av.getSiteId())===String(ax)&&av.getTrackerUrl()===ay){return av}}},retryMissedPluginCalls:function(){var av=am;am=[];var au=0;for(au;au<av.length;au++){ak(av[au])}}};if(typeof define==="function"&&define.amd){define("piwik",[],function(){return v});define("matomo",[],function(){return v})}return v}())}
 /*!!! pluginTrackerHook */
 
-/* GENERATED: tracker.js */
-
-/* END GENERATED: tracker.js */
-
-
 /* GENERATED: tracker.min.js */
 /*!!
  * Matomo - free/libre analytics platform

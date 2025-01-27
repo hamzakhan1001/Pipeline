@@ -64,7 +64,7 @@ abstract class AdapterAbstract
      */
     abstract protected function getClickIdProvider();
 
-    abstract public function generate(): string;
+    abstract public function generate($isHTTPRequest = false): string;
 
     public function sendHttpHeaders()
     {

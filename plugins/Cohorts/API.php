@@ -27,6 +27,8 @@ use Piwik\Period;
 use Piwik\Period\Factory;
 use Piwik\Period\Range;
 use Piwik\Piwik;
+use Piwik\Plugins\Cohorts\Reports\GetCohortsChart;
+use Piwik\Plugins\Cohorts\Reports\GetCohortsTable;
 use Piwik\SettingsPiwik;
 use Piwik\Site;
 
@@ -164,7 +166,120 @@ class API extends \Piwik\Plugin\API
         return $columnsData;
     }
 
-    public function getCohorts($idSite, $period, $date, $metric = null, $segment = false, $filter_limit = false)
+    /**
+     * @internal Should only be used for viewing the Cohorts Chart widget
+     * @param $idSite
+     * @param $period
+     * @param $displayDateRange
+     * @param $cohorts
+     * @param $segment
+     * @param $filter_limit
+     * @return DataTable\Map
+     * @throws \Exception
+     */
+    public function getCohortsOverPeriods($idSite, $period, $displayDateRange, $cohorts, $segment = false, $filter_limit = false)
+    {
+        Piwik::checkUserHasViewAccess($idSite);
+        $this->checkSiteIsSingleSite($idSite);
+
+        // Get the defaults in case the query parameters aren't present
+        $savedParams = GetCohortsTable::getSavedDefaultReportParameters();
+        $request = \Piwik\Request::fromRequest();
+        $requestDate = $request->getStringParameter('date', '');
+        $requestMetric = $request->getStringParameter('metric', '');
+        $requestMetrics = $request->getStringParameter('metrics', $savedParams['metric']);
+        $requestMetric = $requestMetric ?: $requestMetrics;
+        // Use the request array for limit and period since Request only uses get and post array values
+        $requestFilterLimit = !empty($_REQUEST['filter_limit']) && is_numeric($_REQUEST['filter_limit']) ? $_REQUEST['filter_limit'] : $savedParams['filter_limit'];
+        if (intval($requestFilterLimit) === -1) {
+            $requestFilterLimit = GetCohortsChart::MAX_FILTER_LIMIT;
+        }
+        $requestPeriod = !empty($_REQUEST['period']) ? $_REQUEST['period'] : 'day';
+        $cohortsTable = $this->getCohorts($idSite, $requestPeriod, $requestDate, $requestMetric, $segment, $requestFilterLimit, 0);
+        $cohortRows = $cohortsTable->getRows();
+        if (count($cohortRows) > $requestFilterLimit && $requestPeriod !== 'range') {
+            unset($cohortRows[0]);
+        }
+        $cohortsMap = [];
+        foreach ($cohortRows as $cohortRow) {
+            $label = $cohortRow->getColumn('label');
+            $index = 0;
+            foreach ($cohortRow->getColumns() as $key => $column) {
+                // Only include non-lablel columns up to the filter limit
+                if ($key !== 'label' && ($index <= $requestFilterLimit + 1 || $requestPeriod === 'range')) {
+                    $cohortsMap[$label][] = $column;
+                }
+                ++$index;
+            }
+        }
+        $pivot = [];
+        $index = 0;
+        foreach ($cohortsMap as $label => $cohortsValues) {
+            if ($index > $requestFilterLimit) {
+                break;
+            }
+
+            foreach ($cohortsValues as $key => $value) {
+                // Initialise array
+                if (empty($pivot[$key])) {
+                    $pivot[$key] = [];
+                }
+                // Only add the value if one exists
+                if (!empty($value)) {
+                    $pivot[$key][$label] = $value;
+                }
+            }
+            ++$index;
+        }
+
+        $dataMap = $this->getCohortsOverTime($idSite, $period, $displayDateRange, $cohorts, $segment, $requestFilterLimit);
+        $tables = $dataMap->getDataTables();
+        $firstTable = $tables[array_key_first($tables)];
+        $cloneTable = $firstTable->getEmptyClone();
+        foreach ($dataMap->getDataTables() as $label => $table) {
+            // Delete all the tables so that we can re-populate the map
+            $dataMap->deleteRow($label);
+        }
+
+        $formatter = new Metrics\Formatter();
+        foreach ($pivot as $key => $array) {
+            $newTable = $cloneTable->getEmptyClone();
+            foreach ($array as $name => $value) {
+                if ($requestPeriod === 'year') {
+                    $name .= '-01';
+                }
+                if ($requestPeriod === 'week') {
+                    $name = str_replace(['From ', ' to '], ['', ','], $name);
+                }
+
+                // Make sure that percentages are formatted correctly in the tooltip
+                if ((strpos($requestMetric, '_rate') !== false || strpos($requestMetric, '_percent') !== false) && is_numeric($value)) {
+                    $value = $formatter->getPrettyPercentFromQuotient(floatval($value));
+                }
+                $newTable->addRowFromSimpleArray(['label' => $name, $requestMetric => $value]);
+            }
+            $dataMap->addTable($newTable, strval($key));
+        }
+
+        return $dataMap;
+    }
+
+    /**
+     * @param $idSite
+     * @param $period
+     * @param $date
+     * @param $metric
+     * @param $segment
+     * @param $filter_limit
+     * @internal Just for report use
+     * @return DataTable|DataTable\Map
+     */
+    public function getCohortsTable($idSite, $period, $date, $metric = null, $segment = false, $filter_limit = false)
+    {
+        return $this->getCohorts($idSite, $period, $date, $metric, $segment, $filter_limit);
+    }
+
+    public function getCohorts($idSite, $period, $date, $metric = null, $segment = false, $filter_limit = false, $formatMetics = 'all')
     {
         Piwik::checkUserHasViewAccess($idSite);
         $this->checkSiteIsSingleSite($idSite);
@@ -193,7 +308,7 @@ class API extends \Piwik\Plugin\API
             'cohorts' => $cohorts,
             'period' => $period == 'range' ? 'day' : $period,
             'segment' => $segment,
-            'format_metrics' => 'all',
+            'format_metrics' => $formatMetics,
             'periodsFromStart' => $filter_limit,
         ], []);
 

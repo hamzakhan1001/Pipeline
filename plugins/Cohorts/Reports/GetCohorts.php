@@ -45,7 +45,7 @@ class GetCohorts extends Report
         parent::init();
 
         $this->categoryId = 'General_Visitors';
-        $this->subcategoryId = 'Cohorts_Cohorts';
+        // Don't set the subcategory since we don't want this report to show in the Cohorts tab
         $this->name = Piwik::translate('Cohorts_Cohorts');
         $this->documentation = Piwik::translate('Cohorts_GetCohortsDocumentation');
         $this->order = 10;
@@ -153,7 +153,7 @@ class GetCohorts extends Report
             'revenue',
         ];
 
-        $period = Common::getRequestVar('period', false);
+        $period = Common::getRequestVar('period', null, 'string');
         $isUniqueVisitorsEnabled = SettingsPiwik::isUniqueVisitorsEnabled($period);
 
         if ($isUniqueVisitorsEnabled) {

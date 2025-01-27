@@ -1,5 +1,9 @@
 ## Changelog
 
+5.1.0 - 2025-01-20
+- Cohort visualisation graph updated to show growth/drop-off per cohort
+- Fixed a PHP error due to a wrong datatype
+
 5.0.11 - 2024-11-05
 - Updated README.md
 

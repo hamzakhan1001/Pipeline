@@ -10,6 +10,7 @@
         "NoSessionRecordingsFound": "No session recordings found",
         "HeatmapUsageBenefits": "Heatmaps let you record all clicks, mouse moves, and scroll activities of your visitors on a certain page. This helps you to find out where users think something is clickable but is not, whether there are parts of the page that are being barely viewed or interacted with, what your visitors are looking for, how much of the page is visible when users view your page, and more.",
         "HeatmapXRecordedSamplesSince": "%1$s samples have been recorded since %2$s.",
+        "HeatmapTroubleshoot": "Having issues? %1$sLearn more%2$s.",
         "SessionRecordingsUsageBenefits": "Session recordings let you record all activities of a real visitor during their session (visit) such as clicks, mouse movements, scrolls, window resizes, page changes, and form interactions. You can then replay these interactions to see exactly how a visitor interacted with your website. This way you understand their expectations, problems they may have, usage patterns, and more.",
         "SessionRecordings": "Session Recordings",
         "SessionRecording": "Session Recording",
@@ -219,6 +220,8 @@
         "MoveRate": "Move rate:",
         "HeatmapAddedActivity": "added a heatmap \"%1$s\" for site \"%2$s\"",
         "HeatmapDeletedActivity": "deleted the heatmap \"%1$s\" for site \"%2$s\"",
+        "HeatmapPausedActivity": "paused the heatmap \"%1$s\" for site \"%2$s\"",
+        "HeatmapResumedActivity": "resumed the heatmap \"%1$s\" for site \"%2$s\"",
         "HeatmapEndedActivity": "ended the heatmap \"%1$s\" for site \"%2$s\"",
         "HeatmapScreenshotDeletedActivity": "deleted the heatmap screenshot \"%1$s\" for site \"%2$s\"",
         "HeatmapUpdatedActivity": "updated the heatmap \"%1$s\" for site \"%2$s\"",
@@ -226,6 +229,8 @@
         "SessionRecordingDeletedActivity": "deleted the session recording \"%1$s\" for site \"%2$s\"",
         "SessionRecordingEndedActivity": "ended the session recording \"%1$s\" for site \"%2$s\"",
         "SessionRecordingUpdatedActivity": "updated the session recording \"%1$s\" for site \"%2$s\"",
+        "SessionRecordingPausedActivity": "paused the session recording \"%1$s\" for site \"%2$s\"",
+        "SessionRecordingResumedActivity": "resumed the session recording \"%1$s\" for site \"%2$s\"",
         "RecordedSessionDeletedActivity": "deleted a recorded session for session recording \"%1$s\" for site \"%2$s\"",
         "RecordedPageviewDeletedActivity": "deleted a recorded page view for session recording \"%1$s\" for site \"%2$s\""
     }

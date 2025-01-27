@@ -44,7 +44,7 @@ class MicrosoftAds extends AdapterAbstract
         return Bing::getInstance();
     }
 
-    public function generate(): string
+    public function generate($isHTTPRequest = false): string
     {
         $content = $this->getFileHeader();
 
