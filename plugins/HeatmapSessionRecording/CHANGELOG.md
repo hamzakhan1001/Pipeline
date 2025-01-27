@@ -1,5 +1,9 @@
 ## Changelog
 
+5.2.3 - 2025-01-20
+- Added an activity for pause and resume action
+- Added a troubleshooting FAQ link for heatmaps 
+
 5.2.2 - 2024-12-16
 - Fixes PHP deprecation warnings
 

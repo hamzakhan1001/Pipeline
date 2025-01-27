@@ -15,9 +15,7 @@
 import {
   defineComponent, reactive, toRefs, computed, CSSProperties, nextTick, ref,
 } from 'vue';
-import { translate } from 'CoreHome';
-
-const { NumberFormatter } = window;
+import { translate, NumberFormatter } from 'CoreHome';
 
 export default defineComponent({
   props: {

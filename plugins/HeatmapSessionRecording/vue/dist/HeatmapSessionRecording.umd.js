@@ -891,7 +891,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=1266e3b0
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=0ffe1e93
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -1090,7 +1090,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "is-moves": _ctx.heatmapType === 1
   }, null, 8, ["click-count", "click-rate", "is-moves"])]);
 }
-// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=1266e3b0
+// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=template&id=0ffe1e93
 
 // EXTERNAL MODULE: ./plugins/HeatmapSessionRecording/node_modules/heatmap.js/build/heatmap.js
 var heatmap = __webpack_require__("246e");
@@ -1164,40 +1164,38 @@ function oneAtATime(method, options) {
     });
   };
 }
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=template&id=52fa2645
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=template&id=6a6ace20
 
-var Tooltipvue_type_template_id_52fa2645_hoisted_1 = {
+var Tooltipvue_type_template_id_6a6ace20_hoisted_1 = {
   class: "tooltip-item"
 };
-var Tooltipvue_type_template_id_52fa2645_hoisted_2 = {
+var Tooltipvue_type_template_id_6a6ace20_hoisted_2 = {
   class: "tooltip-label"
 };
-var Tooltipvue_type_template_id_52fa2645_hoisted_3 = {
+var Tooltipvue_type_template_id_6a6ace20_hoisted_3 = {
   class: "tooltip-value"
 };
-var Tooltipvue_type_template_id_52fa2645_hoisted_4 = {
+var Tooltipvue_type_template_id_6a6ace20_hoisted_4 = {
   class: "tooltip-item"
 };
-var Tooltipvue_type_template_id_52fa2645_hoisted_5 = {
+var Tooltipvue_type_template_id_6a6ace20_hoisted_5 = {
   class: "tooltip-label"
 };
-var Tooltipvue_type_template_id_52fa2645_hoisted_6 = {
+var Tooltipvue_type_template_id_6a6ace20_hoisted_6 = {
   class: "tooltip-value"
 };
-function Tooltipvue_type_template_id_52fa2645_render(_ctx, _cache, $props, $setup, $data, $options) {
+function Tooltipvue_type_template_id_6a6ace20_render(_ctx, _cache, $props, $setup, $data, $options) {
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", {
     ref: "tooltipRef",
     class: "tooltip",
     style: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["normalizeStyle"])(_ctx.tooltipStyle)
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", Tooltipvue_type_template_id_52fa2645_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickCountTranslation), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickCount), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", Tooltipvue_type_template_id_52fa2645_hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_5, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickRateTranslation), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_52fa2645_hoisted_6, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickRate), 1)])], 4)), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.visible]]);
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", Tooltipvue_type_template_id_6a6ace20_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_6a6ace20_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickCountTranslation), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_6a6ace20_hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickCount), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("div", Tooltipvue_type_template_id_6a6ace20_hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_6a6ace20_hoisted_5, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickRateTranslation), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementVNode"])("span", Tooltipvue_type_template_id_6a6ace20_hoisted_6, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.getClickRate), 1)])], 4)), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], _ctx.visible]]);
 }
-// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=template&id=52fa2645
+// CONCATENATED MODULE: ./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=template&id=6a6ace20
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-typescript/node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/Tooltip/Tooltip.vue?vue&type=script&lang=ts
 
 
-var _window = window,
-    NumberFormatter = _window.NumberFormatter;
 /* harmony default export */ var Tooltipvue_type_script_lang_ts = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
   props: {
     clickCount: {
@@ -1242,9 +1240,9 @@ var _window = window,
         var tooltipElement = tooltipRef.value;
 
         if (tooltipElement) {
-          var _window2 = window,
-              innerWidth = _window2.innerWidth,
-              innerHeight = _window2.innerHeight;
+          var _window = window,
+              innerWidth = _window.innerWidth,
+              innerHeight = _window.innerHeight;
           var tooltipRect = tooltipElement.getBoundingClientRect();
 
           if (tooltipRect.right > innerWidth) {
@@ -1282,10 +1280,10 @@ var _window = window,
   },
   computed: {
     getClickCount: function getClickCount() {
-      return NumberFormatter.formatNumber(this.clickCount);
+      return external_CoreHome_["NumberFormatter"].formatNumber(this.clickCount);
     },
     getClickRate: function getClickRate() {
-      return NumberFormatter.formatPercent(this.clickRate);
+      return external_CoreHome_["NumberFormatter"].formatPercent(this.clickRate);
     },
     getClickCountTranslation: function getClickCountTranslation() {
       var translation = this.isMoves ? 'HeatmapSessionRecording_Moves' : 'HeatmapSessionRecording_Clicks';
@@ -1303,7 +1301,7 @@ var _window = window,
 
 
 
-Tooltipvue_type_script_lang_ts.render = Tooltipvue_type_template_id_52fa2645_render
+Tooltipvue_type_script_lang_ts.render = Tooltipvue_type_template_id_6a6ace20_render
 
 /* harmony default export */ var Tooltip = (Tooltipvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-typescript/node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--14-2!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./plugins/HeatmapSessionRecording/vue/src/HeatmapVis/HeatmapVis.vue?vue&type=script&lang=ts
@@ -1326,8 +1324,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var HeatmapVisvue_type_script_lang_ts_window = window,
-    $ = HeatmapVisvue_type_script_lang_ts_window.$;
+var _window = window,
+    $ = _window.$;
 var deviceDesktop = 1;
 var deviceTablet = 2;
 var deviceMobile = 3;
@@ -2007,6 +2005,10 @@ recordingIframe, dataPoints) {
     },
     changeHeatmapType: function changeHeatmapType(heatmapType) {
       this.heatmapType = heatmapType;
+      this.totalClicks = 0;
+      this.clickCount = 0;
+      this.clickRate = 0;
+      this.dataCoordinates = [];
       this.fetchHeatmap();
     },
     handleMouseMove: function handleMouseMove(event) {
@@ -2127,7 +2129,10 @@ recordingIframe, dataPoints) {
       });
     },
     recordedSamplesSince: function recordedSamplesSince() {
-      return Object(external_CoreHome_["translate"])('HeatmapSessionRecording_HeatmapXRecordedSamplesSince', "<span class=\"deviceAllCountSamples\">".concat(this.actualNumSamples.nb_samples_device_all, "</span>"), this.createdDate);
+      var string1 = Object(external_CoreHome_["translate"])('HeatmapSessionRecording_HeatmapXRecordedSamplesSince', "<span class=\"deviceAllCountSamples\">".concat(this.actualNumSamples.nb_samples_device_all, "</span>"), this.createdDate);
+      var linkString = Object(external_CoreHome_["externalLink"])('https://matomo.org/subcategory/troubleshoot-7/');
+      var string2 = Object(external_CoreHome_["translate"])('HeatmapSessionRecording_HeatmapTroubleshoot', linkString, '</a>');
+      return "".concat(string1, " ").concat(string2);
     },
     deviceTypesWithSamples: function deviceTypesWithSamples() {
       var _this5 = this;
