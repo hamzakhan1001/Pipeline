@@ -5,9 +5,10 @@
  * Description: Provides security information about your PHP environment and offers suggestions based on PhpSecInfo from the PHP Security Consortium.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.3
+ * Version: 5.0.4
  */
 ?><?php
+
 /**
  * Matomo - free/libre analytics platform
  *

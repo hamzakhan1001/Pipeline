@@ -5,15 +5,17 @@
  * Description: This plugin allows you to add custom JavaScript to Matomos tracking code
  * Author: InnoCraft
  * Author URI: https://www.innocraft.com
- * Version: 5.0.1
+ * Version: 5.0.2
  */
 ?><?php
+
 /**
  * InnoCraft - the company of the makers of Piwik Analytics, the free/libre analytics platform
  *
  * @link https://www.innocraft.com
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
+
 namespace Piwik\Plugins\JsTrackerCustom;
 
 use Piwik\Plugin;

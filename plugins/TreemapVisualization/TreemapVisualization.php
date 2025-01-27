@@ -5,7 +5,7 @@
  * Description: Visualise any report in Matomo as a Treemap. Click on the Treemap icon in each report to load the visualisation.
  * Author: Matomo
  * Author URI: https://matomo.org
- * Version: 5.0.2
+ * Version: 5.0.3
  */
 ?><?php
 
