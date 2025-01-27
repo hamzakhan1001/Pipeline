@@ -3,7 +3,9 @@
         "VisitorFirstVisitTime": "Acquisition Date",
         "Cohort": "Cohort",
         "Cohorts": "Cohorts",
+        "CohortsTable": "Cohorts Table",
         "EvolutionGraph": "Cohorts Graph",
+        "CohortsChart": "Cohorts Chart",
         "SelectAMetric": "Select a metric to display",
         "ReturningVisitorsPercent": "Returning Visitors %%",
         "VisitorRetentionTooltip": "During %1$s, %2$s of the visitors who first visited in %3$s returned to your website.",
@@ -15,6 +17,10 @@
         "GetCohortsDocumentation": "Shows the performance of different cohorts over a set of periods directly after a cohort appears.",
         "CohortsOverTime": "Cohorts Over Time",
         "CohortsSubcategoryHelp1": "Matomo defines a cohort as a group of users who have the same acquisition date (the date a user started visiting your website). This Cohort analysis section allows you to view and compare different cohorts’ behaviour over time to understand how well you retain and engage your visitors.",
-        "CohortsSubcategoryHelp2": "Learn more in the Cohorts User Guide."
+        "CohortsSubcategoryHelp2": "Learn more in the Cohorts User Guide.",
+        "DayX": "Day %1$s",
+        "WeekX": "Week %1$s",
+        "MonthX": "Month %1$s",
+        "YearX": "Year %1$s"
     }
 }

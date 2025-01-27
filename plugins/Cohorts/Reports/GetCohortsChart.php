@@ -17,50 +17,47 @@
 namespace Piwik\Plugins\Cohorts\Reports;
 
 use Piwik\Piwik;
-use Piwik\Plugin\Report;
-use Piwik\Plugins\Cohorts\Columns\Metrics\VisitorRetentionPercent;
-use Piwik\Plugins\CoreHome\Columns\Metrics\ActionsPerVisit;
-use Piwik\Plugins\CoreHome\Columns\Metrics\AverageTimeOnSite;
-use Piwik\Plugins\CoreHome\Columns\Metrics\BounceRate;
-use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Evolution;
+use Piwik\Plugins\Cohorts\Visualizations\CohortsLineChart;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
 
-class GetCohortsOverTime extends Report
+class GetCohortsChart extends GetCohortsOverTime
 {
-    public const DEFAULT_METRIC = VisitorRetentionPercent::NAME;
+    public const MAX_FILTER_LIMIT = 30;
+    public const ALLOWED_FILTER_LIMITS = [5,10,15,20,25,30];
 
     protected function init()
     {
         parent::init();
 
         $this->categoryId = 'General_Visitors';
-        // Don't set the subcategory since we don't want this report to show in the Cohorts tab
-        $this->name = Piwik::translate('Cohorts_CohortsOverTime');
+        $this->subcategoryId = 'Cohorts_Cohorts';
+        $this->name = Piwik::translate('Cohorts_CohortsChart');
 
-        $this->processedMetrics = [
-            new BounceRate(),
-            new ActionsPerVisit(),
-            new AverageTimeOnSite(),
-        ];
-        $this->metrics = GetCohorts::getAvailableCohortsMetrics($includeTemporary = false);
+        // We don't want clicking on a period to do anything since they don't correspond to dates like evolution charts
+        $this->parameters['disableLink'] = 1;
     }
 
     public function configureWidgets(WidgetsList $widgetsList, ReportWidgetFactory $factory)
     {
+        // These widgets are intentionally not available in the Dashboard, since that wouldn't make sense
         $widgetsList->addWidgetConfig(
             $factory->createWidget()
-                ->setName('Cohorts_EvolutionGraph')
-                ->forceViewDataTable(Evolution::ID)
+                ->setName('')
                 ->setModule('Cohorts')
-                ->setAction('getEvolutionGraph')
-                ->setOrder(5)
+                ->setAction('index')
+                ->setOrder(3)
                 ->setIsWide()
         );
-    }
 
-    public function configureReportMetadata(&$availableReports, $infos)
-    {
-        // empty
+        $widgetsList->addWidgetConfig(
+            $factory->createWidget()
+                ->forceViewDataTable(CohortsLineChart::ID)
+                ->setModule('Cohorts')
+                ->setAction('getCohortsChart')
+                ->setOrder(5)
+                ->setIsWide()
+                ->setIsNotWidgetizable()
+        );
     }
 }

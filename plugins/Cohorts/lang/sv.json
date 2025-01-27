@@ -3,6 +3,7 @@
         "Cohort": "Kohort",
         "Cohorts": "Kohorter",
         "CohortsOverTime": "Kohorter över tid",
+        "CohortsSubcategoryHelp1": "Matomo definierar en kohort som en grupp användare som har samma förvärvsdatum (datumet då en användare började besöka din webbplats). Avsnittet för kohortanalys gör det möjligt för dig att visa och jämföra olika kohorters beteenden över tid för att förstå hur väl du behåller och engagerar dina besökare.",
         "CohortsSubcategoryHelp2": "Lär dig mer om kohort i användarguiden.",
         "ColumnDocumentation1": "Den här kolumnen visar det valda mätvärdet för perioden som är %1$s %2$s efter att besökarna i kohorten först gjorde sitt besök.",
         "ColumnDocumentation2": "Det specifika datumet kommer variera baserad på kohorten, vilket bestäms av raden.",
