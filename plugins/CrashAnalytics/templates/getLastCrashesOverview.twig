@@ -1,0 +1,49 @@
+<div id="liveCrashOverview{{ lastMinutes }}" vue-entry="CoreHome.ContentBlock" content-title="{{ title|translate|e('html_attr') }}" vue-components="CoreHome.VueEntryContainer">
+    {% if not is_auto_refresh %}
+    <div class="crashLiveMetrics">
+        {% endif %}
+
+        <div class="row">
+            <div class="col s12 m6">
+                <span title="{{ 'CrashAnalytics_CrashOccurrencesDocumentation'|translate }}">{{ 'CrashAnalytics_NbCrashOccurrences'|translate("<strong>"~overview.nb_crash_occurrences|default(0)|number~"</strong>")|raw }}</span>
+                <br />
+                <br />
+                <span title="{{ 'CrashAnalytics_VisitsWithCrashDocumentation'|translate}}">{{ 'CrashAnalytics_NbVisitsWithCrash'|translate("<strong>"~overview.nb_visits_with_crash|default(0)|number~"</strong>")|raw }}</span>
+                <br />
+                <br />
+                <span title="{{ 'CrashAnalytics_VisitsCrashRateDocumentation'|translate}}">{{ 'CrashAnalytics_NbVisitsCrashRate'|translate("<strong>"~overview.visits_crash_rate|default('0%')|number~"</strong>")|raw }}</span>
+            </div>
+            <div class="col s12 m6">
+                <span title="{{ 'CrashAnalytics_NewCrashesMetricDocumentation'|translate}}">{{ 'CrashAnalytics_NbNewCrashes'|translate("<strong>"~overview.nb_new_crashes|default(0)~"</strong>")|raw }}</span>
+                <br />
+                <br />
+                <span title="{{ 'CrashAnalytics_DisappearedCrashesMetricDocumentation'|translate}}">{{ 'CrashAnalytics_NbDisappearedCrashes'|translate("<strong>"~overview.nb_disappeared_crashes|default(0)~"</strong>")|raw }}</span>
+                <br />
+                <br />
+                <span title="{{ 'CrashAnalytics_ReappearedCrashesMetricDocumentation'|translate}}">{{ 'CrashAnalytics_NbReappearedCrashes'|translate("<strong>"~overview.nb_reappeared_crashes|default(0)~"</strong>")|raw }}</span>
+            </div>
+        </div>
+
+        {% if not is_auto_refresh %}
+    </div>
+    {% endif %}
+</div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        var segment = broadcast.getValueFromUrl('segment');
+
+        $('#liveCrashOverview{{ lastMinutes }}').liveWidget({
+            interval: {{ liveRefreshAfterMs }},
+            replaceContent: true,
+            fadeInSpeed: 600,
+            maxInterval: {% if liveRefreshAfterMs >= 20000 %}300000{% else %}{{ liveRefreshAfterMs * 15 }}{% endif %},
+            dataUrlParams: {
+                is_auto_refresh: '1',
+                module: 'CrashAnalytics',
+                action: 'getLastCrashesOverview',
+                segment: segment,
+                lastMinutes: {{ lastMinutes }}
+            }
+        });
+    });
+</script>

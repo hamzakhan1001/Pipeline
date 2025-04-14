@@ -1,0 +1,17 @@
+{
+    "SEOWebVitals": {
+        "AllStrategies": "Alle Strategien",
+        "ClickToConfigureApiKey": "Klicken Sie hier, um einen API-Schlüssel zu konfigurieren.",
+        "DesktopOnly": "Nur Desktop",
+        "LearnMoreWebVitalAndImprove": "Erfahren Sie mehr über Web Vitals und wie Sie die Ergebnisse verbessern können.",
+        "MetricAuditScorePercentage": "%s Prozentsatz der Punktzahl",
+        "MetricAuditScorePercentageDescription": "Punktzahl in Prozent, wobei 100 am besten ist.",
+        "MobileOnly": "Nur Mobilgeräte",
+        "NbMilliseconds": "%sms",
+        "PerformanceCategoryAverage": "Durchschnitt",
+        "PerformanceCategoryFast": "Schnell",
+        "PerformanceCategorySlow": "Langsam",
+        "SEOWebVitals": "SEO Web Vitals",
+        "ScoreIsConsidered": "Diese Punktzahl wird berücksichtigt: %s"
+    }
+}

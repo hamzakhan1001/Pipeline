@@ -1,0 +1,67 @@
+.url-checker {
+    .engine, .keywords, .social {
+        min-width: 150px;
+        border-bottom: 1px solid #333;
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .checkurlbutton {
+        margin-bottom: 15px;
+    }
+
+    p.detectionresult, p.socialresult {
+        margin: 10px 0;
+
+        img {
+            padding-right: 4px;
+        }
+    }
+}
+
+#referrersmanage {
+    #socialTab, #searchengineTab {
+        width: 100%;
+        padding: 0;
+
+        table {
+            width: 100%;
+            margin: 0;
+        }
+    }
+
+    .add-element, .delete-element, .refresh-list {
+        cursor: pointer;
+        line-height: 20px;
+        margin-top: 15px;
+        display: inline-block;
+
+        [class^="icon-"], [class*=" icon-"] {
+            margin-right: 5px;
+        }
+    }
+
+    .delete-element {
+        margin-top: 0;
+    }
+
+    .refresh-list {
+        margin-left: 10px;
+    }
+
+    .search-detections {
+        float: right;
+    }
+
+    .tabs .tab a:focus, .tabs .tab a:focus.active {
+        background-color: transparent;
+    }
+
+    .matomo-save-button+.matomo-save-button {
+        margin-left: 4px;
+    }
+}
+
+#removeDataConfirm .name {
+    color: #f55;
+}

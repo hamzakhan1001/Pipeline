@@ -1,0 +1,28 @@
+{
+    "name": "DiagnosticsExtended",
+    "description": "Additional checks for the System Check",
+    "version": "0.2.0",
+    "theme": false,
+    "require": {
+        "matomo": ">=5.0.0-b1,<6.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "Lukas Winkler",
+            "email": "lukas@matomo.org",
+            "homepage": "https://lw1.at"
+        }
+    ],
+    "support": {
+        "email": "lukas@matomo.org",
+        "issues": "https://github.com/Findus23/plugin-DiagnosticsExtended/issues",
+        "forum": "https://forum.matomo.org",
+        "source": "https://github.com/Findus23/plugin-DiagnosticsExtended"
+    },
+    "homepage": "https://lw1.at",
+    "license": "GPL v3+",
+    "keywords": [
+        "system check",
+        "debugging"
+    ]
+}

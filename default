@@ -1,0 +1,28 @@
+server {
+    listen 80 default_server;
+
+    root /var/www/html;
+    index index.php index.html index.htm;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Process PHP files
+    location ~ ^/(index|matomo|piwik|js/index|plugins/HeatmapSessionRecording/configs|js/tracker)\.php$ {
+        include  /etc/nginx/fastcgi_params;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_buffer_size             128k;
+        fastcgi_buffers                 4 128k;
+        fastcgi_param                   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+        # Ensure this matches your PHP version
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_read_timeout 3000;
+        fastcgi_send_timeout 3000;
+        fastcgi_connect_timeout 3000;
+    }
+}

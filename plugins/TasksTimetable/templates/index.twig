@@ -1,0 +1,11 @@
+{% extends 'admin.twig' %}
+
+{% set title %}{{ 'TasksTimetable_ScheduledTasks'|translate }}{% endset %}
+
+{% block content %}
+    <div
+        vue-entry="TasksTimetable.TasksTable"
+        tasks="{{ tasks|json_encode }}"
+        current-time="{{ currentTime|json_encode }}"
+    ></div>
+{% endblock %}

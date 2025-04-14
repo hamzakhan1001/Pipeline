@@ -1,0 +1,31 @@
+{
+    "name": "GhostTheme",
+    "description": "Custom theme for Ghost Metrics.",
+    "version": "0.2.0",
+    "theme": true,
+    "require": {
+        "matomo": ">=5.0.0-rc1,<6.0.0-b1"
+    },
+    "stylesheet": "stylesheets/theme.less",
+    "javascript": "javascripts/theme.js",
+    "homepage": "",
+    "license": "",
+    "keywords": [],
+    "support": {
+        "email": "",
+        "issues": "",
+        "forum": "",
+        "irc": "",
+        "source": "",
+        "docs": "",
+        "wiki": "",
+        "rss": ""
+    },
+    "authors": [
+        {
+            "name": "Ghost Metrics",
+            "email": "info@ghostmetrics.io",
+            "homepage": "https://ghostmetrics.io/"
+        }
+    ]
+}

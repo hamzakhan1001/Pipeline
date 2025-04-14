@@ -1,0 +1,16 @@
+{
+    "BotTracker": {
+        "BotActive": "Aktiivne",
+        "BotCount": "Külastuste arv",
+        "BotKeyword": "Märksõna",
+        "BotLastVisit": "Viimane külastus",
+        "BotTracker": "BotTracker",
+        "delete": "kustuta",
+        "Error_empty": "on tühi!",
+        "false": "Ei",
+        "Message_deleted": "kustutati!",
+        "save_changes": "Salvesta",
+        "true": "Jah",
+        "Widgets": "BotTracker"
+    }
+}

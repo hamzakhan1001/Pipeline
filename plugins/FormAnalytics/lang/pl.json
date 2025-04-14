@@ -1,0 +1,23 @@
+{
+    "FormAnalytics": {
+        "ColumnInteractions": "Interakcji",
+        "ErrorArrayMissingKey": "W tablicy \"%2$s\" brak klucza \"%1$s\" na pozycji \"%3$s\".",
+        "ErrorArrayMissingValue": "W tablicy \"%2$s\" brakuje wartości \"%1$s\" na pozycji \"%3$s\".",
+        "ErrorInnerIsNotAnArray": "Każdy \"%1$s\" w \"%2$s\" musi być tablicą.",
+        "ErrorInvalidRegExp": "Wyrażenie regularne \"%1$s\" nie ma właściwego formatu.",
+        "ErrorNotAnArray": "\"%1$s\" musi być tabelą.",
+        "ErrorXNotProvided": "Proszę podać wartość dla \"%1$s\".",
+        "ErrorXNotWhitelisted": "Niedozwolona wartość pola \"%1$s\", spróbuj jednej z: %2$s.",
+        "ErrorXTooLong": "Ciąg \"%1$s\" jest za długi. Dopuszczone są ciągi o długości do %2$s znaków.",
+        "Filter": "Filtruj",
+        "Manage": "Zarządzaj",
+        "Rule": "Reguła",
+        "RuleAttributeUrl": "URL",
+        "RulePatternContains": "zawiera",
+        "RulePatternEqualsExactly": "jest dokładnie",
+        "RulePatternRegExp": "pasuje do wyrażenia regularnego",
+        "RulePatternStartsWith": "zaczyna się od",
+        "Status": "Status",
+        "UpdatingData": "Aktualizacja danych…"
+    }
+}

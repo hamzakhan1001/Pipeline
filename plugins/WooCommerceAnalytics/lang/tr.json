@@ -1,0 +1,16 @@
+{
+    "WooCommerceAnalytics": {
+        "DownloadPlugin": "WooCommerce eklentisini indirin",
+        "InstallActivatePlugin": "Kurulumdan sonra veya \"Eklentiler\" bölümünden eklentiyi etkinleştirin.",
+        "InstallConfigure": "Matomo kopyanızı yapılandırın ve izlemeyi etkinleştirin.",
+        "InstallDownload2": "\"%1$s WooCommerce Analytics\" uygulama ekini aşağıdan indirin.",
+        "InstallGoSettings2": "\"WooCommerce =&gt; Ayarlar =&gt; %1$s\" bölümüne gidin.",
+        "InstallLoginWordPress": "WordPress / WooCommerce uygulamanızda oturum açın.",
+        "InstallWordPress": "İndirdiğiniz uygulama ekini \"Eklentiler => Yeni ekle => Eklenti yükle\" bölümünden kurun.",
+        "UpdatingPlugin": "Eklentiyi WooCommerce içinden güncellemek",
+        "UpdatingPluginConfigured2": "\"WooCommerce =&gt; Ayarlar %1$s\" bölümüden \"%1$s adresini\" yapılandırdığınızda, WooCommerce uygulama eki güncellemeleri otomatik olarak denetler ve WordPress üzerinde bu eklentiyi tek tıkla güncelleyebilirsiniz.",
+        "UpdatingPluginPiwikServer": "Güncellemelerin çalışması için, bu Matomo eklentisinin yapılandırılmış Matomo kopyasına yüklenmesi gerekir. Ayrıca, bir güncelleme yayınlandığında bu Matomo eklentisini güncellemeniz önerilir.",
+        "WoocommerceIntegration": "WooCommerce bütünleşmesi",
+        "WoocommercePluginDescription": "Matomo kopyanız WooCommerce siparişlerini ve alışveriş sepeti güncellemelerini izlemeye başlar."
+    }
+}

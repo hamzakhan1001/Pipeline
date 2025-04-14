@@ -1,0 +1,20 @@
+{
+    "Cohorts": {
+        "VisitorFirstVisitTime": "Data di Acquisizione",
+        "Cohort": "Coorte",
+        "Cohorts": "Coorti",
+        "EvolutionGraph": "Grafico Coorti",
+        "SelectAMetric": "Seleziona una metrica da mostrare",
+        "ReturningVisitorsPercent": "Visitatori di Ritorno %%",
+        "VisitorRetentionTooltip": "Durante %1$s, %2$s dei visitatori che avevano in precedenza visitato %3$s sono ritornati sul tuo sito web.",
+        "GenericMetricTooltip": "Durante %1$s, ci sono stati %2$s dalla coorte %3$s.",
+        "ColumnDocumentation1": "Questa colonna mostra il valore metrico selezionato per il periodo che è %1$s %2$s dopo che i visitatori nella coorte hanno effettuato la prima visita.",
+        "ColumnDocumentation2": "La data specifica varierà in base alla coorte, che è determinata dalla riga.",
+        "ColumnDocumentationCohortPeriod": "Questa colonna mostra il valore metrico per il periodo di coorte, cioè il periodo in cui la coorte di visitatori è apparsa per la prima volta.",
+        "VisitsByPeriodOfFirstVisit": "Visite per Periodo della Prima Visita",
+        "GetCohortsDocumentation": "Mostra il rendimento delle differenti coorti nel gruppo di periodi subito dopo che una coorte è apparsa.",
+        "CohortsOverTime": "Coorti nel tempo",
+        "CohortsSubcategoryHelp1": "Matomo definisce una coorte come un gruppo di utenti che hanno la stessa data di acquisizione (la data in cui un utente ha iniziato a visitare il tuo sito web). Questa sezione di analisi di coorte ti consente di visualizzare e confrontare il comportamento di diverse coorti nel tempo per capire quanto bene trattieni e coinvolgi i tuoi visitatori.",
+        "CohortsSubcategoryHelp2": "Ulteriori informazioni nella Guida Utente sulle Coorti."
+    }
+}

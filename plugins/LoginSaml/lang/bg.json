@@ -1,0 +1,7 @@
+{
+    "LoginSaml": {
+        "Description": "Тук можете да промените настройките на Saml SSO плъгина.",
+        "StatusSettings": "Състояние на SAML",
+        "Title": "SAML конфигурация"
+    }
+}

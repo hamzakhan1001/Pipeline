@@ -1,0 +1,16 @@
+<div
+  vue-entry="CustomAlerts.EditAlert"
+  headline="{{ headline|default(null)|json_encode }}"
+  alert="{{ alert|default(null)|json_encode }}"
+  current-site="{{ currentSite|default(null)|json_encode }}"
+  period-options="{{ periodOptions|default(null)|json_encode }}"
+  current-user-email="{{ currentUserEmail|default(null)|json_encode }}"
+  supports-s-m-s="{{ supportsSMS|default(null)|json_encode }}"
+  mobile-macro="{{ mobileMacro|default(null)|json_encode }}"
+  phone-numbers="{{ phoneNumbers|default([])|json_encode }}"
+  report-metadata="{{ reportMetadata|default(null)|json_encode }}"
+  alert-group-conditions="{{ alertGroupConditions|default(null)|json_encode }}"
+  metric-condition-options="{{ metricConditionOptions|default(null)|json_encode }}"
+  comparables-dates="{{ comparablesDates|default(null)|json_encode }}"
+  backlink="{{ backlink|default(null)|json_encode }}"
+></div>

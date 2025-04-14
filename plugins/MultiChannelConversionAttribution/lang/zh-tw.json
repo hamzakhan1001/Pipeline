@@ -1,0 +1,5 @@
+{
+    "MultiChannelConversionAttribution": {
+        "ErrorXNotWhitelisted": "「%1$s」的值不允許，使用以下其一：%2$s。"
+    }
+}

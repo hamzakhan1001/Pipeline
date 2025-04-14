@@ -1,0 +1,7 @@
+{
+    "ActivityLog": {
+        "Access": "Ниво на достъп",
+        "ActivityLog": "Регистър на дейностите",
+        "AnonymizeIpAddresses": "Анонимизирайте IP адресите след X дни"
+    }
+}

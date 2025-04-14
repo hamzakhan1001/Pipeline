@@ -1,0 +1,26 @@
+{
+  "name": "digitalist/userconsole",
+  "description": "Manage Matomo users with the console",
+  "keywords": [
+    "cli",
+    "install"
+  ],
+  "homepage": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-UserConsole",
+  "version": "5.0.4",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Digitalist",
+      "email": "cloud@digitalist.com",
+      "homepage": "https://digitalist.cloud"
+    },
+    {
+      "name": "Mikke Schirén",
+      "email": "mikke.schiren@digitalist.com",
+      "homepage": "https://digitalist.cloud"
+    }
+  ],
+  "require": {
+    "php": ">=7.2"
+  }
+}

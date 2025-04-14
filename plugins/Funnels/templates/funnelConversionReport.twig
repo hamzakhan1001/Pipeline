@@ -1,0 +1,15 @@
+<div
+    vue-entry="Funnels.FunnelConversionReport"
+    metadata="{{ metadata|default({})|json_encode }}"
+    first-segment-flow="{{ firstSegmentFlow|default({})|json_encode }}"
+    funnel-flow="{{ funnelFlow|default({})|json_encode }}"
+    is-closed-funnel="{{ isClosedFunnel|default(false)|json_encode }}"
+></div>
+
+<style type="text/css">
+    {# we cannot add this to report.less because we only want to hide it the compare container in row evolution when this page is viewed #}
+    {# Copied from plugins/Funnels/templates/goalFunnelReport.twig #}
+    .ui-dialog .compare-container {
+        display:none;
+    }
+</style>

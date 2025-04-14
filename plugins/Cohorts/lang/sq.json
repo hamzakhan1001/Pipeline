@@ -1,0 +1,20 @@
+{
+    "Cohorts": {
+        "Cohort": "Kohortë",
+        "Cohorts": "Kohorta",
+        "CohortsOverTime": "Kohorta Përgjatë Kohës",
+        "CohortsSubcategoryHelp1": "Në Matomo një kohortë përkufizohet si një grup përdoruesish që kanë të njëjtën datë marrjeje (data që një përdorues nisi të vizitojë sajtin tuaj). Kjo Ndarje për analizim Kohortash ju lejon të shihni dhe krahasoni sjelljen e kohortave të ndryshme përgjatë kohës, për të kuptuar se në ç’shkallë i mbani pranë dhe i angazhoni vizitorët tuaj.",
+        "CohortsSubcategoryHelp2": "Mësoni më tepër, që nga Udhërrëfyesi i Përdoruesit për Kohortat.",
+        "ColumnDocumentation1": "Kjo shtyllë shfaq vlerën e përzgjedhur për periudhën %1$s %2$s pasi vizitorët në kohortë vizituan për herë të parë.",
+        "ColumnDocumentation2": "Data specifike do të ndryshojë bazuar në kohortën, e cila përcaktohet nga rreshti.",
+        "ColumnDocumentationCohortPeriod": "Kjo shtyllë shfaq vlerën për periudhën e kohortës, pra periudhën kur u dukën për herë të parë vizitorë të kohortës.",
+        "EvolutionGraph": "Grafik Kohortash",
+        "GenericMetricTooltip": "Gjatë %1$s, pati %2$s nga kohorta %3$s.",
+        "GetCohortsDocumentation": "Shfaqni ecuri për kohorta të ndryshme përgjatë një grupi periudhash fill pas shfaqjes së një kohorte.",
+        "ReturningVisitorsPercent": "Vizitorë të Rikthyer %%",
+        "SelectAMetric": "Përzgjidhni një vlerë për shfaqje",
+        "VisitorFirstVisitTime": "Datë Përftimi",
+        "VisitorRetentionTooltip": "Gjatë %1$s, %2$s e vizitorëve që vizituan për herë të parë në %3$s, u rikthyen te sajti juaj.",
+        "VisitsByPeriodOfFirstVisit": "Vizita Sipas Periudhës së Vizitës së Parë"
+    }
+}

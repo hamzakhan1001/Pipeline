@@ -1,0 +1,12 @@
+{
+    "AdvertisingConversionExport": {
+        "AllClickIds": "Alle Klick-IDs",
+        "ErrorXNotProvided": "Bitte geben Sie einen Wert für \"%1$s\" an.",
+        "FirstClickId": "Erste Klick-ID",
+        "LastClickId": "Letzte Klick-ID",
+        "NoExportsFound": "Keine Exporte gefunden",
+        "Regenerate": "Neu generieren",
+        "ShowDownloadLink": "Download-Link anzeigen",
+        "UpdatingData": "Aktualisiere Daten…"
+    }
+}

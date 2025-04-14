@@ -1,0 +1,237 @@
+
+@funnel-graph-colors-default: #44A047; // default green
+@funnel-graph-colors-data-series1: @graph-colors-data-series0;
+@funnel-graph-colors-data-series2: @graph-colors-data-series1;
+@funnel-graph-colors-data-series3: @graph-colors-data-series2;
+@funnel-graph-colors-data-series4: @graph-colors-data-series3;
+@funnel-graph-colors-data-series5: @graph-colors-data-series4;
+@funnel-graph-colors-data-series6: @graph-colors-data-series5;
+@funnel-graph-colors-data-series7: @graph-colors-data-series6;
+@funnel-graph-colors-data-series8: @graph-colors-data-series7;
+@funnel-graph-colors-data-series9: #00695C; // teal
+@funnel-graph-colors-data-series10: #4E342E; // brown
+@funnel-graph-colors-data-series11: #9E9D24; // lime
+@funnel-graph-colors-data-series12: #C62828; // red
+
+.funnelReportHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  .enrichedHeadline .title {
+    white-space: nowrap;
+    width: auto;
+  }
+
+  .legend {
+    flex-grow: 1;
+    margin: 19px 0 15px 0;
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(6, auto);
+      gap: 15px 25px;
+      justify-content: start;
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+
+      .colorBoxProceeded, .colorBoxEntries, .colorBoxSkipped, .colorBoxExits, .colorBoxSplit {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      .colorBoxProceeded {
+        background-color: @funnel-graph-colors-data-series1;
+      }
+
+      .colorBoxEntries {
+        background-image: radial-gradient(@funnel-graph-colors-data-series1 14%, transparent 0),
+        radial-gradient(@funnel-graph-colors-data-series1 14%, transparent 0),
+        linear-gradient(to right, white, white);
+        background-size: 10px 10px, 10px 10px, 100% 100%;
+        background-position: 2px 2px, 7px 7px;
+        border: solid 1px @funnel-graph-colors-data-series1;
+      }
+
+      .colorBoxSkipped {
+        background-image: linear-gradient(135deg, #ffffff 40%, @funnel-graph-colors-data-series1 40%, @funnel-graph-colors-data-series1 50%, #ffffff 50%, #ffffff 90%, @funnel-graph-colors-data-series1 90%, @funnel-graph-colors-data-series1 100%);
+        background-size: 7.07px 7.07px;
+        border: solid 1px @funnel-graph-colors-data-series1;
+      }
+
+      .colorBoxExits {
+        background-color: fade(@funnel-graph-colors-data-series1, 10%);
+        border: solid 1px @funnel-graph-colors-data-series1;
+      }
+
+      .generateSplitColors(@n, @i: 1) when (@i =< @n) {
+        @color-var: "funnel-graph-colors-data-series@{i}";
+        &:nth-child(@{i}) .colorBoxSplit {
+          background-image: linear-gradient(135deg, @@color-var 51%, fade(@@color-var, 10%) 51%);
+          border: solid 1px @@color-var;
+        }
+        .generateSplitColors(@n, (@i + 1));
+      }
+      .generateSplitColors(12);
+    }
+
+    .text {
+      flex-grow: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .title {
+      margin-left: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.7em;
+      color: #888;
+      margin-left: 8px;
+    }
+  }
+}
+
+#funnelConversionTable {
+  margin-top: 1.5rem;
+  table-layout: fixed;
+
+  thead {
+    background: #F7F7F7;
+  }
+
+  th, td {
+    border: 1px solid #cccccc;
+    padding: 1rem;
+  }
+
+  tbody td {
+    padding: 0;
+  }
+
+  .cellLabel {
+    padding: 1rem 0 0 1rem;
+  }
+
+  div.stepTitle {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #686868;
+    margin-bottom: 0.25rem;
+  }
+
+  div.stepLabel {
+    font-weight: normal;
+    margin-bottom: 0.25rem;
+  }
+
+  .cellLabel {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .metricCount {
+    padding: 0.2rem 0 1.8rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .metricRate {
+    margin-left: 0.25rem;
+    font-size: 1rem;
+  }
+
+  .metricValues {
+    padding: 0.3rem 0 1rem 0;
+  }
+
+  .conversionMetrics {
+    color: @funnel-graph-colors-default;
+  }
+
+  .barsContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 0 1rem;
+    padding: 0 1rem;
+
+    @media (max-width: 768px) { // For medium devices (tablets, 768px and smaller)
+      gap: 0 12px;
+    }
+    @media (max-width: 576px) { // For small devices (phones, 576px and smaller)
+      gap: 0 8px;
+    }
+    @media (max-width: 360px) { // For extra small devices (smaller phones, 360px and smaller)
+      gap: 0 4px;
+    }
+  }
+
+  .barStepContainer {
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    height: 312px;
+    padding: 0;
+    min-width: 2px;
+    width: 100%;
+
+    .barStep {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .barExits, .barSkipped, .barEntries {
+      border-top: solid 1px;
+      border-right: solid 1px;
+      border-left: solid 1px;
+      border-bottom: none;
+    }
+
+    .generateBarStyles(@n, @i: 1) when (@i =< @n) {
+      @color-var: "funnel-graph-colors-data-series@{i}";
+      &:nth-child(@{i}) {
+        .barExits {
+          background-color: fade(@@color-var, 10%);
+          border-color: @@color-var;
+        }
+        .barSkipped {
+          // Using a simpler repeating-linear-gradient here will cause the stripe lines to have inconsistent widths
+          // when rendered by a browser, depending on zoom level. Using this solution from stripesgenerator.com
+          // gives more consistent line widths.
+          background-image: linear-gradient(135deg, #ffffff 40%, @@color-var 40%, @@color-var 50%, #ffffff 50%, #ffffff 90%, @@color-var 90%, @@color-var 100%);
+          background-size: 7.07px 7.07px;
+          border-color: @@color-var;
+        }
+        .barEntries {
+          background-image: radial-gradient(@@color-var 14%, transparent 0),
+          radial-gradient(@@color-var 14%, transparent 0),
+          linear-gradient(to right, white, white);
+          border-color: @@color-var;
+          background-size: 10px 10px, 10px 10px, 100% 100%;
+          background-position: 3px 3px, 8px 8px;
+        }
+        .barProceeded {
+          background-color: @@color-var;
+        }
+      }
+      .generateBarStyles(@n, (@i + 1));
+    }
+    .generateBarStyles(12);
+  }
+}

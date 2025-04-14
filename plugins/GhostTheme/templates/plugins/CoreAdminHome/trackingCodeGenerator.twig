@@ -1,0 +1,72 @@
+{% extends 'admin.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="plugins/CoreAdminHome/stylesheets/jsTrackingGenerator.css" />
+{% endblock %}
+
+{% set title %}{{ 'CoreAdminHome_TrackingCode'|translate }}{% endset %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-content">
+            <h2 vue-entry="CoreHome.EnrichedHeadline"
+                rate="{{ 'CoreAdminHome_TrackingCode'|translate }}">{{ 'CoreAdminHome_TrackingCode'|translate  }}</h2>
+            <p style="padding-left: 0;">{{ 'CoreAdminHome_TrackingCodeIntro'|translate }}</p>
+        </div>
+        <div class="card-action">
+            {{ 'General_GoTo2'|translate }}:
+            <a href="#/javaScriptTracking">{{ 'CoreAdminHome_JavaScriptTracking'|translate  }}</a>
+            <a href="#/imageTracking">{{ 'CoreAdminHome_ImageTracking'|translate }}</a>
+            <a href="#/importServerLogs">{{ 'SitesManager_LogAnalytics'|translate }}</a>
+            <a href="#/mobileAppsAndSdks">{{ 'SitesManager_MobileAppsAndSDKs'|translate }}</a>
+            <a href="#/trackingApi">{{ 'CoreAdminHome_HttpTrackingApi'|translate }}</a>
+            <a href="#/singlePageApplication">{{ 'SitesManager_SiteWithoutDataSinglePageApplication'|translate }}</a>
+            <a href="#/google-tag-manager">{{ 'SitesManager_SiteWithoutDataGoogleTagManager'|translate }}</a>
+            {{ postEvent('Template.endTrackingCodePageTableOfContents') }}
+        </div>
+    </div>
+
+    <input type="hidden" name="numMaxCustomVariables"
+           value="{{ maxCustomVariables }}">
+
+<div
+    vue-entry="CoreAdminHome.JsTrackingCodeGenerator"
+    default-site="{{ defaultSiteDecoded|json_encode }}"
+    max-custom-variables="{{ maxCustomVariables|json_encode }}"
+    server-side-do-not-track-enabled="{{ serverSideDoNotTrackEnabled|json_encode }}"
+></div>
+
+<div
+    vue-entry="CoreAdminHome.ImageTrackingCodeGenerator"
+    default-site="{{ defaultSiteDecoded|json_encode }}"
+></div>
+
+<div vue-entry="CoreHome.ContentBlock" content-title="{{ 'SitesManager_LogAnalytics'|translate }}"
+     anchor="importServerLogs">
+    <p>
+        {{ 'CoreAdminHome_ImportingServerLogsDesc'|raw }}
+    </p>
+</div>
+
+<div vue-entry="CoreHome.ContentBlock" content-title="{{ 'SitesManager_MobileAppsAndSDKs'|translate }}" anchor="mobileAppsAndSdks">
+    <p>{{ 'SitesManager_MobileAppsAndSDKsDescription'|raw }}</p>
+</div>
+
+<div vue-entry="CoreHome.ContentBlock" content-title="{{ 'CoreAdminHome_HttpTrackingApi'|translate }}" anchor="trackingApi">
+    <p>{{ 'CoreAdminHome_HttpTrackingApiDescription'|raw }}</p>
+</div>
+
+<div vue-entry="CoreHome.ContentBlock" content-title="{{ 'SitesManager_SiteWithoutDataSinglePageApplication'|translate }}" anchor="singlePageApplication">
+     <p>{{ 'CoreAdminHome_SinglePageApplicationDescription'|raw }}</p>
+</div>
+
+<div vue-entry="CoreHome.ContentBlock" content-title="{{ 'SitesManager_SiteWithoutDataGoogleTagManager'|translate }}" anchor="google-tag-manager">
+    <p>{{ 'CoreAdminHome_GoogleTagManagerDescription'|raw }}</p>
+</div>
+
+
+{{ postEvent('Template.endTrackingCodePage') }}
+
+{% endblock %}

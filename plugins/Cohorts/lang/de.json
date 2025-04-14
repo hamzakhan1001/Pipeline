@@ -1,0 +1,10 @@
+{
+    "Cohorts": {
+        "VisitorFirstVisitTime": "Akquisitionszeitpunkt",
+        "Cohort": "Kohorte",
+        "Cohorts": "Kohorten",
+        "EvolutionGraph": "Kohortendiagramm",
+        "SelectAMetric": "Metrik für die Anzeige wählen",
+        "ReturningVisitorsPercent": "Wiederkehrene Besucher %%"
+    }
+}

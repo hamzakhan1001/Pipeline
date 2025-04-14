@@ -1,0 +1,16 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+
+<div
+  vue-entry="LoginSaml.Admin"
+  saml-config="{{ samlConfig|default(null)|json_encode }}"
+  identify-field-options="{{ identifyFieldOptions|default(null)|json_encode }}"
+  if-force-saml-not-supported="{{ ifForceSamlNotSupported|default(null)|json_encode }}"
+  current-version="{{ currentVersion|default(null)|json_encode }}"
+  nameidformat-options="{{ nameidformatOptions|default(null)|json_encode }}"
+  requestedauthncontext-options="{{ requestedauthncontextOptions|default(null)|json_encode }}"
+  signaturealgorithm-options="{{ signaturealgorithmOptions|default(null)|json_encode }}"
+  digestalgorithm-options="{{ digestalgorithmOptions|default(null)|json_encode }}"
+></div>
+{% endblock %}

@@ -1,0 +1,1 @@
+Explore the frequently asked questions in the [Matomo knowledge base](https://matomo.org/subcategory/activity-audit-log/).

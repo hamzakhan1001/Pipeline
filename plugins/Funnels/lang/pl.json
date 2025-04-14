@@ -1,0 +1,18 @@
+{
+    "Funnels": {
+        "ColumnProceededRate": "Odsetek przejść",
+        "ErrorArrayMissingKey": "W tablicy \"%2$s\" brak klucza \"%1$s\" na pozycji \"%3$s\".",
+        "ErrorGoalDoesNotExist": "Podany cel nie istnieje dla tego serwisu",
+        "ErrorInnerIsNotAnArray": "Każdy \"%1$s\" w \"%2$s\" musi być tablicą.",
+        "ErrorNotAnArray": "\"%1$s\" musi być tablicą.",
+        "ErrorXNotProvided": "Proszę podać wartość dla \"%1$s\".",
+        "ErrorXNotWhitelisted": "Niedozwolona wartość pola \"%1$s\", spróbuj jednej z: %2$s.",
+        "ErrorXTooLong": "Ciąg \"%1$s\" jest za długi. Dopuszczone są ciągi o długości do %2$s znaków.",
+        "Hits": "Odsłon",
+        "NbProceeded": "przeszło %s",
+        "PatternAttributePath": "Ścieżka",
+        "PatternAttributeURL": "Adres",
+        "Proceeded": "Przeszli",
+        "Unlock": "Odblokuj"
+    }
+}

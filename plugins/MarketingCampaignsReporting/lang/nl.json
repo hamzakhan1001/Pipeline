@@ -1,0 +1,23 @@
+{
+    "MarketingCampaignsReporting": {
+        "CampaignId": "Campagne Id",
+        "CampaignIds": "Campagne ID's",
+        "CombinedKeywordContent": "Sleutelwoord - inhoud",
+        "CombinedSourceMedium": "Bron - Medium",
+        "CombinedSourcesMediums": "Campagne Bron - Medium",
+        "Content": "Campagne inhoud",
+        "Contents": "Campagne Inhoud",
+        "Group": "Campagne groep",
+        "Groups": "Campagne groepen",
+        "Keyword": "Campagne trefwoord",
+        "Keywords": "Campagne Sleutelwoorden",
+        "Medium": "Campagne Medium",
+        "Mediums": "Campagne Media",
+        "Name": "Campagnenaam",
+        "Names": "Campagne Namen",
+        "Placement": "Campagne plaatsing",
+        "Placements": "Campagne plaatsingen",
+        "Source": "Campagne Bron",
+        "Sources": "Campagne Bronnen"
+    }
+}

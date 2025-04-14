@@ -1,0 +1,24 @@
+{
+    "RollUpReporting": {
+        "AllMeasurablesAssigned": "Krejt të matshmit i janë caktuar këtij Agregati. Kur krijoni të matshëm të rinj, do të përfshihen automatikisht në këtë Agregat.",
+        "ErrorCannotAssignRollUpToAnotherRollUp": "S’është e mundur t’i caktohet ID sajti Agregat %1$s këtij Agregati, ngaqë ID sajti Agregat %2$s përfshin tashmë sajtin që po përditësoni aktualisht.",
+        "ErrorNoSiteAssigned": "Duhet caktuar të paktën një sajt pjellë për sajtin Agregat",
+        "FindMeasurables": "Gjeni të matshëm",
+        "FunnelCreationNotPossible": "S’është e mundur të krijohet një hinkë për një sajt Roll-Up",
+        "GoalCreationNotPossible": "S’është e mundur të krijohet një synim për një sajt Agregat",
+        "MatchingSearchConfirmTitle": "Jeni i sigurt se doni të shtohen %s të matshëm që kanë përputhje?",
+        "MatchingSearchConfirmTitleAlreadyAdded": "Janë shtuar tashmë %s të matshëm me përputhje",
+        "MatchingSearchMatchedAdd": "Këta %1$s të matshëm patën përputhje me %2$s dhe do të shtohen te ky agregat",
+        "MatchingSearchMatchedAlreadyAdded": "Këta %1$s të matshëm patën përputhje me %2$s, por janë shtuar tashmë në këtë agregat",
+        "MatchingSearchNotFound": "S’ka të matshëm me përputhje me termin e kërkimit %s.",
+        "NoMeasurableAssignedYet": "S’është caktuar ende ndonjë i matshëm, ju lutemi, përzgjidhni një të matshëm prej përzgjedhësit më sipër.",
+        "PartialAccessNotificationMessage": "Jeni duke parë regjistrin e Vizitave për Agregatin tuaj %1$s, i cili shfaq vetëm të dhëna prej %2$s sajteve ku keni hyrje (nga %3$s sajte gjithsej në këtë Agregat). Nëse do të donit të shihnit të dhëna vizitash për krejt sajtet në këtë Agregat, ju lutemi, kërkojini hyrje një përgjegjësi, ose një Superpërdoruesi. Ju lutemi, të jeni të sigurt se raportet tuaja të tjera në Matomo përfshijnë të dhëna nga krejt sajtet brenda këtij Agregati.",
+        "RollUpMeasurableSettingHelp": "Përkufizoni të matshëm burimi që duhen grumbulluar për këtë të matshëm. Që të shtoni një të matshëm (ose sajt) te ky agregat, përzgjidhni një të matshëm që nga zgjedhësi i të matshëmve. Për të hequr një të matshëm, klikoni mbi ikonën minus në krah të emrit të sajtit. Me këtë sajt duhet lidhur të paktën një i matshëm. Etregtia dhe Kërkim-Në-Sajt do të aktivizohen automatikisht, nëse një nga të matshmit e caktuar ka të aktivizuar etregtinë ose kërkimin në sajt. Kur shtoni ose hiqni të matshëm më vonë, raportet e prodhuar më parë mund të duhet të riprodhohen.",
+        "RollUpMeasurableSettingTitle": "Të matshëm burimi",
+        "RollUpSitePrefixName": "Agregat",
+        "SelectMeasurable": "Përzgjidhni një të matshëm për ta shtuar te ky agregat",
+        "SelectMeasurablesMatchingSearch": "ose shtoni krejt të matshmit që përmbajnë termin vijues të kërkimit",
+        "SystemSettingCreationDateSyncHelp": "Kur aktivizohet, data e krijimit të një Agregati do të caktohet vetvetiu sa data e krijimit të të matshmit burim më të vjetër. Kjo ju lejon të shihni raporte në të kaluarën për një Agregat, pasi e keni krijuar. Nëse keni trafik të lartë dhe arkivimi i këtyre raporteve mund të zgjaste shumë, mund të doni ta çaktivizoni këtë rregullim.",
+        "SystemSettingCreationDateSyncTitle": "Njëkohëso datë krijimi"
+    }
+}

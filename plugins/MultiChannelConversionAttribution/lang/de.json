@@ -1,0 +1,11 @@
+{
+    "MultiChannelConversionAttribution": {
+        "Channel": "Kanal",
+        "Compare": "Vergleichen",
+        "Enabled": "Aktiviert",
+        "ErrorGoalDoesNotExist": "Das angeforderte Ziel existiert nicht für diese Website",
+        "ErrorXNotWhitelisted": "Der Wert für \"%1$s\" ist nicht erlaubt, verwenden Sie einen von diesen: %2$s.",
+        "Linear": "Linear",
+        "MultiChannelConversionAttribution": "Mehrkanal-Conversion-Attribution"
+    }
+}

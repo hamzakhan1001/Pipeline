@@ -1,0 +1,25 @@
+{
+    "name": "BotTracker",
+    "version": "5.2.18",
+    "keywords": [
+        "BotTracker"
+    ],
+    "homepage": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-BotTracker",
+    "description": "Detection of bots & spiders and count their visits without tracking them in the visitor-log.",
+    "license": "GPL v3+",
+    "authors": [
+        {
+            "name": "Mikke Schirén",
+            "email": "mikke.schiren@digitalist.com",
+            "homepage": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-BotTracker"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-BotTracker/issues",
+        "source": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-BotTracker"
+    },
+    "require": {
+        "php": ">=7.2.5",
+        "matomo": ">=5.0.0-stable,<6.0.0-b1"
+    }
+}

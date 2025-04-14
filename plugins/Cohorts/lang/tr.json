@@ -1,0 +1,20 @@
+{
+    "Cohorts": {
+        "Cohort": "Topluluk",
+        "Cohorts": "Topluluklar",
+        "CohortsOverTime": "Zamana göre topluluklar",
+        "CohortsSubcategoryHelp1": "Matomo, bir topluluğu, aynı derleme tarihine (bir kullanıcının sitesini ziyaret etmeye başladığı tarih) sahip kullanıcılar grubu olarak tanımlar. Topluluk incelemesi bölümünde, ziyaretçilerin elde tutulması ve bağlılığını anlamak için farklı toplulukların zaman içindeki davranışları görüntülenip karşılaştırılabilir.",
+        "CohortsSubcategoryHelp2": "Ayrıntılı bilgi almak için topluluklar kullanıcı rehberine bakabilirsiniz.",
+        "ColumnDocumentation1": "Bu sütunda topluluktaki ziyaretçilerin ilk ziyaretinden sonra %1$s %2$s aralığındaki seçilmiş ölçüm değeri görüntülenir.",
+        "ColumnDocumentation2": "Belirli tarih, satır tarafından belirlenen topluluğa göre değişir.",
+        "ColumnDocumentationCohortPeriod": "Bu sütunda topluluk aralığı için ölçüm değeri görüntülenir. Örneğin topluluk ziyaretçilerinin ilk kez görüldüğü aralık gibi.",
+        "EvolutionGraph": "Topluluklar çizelgesi",
+        "GenericMetricTooltip": "%1$s süresince, %3$s topluluktan %2$s var.",
+        "GetCohortsDocumentation": "Bir topluluk belirdikten sonra farklı toplulukların belirli dönemlere göre başarımını görüntüler.",
+        "ReturningVisitorsPercent": "Geri gelen ziyaretçiler %%",
+        "SelectAMetric": "Görüntülenecek bir ölçüm seçin",
+        "VisitorFirstVisitTime": "Derlenme tarihi",
+        "VisitorRetentionTooltip": "%1$s süresince, ilk kez %3$s içinde ziyaret eden ziyaretçilerin %2$s kadarı sitenize geri dönmüş.",
+        "VisitsByPeriodOfFirstVisit": "İlk ziyaret aralığına göre ziyaretler"
+    }
+}

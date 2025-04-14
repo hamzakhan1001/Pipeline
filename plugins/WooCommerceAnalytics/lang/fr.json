@@ -1,0 +1,12 @@
+{
+    "WooCommerceAnalytics": {
+        "DownloadPlugin": "Télécharger le plugin WooCommerce",
+        "InstallActivatePlugin": "Activez le plugin directement après l'installation ou sous \"Extensions\".",
+        "InstallConfigure": "Configurez votre instance Matomo et activez le suivi.",
+        "InstallLoginWordPress": "Connectez-vous à votre WordPress / WooCommerce.",
+        "InstallWordPress": "Installez le plugin téléchargé en allant dans \"Extensions =&gt; Ajoutez nouveau =&gt; Téléversez l'extension\".",
+        "UpdatingPlugin": "Mise à jour du plugin dans WooCommerce",
+        "UpdatingPluginPiwikServer": "Pour que les mises à jour fonctionnent, ce plugin Matomo doit être installé sur l'instance Matomo configurée. Il est également recommandé de mettre à jour ce plugin Matomo, dès qu'une mise à jour est disponible.",
+        "WoocommercePluginDescription": "Enregistre les commandes WooCommerce et les mises à jour du panier dans votre Matomo."
+    }
+}

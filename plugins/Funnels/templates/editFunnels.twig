@@ -1,0 +1,10 @@
+<div
+    vue-entry="Funnels.ManageSiteFunnels"
+    funnels="{{ funnels|json_encode }}"
+    user-can-edit-funnels="{{ userCanEditFunnels|json_encode }}"
+    site-id="{{ idSite }}"
+    site-name="{{ siteName }}"
+    is-add-new-view="{{ isAddNewView|default(false)|json_encode }}"
+    funnel-id="{{ idFunnel }}"
+    goals="{{ goals|default([])|json_encode|e('html_attr') }}"
+></div>

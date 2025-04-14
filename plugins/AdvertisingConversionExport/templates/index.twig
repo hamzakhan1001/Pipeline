@@ -1,0 +1,28 @@
+{% extends 'admin.twig' %}
+
+{% set title %}{{ 'AdvertisingConversionExport_ManageExports'|translate }}{% endset %}
+
+{% block topcontrols %}
+    <div class="top_bar_sites_selector piwikTopControl">
+        <div
+            vue-entry="CoreHome.SiteSelector"
+            show-selected-site="true"
+            show-all-sites-item="false"
+            class="sites_autocomplete"
+        ></div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+<div
+    class="conversionExports"
+    vue-entry="AdvertisingConversionExport.ConversionExportManage"
+    export-types="{{ exportTypes|json_encode }}"
+    already-created-export-types="{{ alreadyCreatedExportTypes|json_encode }}"
+    click-id-providers="{{ clickIdProviders|json_encode }}"
+    attribution-models="{{ attributionModels|json_encode }}"
+    has-write-access="{{ (hasWriteAccess == 1)|json_encode }}"
+></div>
+
+{% endblock %}

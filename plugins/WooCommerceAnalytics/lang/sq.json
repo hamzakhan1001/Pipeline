@@ -1,0 +1,16 @@
+{
+    "WooCommerceAnalytics": {
+        "DownloadPlugin": "Shkarkoni shtojcën WooCommerce",
+        "InstallActivatePlugin": "Aktivizojeni shtojcën fill pas instalimit, ose nën “Shtojca”.",
+        "InstallConfigure": "Formësoni instancën tuaj Matomo dhe aktivizoni ndjekjen.",
+        "InstallDownload2": "Shkarkoni më poshtë shtojën “Analiza %1$s për WooCommerce”.",
+        "InstallGoSettings2": "Kaloni te “WooCommerce =&gt; Rregullime =&gt; %1$s”.",
+        "InstallLoginWordPress": "Bëni hyrjen te WordPress / WooCommerce-i juaj.",
+        "InstallWordPress": "Instalojeni shtojcën e shkarkuar duke kaluar te “Shtojca =&gt; Shtoni të Re =&gt; Ngarkoni Shtojcë”.",
+        "UpdatingPlugin": "Përditësimi i shtojcës në WooCommerce",
+        "UpdatingPluginConfigured2": "Sapo të keni formësuar “URL %1$s” nën “WooCommerce =&gt; Rregullime =&gt; %1$s”, shtojca WooCommerce do të fillojë të kontrollojë vetvetiu për përditësime dhe do të jeni në gjendje të përditësoni këtë shtojcë me vetëm një klikim në WordPress.",
+        "UpdatingPluginPiwikServer": "Që të funksionojnë përditësimet, kjo shtojcë Matomo lypset të instalohet në një instancë të formësuar Matomo. Rekomandohet gjithashtu përditësimi i kësaj shtojce Matomo, kurdo që të ketë gati një përditësim.",
+        "WoocommerceIntegration": "Integrim me WooCommerce",
+        "WoocommercePluginDescription": "Ndjek porosi dhe përditësime shportash WooCommerce në instancën tuaj Matomo."
+    }
+}

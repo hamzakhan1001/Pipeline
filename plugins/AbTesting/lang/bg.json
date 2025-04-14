@@ -1,0 +1,8 @@
+{
+    "AbTesting": {
+        "AbTesting": "A/B тестване",
+        "NExperiments": "%s A/B тестове",
+        "PluginDescription": "Плъгин за A/B тестване",
+        "Status": "Статус"
+    }
+}

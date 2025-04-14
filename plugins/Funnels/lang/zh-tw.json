@@ -1,0 +1,15 @@
+{
+    "Funnels": {
+        "ErrorNotAnArray": "「%1$s」必須是陣列。",
+        "ErrorXNotProvided": "請輸入「%1$s」的值。",
+        "ErrorInnerIsNotAnArray": "「%2$s」中的每個「%1$s」必須是陣列。",
+        "ErrorArrayMissingKey": "陣列 %2$s 中位置 %3$s 的鍵「%1$s」遺失。",
+        "ErrorXTooLong": "「%1$s」過長，最多允許 %2$s 個字元。",
+        "ErrorXNotWhitelisted": "「%1$s」的值不被允許，使用以下其一：%2$s。",
+        "PatternAttributeURL": "網址",
+        "PatternAttributePath": "路徑",
+        "Proceeded": "通過",
+        "NbProceeded": "%s 次通過",
+        "ColumnProceededRate": "通過率"
+    }
+}
