@@ -49,16 +49,16 @@ jobs:
 
           # Replace image URL in task definition
           NEW_TASK_DEF=$(echo $TASK_DEF_JSON | jq --arg IMAGE "$ECR_REPOSITORY:$IMAGE_TAG" '
-            .taskDefinition |
-            {
-              family: .family,
-              executionRoleArn: .executionRoleArn,
-              networkMode: .networkMode,
-              containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE | .cpu = (.cpu) | .memory = (.memory) else . end)),
-              requiresCompatibilities: .requiresCompatibilities,
-              cpu: .cpu,
-              memory: .memory
-            }
+          .taskDefinition |
+          {
+          family: .family,
+          executionRoleArn: .executionRoleArn,
+          networkMode: .networkMode,
+          containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE else . end)),
+          requiresCompatibilities: .requiresCompatibilities,
+          cpu: .cpu,
+          memory: .memory
+          }
           ')
 
           echo "$NEW_TASK_DEF" > new-task-def.json
