@@ -9,8 +9,23 @@ fi
 
 plugins=("AbTesting" "ActivityLog"  "Cohorts" "CrashAnalytics" "CustomReports" "Funnels" "LoginSaml" "MediaAnalytics" "MultiChannelConversionAttribution" "RollUpReporting" "SEOWebVitals" "SearchEngineKeywordsPerformance" "UsersFlow" "WhiteLabel")
 db_file="/var/www/html/plugins/GhostBrand/files/initial_db.sql"
+db_host="matomo.cyabb6bvejrw.us-east-1.rds.amazonaws.com"
+db_user="admin"
+db_pass="admin1234"
+db_name="$MATOMO_DATABASE_DBNAME"
+
+# Check if database has any tables
+table_count=$(mysql -h "$db_host" -u "$db_user" -p"$db_pass" -D "$db_name" -sse "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$db_name';")
+
+if [ "$table_count" -gt 0 ]; then
+    echo "Database '$db_name' already contains tables ($table_count). Skipping import."
+    exit 0
+fi
+
+# If no tables, proceed with import
 if [ -f "$db_file" ]; then
-    mysql -h matomo.cyabb6bvejrw.us-east-1.rds.amazonaws.com -u admin -p"admin1234" "$MATOMO_DATABASE_DBNAME" < "$db_file"
+    echo "No tables found in '$db_name'. Importing database from $db_file..."
+    mysql -h "$db_host" -u "$db_user" -p"$db_pass" "$db_name" < "$db_file"
     if [ $? -eq 0 ]; then
         echo "Database imported successfully."
     else
