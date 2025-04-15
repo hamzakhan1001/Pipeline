@@ -55,9 +55,7 @@ jobs:
           executionRoleArn: .executionRoleArn,
           networkMode: .networkMode,
           containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE else . end)),
-          requiresCompatibilities: .requiresCompatibilities,
-          cpu: "0",
-          memory: "922"
+          requiresCompatibilities: .requiresCompatibilities
           }
           ')
 
