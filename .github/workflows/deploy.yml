@@ -66,19 +66,6 @@ jobs:
 
           echo "New task definition registered: $NEW_TASK_DEF_ARN"
 
-          # Stop all running tasks for the service
-          echo "Stopping running tasks for service $SERVICE_NAME..."
-          TASK_ARN_LIST=$(aws ecs list-tasks --cluster $ECS_CLUSTER --service-name $SERVICE_NAME --query 'taskArns' --output text)
-
-          if [ -n "$TASK_ARN_LIST" ]; then
-            for task_arn in $TASK_ARN_LIST; do
-              echo "Stopping task: $task_arn"
-              aws ecs stop-task --cluster $ECS_CLUSTER --task $task_arn
-            done
-          else
-            echo "No running tasks found."
-          fi
-
           # Update service with new task definition
           echo "Updating service to use new task definition..."
           aws ecs update-service \
