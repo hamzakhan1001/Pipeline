@@ -1,82 +1,3 @@
-# name: Build and Deploy Ghost Cloud latest code to all clients
-
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-
-#     env:
-#       AWS_REGION: ${{ secrets.AWS_REGION }}
-#       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-#       IMAGE_TAG: ${{ github.sha }}
-#       ECS_CLUSTER: matomo
-#       CLIENTS: client1 client2 client3
-
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v3
-
-#     - name: Configure AWS credentials
-#       uses: aws-actions/configure-aws-credentials@v2
-#       with:
-#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#         aws-region: ${{ secrets.AWS_REGION }}
-
-#     - name: Install jq
-#       run: sudo apt-get install jq
-
-#     - name: Login to Amazon ECR
-#       uses: aws-actions/amazon-ecr-login@v2
-
-#     - name: Build and Push Docker Image
-#       run: |
-#         docker build -t matomo:$IMAGE_TAG .
-#         docker tag matomo:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG
-#         docker push $ECR_REPOSITORY:$IMAGE_TAG
-
-#     - name: Update ECS Services for All Clients
-#       run: |
-#         for CLIENT in $CLIENTS; do
-#           echo "Updating ECS Service for $CLIENT..."
-
-#           TASK_DEF_NAME="${CLIENT}-task"
-#           SERVICE_NAME="${CLIENT}-service"
-
-#           # Get existing task definition
-#           TASK_DEF_JSON=$(aws ecs describe-task-definition --task-definition $TASK_DEF_NAME)
-#           NEW_TASK_DEF=$(echo $TASK_DEF_JSON | jq --arg IMAGE "$ECR_REPOSITORY:$IMAGE_TAG" '
-#             .taskDefinition |
-#             {
-#               family: .family,
-#               executionRoleArn: .executionRoleArn,
-#               networkMode: .networkMode,
-#               containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE else . end)),
-#               requiresCompatibilities: .requiresCompatibilities,
-#               cpu: .cpu,
-#               memory: .memory
-#             }
-#           ')
-
-#           echo "$NEW_TASK_DEF" > ${CLIENT}-new-task-def.json
-#           aws ecs register-task-definition --cli-input-json file://${CLIENT}-new-task-def.json
-
-#           # Get new revision
-#           REVISION=$(aws ecs describe-task-definition --task-definition $TASK_DEF_NAME --query 'taskDefinition.revision' --output text)
-
-#           # Update service
-#           aws ecs update-service \
-#             --cluster $ECS_CLUSTER \
-#             --service $SERVICE_NAME \
-#             --task-definition "${TASK_DEF_NAME}:${REVISION}"
-
-#           echo "$CLIENT updated successfully."
-#         done
-#-------------------------------------------------------------------------------
 name: Build and Deploy Ghost Cloud latest code
 
 on:
@@ -87,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: My-Environment
 
     env:
       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
