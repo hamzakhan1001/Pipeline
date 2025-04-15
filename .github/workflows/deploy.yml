@@ -56,8 +56,8 @@ jobs:
           networkMode: .networkMode,
           containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE else . end)),
           requiresCompatibilities: .requiresCompatibilities,
-          cpu: .cpu,
-          memory: .memory
+          cpu: "0",
+          memory: "922"
           }
           ')
 
