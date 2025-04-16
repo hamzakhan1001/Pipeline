@@ -55,8 +55,9 @@ jobs:
             family: .family,
             executionRoleArn: .executionRoleArn,
             networkMode: .networkMode,
-            containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE | .cpu = 0 | .memory = 922 else . end)),
-            requiresCompatibilities: .requiresCompatibilities
+            containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE | .cpu = 0 else . end)),
+            requiresCompatibilities: .requiresCompatibilities,
+             memory: "922"
           }')
 
           echo "$NEW_TASK_DEF" > new-task-def.json
