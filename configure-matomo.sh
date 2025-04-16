@@ -113,7 +113,7 @@ cd /var/www/html
 mv Dockerfile configure-matomo.sh default index.nginx-debian.html nginx.conf ../custom-code
 echo "Custom code moved to another folder to maintain Matomo integrity."
 
-echo "Ghost configuration completed Successfully."
+echo "Ghost Cloud configuration completed Successfully."
 #./console core:update
 # Activate the TagManager plugin so it can create a container
 # ./console plugin:activate TagManager TagManagerExtended
