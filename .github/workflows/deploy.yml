@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: macos-latest   
     environment: My-Environment
 
     env:
@@ -28,18 +28,21 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Install jq
-        run: sudo apt-get install -y jq
+      - name: Check Docker Version
+        run: docker --version   # <- confirms what Docker version is on the runner
 
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
+      # - name: Install jq
+      #   run: brew install jq    # <- macOS uses Homebrew instead of apt-get
 
-      - name: Build and Push Docker Image
-        run: |
-          echo "docker -v"
-      #     docker build -t pipeline .  
-      #     docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
-      #     docker push $ECR_REPOSITORY:$IMAGE_TAG 
+      # - name: Login to Amazon ECR
+      #   uses: aws-actions/amazon-ecr-login@v2
+
+      # - name: Build and Push Docker Image
+      #   run: |
+      #     docker --version   # sanity check Docker version again here if needed
+      #     docker build -t pipeline .
+      #     docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG
+      #     docker push $ECR_REPOSITORY:$IMAGE_TAG
 
       # - name: Update ECS Service for myclient-service
       #   run: |
