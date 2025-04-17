@@ -37,11 +37,15 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # Ensure necessary directories exist
-RUN mkdir -p /var/www/html/storage
+RUN mkdir -p /var/www/html/storage /var/www/html/tmp/templates_c /var/www/html/tmp/cache /var/www/html/tmp/sessions
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/html/ \
-    && chmod -R 775 /var/www/html/storage/ 
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage/ \
+    && chmod -R 775 /var/www/html/tmp/ \
+    && chmod -R 775 /var/www/html/tmp/templates_c/ \
+    && chmod -R 775 /var/www/html/tmp/cache/ \
+    && chmod -R 775 /var/www/html/tmp/sessions/
 
 # Copy the database configuration script
 COPY configure-matomo.sh /usr/local/bin/configure-matomo.sh
