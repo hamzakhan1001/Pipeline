@@ -53,6 +53,7 @@ fi
 
 # Run core update
 cd /var/www/html/
+chmod +x console
 ./console core:update --yes
 if [ $? -eq 0 ]; then
     echo "Matomo core updated successfully."
