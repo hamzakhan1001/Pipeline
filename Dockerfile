@@ -45,7 +45,6 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/tmp/ \
     && chmod -R 775 /var/www/html/tmp/templates_c/ \
     && chmod -R 775 /var/www/html/tmp/cache/ \
-    && chmod -R 775 /var/www/html/tmp/climulti/ \
     && chmod -R 775 /var/www/html/tmp/sessions/
 
 # Copy the database configuration script
