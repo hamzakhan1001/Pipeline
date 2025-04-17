@@ -36,7 +36,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          echo "docker -v"
+         docker -v
       #     docker build -t pipeline .  
       #     docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
       #     docker push $ECR_REPOSITORY:$IMAGE_TAG 
