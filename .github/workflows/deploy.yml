@@ -31,7 +31,7 @@ jobs:
       - name: Install jq
         run: sudo apt-get install -y jq
 
-      - name: Install Docker 24
+      - name: Install Docker 24.0.7
         run: |
           # Remove any old Docker versions
           sudo apt-get remove -y docker docker-engine docker.io containerd runc
@@ -51,10 +51,10 @@ jobs:
           # Set up the stable repository
           echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-          # Install Docker 24
-          sudo apt-get update
-          sudo apt-get install -y docker-ce=5:24.0.0~3-0~ubuntu-$(lsb_release -cs)
-
+          # Install Docker 24.0.7 by downloading the version directly
+          curl -fsSL https://download.docker.com/linux/ubuntu/dists/$(lsb_release -cs)/stable/binary-amd64/Packages -o docker-packages
+          sudo dpkg -i docker-packages
+          
           # Verify Docker version
           docker --version
 
