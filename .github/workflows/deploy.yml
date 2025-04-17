@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     environment: My-Environment
 
     env:
@@ -30,6 +30,17 @@ jobs:
 
       - name: Install jq
         run: sudo apt-get install -y jq
+
+      - name: Install Docker (latest version)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            software-properties-common
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sudo sh get-docker.sh
 
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
