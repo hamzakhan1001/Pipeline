@@ -92,3 +92,4 @@ jobs:
       #       --service $SERVICE_NAME \
       #       --task-definition "$NEW_TASK_DEF_ARN"
       #     echo "$SERVICE_NAME updated successfully."
+      
