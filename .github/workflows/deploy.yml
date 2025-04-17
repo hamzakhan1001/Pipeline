@@ -51,10 +51,13 @@ jobs:
           # Set up the stable repository
           echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-          # Install Docker 24.0.7 by downloading the version directly
-          curl -fsSL https://download.docker.com/linux/ubuntu/dists/$(lsb_release -cs)/stable/binary-amd64/Packages -o docker-packages
-          sudo dpkg -i docker-packages
-          
+          # Download and install Docker 24.0.7 directly
+          curl -fsSL https://download.docker.com/linux/ubuntu/dists/$(lsb_release -cs)/stable/binary-amd64/docker-ce_24.0.7~3-0~ubuntu-$(lsb_release -cs)_amd64.deb -o docker-ce_24.0.7.deb
+          sudo dpkg -i docker-ce_24.0.7.deb
+
+          # Clean up the downloaded .deb file
+          rm docker-ce_24.0.7.deb
+
           # Verify Docker version
           docker --version
 
@@ -92,4 +95,3 @@ jobs:
       #       --service $SERVICE_NAME \
       #       --task-definition "$NEW_TASK_DEF_ARN"
       #     echo "$SERVICE_NAME updated successfully."
-      
