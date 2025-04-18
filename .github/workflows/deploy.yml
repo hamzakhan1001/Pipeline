@@ -12,7 +12,7 @@ jobs:
 
     env:
       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-      IMAGE_TAG: latest 
+      IMAGE_TAG: CI/CD 
       ECS_CLUSTER: matomo
       TASK_DEF_NAME: myclient
       SERVICE_NAME: myclient-service
@@ -41,38 +41,38 @@ jobs:
           docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
           docker push $ECR_REPOSITORY:$IMAGE_TAG 
 
-      - name: Update ECS Service for myclient-service
-        run: |
-          set -e
-          echo "Updating ECS Service: $SERVICE_NAME..."
+      # - name: Update ECS Service for myclient-service
+      #   run: |
+      #     set -e
+      #     echo "Updating ECS Service: $SERVICE_NAME..."
 
-          # Get current task definition
-          TASK_DEF_JSON=$(aws ecs describe-task-definition --task-definition $TASK_DEF_NAME)
+      #     # Get current task definition
+      #     TASK_DEF_JSON=$(aws ecs describe-task-definition --task-definition $TASK_DEF_NAME)
 
-          # Replace image URL in task definition
-          NEW_TASK_DEF=$(echo $TASK_DEF_JSON | jq --arg IMAGE "$ECR_REPOSITORY:$IMAGE_TAG" '
-          .taskDefinition |
-          {
-            family: .family,
-            executionRoleArn: .executionRoleArn,
-            networkMode: .networkMode,
-            containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE | .cpu = 0 else . end)),
-            requiresCompatibilities: .requiresCompatibilities,
-             memory: "922"
-          }')
+      #     # Replace image URL in task definition
+      #     NEW_TASK_DEF=$(echo $TASK_DEF_JSON | jq --arg IMAGE "$ECR_REPOSITORY:$IMAGE_TAG" '
+      #     .taskDefinition |
+      #     {
+      #       family: .family,
+      #       executionRoleArn: .executionRoleArn,
+      #       networkMode: .networkMode,
+      #       containerDefinitions: (.containerDefinitions | map(if .name == "matomo" then .image = $IMAGE | .cpu = 0 else . end)),
+      #       requiresCompatibilities: .requiresCompatibilities,
+      #        memory: "922"
+      #     }')
 
-          echo "$NEW_TASK_DEF" > new-task-def.json
+      #     echo "$NEW_TASK_DEF" > new-task-def.json
 
-          # Register new task definition
-          NEW_TASK_DEF_ARN=$(aws ecs register-task-definition --cli-input-json file://new-task-def.json --query 'taskDefinition.taskDefinitionArn' --output text)
+      #     # Register new task definition
+      #     NEW_TASK_DEF_ARN=$(aws ecs register-task-definition --cli-input-json file://new-task-def.json --query 'taskDefinition.taskDefinitionArn' --output text)
 
-          echo "New task definition registered: $NEW_TASK_DEF_ARN"
+      #     echo "New task definition registered: $NEW_TASK_DEF_ARN"
 
-          # Update service with new task definition
-          echo "Updating service to use new task definition..."
-          aws ecs update-service \
-            --cluster $ECS_CLUSTER \
-            --service $SERVICE_NAME \
-            --task-definition "$NEW_TASK_DEF_ARN"
+      #     # Update service with new task definition
+      #     echo "Updating service to use new task definition..."
+      #     aws ecs update-service \
+      #       --cluster $ECS_CLUSTER \
+      #       --service $SERVICE_NAME \
+      #       --task-definition "$NEW_TASK_DEF_ARN"
 
-          echo "$SERVICE_NAME updated successfully."
+      #     echo "$SERVICE_NAME updated successfully."
