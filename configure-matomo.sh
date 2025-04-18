@@ -107,8 +107,11 @@ else
     exit 1
 fi
 
-echo "Setting Files Correct Ownership."
-chown -R www-data:www-data /var/www/html/tmp/templates_c/
+# Add cron job directly for fixing permissions
+touch /var/log/permission.log
+touch /etc/cron.d/fix-permissions
+chmod 0644 /etc/cron.d/fix-permissions
+echo "* * * * * root chown -R www-data:www-data /var/www/html/tmp && chmod -R 775 /var/www/html/tmp && chmod a+w /var/www/html/tmp/climulti /var/www/html/tmp/latest /var/www/html/tmp/cache /var/www/html/tmp/logs /var/www/html/tmp/sessions /var/www/html/tmp/tcpdf /var/www/html/tmp/templates_c && echo \"\$(date) - Ownership and permissions updated successfully.\" >> /var/log/permission.log" > /etc/cron.d/fix-permissions
 
 cd /var/www
 mkdir -p custom-code
