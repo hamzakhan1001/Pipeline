@@ -56,3 +56,16 @@ jobs:
           # Verify installation
           docker --version
           docker info
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and Push Docker Image
+        run: |
+          echo "docker -v"
+          docker build -t pipeline .  
+          docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
+          docker push $ECR_REPOSITORY:$IMAGE_TAG 
