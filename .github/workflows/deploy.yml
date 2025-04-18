@@ -50,19 +50,19 @@ jobs:
 
           # Install Docker
           sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-
+          apt-cache madison docker-ce
           docker --version
 
       - name: Install jq
         run: sudo apt-get install -y jq
 
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
+      # - name: Login to Amazon ECR
+      #   uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and Push Docker Image
-        run: |
-          echo "Docker version check:"
-          docker -v
-          docker build -t pipeline:$IMAGE_TAG . 
-          docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
-          docker push $ECR_REPOSITORY:$IMAGE_TAG
+      # - name: Build and Push Docker Image
+      #   run: |
+      #     echo "Docker version check:"
+      #     docker -v
+      #     docker build -t pipeline:$IMAGE_TAG . 
+      #     docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
+      #     docker push $ECR_REPOSITORY:$IMAGE_TAG
