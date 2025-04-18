@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     environment: My-Environment
 
     env:
@@ -28,6 +28,28 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Install dependencies and Docker 24.0.6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            gnupg \
+            lsb-release
+
+          curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+          echo \
+            "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+            https://download.docker.com/linux/debian \
+            $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+          sudo apt-get update
+          sudo apt-get install -y docker-ce=5:24.0.6-1debian.12bookworm docker-ce-cli=5:24.0.6-1debian.12bookworm containerd.io
+
+          docker --version
+
       - name: Install jq
         run: sudo apt-get install -y jq
 
@@ -36,7 +58,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          echo "docker -v"
+          echo "Docker version check:"
+          docker -v
           docker build -t pipeline:$IMAGE_TAG . 
           docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
           docker push $ECR_REPOSITORY:$IMAGE_TAG 
