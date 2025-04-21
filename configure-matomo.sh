@@ -38,6 +38,7 @@ echo "Database name updated successfully in config.ini.php."
 # read -p "Enter your choices: " -a selected_plugins
 
 cd /var/www/html/
+chmod +x /var/www/html/console
 ./console core:update --yes
 if [ $? -eq 0 ]; then
     echo "Matomo core updated successfully."
