@@ -42,7 +42,7 @@ php_errors.log
 /Vagrantfile
 /misc/vagrant
 /.vagrant
-/config/config.ini.php
+# /config/config.ini.php
 /plugins/.gitignore
 /js/container*.js
 /.docker
