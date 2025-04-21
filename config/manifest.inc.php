@@ -225,7 +225,7 @@ class Manifest {
 		"core/Db/AdapterInterface.php" => array("1443", "0d24222648d4487cc5a00b00a0ae1af8e6819c5cf5c7656318b2446742267254"),
 		"core/Db/BatchInsert.php" => array("11731", "a98220b6c34c99da63f392de203703063a2a54c2da5e76538a492ed18c31c72f"),
 		"core/Db/Schema.php" => array("8084", "029a65e39c7c28f765863dea78e2a34bf7f6770ab2422b6155efaf9d2e3b8112"),
-		"core/Db/Schema/Mariadb.php" => array("1358", "bac5d2d24be77e8b87697e2c483a53be8651b4ad1310ed5b0c5b4c63a7a2297f"),
+		"core/Db/Schema/Mariadb.php" => array("1389", "bac5d2d24be77e8b87697e2c483a53be8651b4ad1310ed5b0c5b4c63a7a2297f"),
 		"core/Db/Schema/Mysql.php" => array("35683", "6d8c02dfbb4464a7c08fa133351e83d4f04c428486863f624ad8a4698bfb6b93"),
 		"core/Db/Schema/Tidb.php" => array("2258", "65dd448054a3d41cf5ab201e41c819240e4251d0c8d8118b3daa92d7d56b59fe"),
 		"core/Db/SchemaInterface.php" => array("5119", "6ec75768165e796238f4df66c2a7dba7d0a099304cbdb4b4e143bcf3358e702a"),

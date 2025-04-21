@@ -3,7 +3,7 @@
 ; This common.config.ini.php file is read right before config.ini.php
 
 [General]
-force_ssl = 1
+force_ssl = 0
 always_load_commands_from_plugin=ExtraTools
 noreply_email_address = "noreply@ghostmetrics.cloud"
 noreply_email_name = "Ghost Metrics"
