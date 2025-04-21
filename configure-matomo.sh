@@ -93,6 +93,13 @@ else
     exit 1
 fi
 
+#Permissions Update
+mkdir -p /var/www/html/tmp/cache/tracker/
+chown -R www-data:www-data /var/www/html/tmp/
+chmod -R 0755 /var/www/html/tmp/
+rm -rf /var/www/html/tmp/cache/*
+chown -R www-data:www-data /var/www/html/tmp/
+
 cd /var/www
 mkdir -p custom-code
 cd /var/www/html
