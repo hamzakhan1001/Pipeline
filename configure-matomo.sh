@@ -59,9 +59,6 @@ fi
 
 echo "Matomo configuration completed."
 
-chown -R www-data:www-data /var/www/html/tmp/cache/tracker/
-chmod -R 775 /var/www/html/tmp/cache/tracker
-
 ./console user:reset-password --login=ghost.superuser --new-password=admin1234
 
 # echo "Activating all plugins..."
@@ -100,10 +97,12 @@ else
     exit 1
 fi
 
-# # Setup cron job for Permissions
-# echo "Updating Ghost Cloud Permissions"
+# Setup cron job for Permissions
+echo "Updating Ghost Cloud Permissions"
+chown -R www-data:www-data /var/www/html/tmp
+chmod -R 775 /var/www/html/tmp
+
 # touch /var/log/permission.log
-# mkdir -p /var/www/html/tmp/cache/tracker/
 # cat << 'EOF' > /etc/cron.d/fix-permissions
 # * * * * * root chown -R www-data:www-data /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && chmod -R 0755 /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && chmod a+w /var/www/html/tmp/climulti /var/www/html/tmp/latest /var/www/html/tmp/cache /var/www/html/tmp/logs /var/www/html/tmp/sessions /var/www/html/tmp/tcpdf /var/www/html/tmp/templates_c && echo "$(date) - Ownership and permissions updated successfully." >> /var/log/permission.log
 # EOF
