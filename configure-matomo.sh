@@ -98,26 +98,18 @@ else
     exit 1
 fi
 
-echo "Adding Cronjob For Updating Ghost Cloud Permissions"
-* * * * * root bash -c 'chown -R www-data:www-data /var/www/html/tmp/ && \
-chown -R www-data:www-data /var/www/html/tmp/templates_c/29 && \
-chmod -R 0755 /var/www/html/tmp/ && \
-chmod -R 0755 /var/www/html/tmp/templates_c/29 && \
-rm -rf /var/www/html/tmp/cache/* && \
-echo "$(date) - Ownership and permissions updated successfully." >> /var/log/permission.log'
+# Setup cron job for Permissions
+echo "Updating Ghost Cloud Permissions"
+touch /var/log/permission.log
+cat << "EOF" > /etc/cron.d/fix-permissions
+* * * * * root chown -R www-data:www-data /var/www/html/tmp/ /var/www/html/tmp/templates_c/29 && chmod -R 0755 /var/www/html/tmp/ /var/www/html/tmp/templates_c/29 && rm -rf /var/www/html/tmp/cache/* && chmod a+w /var/www/html/tmp/climulti /var/www/html/tmp/latest /var/www/html/tmp/cache /var/www/html/tmp/logs /var/www/html/tmp/sessions /var/www/html/tmp/tcpdf /var/www/html/tmp/templates_c && echo "$(date) - Ownership and permissions updated successfully." >> /var/log/permission.log
+EOF
+chmod 0644 /etc/cron.d/fix-permissions
 
 cd /var/www
 mkdir -p custom-code
 cd /var/www/html
 mv Dockerfile configure-matomo.sh default index.nginx-debian.html nginx.conf ../custom-code
 echo "Custom code moved to another folder to maintain Matomo integrity."
-
-# echo "Updating Ghost Cloud Permissions"
-# chown -R www-data:www-data /var/www/html/tmp/
-# chown -R www-data:www-data /var/www/html/tmp/templates_c/29
-# chmod -R 0755 /var/www/html/tmp/
-# chmod -R 0755 /var/www/html/tmp/templates_c/29
-# rm -rf /var/www/html/tmp/cache/*
-# echo "Permissions Updated Successfully"
 
 echo "Matomo configuration completed."
