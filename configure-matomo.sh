@@ -102,8 +102,8 @@ fi
 echo "Updating Ghost Cloud Permissions"
 touch /var/log/permission.log
 mkdir -p /var/www/html/tmp/cache/tracker/
-cat << "EOF" > /etc/cron.d/fix-permissions
-* * * * * root chown -R www-data:www-data /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && chmod -R 0755 /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && rm -rf /var/www/html/tmp/cache/* && chmod a+w /var/www/html/tmp/climulti /var/www/html/tmp/latest /var/www/html/tmp/cache /var/www/html/tmp/logs /var/www/html/tmp/sessions /var/www/html/tmp/tcpdf /var/www/html/tmp/templates_c && echo "$(date) - Ownership and permissions updated successfully." >> /var/log/permission.log
+cat << 'EOF' > /etc/cron.d/fix-permissions
+* * * * * root chown -R www-data:www-data /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && chmod -R 0755 /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && chmod a+w /var/www/html/tmp/climulti /var/www/html/tmp/latest /var/www/html/tmp/cache /var/www/html/tmp/logs /var/www/html/tmp/sessions /var/www/html/tmp/tcpdf /var/www/html/tmp/templates_c && echo "$(date) - Ownership and permissions updated successfully." >> /var/log/permission.log
 EOF
 chmod 0644 /etc/cron.d/fix-permissions
 

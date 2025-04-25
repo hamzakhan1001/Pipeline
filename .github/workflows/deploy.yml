@@ -1,71 +1,71 @@
-name: Build and Deploy Ghost Cloud latest code
+# name: Build and Deploy Ghost Cloud latest code
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: My-Environment
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     environment: My-Environment
 
-    env:
-      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-      IMAGE_TAG: github-actions-pipeline
-      ECS_CLUSTER: matomo
-      TASK_DEF_NAME: myclient
-      SERVICE_NAME: myclient-service
+#     env:
+#       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+#       IMAGE_TAG: github-actions-pipeline
+#       ECS_CLUSTER: matomo
+#       TASK_DEF_NAME: myclient
+#       SERVICE_NAME: myclient-service
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v2
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-1
 
-      - name: Install dependencies and Docker 24.0.7
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            apt-transport-https \
-            ca-certificates \
-            curl \
-            gnupg \
-            lsb-release
+#       - name: Install dependencies and Docker 24.0.7
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install -y \
+#             apt-transport-https \
+#             ca-certificates \
+#             curl \
+#             gnupg \
+#             lsb-release
 
-          # Remove old Docker version if installed
-          sudo apt-get remove -y docker docker-engine docker.io containerd runc
+#           # Remove old Docker version if installed
+#           sudo apt-get remove -y docker docker-engine docker.io containerd runc
 
-          # Download Docker 24.0.7 tarball
-          curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-24.0.7.tgz -o docker-24.0.7.tgz
+#           # Download Docker 24.0.7 tarball
+#           curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-24.0.7.tgz -o docker-24.0.7.tgz
 
-          # Extract Docker tarball
-          tar xzvf docker-24.0.7.tgz
+#           # Extract Docker tarball
+#           tar xzvf docker-24.0.7.tgz
 
-          # Move Docker binaries to /usr/local/bin
-          sudo mv docker/* /usr/local/bin/
+#           # Move Docker binaries to /usr/local/bin
+#           sudo mv docker/* /usr/local/bin/
 
-          # Clean up tarball
-          rm -rf docker docker-24.0.7.tgz
+#           # Clean up tarball
+#           rm -rf docker docker-24.0.7.tgz
 
-          # Verify installation
-          docker --version
-          docker info
+#           # Verify installation
+#           docker --version
+#           docker info
 
-      - name: Install jq
-        run: sudo apt-get install -y jq
+#       - name: Install jq
+#         run: sudo apt-get install -y jq
 
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
+#       - name: Login to Amazon ECR
+#         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t pipeline:$IMAGE_TAG .  
-          docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
-          docker push $ECR_REPOSITORY:$IMAGE_TAG 
-          docker --version
+#       - name: Build and Push Docker Image
+#         run: |
+#           docker build -t pipeline:$IMAGE_TAG .  
+#           docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
+#           docker push $ECR_REPOSITORY:$IMAGE_TAG 
+#           docker --version
