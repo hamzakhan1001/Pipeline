@@ -18,7 +18,7 @@ db_name="$MATOMO_DATABASE_DBNAME"
 table_count=$(mysql -h "$db_host" -u "$db_user" -p"$db_pass" -D "$db_name" -sse "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$db_name';")
 
 if [ "$table_count" -gt 0 ]; then
-    echo "Database '$db_name' already contains $table_count tables. Skipping import."
+    echo "Database '$db_name' already contains $table_count tables. Skipping import and config update."
 else
     # If no tables, proceed with import
     if [ -f "$db_file" ]; then
@@ -26,6 +26,18 @@ else
         mysql -h "$db_host" -u "$db_user" -p"$db_pass" "$db_name" < "$db_file"
         if [ $? -eq 0 ]; then
             echo "Database imported successfully."
+
+            # Update database name in config.ini.php **only now after successful import**
+            config_file="/var/www/html/config/config.ini.php"
+
+            if grep -q "^dbname" "$config_file"; then
+                sed -i "s/^dbname.*/dbname = \"$MATOMO_DATABASE_DBNAME\"/" "$config_file"
+            else
+                sed -i "/^\[database\]/a dbname = \"$MATOMO_DATABASE_DBNAME\"" "$config_file"
+            fi
+
+            echo "Database name updated successfully in config.ini.php."
+
         else
             echo "Failed to import database."
             exit 1
@@ -34,20 +46,8 @@ else
         echo "Database file not found: $db_file"
         exit 1
     fi
-
-    # Update database name in config.ini.php
-    config_file="/var/www/html/config/config.ini.php"
-
-    if grep -q "^dbname" "$config_file"; then
-        sed -i "s/^dbname.*/dbname = \"$MATOMO_DATABASE_DBNAME\"/" "$config_file"
-    else
-        sed -i "/^\[database\]/a dbname = \"$MATOMO_DATABASE_DBNAME\"" "$config_file"
-    fi
-
-    echo "Database name updated successfully in config.ini.php."
 fi
 
-# Proceed with the rest of the Matomo setup
 cd /var/www/html/
 chmod +x /var/www/html/console
 ./console core:update --yes
@@ -104,11 +104,20 @@ cd /var/www/html
 mv Dockerfile configure-matomo.sh default index.nginx-debian.html nginx.conf ../custom-code
 echo "Custom code moved to another folder to maintain Matomo integrity."
 
-echo "Updating Ghost Cloud Permissions"
-# mkdir -p /var/www/html/tmp/cache/tracker/
-chown -R www-data:www-data /var/www/html/tmp/
-chmod -R 0755 /var/www/html/tmp/
-rm -rf /var/www/html/tmp/cache/*
-echo "Permissions Updated Successfully"
+echo "Adding Cronjob For Updating Ghost Cloud Permissions"
+* * * * * root bash -c 'chown -R www-data:www-data /var/www/html/tmp/ && \
+chown -R www-data:www-data /var/www/html/tmp/templates_c/29 && \
+chmod -R 0755 /var/www/html/tmp/ && \
+chmod -R 0755 /var/www/html/tmp/templates_c/29 && \
+rm -rf /var/www/html/tmp/cache/* && \
+echo "$(date) - Ownership and permissions updated successfully." >> /var/log/permission.log'
+
+# echo "Updating Ghost Cloud Permissions"
+# chown -R www-data:www-data /var/www/html/tmp/
+# chown -R www-data:www-data /var/www/html/tmp/templates_c/29
+# chmod -R 0755 /var/www/html/tmp/
+# chmod -R 0755 /var/www/html/tmp/templates_c/29
+# rm -rf /var/www/html/tmp/cache/*
+# echo "Permissions Updated Successfully"
 
 echo "Matomo configuration completed."
