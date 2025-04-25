@@ -60,6 +60,7 @@ fi
 echo "Matomo configuration completed."
 
 chown -R www-data:www-data /var/www/html/tmp/cache/tracker/
+chmod -R 775 /var/www/html/tmp/cache/tracker
 
 ./console user:reset-password --login=ghost.superuser --new-password=admin1234
 
