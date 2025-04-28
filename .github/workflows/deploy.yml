@@ -14,8 +14,8 @@ jobs:
       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
       IMAGE_TAG: github-actions-pipeline
       ECS_CLUSTER: matomo
-      TASK_DEF_NAME: myclient
-      SERVICE_NAME: myclient-service
+      TASK_DEF_NAME: testdummy
+      SERVICE_NAME: testdummy-service
 
     steps:
       - name: Checkout code
@@ -70,7 +70,7 @@ jobs:
           docker push $ECR_REPOSITORY:$IMAGE_TAG 
           # - name: Update ECS Service for myclient-service
           
-      - name: Update ECS Service for myclient-service
+      - name: Update ECS Service 
         run: |
           set -e
           echo "Updating ECS Service: $SERVICE_NAME..."
