@@ -97,10 +97,24 @@ else
     exit 1
 fi
 
-# Setup cron job for Permissions
-echo "Updating Ghost Cloud Permissions"
+echo "Fixing permissions for tmp directory..."
+
+# Correct permissions
 chown -R www-data:www-data /var/www/html/tmp
-chmod -R 775 /var/www/html/tmp
+find /var/www/html/tmp -type d -exec chmod 775 {} \;   
+find /var/www/html/tmp -type f -exec chmod 664 {} \;   
+chmod a+w /var/www/html/tmp
+chmod a+w /var/www/html/tmp/cache
+chmod a+w /var/www/html/tmp/cache/tracker
+chmod a+w /var/www/html/tmp/logs
+chmod a+w /var/www/html/tmp/sessions
+chmod a+w /var/www/html/tmp/templates_c
+chmod a+w /var/www/html/tmp/tcpdf
+echo "✅ Permissions fixed for tmp directory."
+
+# echo "Updating Ghost Cloud Permissions"
+# chown -R www-data:www-data /var/www/html/tmp
+# chmod -R 775 /var/www/html/tmp
 
 # touch /var/log/permission.log
 # cat << 'EOF' > /etc/cron.d/fix-permissions
