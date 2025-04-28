@@ -61,20 +61,20 @@ echo "Matomo configuration completed."
 
 ./console user:reset-password --login=ghost.superuser --new-password=admin1234
 
-# echo "Activating all plugins..."
+echo "Activating all plugins..."
 
-# for plugin in "${plugins[@]}"; do
-#     echo "Activating plugin: $plugin"
-#     ./console plugin:activate "$plugin"
+for plugin in "${plugins[@]}"; do
+    echo "Activating plugin: $plugin"
+    ./console plugin:activate "$plugin"
     
-#     if [ $? -eq 0 ]; then
-#         echo "✅ Plugin $plugin activated successfully."
-#     else
-#         echo "❌ Failed to activate plugin $plugin."
-#     fi
-# done
+    if [ $? -eq 0 ]; then
+        echo "✅ Plugin $plugin activated successfully."
+    else
+        echo "❌ Failed to activate plugin $plugin."
+    fi
+done
 
-# echo "All plugins processed."
+echo "All plugins processed."
 
 # Setup postfix service
 echo "Configuring Postfix..."
