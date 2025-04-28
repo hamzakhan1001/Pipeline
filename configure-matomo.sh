@@ -97,35 +97,23 @@ else
     exit 1
 fi
 
-echo "Fixing permissions for tmp directory..."
+cd /var/www
+mkdir -p custom-code
+cd /var/www/html
+mv Dockerfile configure-matomo.sh default index.nginx-debian.html nginx.conf ../custom-code
+echo "Custom code moved to another folder to maintain Matomo integrity."
 
 # Correct permissions
 chown -R www-data:www-data /var/www/html/tmp
-find /var/www/html/tmp -type d -exec chmod 775 {} \;   
-find /var/www/html/tmp -type f -exec chmod 664 {} \;   
-chmod a+w /var/www/html/tmp
-chmod a+w /var/www/html/tmp/cache
-chmod a+w /var/www/html/tmp/cache/tracker
-chmod a+w /var/www/html/tmp/logs
-chmod a+w /var/www/html/tmp/sessions
-chmod a+w /var/www/html/tmp/templates_c
-chmod a+w /var/www/html/tmp/tcpdf
+chown -R www-data:www-data /var/www/html/tmp/templates_c/29
+chmod -R 775 /var/www/html/tmp
+chmod -R 775 /var/www/html/tmp/templates_c/29
 echo "✅ Permissions fixed for tmp directory."
-
-# echo "Updating Ghost Cloud Permissions"
-# chown -R www-data:www-data /var/www/html/tmp
-# chmod -R 775 /var/www/html/tmp
 
 # touch /var/log/permission.log
 # cat << 'EOF' > /etc/cron.d/fix-permissions
 # * * * * * root chown -R www-data:www-data /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && chmod -R 0755 /var/www/html/tmp/ /var/www/html/tmp/cache/tracker/ /var/www/html/tmp/templates_c/29 && chmod a+w /var/www/html/tmp/climulti /var/www/html/tmp/latest /var/www/html/tmp/cache /var/www/html/tmp/logs /var/www/html/tmp/sessions /var/www/html/tmp/tcpdf /var/www/html/tmp/templates_c && echo "$(date) - Ownership and permissions updated successfully." >> /var/log/permission.log
 # EOF
 # chmod 0644 /etc/cron.d/fix-permissions
-
-cd /var/www
-mkdir -p custom-code
-cd /var/www/html
-mv Dockerfile configure-matomo.sh default index.nginx-debian.html nginx.conf ../custom-code
-echo "Custom code moved to another folder to maintain Matomo integrity."
 
 echo "Ghost Cloud configuration completed Successfully."
