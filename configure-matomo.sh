@@ -14,6 +14,9 @@ db_user="admin"
 db_pass="admin1234"
 db_name="$MATOMO_DATABASE_DBNAME"
 
+# Initialize a variable to track if the database was imported
+database_imported=false
+
 # Check if database has any tables
 table_count=$(mysql -h "$db_host" -u "$db_user" -p"$db_pass" -D "$db_name" -sse "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$db_name';")
 
@@ -26,6 +29,7 @@ else
         mysql -h "$db_host" -u "$db_user" -p"$db_pass" "$db_name" < "$db_file"
         if [ $? -eq 0 ]; then
             echo "Database imported successfully."
+            database_imported=true
         else
             echo "Failed to import database."
             exit 1
@@ -59,7 +63,18 @@ fi
 
 echo "Matomo configuration completed."
 
-./console user:reset-password --login=ghost.superuser --new-password=admin1234
+# Reset superuser password only if database was imported
+if [ "$database_imported" = true ]; then
+    ./console user:reset-password --login=ghost.superuser --new-password=admin1234
+    if [ $? -eq 0 ]; then
+        echo "Superuser password reset after database import."
+    else
+        echo "Failed to reset superuser password."
+        exit 1
+    fi
+else
+    echo "Skipping superuser password reset because database already existed."
+fi
 
 echo "Activating all plugins..."
 
@@ -107,7 +122,7 @@ echo "Custom code moved to another folder to maintain Matomo integrity."
 chown -R www-data:www-data /var/www/html/tmp
 chmod -R 775 /var/www/html/tmp
 find /var/www/html/tmp -type d -exec chmod g+s {} \;
-echo "✅ Permissions fixed for tmp directory."
+echo "Permissions fixed for tmp directory."
 
 # touch /var/log/permission.log
 # cat << 'EOF' > /etc/cron.d/fix-permissions
