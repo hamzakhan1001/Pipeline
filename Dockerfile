@@ -16,13 +16,15 @@ RUN apt-get update && apt-get install -y \
     php8.3-curl php8.3-zip php8.3-bcmath php8.3-intl php8.3-mysql php8.3-gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install the latest cURL from source
+# Install curl 8.13.0 from source
 RUN apt-get remove -y curl || true && \
-    apt-get update && apt-get install -y wget build-essential libssl-dev && \
-    wget https://curl.se/download/curl-8.7.1.tar.gz && \
-    tar -xvzf curl-8.7.1.tar.gz && cd curl-8.7.1 && \
+    apt-get update && apt-get install -y \
+    wget build-essential libssl-dev libpsl-dev libnghttp2-dev zlib1g-dev && \
+    wget https://curl.se/download/curl-8.13.0.tar.gz && \
+    tar -xvzf curl-8.13.0.tar.gz && cd curl-8.13.0 && \
     ./configure --with-ssl && make && make install && \
-    rm -rf /curl-8.7.1*
+    ldconfig && \
+    cd .. && rm -rf curl-8.13.0*
 
 # Install Postfix for sending emails
 RUN echo "postfix postfix/main_mailer_type string Internet Site" | debconf-set-selections && \
