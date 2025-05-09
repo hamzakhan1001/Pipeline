@@ -12,7 +12,8 @@ jobs:
 
     env:
       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-      IMAGE_TAG: github-actions-pipeline
+      # IMAGE_TAG: github-actions-pipeline
+      IMAGE_TAG: test
       ECS_CLUSTER: matomo
       TASK_DEF_NAME: clienttest
       SERVICE_NAME: clienttest-service
