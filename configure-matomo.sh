@@ -121,8 +121,8 @@ echo "Custom code moved to another folder to maintain Matomo integrity."
 # Correct permissions
 chown -R www-data:www-data /var/www/html/tmp
 chmod -R 775 /var/www/html/tmp
-chmod a+w /var/www/html/tmp/climulti
-chmod a+w /var/www/html/tmp/lates
+# chmod a+w /var/www/html/tmp/climulti
+# chmod a+w /var/www/html/tmp/lates
 mkdir -p /var/www/html/tmp/templates_c/29
 chmod -R a+w /var/www/html/tmp/templates_c
 chown -R www-data:www-data /var/www/html/tmp/templates_c
