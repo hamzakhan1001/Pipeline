@@ -122,6 +122,12 @@ echo "Custom code moved to another folder to maintain Matomo integrity."
 chown -R www-data:www-data /var/www/html/tmp
 find /var/www/html/tmp -type d -exec chmod 2775 {} \;
 find /var/www/html/tmp -type f -exec chmod 664 {} \;
+chmod 2775 /var/www/html/tmp/templates_c
+chmod -R /var/www/html/tmp/templates_c
+
+# find /var/www/html/tmp/templates_c -type d -exec chmod 2775 {} \;
+# find /var/www/html/tmp/templates_c -type f -exec chmod 664 {} \;
+
 # chown -R www-data:www-data /var/www/html/tmp
 # chmod -R 775 /var/www/html/tmp
 # mkdir -p /var/www/html/tmp/templates_c/29
