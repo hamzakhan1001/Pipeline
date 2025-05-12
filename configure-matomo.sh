@@ -103,7 +103,8 @@ service postfix restart
 echo "Postfix configured successfully."
 
 # Setup a cron job for Matomo archiving
-echo "*/5 * * * * /usr/bin/php /var/www/html/console core:archive --matomo-domain=$MATOMO_CLIENT_DOMAIN > /var/log/cronjob.log 2>&1" | crontab -
+#echo "*/5 * * * * /usr/bin/php /var/www/html/console core:archive --matomo-domain=$MATOMO_CLIENT_DOMAIN > /var/log/cronjob.log 2>&1" | crontab -
+echo "*/5 * * * * /usr/bin/php /var/www/html/console core:archive --matomo-domain=$MATOMO_CLIENT_DOMAIN > /var/log/cronjob.log 2>&1" | crontab -u www-data -
 
 if [ $? -eq 0 ]; then
     echo "✅ Cron job added successfully for $MATOMO_CLIENT_DOMAIN."
@@ -122,8 +123,8 @@ echo "Custom code moved to another folder to maintain Matomo integrity."
 chown -R www-data:www-data /var/www/html/tmp
 find /var/www/html/tmp -type d -exec chmod 2775 {} \;
 find /var/www/html/tmp -type f -exec chmod 664 {} \;
-chown -R www-data:www-data /var/www/html/tmp/templates_c
-chmod 2775 /var/www/html/tmp/templates_c
+# chown -R www-data:www-data /var/www/html/tmp/templates_c
+# chmod 2775 /var/www/html/tmp/templates_c
 # find /var/www/html/tmp/templates_c -type d -exec chmod 2775 {} \;
 # find /var/www/html/tmp/templates_c -type f -exec chmod 664 {} \;
 
