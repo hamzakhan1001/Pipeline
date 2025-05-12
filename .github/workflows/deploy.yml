@@ -12,7 +12,6 @@ jobs:
 
     env:
       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-      # IMAGE_TAG: github-actions-pipeline
       IMAGE_TAG: test
       ECS_CLUSTER: matomo
       TASK_DEF_NAME: clienttest
@@ -28,35 +27,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
-      # - name: Install dependencies and Docker 24.0.7
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y \
-      #       apt-transport-https \
-      #       ca-certificates \
-      #       curl \
-      #       gnupg \
-      #       lsb-release
-
-      #     # Remove old Docker version if installed
-      #     sudo apt-get remove -y docker docker-engine docker.io containerd runc
-
-      #     # Download Docker 24.0.7 tarball
-      #     curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-24.0.7.tgz -o docker-24.0.7.tgz
-
-      #     # Extract Docker tarball
-      #     tar xzvf docker-24.0.7.tgz
-
-      #     # Move Docker binaries to /usr/local/bin
-      #     sudo mv docker/* /usr/local/bin/
-
-      #     # Clean up tarball
-      #     rm -rf docker docker-24.0.7.tgz
-
-      #     # Verify installation
-      #     docker --version
-      #     docker info
 
       - name: Install jq
         run: sudo apt-get install -y jq
