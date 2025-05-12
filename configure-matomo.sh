@@ -120,15 +120,18 @@ echo "Custom code moved to another folder to maintain Matomo integrity."
 
 # Correct permissions
 chown -R www-data:www-data /var/www/html/tmp
-chmod -R 775 /var/www/html/tmp
-mkdir -p /var/www/html/tmp/templates_c/29
-chown -R www-data:www-data /var/www/html/tmp/templates_c/29
-chmod -R 775 /var/www/html/tmp/templates_c/29
-chown -R www-data:www-data /var/www/html/tmp/templates_c
-chmod -R a+w /var/www/html/tmp/templates_c
-# chmod a+w /var/www/html/tmp/climulti
-# chmod a+w /var/www/html/tmp/lates
-find /var/www/html/tmp -type d -exec chmod g+s {} \;
+find /var/www/html/tmp -type d -exec chmod 2775 {} \;
+find /var/www/html/tmp -type f -exec chmod 664 {} \;
+# chown -R www-data:www-data /var/www/html/tmp
+# chmod -R 775 /var/www/html/tmp
+# mkdir -p /var/www/html/tmp/templates_c/29
+# chown -R www-data:www-data /var/www/html/tmp/templates_c/29
+# chmod -R 775 /var/www/html/tmp/templates_c/29
+# chown -R www-data:www-data /var/www/html/tmp/templates_c
+# chmod -R a+w /var/www/html/tmp/templates_c
+# # chmod a+w /var/www/html/tmp/climulti
+# # chmod a+w /var/www/html/tmp/lates
+# find /var/www/html/tmp -type d -exec chmod g+s {} \;
 echo "Permissions fixed for tmp directory."
 
 # touch /var/log/permission.log
