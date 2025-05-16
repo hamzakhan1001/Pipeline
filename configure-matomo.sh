@@ -115,6 +115,7 @@ echo
 
 for plugin in "${plugins[@]}"; do
     echo "Activating plugin: $plugin"
+    chmod +x ./console
     ./console plugin:activate "$plugin"
     if [ $? -eq 0 ]; then
         echo "✅ Plugin $plugin activated successfully."
