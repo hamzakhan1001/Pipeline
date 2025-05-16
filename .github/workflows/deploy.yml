@@ -12,10 +12,10 @@ jobs:
 
     env:
       ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-      IMAGE_TAG: test
+      IMAGE_TAG: latest
       ECS_CLUSTER: matomo
-      TASK_DEF_NAME: clienttest
-      SERVICE_NAME: clienttest-service
+      TASK_DEF_NAME: daraz
+      SERVICE_NAME: daraz-service
 
     steps:
       - name: Checkout code
@@ -39,7 +39,7 @@ jobs:
           docker build -t pipeline:$IMAGE_TAG .  
           docker tag pipeline:$IMAGE_TAG $ECR_REPOSITORY:$IMAGE_TAG  
           docker push $ECR_REPOSITORY:$IMAGE_TAG 
-          # - name: Update ECS Service for myclient-service
+          # - name: Update ECS Service 
           
       - name: Update ECS Service 
         run: |
