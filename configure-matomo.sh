@@ -66,6 +66,7 @@ echo "✅ Database name updated in config.ini.php."
 ###############################
 
 if [ "$database_imported" = true ]; then
+    chmod +x ./console
     ./console user:reset-password --login=ghost.superuser --new-password=admin1234
     if [ $? -eq 0 ]; then
         echo "✅ Superuser password reset successfully."
@@ -132,7 +133,7 @@ echo "🔌 Plugins activation completed."
 ###############################
 
 # cd /var/www/html
-# chmod +x ./console
+chmod +x ./console
 ./console core:update --yes
 
 if [ $? -eq 0 ]; then
