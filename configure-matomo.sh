@@ -130,6 +130,7 @@ echo "🔌 Plugins activation completed."
 # Update Matomo Core
 ###############################
 
+cd /var/www/html
 chmod +x ./console
 ./console core:update --yes
 
