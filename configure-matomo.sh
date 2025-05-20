@@ -191,4 +191,4 @@ find /var/www/html/tmp -type f -exec chmod 664 {} \;
 ###############################
 
 echo
-echo "🎉 Ghost Cloud configuration completed successfully."
+echo "🎉 Ghost Cloud configuration completed successfully"
