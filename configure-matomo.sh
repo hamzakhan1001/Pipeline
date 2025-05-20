@@ -89,7 +89,7 @@ echo "⚙️ Activating plugins based on subscription plan..."
 #Errored_premium_plugins=("HeatmapSessionRecording" "FormAnalytics")
 starter_plugins=("ActivityLog")
 standard_plugins=("ActivityLog" "SearchEngineKeywordsPerformance")
-premium_plugins=("HeatmapSessionRecording" "FormAnalytics" "ActivityLog" "SearchEngineKeywordsPerformance" "AdvertisingConversionExport" "CustomReports" "Funnels" "MediaAnalytics" "MultiChannelConversionAttribution" "RollUpReporting" "UsersFlow")
+premium_plugins=("ActivityLog" "SearchEngineKeywordsPerformance" "AdvertisingConversionExport" "CustomReports" "Funnels" "MediaAnalytics" "MultiChannelConversionAttribution" "RollUpReporting" "UsersFlow")
 
 SUBSCRIPTION_PLAN=${SUBSCRIPTION_PLAN,,}  # Convert to lowercase
 
