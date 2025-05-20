@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e  
+# set -e  
 
 ###############################
 # Configuration & Validation
@@ -28,7 +28,7 @@ table_count=$(mysql -h "$db_host" -u "$db_user" -p"$db_pass" -D "$db_name" -sse 
     "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$db_name';")
 
 if [ "$table_count" -gt 0 ]; then
-    echo "✅ Database '$db_name' already contains tables ($table_count). Skipping import."
+    echo "Database '$db_name' already contains tables ($table_count). Skipping import."
 else
     if [ -f "$db_file" ]; then
         echo "No tables found in Database '$db_name' 📥 Importing database into it"
@@ -89,7 +89,7 @@ echo "⚙️ Activating plugins based on subscription plan..."
 #Errored_premium_plugins=("HeatmapSessionRecording" "FormAnalytics")
 starter_plugins=("ActivityLog")
 standard_plugins=("ActivityLog" "SearchEngineKeywordsPerformance")
-premium_plugins=("ActivityLog" "SearchEngineKeywordsPerformance" "AdvertisingConversionExport" "CustomReports" "Funnels" "MediaAnalytics" "MultiChannelConversionAttribution" "RollUpReporting" "UsersFlow")
+premium_plugins=("HeatmapSessionRecording" "FormAnalytics" "ActivityLog" "SearchEngineKeywordsPerformance" "AdvertisingConversionExport" "CustomReports" "Funnels" "MediaAnalytics" "MultiChannelConversionAttribution" "RollUpReporting" "UsersFlow")
 
 SUBSCRIPTION_PLAN=${SUBSCRIPTION_PLAN,,}  # Convert to lowercase
 
@@ -132,18 +132,9 @@ echo "🔌 Plugins activation completed."
 # Update Matomo Core
 ###############################
 
-# cd /var/www/html
 chmod +x ./console
+./console plugin:activate TagManager TagManagerExtended
 ./console core:update --yes
-
-if [ $? -eq 0 ]; then
-    echo "✅ Matomo core updated successfully."
-else
-    echo "❌ Failed to update Matomo core."
-    exit 1
-fi
-
-echo "✅ Matomo configuration completed."
 
 ###############################
 # Postfix Configuration
